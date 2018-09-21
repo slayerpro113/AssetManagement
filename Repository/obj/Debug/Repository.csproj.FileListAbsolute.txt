@@ -1,0 +1,15 @@
+C:\Users\quoc.ho\Desktop\AssetManagement\Repository\bin\Debug\Repository.dll.config
+C:\Users\quoc.ho\Desktop\AssetManagement\Repository\bin\Debug\Repository.dll
+C:\Users\quoc.ho\Desktop\AssetManagement\Repository\bin\Debug\Repository.pdb
+C:\Users\quoc.ho\Desktop\AssetManagement\Repository\bin\Debug\Data.dll
+C:\Users\quoc.ho\Desktop\AssetManagement\Repository\bin\Debug\EntityFramework.dll
+C:\Users\quoc.ho\Desktop\AssetManagement\Repository\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\quoc.ho\Desktop\AssetManagement\Repository\bin\Debug\Data.pdb
+C:\Users\quoc.ho\Desktop\AssetManagement\Repository\bin\Debug\Data.dll.config
+C:\Users\quoc.ho\Desktop\AssetManagement\Repository\bin\Debug\EntityFramework.xml
+C:\Users\quoc.ho\Desktop\AssetManagement\Repository\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\quoc.ho\Desktop\AssetManagement\Repository\obj\Debug\Repository.csprojAssemblyReference.cache
+C:\Users\quoc.ho\Desktop\AssetManagement\Repository\obj\Debug\Repository.csproj.CoreCompileInputs.cache
+C:\Users\quoc.ho\Desktop\AssetManagement\Repository\obj\Debug\Repository.csproj.CopyComplete
+C:\Users\quoc.ho\Desktop\AssetManagement\Repository\obj\Debug\Repository.dll
+C:\Users\quoc.ho\Desktop\AssetManagement\Repository\obj\Debug\Repository.pdb

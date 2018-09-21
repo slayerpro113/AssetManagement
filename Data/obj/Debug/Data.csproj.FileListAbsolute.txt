@@ -1,0 +1,12 @@
+C:\Users\quoc.ho\Desktop\AssetManagement\Data\bin\Debug\Data.dll.config
+C:\Users\quoc.ho\Desktop\AssetManagement\Data\bin\Debug\Data.dll
+C:\Users\quoc.ho\Desktop\AssetManagement\Data\bin\Debug\Data.pdb
+C:\Users\quoc.ho\Desktop\AssetManagement\Data\bin\Debug\EntityFramework.dll
+C:\Users\quoc.ho\Desktop\AssetManagement\Data\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\quoc.ho\Desktop\AssetManagement\Data\bin\Debug\EntityFramework.xml
+C:\Users\quoc.ho\Desktop\AssetManagement\Data\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\quoc.ho\Desktop\AssetManagement\Data\obj\Debug\Data.csprojAssemblyReference.cache
+C:\Users\quoc.ho\Desktop\AssetManagement\Data\obj\Debug\Data.csproj.CoreCompileInputs.cache
+C:\Users\quoc.ho\Desktop\AssetManagement\Data\obj\Debug\Data.csproj.CopyComplete
+C:\Users\quoc.ho\Desktop\AssetManagement\Data\obj\Debug\Data.dll
+C:\Users\quoc.ho\Desktop\AssetManagement\Data\obj\Debug\Data.pdb
