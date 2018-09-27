@@ -18,8 +18,8 @@ namespace Data.Entities
         public Personnel()
         {
             this.AssetRequests = new HashSet<AssetRequest>();
-            this.Histories = new HashSet<History>();
             this.RolePersonnels = new HashSet<RolePersonnel>();
+            this.Histories = new HashSet<History>();
         }
     
         public int PersonnelID { get; set; }
@@ -35,8 +35,8 @@ namespace Data.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AssetRequest> AssetRequests { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<History> Histories { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RolePersonnel> RolePersonnels { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<History> Histories { get; set; }
     }
 }

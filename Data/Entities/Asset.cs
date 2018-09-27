@@ -18,8 +18,8 @@ namespace Data.Entities
         public Asset()
         {
             this.AssetServices = new HashSet<AssetService>();
-            this.Histories = new HashSet<History>();
             this.OrderDetails = new HashSet<OrderDetail>();
+            this.Histories = new HashSet<History>();
         }
     
         public int AssetID { get; set; }
@@ -32,12 +32,12 @@ namespace Data.Entities
     
         public virtual AssetStatus AssetStatus { get; set; }
         public virtual Audit Audit { get; set; }
-        public virtual Product Product { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AssetService> AssetServices { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<History> Histories { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<History> Histories { get; set; }
+        public virtual Product Product { get; set; }
     }
 }

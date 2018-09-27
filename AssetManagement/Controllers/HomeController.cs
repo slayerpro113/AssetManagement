@@ -1,12 +1,10 @@
 using AssetManagement.Helper;
 using Data.Services;
-using Data.Entities;
-using System.Web;
 using System.Web.Mvc;
 
 namespace AssetManagement.Controllers
 {
-    [PermissionLogin]
+    //[PermissionLogin]
     public class HomeController : Controller
     {
         private readonly ICategoryService _categoryService;
@@ -16,10 +14,9 @@ namespace AssetManagement.Controllers
             _categoryService = categoryService;
         }
 
+        //[RolePermission(Enumerations.Roles.User)]
         public ActionResult Index()
         {
-            var userSession = (Personnel) System.Web.HttpContext.Current.Session[Constants.USER_SESSION];
-            ViewBag.FullName = userSession.FullName;
             var model = _categoryService.GetAll();
             return View(model);
         }

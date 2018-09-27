@@ -10,8 +10,8 @@
             <PropertyRef Name="AssetRequestID" />
           </Key>
           <Property Name="AssetRequestID" Type="int" Nullable="false" />
-          <Property Name="RequestDate" Type="nchar" MaxLength="100" />
-          <Property Name="Purpose" Type="nchar" MaxLength="100" />
+          <Property Name="RequestDate" Type="nvarchar" MaxLength="100" />
+          <Property Name="Purpose" Type="nvarchar" MaxLength="100" />
           <Property Name="PersonnelID" Type="int" Nullable="false" />
           <Property Name="ProductID" Type="int" />
           <Property Name="RequestStatusID" Type="int" Nullable="false" />
@@ -23,7 +23,7 @@
           <Property Name="AssetID" Type="int" Nullable="false" />
           <Property Name="CurrentPrice" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="AuditID" Type="int" />
-          <Property Name="Barcode" Type="nchar" MaxLength="100" />
+          <Property Name="Barcode" Type="nvarchar" MaxLength="100" />
           <Property Name="ProductID" Type="int" Nullable="false" />
           <Property Name="AssetServiceID" Type="int" />
           <Property Name="AssetStatusID" Type="int" Nullable="false" />
@@ -34,8 +34,8 @@
           </Key>
           <Property Name="AssetServiceID" Type="int" Nullable="false" />
           <Property Name="Date" Type="datetime" Nullable="false" />
-          <Property Name="Description" Type="nchar" MaxLength="100" />
-          <Property Name="Cost" Type="nchar" MaxLength="100" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" />
+          <Property Name="Cost" Type="nvarchar" MaxLength="100" />
           <Property Name="VendorID" Type="int" Nullable="false" />
           <Property Name="AssetID" Type="int" Nullable="false" />
         </EntityType>
@@ -59,13 +59,13 @@
             <PropertyRef Name="CategoryID" />
           </Key>
           <Property Name="CategoryID" Type="int" Nullable="false" />
-          <Property Name="CategoryName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CategoryName" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="Histories">
           <Key>
             <PropertyRef Name="HistoryID" />
           </Key>
-          <Property Name="HistoryID" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="HistoryID" Type="int" Nullable="false" />
           <Property Name="Checkout_Date" Type="datetime" />
           <Property Name="Checkin_Date" Type="datetime" />
           <Property Name="Comment" Type="nvarchar" MaxLength="100" />
@@ -88,7 +88,7 @@
             <PropertyRef Name="OrderId" />
           </Key>
           <Property Name="OrderId" Type="int" Nullable="false" />
-          <Property Name="OrderTotal" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="OrderTotal" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="PurchaseDate" Type="datetime" Nullable="false" />
           <Property Name="VendorID" Type="int" Nullable="false" />
         </EntityType>
@@ -97,38 +97,38 @@
             <PropertyRef Name="PersonnelID" />
           </Key>
           <Property Name="PersonnelID" Type="int" Nullable="false" />
-          <Property Name="Image" Type="nchar" MaxLength="100" />
-          <Property Name="FullName" Type="nchar" MaxLength="100" />
-          <Property Name="Email" Type="nchar" MaxLength="100" />
-          <Property Name="Phone" Type="nchar" MaxLength="100" />
-          <Property Name="JobTitle" Type="nchar" MaxLength="100" />
-          <Property Name="Address" Type="nchar" MaxLength="100" />
-          <Property Name="UserName" Type="nchar" MaxLength="100" />
-          <Property Name="PassWord" Type="nchar" MaxLength="100" />
+          <Property Name="Image" Type="nvarchar" MaxLength="100" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="100" />
+          <Property Name="JobTitle" Type="nvarchar" MaxLength="100" />
+          <Property Name="Address" Type="nvarchar" MaxLength="100" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="100" />
+          <Property Name="PassWord" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Products">
           <Key>
             <PropertyRef Name="ProductID" />
           </Key>
           <Property Name="ProductID" Type="int" Nullable="false" />
-          <Property Name="ProductName" Type="nchar" MaxLength="100" Nullable="false" />
-          <Property Name="Description" Type="nchar" MaxLength="100" />
-          <Property Name="Brand" Type="nchar" MaxLength="100" />
-          <Property Name="CategoryID" Type="int" />
-          <Property Name="VendorID" Type="int" Nullable="false" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="200" />
+          <Property Name="Brand" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="CategoryID" Type="int" Nullable="false" />
+          <Property Name="Image" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="Quotes">
           <Key>
             <PropertyRef Name="QuoteID" />
           </Key>
           <Property Name="QuoteID" Type="int" Nullable="false" />
-          <Property Name="ProductName" Type="nchar" MaxLength="100" />
-          <Property Name="Note" Type="nchar" MaxLength="100" />
-          <Property Name="Brand" Type="nchar" MaxLength="100" />
-          <Property Name="Warranty" Type="nchar" MaxLength="100" />
-          <Property Name="SerialNumber" Type="nchar" MaxLength="100" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Note" Type="nvarchar" MaxLength="100" />
+          <Property Name="Brand" Type="nvarchar" MaxLength="100" />
+          <Property Name="Warranty" Type="nvarchar" MaxLength="100" />
+          <Property Name="SerialNumber" Type="nvarchar" MaxLength="100" />
           <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="VendorName" Type="nchar" MaxLength="100" />
+          <Property Name="VendorName" Type="nvarchar" MaxLength="100" />
           <Property Name="AssetRequestID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="RequestStatuses">
@@ -136,7 +136,7 @@
             <PropertyRef Name="RequestStatusID" />
           </Key>
           <Property Name="RequestStatusID" Type="int" Nullable="false" />
-          <Property Name="StatusName" Type="nchar" MaxLength="100" />
+          <Property Name="StatusName" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="RolePersonnels">
           <Key>
@@ -168,10 +168,10 @@
             <PropertyRef Name="VendorID" />
           </Key>
           <Property Name="VendorID" Type="int" Nullable="false" />
-          <Property Name="VendorName" Type="nchar" MaxLength="100" Nullable="false" />
-          <Property Name="Phone" Type="nchar" MaxLength="100" Nullable="false" />
-          <Property Name="Email" Type="nchar" MaxLength="100" Nullable="false" />
-          <Property Name="Address" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="VendorName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <Association Name="FK_AssetRequest_Personel">
           <End Role="Personnels" Type="Self.Personnels" Multiplicity="1" />
@@ -330,7 +330,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Product_Category">
-          <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
           <End Role="Products" Type="Self.Products" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Categories">
@@ -473,15 +473,15 @@
             <PropertyRef Name="AssetRequestID" />
           </Key>
           <Property Name="AssetRequestID" Type="Int32" Nullable="false" />
-          <Property Name="RequestDate" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
-          <Property Name="Purpose" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="RequestDate" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Purpose" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="PersonnelID" Type="Int32" Nullable="false" />
           <Property Name="ProductID" Type="Int32" />
           <Property Name="RequestStatusID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Personnel" Relationship="Self.FK_AssetRequest_Personel" FromRole="AssetRequests" ToRole="Personnels" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_AssetRequest_Product" FromRole="AssetRequests" ToRole="Products" />
           <NavigationProperty Name="RequestStatus" Relationship="Self.FK_AssetRequest_RequestStatus" FromRole="AssetRequests" ToRole="RequestStatuses" />
           <NavigationProperty Name="Quotes" Relationship="Self.FK_Quotes_AssetRequests" FromRole="AssetRequests" ToRole="Quotes" />
+          <NavigationProperty Name="Product" Relationship="AssetManagementModel.FK_AssetRequest_Product" FromRole="AssetRequest" ToRole="Product" />
         </EntityType>
         <EntityType Name="Asset">
           <Key>
@@ -490,16 +490,16 @@
           <Property Name="AssetID" Type="Int32" Nullable="false" />
           <Property Name="CurrentPrice" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="AuditID" Type="Int32" />
-          <Property Name="Barcode" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="Barcode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ProductID" Type="Int32" Nullable="false" />
           <Property Name="AssetServiceID" Type="Int32" />
           <Property Name="AssetStatusID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AssetStatus" Relationship="Self.FK_Assets_AssetStatus" FromRole="Assets" ToRole="AssetStatuses" />
           <NavigationProperty Name="Audit" Relationship="Self.FK_Assets_Audits" FromRole="Assets" ToRole="Audits" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_Assets_Product" FromRole="Assets" ToRole="Products" />
           <NavigationProperty Name="AssetServices" Relationship="Self.FK_AssetService_Assets" FromRole="Assets" ToRole="AssetService" />
-          <NavigationProperty Name="Histories" Relationship="Self.FK_History_Assets" FromRole="Assets" ToRole="Histories" />
           <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetail_Assets" FromRole="Assets" ToRole="OrderDetails" />
+          <NavigationProperty Name="Histories" Relationship="AssetManagementModel.FK_History_Assets" FromRole="Asset" ToRole="History" />
+          <NavigationProperty Name="Product" Relationship="AssetManagementModel.FK_Assets_Product" FromRole="Asset" ToRole="Product" />
         </EntityType>
         <EntityType Name="AssetService">
           <Key>
@@ -507,8 +507,8 @@
           </Key>
           <Property Name="AssetServiceID" Type="Int32" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Description" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
-          <Property Name="Cost" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Cost" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="VendorID" Type="Int32" Nullable="false" />
           <Property Name="AssetID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Asset" Relationship="Self.FK_AssetService_Assets" FromRole="AssetService" ToRole="Assets" />
@@ -531,27 +531,6 @@
           <Property Name="AssetID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Assets" Relationship="Self.FK_Assets_Audits" FromRole="Audits" ToRole="Assets" />
         </EntityType>
-        <EntityType Name="Category">
-          <Key>
-            <PropertyRef Name="CategoryID" />
-          </Key>
-          <Property Name="CategoryID" Type="Int32" Nullable="false" />
-          <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Products" Relationship="Self.FK_Product_Category" FromRole="Categories" ToRole="Products" />
-        </EntityType>
-        <EntityType Name="History">
-          <Key>
-            <PropertyRef Name="HistoryID" />
-          </Key>
-          <Property Name="HistoryID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Checkout_Date" Type="DateTime" Precision="3" />
-          <Property Name="Checkin_Date" Type="DateTime" Precision="3" />
-          <Property Name="Comment" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="PersonnelID" Type="Int32" Nullable="false" />
-          <Property Name="AssetID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Asset" Relationship="Self.FK_History_Assets" FromRole="Histories" ToRole="Assets" />
-          <NavigationProperty Name="Personnel" Relationship="Self.FK_History_Personel" FromRole="Histories" ToRole="Personnels" />
-        </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
             <PropertyRef Name="OrderDetailID" />
@@ -570,7 +549,7 @@
             <PropertyRef Name="OrderId" />
           </Key>
           <Property Name="OrderId" Type="Int32" Nullable="false" />
-          <Property Name="OrderTotal" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="OrderTotal" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PurchaseDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="VendorID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetail_Order" FromRole="Orders" ToRole="OrderDetails" />
@@ -581,44 +560,30 @@
             <PropertyRef Name="PersonnelID" />
           </Key>
           <Property Name="PersonnelID" Type="Int32" Nullable="false" />
-          <Property Name="Image" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
-          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
-          <Property Name="Phone" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
-          <Property Name="JobTitle" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
-          <Property Name="PassWord" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="JobTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PassWord" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AssetRequests" Relationship="Self.FK_AssetRequest_Personel" FromRole="Personnels" ToRole="AssetRequests" />
-          <NavigationProperty Name="Histories" Relationship="Self.FK_History_Personel" FromRole="Personnels" ToRole="Histories" />
           <NavigationProperty Name="RolePersonnels" Relationship="Self.FK_RolePersonnel_Personel" FromRole="Personnels" ToRole="RolePersonnels" />
-          <Property Name="UserName" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Product">
-          <Key>
-            <PropertyRef Name="ProductID" />
-          </Key>
-          <Property Name="ProductID" Type="Int32" Nullable="false" />
-          <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
-          <Property Name="Brand" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
-          <Property Name="CategoryID" Type="Int32" />
-          <Property Name="VendorID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="AssetRequests" Relationship="Self.FK_AssetRequest_Product" FromRole="Products" ToRole="AssetRequests" />
-          <NavigationProperty Name="Assets" Relationship="Self.FK_Assets_Product" FromRole="Products" ToRole="Assets" />
-          <NavigationProperty Name="Category" Relationship="Self.FK_Product_Category" FromRole="Products" ToRole="Categories" />
+          <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Histories" Relationship="AssetManagementModel.FK_History_Personel" FromRole="Personnel" ToRole="History" />
         </EntityType>
         <EntityType Name="Quote">
           <Key>
             <PropertyRef Name="QuoteID" />
           </Key>
           <Property Name="QuoteID" Type="Int32" Nullable="false" />
-          <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
-          <Property Name="Note" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
-          <Property Name="Brand" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
-          <Property Name="Warranty" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
-          <Property Name="SerialNumber" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Brand" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Warranty" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SerialNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="VendorName" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="VendorName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="AssetRequestID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AssetRequest" Relationship="Self.FK_Quotes_AssetRequests" FromRole="Quotes" ToRole="AssetRequests" />
         </EntityType>
@@ -627,7 +592,7 @@
             <PropertyRef Name="RequestStatusID" />
           </Key>
           <Property Name="RequestStatusID" Type="Int32" Nullable="false" />
-          <Property Name="StatusName" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="StatusName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AssetRequests" Relationship="Self.FK_AssetRequest_RequestStatus" FromRole="RequestStatuses" ToRole="AssetRequests" />
         </EntityType>
         <EntityType Name="RolePersonnel">
@@ -663,10 +628,10 @@
             <PropertyRef Name="VendorID" />
           </Key>
           <Property Name="VendorID" Type="Int32" Nullable="false" />
-          <Property Name="VendorName" Type="String" MaxLength="100" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Phone" Type="String" MaxLength="100" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="100" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Address" Type="String" MaxLength="100" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="VendorName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="AssetServices" Relationship="Self.FK_AssetService_Vendor" FromRole="Vendors" ToRole="AssetService" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Vendor" FromRole="Vendors" ToRole="Orders" />
         </EntityType>
@@ -679,18 +644,6 @@
             </Principal>
             <Dependent Role="AssetRequests">
               <PropertyRef Name="PersonnelID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_AssetRequest_Product">
-          <End Role="Products" Type="Self.Product" Multiplicity="0..1" />
-          <End Role="AssetRequests" Type="Self.AssetRequest" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="ProductID" />
-            </Principal>
-            <Dependent Role="AssetRequests">
-              <PropertyRef Name="ProductID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -742,18 +695,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Assets_Product">
-          <End Role="Products" Type="Self.Product" Multiplicity="1" />
-          <End Role="Assets" Type="Self.Asset" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="ProductID" />
-            </Principal>
-            <Dependent Role="Assets">
-              <PropertyRef Name="ProductID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_AssetService_Assets">
           <End Role="Assets" Type="Self.Asset" Multiplicity="1" />
           <End Role="AssetService" Type="Self.AssetService" Multiplicity="*" />
@@ -762,18 +703,6 @@
               <PropertyRef Name="AssetID" />
             </Principal>
             <Dependent Role="AssetService">
-              <PropertyRef Name="AssetID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_History_Assets">
-          <End Role="Assets" Type="Self.Asset" Multiplicity="1" />
-          <End Role="Histories" Type="Self.History" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Assets">
-              <PropertyRef Name="AssetID" />
-            </Principal>
-            <Dependent Role="Histories">
               <PropertyRef Name="AssetID" />
             </Dependent>
           </ReferentialConstraint>
@@ -799,30 +728,6 @@
             </Principal>
             <Dependent Role="AssetService">
               <PropertyRef Name="VendorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Product_Category">
-          <End Role="Categories" Type="Self.Category" Multiplicity="0..1" />
-          <End Role="Products" Type="Self.Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Categories">
-              <PropertyRef Name="CategoryID" />
-            </Principal>
-            <Dependent Role="Products">
-              <PropertyRef Name="CategoryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_History_Personel">
-          <End Role="Personnels" Type="Self.Personnel" Multiplicity="1" />
-          <End Role="Histories" Type="Self.History" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Personnels">
-              <PropertyRef Name="PersonnelID" />
-            </Principal>
-            <Dependent Role="Histories">
-              <PropertyRef Name="PersonnelID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -880,12 +785,9 @@
           <EntitySet Name="AssetServices" EntityType="Self.AssetService" />
           <EntitySet Name="AssetStatuses" EntityType="Self.AssetStatus" />
           <EntitySet Name="Audits" EntityType="Self.Audit" />
-          <EntitySet Name="Categories" EntityType="Self.Category" />
-          <EntitySet Name="Histories" EntityType="Self.History" />
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
           <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="Personnels" EntityType="Self.Personnel" />
-          <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="Quotes" EntityType="Self.Quote" />
           <EntitySet Name="RequestStatuses" EntityType="Self.RequestStatus" />
           <EntitySet Name="RolePersonnels" EntityType="Self.RolePersonnel" />
@@ -894,10 +796,6 @@
           <EntitySet Name="Vendors" EntityType="Self.Vendor" />
           <AssociationSet Name="FK_AssetRequest_Personel" Association="Self.FK_AssetRequest_Personel">
             <End Role="Personnels" EntitySet="Personnels" />
-            <End Role="AssetRequests" EntitySet="AssetRequests" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AssetRequest_Product" Association="Self.FK_AssetRequest_Product">
-            <End Role="Products" EntitySet="Products" />
             <End Role="AssetRequests" EntitySet="AssetRequests" />
           </AssociationSet>
           <AssociationSet Name="FK_AssetRequest_RequestStatus" Association="Self.FK_AssetRequest_RequestStatus">
@@ -916,17 +814,9 @@
             <End Role="Audits" EntitySet="Audits" />
             <End Role="Assets" EntitySet="Assets" />
           </AssociationSet>
-          <AssociationSet Name="FK_Assets_Product" Association="Self.FK_Assets_Product">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="Assets" EntitySet="Assets" />
-          </AssociationSet>
           <AssociationSet Name="FK_AssetService_Assets" Association="Self.FK_AssetService_Assets">
             <End Role="Assets" EntitySet="Assets" />
             <End Role="AssetService" EntitySet="AssetServices" />
-          </AssociationSet>
-          <AssociationSet Name="FK_History_Assets" Association="Self.FK_History_Assets">
-            <End Role="Assets" EntitySet="Assets" />
-            <End Role="Histories" EntitySet="Histories" />
           </AssociationSet>
           <AssociationSet Name="FK_OrderDetail_Assets" Association="Self.FK_OrderDetail_Assets">
             <End Role="Assets" EntitySet="Assets" />
@@ -935,14 +825,6 @@
           <AssociationSet Name="FK_AssetService_Vendor" Association="Self.FK_AssetService_Vendor">
             <End Role="Vendors" EntitySet="Vendors" />
             <End Role="AssetService" EntitySet="AssetServices" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Product_Category" Association="Self.FK_Product_Category">
-            <End Role="Categories" EntitySet="Categories" />
-            <End Role="Products" EntitySet="Products" />
-          </AssociationSet>
-          <AssociationSet Name="FK_History_Personel" Association="Self.FK_History_Personel">
-            <End Role="Personnels" EntitySet="Personnels" />
-            <End Role="Histories" EntitySet="Histories" />
           </AssociationSet>
           <AssociationSet Name="FK_OrderDetail_Order" Association="Self.FK_OrderDetail_Order">
             <End Role="Orders" EntitySet="Orders" />
@@ -960,7 +842,125 @@
             <End Role="Roles" EntitySet="Roles" />
             <End Role="RolePersonnels" EntitySet="RolePersonnels" />
           </AssociationSet>
+          <EntitySet Name="Histories" EntityType="AssetManagementModel.History" />
+          <AssociationSet Name="FK_History_Assets" Association="AssetManagementModel.FK_History_Assets">
+            <End Role="Asset" EntitySet="Assets" />
+            <End Role="History" EntitySet="Histories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_History_Personel" Association="AssetManagementModel.FK_History_Personel">
+            <End Role="Personnel" EntitySet="Personnels" />
+            <End Role="History" EntitySet="Histories" />
+          </AssociationSet>
+          <EntitySet Name="Categories" EntityType="AssetManagementModel.Category" />
+          <EntitySet Name="Products" EntityType="AssetManagementModel.Product" />
+          <AssociationSet Name="FK_AssetRequest_Product" Association="AssetManagementModel.FK_AssetRequest_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="AssetRequest" EntitySet="AssetRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Assets_Product" Association="AssetManagementModel.FK_Assets_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Asset" EntitySet="Assets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Category" Association="AssetManagementModel.FK_Product_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="History">
+          <Key>
+            <PropertyRef Name="HistoryID" />
+          </Key>
+          <Property Name="HistoryID" Type="Int32" Nullable="false" />
+          <Property Name="Checkout_Date" Type="DateTime" Precision="3" />
+          <Property Name="Checkin_Date" Type="DateTime" Precision="3" />
+          <Property Name="Comment" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PersonnelID" Type="Int32" Nullable="false" />
+          <Property Name="AssetID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Asset" Relationship="AssetManagementModel.FK_History_Assets" FromRole="History" ToRole="Asset" />
+          <NavigationProperty Name="Personnel" Relationship="AssetManagementModel.FK_History_Personel" FromRole="History" ToRole="Personnel" />
+        </EntityType>
+        <Association Name="FK_History_Assets">
+          <End Type="AssetManagementModel.Asset" Role="Asset" Multiplicity="1" />
+          <End Type="AssetManagementModel.History" Role="History" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asset">
+              <PropertyRef Name="AssetID" />
+            </Principal>
+            <Dependent Role="History">
+              <PropertyRef Name="AssetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_History_Personel">
+          <End Type="AssetManagementModel.Personnel" Role="Personnel" Multiplicity="1" />
+          <End Type="AssetManagementModel.History" Role="History" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personnel">
+              <PropertyRef Name="PersonnelID" />
+            </Principal>
+            <Dependent Role="History">
+              <PropertyRef Name="PersonnelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="Int32" Nullable="false" />
+          <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Products" Relationship="AssetManagementModel.FK_Product_Category" FromRole="Category" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="ProductName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Brand" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryID" Type="Int32" Nullable="false" />
+          <Property Name="Image" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AssetRequests" Relationship="AssetManagementModel.FK_AssetRequest_Product" FromRole="Product" ToRole="AssetRequest" />
+          <NavigationProperty Name="Assets" Relationship="AssetManagementModel.FK_Assets_Product" FromRole="Product" ToRole="Asset" />
+          <NavigationProperty Name="Category" Relationship="AssetManagementModel.FK_Product_Category" FromRole="Product" ToRole="Category" />
+        </EntityType>
+        <Association Name="FK_AssetRequest_Product">
+          <End Type="AssetManagementModel.Product" Role="Product" Multiplicity="0..1" />
+          <End Type="AssetManagementModel.AssetRequest" Role="AssetRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="AssetRequest">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Assets_Product">
+          <End Type="AssetManagementModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="AssetManagementModel.Asset" Role="Asset" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="Asset">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Category">
+          <End Type="AssetManagementModel.Category" Role="Category" Multiplicity="1" />
+          <End Type="AssetManagementModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1021,26 +1021,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Categories">
-            <EntityTypeMapping TypeName="AssetManagementModel.Category">
-              <MappingFragment StoreEntitySet="Categories">
-                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
-                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Histories">
-            <EntityTypeMapping TypeName="AssetManagementModel.History">
-              <MappingFragment StoreEntitySet="Histories">
-                <ScalarProperty Name="HistoryID" ColumnName="HistoryID" />
-                <ScalarProperty Name="Checkout_Date" ColumnName="Checkout_Date" />
-                <ScalarProperty Name="Checkin_Date" ColumnName="Checkin_Date" />
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
-                <ScalarProperty Name="PersonnelID" ColumnName="PersonnelID" />
-                <ScalarProperty Name="AssetID" ColumnName="AssetID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="OrderDetails">
             <EntityTypeMapping TypeName="AssetManagementModel.OrderDetail">
               <MappingFragment StoreEntitySet="OrderDetails">
@@ -1075,18 +1055,6 @@
                 <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="PassWord" ColumnName="PassWord" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="AssetManagementModel.Product">
-              <MappingFragment StoreEntitySet="Products">
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Brand" ColumnName="Brand" />
-                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
-                <ScalarProperty Name="VendorID" ColumnName="VendorID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1149,6 +1117,38 @@
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Histories">
+            <EntityTypeMapping TypeName="AssetManagementModel.History">
+              <MappingFragment StoreEntitySet="Histories">
+                <ScalarProperty Name="AssetID" ColumnName="AssetID" />
+                <ScalarProperty Name="PersonnelID" ColumnName="PersonnelID" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Checkin_Date" ColumnName="Checkin_Date" />
+                <ScalarProperty Name="Checkout_Date" ColumnName="Checkout_Date" />
+                <ScalarProperty Name="HistoryID" ColumnName="HistoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="AssetManagementModel.Category">
+              <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="AssetManagementModel.Product">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Brand" ColumnName="Brand" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -12,8 +12,8 @@ namespace Service
 {
     public abstract class BaseService<TEntity, TContext> : IBaseService<TEntity> where TEntity : class where TContext : IDataContext
     {
-        protected readonly IRepository<TEntity> _repository;
-        protected readonly IUnitOfWork _unitOfWork;
+        private readonly IRepository<TEntity> _repository;
+        private readonly IUnitOfWork _unitOfWork;
 
         protected BaseService(IUnitOfWork unitOfWork, IRepository<TEntity> repository)
         {
@@ -28,9 +28,16 @@ namespace Service
             _unitOfWork.SaveChanges();
         }
 
+        public TEntity Get(object id)
+        {
+            return _repository.Get(id);
+        }
+
         public IList<TEntity> GetAll()
         {
             return _repository.GetAll();
         }
+
+        
     }
 }

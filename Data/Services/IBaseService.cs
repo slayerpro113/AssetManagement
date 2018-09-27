@@ -7,5 +7,6 @@ namespace Data.Services
         IList<TEntity> GetAll();
 
         void AddEntity(TEntity entity);
+        TEntity Get(object id);
     }
 }

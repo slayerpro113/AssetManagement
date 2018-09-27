@@ -7,9 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using Data.DataContext;
+
 namespace Data.Entities
 {
-    using Data.DataContext;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
@@ -31,17 +32,17 @@ namespace Data.Entities
         public virtual DbSet<AssetService> AssetServices { get; set; }
         public virtual DbSet<AssetStatus> AssetStatuses { get; set; }
         public virtual DbSet<Audit> Audits { get; set; }
-        public virtual DbSet<Category> Categories { get; set; }
-        public virtual DbSet<History> Histories { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Personnel> Personnels { get; set; }
-        public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Quote> Quotes { get; set; }
         public virtual DbSet<RequestStatus> RequestStatuses { get; set; }
         public virtual DbSet<RolePersonnel> RolePersonnels { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Vendor> Vendors { get; set; }
+        public virtual DbSet<History> Histories { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
     }
 }

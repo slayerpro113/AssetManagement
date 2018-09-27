@@ -1,92 +1,33 @@
 ﻿@model AssetManagement.Models.LoginModel
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- Meta, title, CSS, favicons, etc. -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta charset="UTF-8">
     <title>Login </title>
-
-    <!-- Bootstrap -->
-    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
-    <!-- Animate.css -->
-    <link href="../vendors/animate.css/animate.min.css" rel="stylesheet">
-
-    <!-- Custom Theme Style -->
-    <link href="../build/css/custom.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Raleway:300,200' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <link rel="icon" href="~/Image/icon.co.png" type="image/ico" />
+    <link rel="stylesheet" href="/LoginCss/style.css">
+    <link href="~/Content/toastr.css" rel="stylesheet" />
 </head>
 
-<body class="login">
-    <div>
-        <a class="hiddenanchor" id="signup"></a>
-        <a class="hiddenanchor" id="signin"></a>
-
-        <div class="login_wrapper">
-            <div class="animate form login_form">
-                <section class="login_content">
-                   
-                        <h1>Login Form</h1>
-                        <div>
-                            <input type="text" class="form-control" placeholder="Username" id="userName" required="" />
-                        </div>
-                        <div>
-                            <input type="password" class="form-control" placeholder="Password" id="password" required="" />
-                        </div>
-                        <div>
-                            <input class="btn btn-default" type="submit" id="btnSubmit" value="Login" />
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="separator">
-                            <div class="clearfix"></div>
-                        </div>
-                    
-                </section>
-            </div>
-        </div>
+<body>
+<div class="form">
+    <span id="errorText"></span>
+    <div class="forceColor"></div>
+    <div class="topbar">
+        <form id="loginForm">
+            <input type="text" class="input" id="userName" name="userName" placeholder="UserName" maxlength="20" required="" />
+            <input type="password" class="input" id="password" name="password" placeholder="Password" maxlength="20" minlength="6" required="" />
+            <button type="button" class="submit" id="btnSubmit">Login</button>
+        </form>
     </div>
+</div>
 </body>
 </html>
 
+<script src="~/Scripts/jquery.js"></script>
+<script src="~/Scripts/toastr.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script>
-
-    $(document).ready(function () {
-        $("#btnSubmit").click(function () {
-            doLogin();
-        });
-    });
-
-    function doLogin() {
-        $.ajax({
-            url: 'Login/Login',
-            type: 'Post',
-            data: {
-                UserName: $("#userName").val(),
-                Password: $("#password").val()
-            },
-
-            dataType: 'json',
-            success: function (data) {
-
-                if (data.status === "WrongUserName") {
-                    alert("UserName is incorrect. Try again!");
-                }
-                else if (data.status === "WrongPassword") {
-                    alert("Your password is incorrect.Try again!");
-                }
-                else {
-                    location.href = "/Home/Index";
-                }
-            }
-        });
-    }
-
-</script>
-
+<script src="~/Scripts/app/login.js"></script>

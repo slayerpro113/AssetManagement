@@ -41,6 +41,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -121,7 +122,14 @@
     <Compile Include="Services\IBaseService.cs" />
     <Compile Include="Services\ICategoryService.cs" />
     <Compile Include="Services\IPersonnelService.cs" />
+    <Compile Include="Services\IProductService.cs" />
+    <Compile Include="Services\IRolePersonelService.cs" />
+    <Compile Include="Services\IRoleService.cs" />
     <Compile Include="UnitOfWork\IUnitOfWork.cs" />
+    <Compile Include="Utilities\Constant.cs" />
+    <Compile Include="Utilities\Encryptor.cs" />
+    <Compile Include="Utilities\Enumeration\Enumerations.cs" />
+    <Compile Include="Utilities\SessionHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

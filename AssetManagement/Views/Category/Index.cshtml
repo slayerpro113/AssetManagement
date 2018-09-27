@@ -1,0 +1,16 @@
+﻿@model IList<Data.Entities.Product>
+@{
+    Layout = "~/Views/Shared/_Layouts.cshtml";
+}
+@Html.DevExpress().GetStyleSheets(
+    new StyleSheet { ExtensionSuite = ExtensionSuite.GridView },
+    new StyleSheet { ExtensionType = ExtensionType.ImageZoom }
+    )
+@Html.DevExpress().GetScripts(
+    new Script { ExtensionSuite = ExtensionSuite.GridView },
+    new Script { ExtensionType = ExtensionType.ImageZoom }
+)
+
+@Html.Action("GetProducts", new { categoryId = (int)ViewBag.CategoryId }); 
+
+

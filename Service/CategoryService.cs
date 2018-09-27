@@ -10,6 +10,5 @@ namespace Service
         public CategoryService(IUnitOfWork unitOfWork, IRepository<Category> categoryRepository) : base(unitOfWork, categoryRepository)
         {
         }
-
     }
 }

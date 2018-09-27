@@ -12,5 +12,7 @@ namespace Data.Repositories
         IList<TEntity> GetAll();
 
         void AddEntity(TEntity entity);
+
+        TEntity Get(object id);
     }
 }

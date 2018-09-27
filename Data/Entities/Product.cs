@@ -25,8 +25,8 @@ namespace Data.Entities
         public string ProductName { get; set; }
         public string Description { get; set; }
         public string Brand { get; set; }
-        public Nullable<int> CategoryID { get; set; }
-        public int VendorID { get; set; }
+        public int CategoryID { get; set; }
+        public string Image { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AssetRequest> AssetRequests { get; set; }

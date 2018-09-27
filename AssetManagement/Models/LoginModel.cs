@@ -5,7 +5,8 @@ namespace AssetManagement.Models
     public class LoginModel
     {
         [Required]
-        [MaxLength(20)]
+        [RegularExpression(@"(\S)+", ErrorMessage = "White space is not allowed")]
+        [ScaffoldColumn(false)]
         public string UserName { get; set; }
 
         [Required]

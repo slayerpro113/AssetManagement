@@ -5,8 +5,8 @@
       <PropertyRef Name="AssetRequestID" />
     </Key>
     <Property Name="AssetRequestID" Type="int" Nullable="false" />
-    <Property Name="RequestDate" Type="nchar" MaxLength="100" />
-    <Property Name="Purpose" Type="nchar" MaxLength="100" />
+    <Property Name="RequestDate" Type="nvarchar" MaxLength="100" />
+    <Property Name="Purpose" Type="nvarchar" MaxLength="100" />
     <Property Name="PersonnelID" Type="int" Nullable="false" />
     <Property Name="ProductID" Type="int" />
     <Property Name="RequestStatusID" Type="int" Nullable="false" />
@@ -18,7 +18,7 @@
     <Property Name="AssetID" Type="int" Nullable="false" />
     <Property Name="CurrentPrice" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="AuditID" Type="int" />
-    <Property Name="Barcode" Type="nchar" MaxLength="100" />
+    <Property Name="Barcode" Type="nvarchar" MaxLength="100" />
     <Property Name="ProductID" Type="int" Nullable="false" />
     <Property Name="AssetServiceID" Type="int" />
     <Property Name="AssetStatusID" Type="int" Nullable="false" />
@@ -29,8 +29,8 @@
     </Key>
     <Property Name="AssetServiceID" Type="int" Nullable="false" />
     <Property Name="Date" Type="datetime" Nullable="false" />
-    <Property Name="Description" Type="nchar" MaxLength="100" />
-    <Property Name="Cost" Type="nchar" MaxLength="100" />
+    <Property Name="Description" Type="nvarchar" MaxLength="100" />
+    <Property Name="Cost" Type="nvarchar" MaxLength="100" />
     <Property Name="VendorID" Type="int" Nullable="false" />
     <Property Name="AssetID" Type="int" Nullable="false" />
   </EntityType>
@@ -54,13 +54,13 @@
       <PropertyRef Name="CategoryID" />
     </Key>
     <Property Name="CategoryID" Type="int" Nullable="false" />
-    <Property Name="CategoryName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CategoryName" Type="nvarchar" MaxLength="100" Nullable="false" />
   </EntityType>
   <EntityType Name="Histories">
     <Key>
       <PropertyRef Name="HistoryID" />
     </Key>
-    <Property Name="HistoryID" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="HistoryID" Type="int" Nullable="false" />
     <Property Name="Checkout_Date" Type="datetime" />
     <Property Name="Checkin_Date" Type="datetime" />
     <Property Name="Comment" Type="nvarchar" MaxLength="100" />
@@ -83,7 +83,7 @@
       <PropertyRef Name="OrderId" />
     </Key>
     <Property Name="OrderId" Type="int" Nullable="false" />
-    <Property Name="OrderTotal" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="OrderTotal" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="PurchaseDate" Type="datetime" Nullable="false" />
     <Property Name="VendorID" Type="int" Nullable="false" />
   </EntityType>
@@ -92,38 +92,38 @@
       <PropertyRef Name="PersonnelID" />
     </Key>
     <Property Name="PersonnelID" Type="int" Nullable="false" />
-    <Property Name="Image" Type="nchar" MaxLength="100" />
-    <Property Name="FullName" Type="nchar" MaxLength="100" />
-    <Property Name="Email" Type="nchar" MaxLength="100" />
-    <Property Name="Phone" Type="nchar" MaxLength="100" />
-    <Property Name="JobTitle" Type="nchar" MaxLength="100" />
-    <Property Name="Address" Type="nchar" MaxLength="100" />
-    <Property Name="UserName" Type="nchar" MaxLength="100" />
-    <Property Name="PassWord" Type="nchar" MaxLength="100" />
+    <Property Name="Image" Type="nvarchar" MaxLength="100" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="100" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="100" />
+    <Property Name="JobTitle" Type="nvarchar" MaxLength="100" />
+    <Property Name="Address" Type="nvarchar" MaxLength="100" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="100" />
+    <Property Name="PassWord" Type="nvarchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="Products">
     <Key>
       <PropertyRef Name="ProductID" />
     </Key>
     <Property Name="ProductID" Type="int" Nullable="false" />
-    <Property Name="ProductName" Type="nchar" MaxLength="100" Nullable="false" />
-    <Property Name="Description" Type="nchar" MaxLength="100" />
-    <Property Name="Brand" Type="nchar" MaxLength="100" />
-    <Property Name="CategoryID" Type="int" />
-    <Property Name="VendorID" Type="int" Nullable="false" />
+    <Property Name="ProductName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="200" />
+    <Property Name="Brand" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="CategoryID" Type="int" Nullable="false" />
+    <Property Name="Image" Type="nvarchar" MaxLength="100" Nullable="false" />
   </EntityType>
   <EntityType Name="Quotes">
     <Key>
       <PropertyRef Name="QuoteID" />
     </Key>
     <Property Name="QuoteID" Type="int" Nullable="false" />
-    <Property Name="ProductName" Type="nchar" MaxLength="100" />
-    <Property Name="Note" Type="nchar" MaxLength="100" />
-    <Property Name="Brand" Type="nchar" MaxLength="100" />
-    <Property Name="Warranty" Type="nchar" MaxLength="100" />
-    <Property Name="SerialNumber" Type="nchar" MaxLength="100" />
+    <Property Name="ProductName" Type="nvarchar" MaxLength="100" />
+    <Property Name="Note" Type="nvarchar" MaxLength="100" />
+    <Property Name="Brand" Type="nvarchar" MaxLength="100" />
+    <Property Name="Warranty" Type="nvarchar" MaxLength="100" />
+    <Property Name="SerialNumber" Type="nvarchar" MaxLength="100" />
     <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
-    <Property Name="VendorName" Type="nchar" MaxLength="100" />
+    <Property Name="VendorName" Type="nvarchar" MaxLength="100" />
     <Property Name="AssetRequestID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="RequestStatuses">
@@ -131,7 +131,7 @@
       <PropertyRef Name="RequestStatusID" />
     </Key>
     <Property Name="RequestStatusID" Type="int" Nullable="false" />
-    <Property Name="StatusName" Type="nchar" MaxLength="100" />
+    <Property Name="StatusName" Type="nvarchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="RolePersonnels">
     <Key>
@@ -163,10 +163,10 @@
       <PropertyRef Name="VendorID" />
     </Key>
     <Property Name="VendorID" Type="int" Nullable="false" />
-    <Property Name="VendorName" Type="nchar" MaxLength="100" Nullable="false" />
-    <Property Name="Phone" Type="nchar" MaxLength="100" Nullable="false" />
-    <Property Name="Email" Type="nchar" MaxLength="100" Nullable="false" />
-    <Property Name="Address" Type="nchar" MaxLength="100" Nullable="false" />
+    <Property Name="VendorName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Address" Type="nvarchar" MaxLength="100" Nullable="false" />
   </EntityType>
   <Association Name="FK_AssetRequest_Personel">
     <End Role="Personnels" Type="Self.Personnels" Multiplicity="1" />
@@ -325,7 +325,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Product_Category">
-    <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
+    <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
     <End Role="Products" Type="Self.Products" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Categories">

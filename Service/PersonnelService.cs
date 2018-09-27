@@ -4,13 +4,14 @@ using Data.Entities;
 using Data.Repositories;
 using Data.Services;
 using Data.UnitOfWork;
+using Data.Utilities.Enumeration;
 using Repository;
 
 namespace Service
 {
     public class PersonnelService : BaseService<Personnel, AssetManagementEntities>, IPersonnelService
     {
-        private IRepository<Personnel> _personnelRepository;
+        private readonly  IRepository<Personnel> _personnelRepository;
 
         public PersonnelService(IUnitOfWork unitOfWork, IRepository<Personnel> personnelRepository) : base(unitOfWork, personnelRepository)
         {
@@ -29,22 +30,22 @@ namespace Service
             return personnel;
         }
 
-        public int CheckLogin(string userName, string password)
+        public Enumerations.LoginStatus CheckLogin(string userName, string password)
         {
             var user = _personnelRepository.GetPersonnelByUserName(userName);
             if (user == null)
             {
-                return 1;
+                return Enumerations.LoginStatus.WrongUserName;
             }
             else 
             {
                 if (!user.PassWord.Trim().Equals(password))
                 {
-                    return 2;
+                    return Enumerations.LoginStatus.WrongPassword;
                 }
                 else
                 {
-                    return 3;
+                    return Enumerations.LoginStatus.Succsess;
                 }
             }
         }

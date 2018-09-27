@@ -14,7 +14,7 @@ namespace Data.Entities
     
     public partial class History
     {
-        public string HistoryID { get; set; }
+        public int HistoryID { get; set; }
         public Nullable<System.DateTime> Checkout_Date { get; set; }
         public Nullable<System.DateTime> Checkin_Date { get; set; }
         public string Comment { get; set; }
