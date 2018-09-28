@@ -568,7 +568,6 @@ body .container.body .right_col {
 
 body {
     color: #73879C;
-    background: #2A3F54;
     font-family: "Helvetica Neue",Roboto,Arial,"Droid Sans",sans-serif;
     font-size: 13px;
     font-weight: 400;
@@ -1838,7 +1837,6 @@ span.right {
     padding: 5px 0 0;
     position: fixed;
     width: 230px;
-    background: #2A3F54;
     z-index: 999
 }
 

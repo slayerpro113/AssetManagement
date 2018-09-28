@@ -112,10 +112,10 @@
           </Key>
           <Property Name="ProductID" Type="int" Nullable="false" />
           <Property Name="ProductName" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="200" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
           <Property Name="Brand" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="CategoryID" Type="int" Nullable="false" />
-          <Property Name="Image" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Image" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Quotes">
           <Key>
@@ -917,10 +917,10 @@
           </Key>
           <Property Name="ProductID" Type="Int32" Nullable="false" />
           <Property Name="ProductName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Brand" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="CategoryID" Type="Int32" Nullable="false" />
-          <Property Name="Image" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AssetRequests" Relationship="AssetManagementModel.FK_AssetRequest_Product" FromRole="Product" ToRole="AssetRequest" />
           <NavigationProperty Name="Assets" Relationship="AssetManagementModel.FK_Assets_Product" FromRole="Product" ToRole="Asset" />
           <NavigationProperty Name="Category" Relationship="AssetManagementModel.FK_Product_Category" FromRole="Product" ToRole="Category" />

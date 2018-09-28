@@ -3,12 +3,10 @@
     Layout = "~/Views/Shared/_Layouts.cshtml";
 }
 @Html.DevExpress().GetStyleSheets(
-    new StyleSheet { ExtensionSuite = ExtensionSuite.GridView },
-    new StyleSheet { ExtensionType = ExtensionType.ImageZoom }
+    new StyleSheet { ExtensionSuite = ExtensionSuite.GridView }
     )
 @Html.DevExpress().GetScripts(
-    new Script { ExtensionSuite = ExtensionSuite.GridView },
-    new Script { ExtensionType = ExtensionType.ImageZoom }
+    new Script { ExtensionSuite = ExtensionSuite.GridView }
 )
 
 @Html.Action("GetProducts", new { categoryId = (int)ViewBag.CategoryId }); 

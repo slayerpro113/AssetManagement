@@ -2,11 +2,7 @@
 using Data.Repositories;
 using Data.Services;
 using Data.UnitOfWork;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Service
 {
@@ -19,7 +15,6 @@ namespace Service
         {
             _unitOfWork = unitOfWork;
             _repository = repository;
-
         }
 
         public void AddEntity(TEntity entity)
@@ -38,6 +33,10 @@ namespace Service
             return _repository.GetAll();
         }
 
-        
+        public void UpdateEntity(TEntity entity)
+        {
+            _repository.UpdateEntity(entity);
+            _unitOfWork.SaveChanges();
+        }
     }
 }

@@ -21,5 +21,10 @@ namespace Service
             var products = _productRepository.GetProductsByCategoryId(categoryId);
             return products;
         }
+
+        public void UpdateProduct(Product product)
+        {
+            UpdateEntity(product);
+        }
     }
 }

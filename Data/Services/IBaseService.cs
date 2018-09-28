@@ -8,5 +8,7 @@ namespace Data.Services
 
         void AddEntity(TEntity entity);
         TEntity Get(object id);
+
+        void UpdateEntity(TEntity entity);
     }
 }

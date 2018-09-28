@@ -1,7 +1,7 @@
-﻿using DevExpress.Web.Mvc;
+﻿using Data.Entities;
 using Data.Services;
 using System.Web.Mvc;
-using Data.Entities;
+using DevExpress.Web.Mvc;
 
 namespace AssetManagement.Controllers
 {
@@ -27,11 +27,15 @@ namespace AssetManagement.Controllers
             return View("_GridViewPartial", products);
         }
 
-        public ActionResult UpdateProduct(Product product )
+        public ActionResult UpdateProduct(Product product)
         {
-            _productService.AddEntity(product);
+            _productService.UpdateProduct(product);
             return View("_GridViewPartial");
         }
 
+        public ActionResult BinaryImageColumnPhotoUpdate()
+        {
+            return BinaryImageEditExtension.GetCallbackResult();
+        }
     }
 }

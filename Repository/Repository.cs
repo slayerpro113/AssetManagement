@@ -47,8 +47,5 @@ namespace Repository
         {
             _context.Entry(entity).State = EntityState.Modified;
         }
-
-
-        
     }
 }
