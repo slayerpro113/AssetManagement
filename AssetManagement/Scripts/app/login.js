@@ -20,29 +20,30 @@ $(document).ready(function () {
     $("#btnSubmit").click(function () {
         doLogin();
     });
+   
 });
 
 function doLogin() {
-    // show loading;
     $.ajax({
-        url: 'Login/Login',
         type: 'Post',
-        data: {
-            UserName: $("#userName").val(),
-            Password: $("#password").val()
-        },
+        url: "Login/Login?userName=" + $("#userName").val() + "&password=" + $("#password").val(),
+//        data: {
+//            UserName: $("#userName").val(),
+//            Password: $("#password").val()
+//        },
 
         dataType: 'json',
         success: function (data) {
 
             if (data.status === "WrongUserName") {
                 toastr["error"]("Username is in correct", "Error:");
+                
             }
             else if (data.status === "WrongPassword") {
-                toastr["error"]("Password is in correct", "Error:");
+                toastr["error"]("Password is in correct", "Error:");               
             }
             else if (data.status === "Succsess") {
-                location.href = "/Home/Index";
+                location.href = "/Category/Index?categoryId=1";
             }
             else {
                 toastr["error"]("Data input is in correct", "Error:");

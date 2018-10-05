@@ -11,7 +11,7 @@ namespace AssetManagement.Helper
         public override void OnActionExecuting(ActionExecutingContext actionContext)
         {
             base.OnActionExecuting(actionContext);
-            var userSession = (Personnel)HttpContext.Current.Session[Constant.UserSession];
+            var userSession = (Employee)HttpContext.Current.Session[Constant.UserSession];
             if (userSession == null)
             {
                 actionContext.HttpContext.Response.Redirect("~/Login/Login");
@@ -32,7 +32,7 @@ namespace AssetManagement.Helper
         {
             base.OnActionExecuting(actionContext);
 
-            var userSession = (Personnel)HttpContext.Current.Session[Constant.UserSession];
+            var userSession = (Employee)HttpContext.Current.Session[Constant.UserSession];
             var roleSession = (Role)HttpContext.Current.Session[Constant.RoleSession];
 
             if (userSession == null)

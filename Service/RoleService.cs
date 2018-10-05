@@ -5,7 +5,7 @@ using Data.UnitOfWork;
 
 namespace Service
 {
-    public class RoleService : BaseService<Role, AssetManagementEntities>, IRoleService
+    public class RoleService : BaseService<Role>, IRoleService
     {
         private readonly IRepository<Role> _roleRepository;
 

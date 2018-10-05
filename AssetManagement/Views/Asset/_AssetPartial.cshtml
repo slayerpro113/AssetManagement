@@ -1,0 +1,94 @@
+@Html.DevExpress().GridView(settings => {
+    settings.Name = "gvFocusedRow";
+    settings.CallbackRouteValues = new { Controller = "Asset", Action = "GetAssets" };
+    settings.KeyFieldName = "AssetID";
+    settings.Width = Unit.Percentage(100);
+    settings.Settings.ShowGroupPanel = true;
+    settings.SettingsBehavior.AllowFocusedRow = true;
+    settings.SettingsDetail.AllowOnlyOneMasterRowExpanded = false;
+    settings.SettingsDetail.ShowDetailRow = true;
+
+    settings.Toolbars.Add(toolbar =>
+    {
+        toolbar.Enabled = true;
+        toolbar.Position = GridToolbarPosition.Top;
+        toolbar.ItemAlign = GridToolbarItemAlign.Right;
+        toolbar.Items.Add(i =>
+        {
+            i.BeginGroup = true;
+            i.SetTemplateContent(c =>
+            {
+                Html.DevExpress().ButtonEdit(s =>
+                {
+                    s.Name = "search";
+                    s.Properties.NullText = "Search...";
+                    s.Properties.Buttons
+                        .Add()
+                        .Image.IconID = DevExpress.Web.ASPxThemes.IconID.FindFind16x16gray;
+                }).Render();
+            });
+        });
+    });
+
+    settings.Columns.Add("Barcode");
+
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "AssetCategory";
+        c.Caption = "Asset Type";
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+    });
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "AssetName";
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+    });
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "AssetStatusName";
+        c.Width = 150;
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+    });
+
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "EmployeeName";
+        c.Caption = "Current Owner";
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+    });
+
+    settings.SetDetailRowTemplateContent(c => {
+        ViewContext.Writer.Write(
+        "Histories<b>" +
+        "<br />"
+        );
+        Html.RenderAction("MasterDetailDetailPartial",  new { assetId = DataBinder.Eval(c.DataItem, "AssetID") });
+    });
+
+    settings.Columns.Add("EmployeeImage").Visible = false;
+    settings.Columns.Add("EmployeeName").Visible = false;
+    settings.Columns.Add("EmployeeEmail").Visible = false;
+    settings.Columns.Add("EmployeeAddress").Visible = false;
+    settings.Columns.Add("EmployeeJob").Visible = false;
+    settings.Columns.Add("EmployeePhone").Visible = false;
+    settings.Columns.Add("EmployeeBirthdate").Visible = false;
+
+
+    settings.Columns.Add("AssetImage").Visible = false;
+    settings.Columns.Add("AssetName").Visible = false;
+    settings.Columns.Add("AssetDescription").Visible = false;
+    settings.Columns.Add("AssetBrand").Visible = false;
+    settings.Columns.Add("AssetCategory").Visible = false;
+
+    settings.SettingsPager.Position = PagerPosition.Bottom;
+    settings.SettingsPager.FirstPageButton.Visible = true;
+    settings.SettingsPager.LastPageButton.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "5", "10", "15" };
+    settings.SettingsSearchPanel.CustomEditorName = "search";
+    settings.ClientSideEvents.FocusedRowChanged = "OnGridFocusedRowChanged";
+}).Bind(Model).GetHtml()

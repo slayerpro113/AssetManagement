@@ -4,7 +4,7 @@
     <Key>
       <PropertyRef Name="AssetRequestID" />
     </Key>
-    <Property Name="AssetRequestID" Type="int" Nullable="false" />
+    <Property Name="AssetRequestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="RequestDate" Type="nvarchar" MaxLength="100" />
     <Property Name="Purpose" Type="nvarchar" MaxLength="100" />
     <Property Name="PersonnelID" Type="int" Nullable="false" />
@@ -15,37 +15,26 @@
     <Key>
       <PropertyRef Name="AssetID" />
     </Key>
-    <Property Name="AssetID" Type="int" Nullable="false" />
-    <Property Name="CurrentPrice" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="AssetID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CurrentPrice" Type="nvarchar" MaxLength="100" />
     <Property Name="AuditID" Type="int" />
     <Property Name="Barcode" Type="nvarchar" MaxLength="100" />
     <Property Name="ProductID" Type="int" Nullable="false" />
     <Property Name="AssetServiceID" Type="int" />
     <Property Name="AssetStatusID" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="AssetService">
-    <Key>
-      <PropertyRef Name="AssetServiceID" />
-    </Key>
-    <Property Name="AssetServiceID" Type="int" Nullable="false" />
-    <Property Name="Date" Type="datetime" Nullable="false" />
-    <Property Name="Description" Type="nvarchar" MaxLength="100" />
-    <Property Name="Cost" Type="nvarchar" MaxLength="100" />
-    <Property Name="VendorID" Type="int" Nullable="false" />
-    <Property Name="AssetID" Type="int" Nullable="false" />
-  </EntityType>
   <EntityType Name="AssetStatuses">
     <Key>
       <PropertyRef Name="AssetStatusID" />
     </Key>
-    <Property Name="AssetStatusID" Type="int" Nullable="false" />
+    <Property Name="AssetStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="StatusName" Type="nvarchar" MaxLength="100" Nullable="false" />
   </EntityType>
   <EntityType Name="Audits">
     <Key>
       <PropertyRef Name="AuditID" />
     </Key>
-    <Property Name="AuditID" Type="int" Nullable="false" />
+    <Property Name="AuditID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Audit" Type="decimal" Precision="18" Scale="2" Nullable="false" />
     <Property Name="AssetID" Type="int" Nullable="false" />
   </EntityType>
@@ -53,25 +42,40 @@
     <Key>
       <PropertyRef Name="CategoryID" />
     </Key>
-    <Property Name="CategoryID" Type="int" Nullable="false" />
+    <Property Name="CategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CategoryName" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Employees">
+    <Key>
+      <PropertyRef Name="EmployeeID" />
+    </Key>
+    <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Image" Type="nvarchar" MaxLength="100" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="100" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="100" />
+    <Property Name="JobTitle" Type="nvarchar" MaxLength="100" />
+    <Property Name="Address" Type="nvarchar" MaxLength="100" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="100" />
+    <Property Name="Password" Type="nvarchar" MaxLength="100" />
+    <Property Name="BirthDate" Type="nvarchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="Histories">
     <Key>
       <PropertyRef Name="HistoryID" />
     </Key>
-    <Property Name="HistoryID" Type="int" Nullable="false" />
-    <Property Name="Checkout_Date" Type="datetime" />
-    <Property Name="Checkin_Date" Type="datetime" />
+    <Property Name="HistoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Checkout_Date" Type="date" />
+    <Property Name="Checkin_Date" Type="date" />
     <Property Name="Comment" Type="nvarchar" MaxLength="100" />
-    <Property Name="PersonnelID" Type="int" Nullable="false" />
     <Property Name="AssetID" Type="int" Nullable="false" />
+    <Property Name="EmployeeID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="OrderDetails">
     <Key>
       <PropertyRef Name="OrderDetailID" />
     </Key>
-    <Property Name="OrderDetailID" Type="int" Nullable="false" />
+    <Property Name="OrderDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Quantity" Type="int" Nullable="false" />
     <Property Name="Subtotal" Type="decimal" Precision="18" Scale="2" Nullable="false" />
     <Property Name="Price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
@@ -82,41 +86,27 @@
     <Key>
       <PropertyRef Name="OrderId" />
     </Key>
-    <Property Name="OrderId" Type="int" Nullable="false" />
+    <Property Name="OrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="OrderTotal" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="PurchaseDate" Type="datetime" Nullable="false" />
     <Property Name="VendorID" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Personnels">
-    <Key>
-      <PropertyRef Name="PersonnelID" />
-    </Key>
-    <Property Name="PersonnelID" Type="int" Nullable="false" />
-    <Property Name="Image" Type="nvarchar" MaxLength="100" />
-    <Property Name="FullName" Type="nvarchar" MaxLength="100" />
-    <Property Name="Email" Type="nvarchar" MaxLength="100" />
-    <Property Name="Phone" Type="nvarchar" MaxLength="100" />
-    <Property Name="JobTitle" Type="nvarchar" MaxLength="100" />
-    <Property Name="Address" Type="nvarchar" MaxLength="100" />
-    <Property Name="UserName" Type="nvarchar" MaxLength="100" />
-    <Property Name="PassWord" Type="nvarchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="Products">
     <Key>
       <PropertyRef Name="ProductID" />
     </Key>
-    <Property Name="ProductID" Type="int" Nullable="false" />
+    <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ProductName" Type="nvarchar" MaxLength="100" Nullable="false" />
-    <Property Name="Description" Type="nvarchar" MaxLength="500" />
+    <Property Name="Description" Type="nvarchar" MaxLength="200" />
     <Property Name="Brand" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="CategoryID" Type="int" Nullable="false" />
-    <Property Name="Image" Type="nvarchar" MaxLength="100" />
+    <Property Name="Image" Type="nvarchar" MaxLength="4000" Nullable="false" />
   </EntityType>
   <EntityType Name="Quotes">
     <Key>
       <PropertyRef Name="QuoteID" />
     </Key>
-    <Property Name="QuoteID" Type="int" Nullable="false" />
+    <Property Name="QuoteID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ProductName" Type="nvarchar" MaxLength="100" />
     <Property Name="Note" Type="nvarchar" MaxLength="100" />
     <Property Name="Brand" Type="nvarchar" MaxLength="100" />
@@ -130,50 +120,40 @@
     <Key>
       <PropertyRef Name="RequestStatusID" />
     </Key>
-    <Property Name="RequestStatusID" Type="int" Nullable="false" />
+    <Property Name="RequestStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="StatusName" Type="nvarchar" MaxLength="100" />
   </EntityType>
-  <EntityType Name="RolePersonnels">
+  <EntityType Name="RoleEmployees">
     <Key>
-      <PropertyRef Name="RolePersonnelID" />
+      <PropertyRef Name="RoleEmployeeID" />
     </Key>
-    <Property Name="RolePersonnelID" Type="int" Nullable="false" />
-    <Property Name="PersonnelID" Type="int" Nullable="false" />
+    <Property Name="RoleEmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeID" Type="int" Nullable="false" />
     <Property Name="RoleID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Roles">
     <Key>
       <PropertyRef Name="RoleID" />
     </Key>
-    <Property Name="RoleID" Type="int" Nullable="false" />
+    <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="RoleName" Type="nvarchar" MaxLength="100" Nullable="false" />
-  </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
   <EntityType Name="Vendors">
     <Key>
       <PropertyRef Name="VendorID" />
     </Key>
-    <Property Name="VendorID" Type="int" Nullable="false" />
+    <Property Name="VendorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="VendorName" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="Phone" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="Address" Type="nvarchar" MaxLength="100" Nullable="false" />
   </EntityType>
   <Association Name="FK_AssetRequest_Personel">
-    <End Role="Personnels" Type="Self.Personnels" Multiplicity="1" />
+    <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
     <End Role="AssetRequests" Type="Self.AssetRequests" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Personnels">
-        <PropertyRef Name="PersonnelID" />
+      <Principal Role="Employees">
+        <PropertyRef Name="EmployeeID" />
       </Principal>
       <Dependent Role="AssetRequests">
         <PropertyRef Name="PersonnelID" />
@@ -240,27 +220,15 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_AssetService_Assets">
-    <End Role="Assets" Type="Self.Assets" Multiplicity="1" />
-    <End Role="AssetService" Type="Self.AssetService" Multiplicity="*" />
+  <Association Name="FK_Histories_Employees">
+    <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+    <End Role="Histories" Type="Self.Histories" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Assets">
-        <PropertyRef Name="AssetID" />
+      <Principal Role="Employees">
+        <PropertyRef Name="EmployeeID" />
       </Principal>
-      <Dependent Role="AssetService">
-        <PropertyRef Name="AssetID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_AssetService_Vendor">
-    <End Role="Vendors" Type="Self.Vendors" Multiplicity="1" />
-    <End Role="AssetService" Type="Self.AssetService" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Vendors">
-        <PropertyRef Name="VendorID" />
-      </Principal>
-      <Dependent Role="AssetService">
-        <PropertyRef Name="VendorID" />
+      <Dependent Role="Histories">
+        <PropertyRef Name="EmployeeID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -273,18 +241,6 @@
       </Principal>
       <Dependent Role="Histories">
         <PropertyRef Name="AssetID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_History_Personel">
-    <End Role="Personnels" Type="Self.Personnels" Multiplicity="1" />
-    <End Role="Histories" Type="Self.Histories" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Personnels">
-        <PropertyRef Name="PersonnelID" />
-      </Principal>
-      <Dependent Role="Histories">
-        <PropertyRef Name="PersonnelID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -348,26 +304,26 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_RolePersonnel_Personel">
-    <End Role="Personnels" Type="Self.Personnels" Multiplicity="1" />
-    <End Role="RolePersonnels" Type="Self.RolePersonnels" Multiplicity="*" />
+  <Association Name="FK_RoleEmployees_Employees">
+    <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+    <End Role="RoleEmployees" Type="Self.RoleEmployees" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Personnels">
-        <PropertyRef Name="PersonnelID" />
+      <Principal Role="Employees">
+        <PropertyRef Name="EmployeeID" />
       </Principal>
-      <Dependent Role="RolePersonnels">
-        <PropertyRef Name="PersonnelID" />
+      <Dependent Role="RoleEmployees">
+        <PropertyRef Name="EmployeeID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_RolePersonnel_Role">
     <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
-    <End Role="RolePersonnels" Type="Self.RolePersonnels" Multiplicity="*" />
+    <End Role="RoleEmployees" Type="Self.RoleEmployees" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Roles">
         <PropertyRef Name="RoleID" />
       </Principal>
-      <Dependent Role="RolePersonnels">
+      <Dependent Role="RoleEmployees">
         <PropertyRef Name="RoleID" />
       </Dependent>
     </ReferentialConstraint>
@@ -375,23 +331,21 @@
   <EntityContainer Name="AssetManagementModelStoreContainer">
     <EntitySet Name="AssetRequests" EntityType="Self.AssetRequests" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Assets" EntityType="Self.Assets" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="AssetService" EntityType="Self.AssetService" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AssetStatuses" EntityType="Self.AssetStatuses" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Audits" EntityType="Self.Audits" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Histories" EntityType="Self.Histories" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Personnels" EntityType="Self.Personnels" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Quotes" EntityType="Self.Quotes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="RequestStatuses" EntityType="Self.RequestStatuses" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="RolePersonnels" EntityType="Self.RolePersonnels" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RoleEmployees" EntityType="Self.RoleEmployees" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Vendors" EntityType="Self.Vendors" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_AssetRequest_Personel" Association="Self.FK_AssetRequest_Personel">
-      <End Role="Personnels" EntitySet="Personnels" />
+      <End Role="Employees" EntitySet="Employees" />
       <End Role="AssetRequests" EntitySet="AssetRequests" />
     </AssociationSet>
     <AssociationSet Name="FK_AssetRequest_Product" Association="Self.FK_AssetRequest_Product">
@@ -414,20 +368,12 @@
       <End Role="Products" EntitySet="Products" />
       <End Role="Assets" EntitySet="Assets" />
     </AssociationSet>
-    <AssociationSet Name="FK_AssetService_Assets" Association="Self.FK_AssetService_Assets">
-      <End Role="Assets" EntitySet="Assets" />
-      <End Role="AssetService" EntitySet="AssetService" />
-    </AssociationSet>
-    <AssociationSet Name="FK_AssetService_Vendor" Association="Self.FK_AssetService_Vendor">
-      <End Role="Vendors" EntitySet="Vendors" />
-      <End Role="AssetService" EntitySet="AssetService" />
+    <AssociationSet Name="FK_Histories_Employees" Association="Self.FK_Histories_Employees">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="Histories" EntitySet="Histories" />
     </AssociationSet>
     <AssociationSet Name="FK_History_Assets" Association="Self.FK_History_Assets">
       <End Role="Assets" EntitySet="Assets" />
-      <End Role="Histories" EntitySet="Histories" />
-    </AssociationSet>
-    <AssociationSet Name="FK_History_Personel" Association="Self.FK_History_Personel">
-      <End Role="Personnels" EntitySet="Personnels" />
       <End Role="Histories" EntitySet="Histories" />
     </AssociationSet>
     <AssociationSet Name="FK_Order_Vendor" Association="Self.FK_Order_Vendor">
@@ -450,13 +396,13 @@
       <End Role="AssetRequests" EntitySet="AssetRequests" />
       <End Role="Quotes" EntitySet="Quotes" />
     </AssociationSet>
-    <AssociationSet Name="FK_RolePersonnel_Personel" Association="Self.FK_RolePersonnel_Personel">
-      <End Role="Personnels" EntitySet="Personnels" />
-      <End Role="RolePersonnels" EntitySet="RolePersonnels" />
+    <AssociationSet Name="FK_RoleEmployees_Employees" Association="Self.FK_RoleEmployees_Employees">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="RoleEmployees" EntitySet="RoleEmployees" />
     </AssociationSet>
     <AssociationSet Name="FK_RolePersonnel_Role" Association="Self.FK_RolePersonnel_Role">
       <End Role="Roles" EntitySet="Roles" />
-      <End Role="RolePersonnels" EntitySet="RolePersonnels" />
+      <End Role="RoleEmployees" EntitySet="RoleEmployees" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

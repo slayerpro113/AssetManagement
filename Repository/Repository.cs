@@ -9,17 +9,13 @@ namespace Repository
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
-        protected readonly AssetManagementEntities _context = null;
+        private readonly AssetManagementEntities _context;
         protected readonly DbSet<TEntity> _dbSet;
-
         public DbSet<TEntity> Entity => _dbSet;
 
-        public IDataContext context
+        public IDataContext Context
         {
-            get
-            {
-                return _context;
-            }
+            get { return _context; }
         }
 
         public Repository(IDataContext context)
@@ -38,14 +34,20 @@ namespace Repository
             return _dbSet.ToList();
         }
 
-        public TEntity Get(object id)
+        public TEntity GetEntity(object id)
         {
             return _dbSet.Find(id);
         }
 
         public void UpdateEntity(TEntity entity)
         {
+            _dbSet.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
+        }
+
+        public void DeleteEntity(object id)
+        {
+            _dbSet.Remove(_dbSet.Find(id));
         }
     }
 }

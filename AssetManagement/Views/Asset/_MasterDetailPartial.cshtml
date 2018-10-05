@@ -1,0 +1,32 @@
+@Html.DevExpress().GridView(settings => {
+    settings.Name = "detailGrid_" + ViewData["AssetID"];
+    settings.SettingsDetail.MasterGridName = "grid";
+    settings.CallbackRouteValues = new { Controller = "Asset", Action = "MasterDetailDetailPartial", assetId = ViewBag.AssetID };
+    settings.Width = Unit.Percentage(100);
+
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "Checkin_Date";
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.PropertiesEdit.DisplayFormatString = "D";
+    });
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "Checkout_Date";
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.PropertiesEdit.DisplayFormatString = "D";
+    });
+
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "EmployeeName";
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+    });
+
+    settings.Settings.ShowFooter = true;
+}).Bind(Model).GetHtml()
+
+

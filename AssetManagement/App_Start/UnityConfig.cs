@@ -51,27 +51,33 @@ namespace AssetManagement
             // TODO: Register your type's mappings here.
             // container.RegisterType<IProductRepository, ProductRepository>();
 
-            container.RegisterType<IDataContext, AssetManagementEntities>(new PerRequestLifetimeManager());
+            container.RegisterType<IDataContext, AssetManagementEntities >(new PerRequestLifetimeManager());
+
             container.RegisterType<IUnitOfWork, UnitOfWork>(new PerRequestLifetimeManager());
 
             container
                 .RegisterType<IRepository<Category>, Repository<Category>>();
             container
-                .RegisterType<IRepository<Personnel>, Repository<Personnel>>();
+                .RegisterType<IRepository<Employee>, Repository<Employee>>();
             container
-                .RegisterType<IRepository<RolePersonnel>, Repository<RolePersonnel>>();
+                .RegisterType<IRepository<RoleEmployee>, Repository<RoleEmployee>>();
             container
                 .RegisterType<IRepository<Role>, Repository<Role>>();
             container
                 .RegisterType<IRepository<Product>, Repository<Product>>();
+            container
+                .RegisterType<IRepository<Asset>, Repository<Asset>>();
+            container
+                .RegisterType<IRepository<History>, Repository<History>>();
 
             //Service layer
             container.RegisterType<ICategoryService, CategoryService>();
-            container.RegisterType<IPersonnelService, PersonnelService>();
-            container.RegisterType<IRolePersonnelService, RolePersonnelService>();
+            container.RegisterType<IEmployeeService, EmployeeService>();
+            container.RegisterType<IRoleEmployeeService, RoleEmployeeService>();
             container.RegisterType<IRoleService, RoleService>();
             container.RegisterType<IProductService, ProductService>();
-            
+            container.RegisterType<IAssetService, AssetService>();
+            container.RegisterType<IHistoryService, HistoryService>();
         }
     }
 }

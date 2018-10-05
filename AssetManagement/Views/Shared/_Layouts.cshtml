@@ -1,459 +1,264 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-
+﻿@using Data.Entities
+@using Data.Utilities
+@using DevExpress.XtraRichEdit.Model
+@using Constant = Data.Utilities.Constant
+<html lang="en" class=" ">
 <head>
-    <!-- Required meta tags-->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="au theme template">
-    <meta name="author" content="Hau Nguyen">
-    <meta name="keywords" content="au theme template">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="~/Image/icon.co.png" type="image/ico" />
+    <title>Asset Management | Home Page</title>
 
-    <!-- Title Page-->
-    <title>Dashboard 2</title>
+    <!-- Bootstrap -->
+    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="../build/css/custom.min.css" rel="stylesheet">
 
-    <!-- Fontfaces CSS-->
-    <link href="~/Assets/css/font-face.css" rel="stylesheet" media="all">
-    <link href="~/Assets/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
-    <link href="~/Assets/vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
-    <link href="~/Assets/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
-
-    <!-- Bootstrap CSS-->
-    <link href="~/Assets/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
-
-    <!-- Vendor CSS-->
-    <link href="~/Assets/vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
-    <link href="~/Assets/vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
-    <link href="~/Assets/vendor/wow/animate.css" rel="stylesheet" media="all">
-    <link href="~/Assets/vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
-    <link href="~/Assets/vendor/slick/slick.css" rel="stylesheet" media="all">
-    <link href="~/Assets/vendor/select2/select2.min.css" rel="stylesheet" media="all">
-    <link href="~/Assets/vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
-    <link href="~/Assets/vendor/vector-map/jqvmap.min.css" rel="stylesheet" media="all">
-
-    <!-- Main CSS-->`
-    <link href="~/Assets/css/theme.css" rel="stylesheet" media="all">
+    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
 
 </head>
-
-<body>
-    <div class="page-wrapper">
-        <!-- MENU SIDEBAR-->
-        <aside class="menu-sidebar2">
-            <div class="logo">
-                <a href="#">
-                    <img src="~/Assets/images/icon/logo-white.png" alt="Cool Admin" />
-                </a>
-            </div>
-            <div class="menu-sidebar2__content js-scrollbar1">
-                <div class="account2">
-                    <div class="image img-cir img-120">
-                        <img src="~/Assets/images/icon/avatar-big-01.jpg" alt="John Doe" />
+@* @{ *@
+@*     var userSession = (Personnel)SessionHelper.GetSessionValue(Constant.UserSession); *@
+@*     var roleSession = (Role)SessionHelper.GetSessionValue(Constant.RoleSession); *@
+@* } *@
+<body class="nav-md">
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view">
+                    <div class="navbar nav_title" style="border: 0;">
+                        <a href="index.html" class="site_title"><i class="fa fa-paper-plane-o"></i> <span style="font-size: 20px">Asset Management</span></a>
                     </div>
-                    <h4 class="name">john doe</h4>
-                    <a href="#">Sign out</a>
-                </div>
-                <nav class="navbar-sidebar2">
-                    <ul class="list-unstyled navbar__list">
-                        <li class="active has-sub">
-                            <a class="js-arrow" href="#">
-                                <i class="fas fa-tachometer-alt"></i>Dashboard
-                                <span class="arrow">
-                                    <i class="fas fa-angle-down"></i>
-                                </span>
-                            </a>
-                            <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li>
-                                    <a href="index.html">
-                                        <i class="fas fa-tachometer-alt"></i>Dashboard 1
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="index2.html">
-                                        <i class="fas fa-tachometer-alt"></i>Dashboard 2
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="index3.html">
-                                        <i class="fas fa-tachometer-alt"></i>Dashboard 3
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="index4.html">
-                                        <i class="fas fa-tachometer-alt"></i>Dashboard 4
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="inbox.html">
-                                <i class="fas fa-chart-bar"></i>Inbox
-                            </a>
-                            <span class="inbox-num">3</span>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="fas fa-shopping-basket"></i>eCommerce
-                            </a>
-                        </li>
-                        <li class="has-sub">
-                            <a class="js-arrow" href="#">
-                                <i class="fas fa-trophy"></i>Features
-                                <span class="arrow">
-                                    <i class="fas fa-angle-down"></i>
-                                </span>
-                            </a>
-                            <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li>
-                                    <a href="table.html">
-                                        <i class="fas fa-table"></i>Tables
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="form.html">
-                                        <i class="far fa-check-square"></i>Forms
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fas fa-calendar-alt"></i>Calendar
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="map.html">
-                                        <i class="fas fa-map-marker-alt"></i>Maps
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="has-sub">
-                            <a class="js-arrow" href="#">
-                                <i class="fas fa-copy"></i>Pages
-                                <span class="arrow">
-                                    <i class="fas fa-angle-down"></i>
-                                </span>
-                            </a>
-                            <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li>
-                                    <a href="login.html">
-                                        <i class="fas fa-sign-in-alt"></i>Login
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="register.html">
-                                        <i class="fas fa-user"></i>Register
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="forget-pass.html">
-                                        <i class="fas fa-unlock-alt"></i>Forget Password
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="has-sub">
-                            <a class="js-arrow" href="#">
-                                <i class="fas fa-desktop"></i>UI Elements
-                                <span class="arrow">
-                                    <i class="fas fa-angle-down"></i>
-                                </span>
-                            </a>
-                            <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li>
-                                    <a href="button.html">
-                                        <i class="fab fa-flickr"></i>Button
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="badge.html">
-                                        <i class="fas fa-comment-alt"></i>Badges
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="tab.html">
-                                        <i class="far fa-window-maximize"></i>Tabs
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="card.html">
-                                        <i class="far fa-id-card"></i>Cards
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="alert.html">
-                                        <i class="far fa-bell"></i>Alerts
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="progress-bar.html">
-                                        <i class="fas fa-tasks"></i>Progress Bars
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="modal.html">
-                                        <i class="far fa-window-restore"></i>Modals
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="switch.html">
-                                        <i class="fas fa-toggle-on"></i>Switchs
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="grid.html">
-                                        <i class="fas fa-th-large"></i>Grids
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="fontawesome.html">
-                                        <i class="fab fa-font-awesome"></i>FontAwesome
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="typo.html">
-                                        <i class="fas fa-font"></i>Typography
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </aside>
-        <!-- END MENU SIDEBAR-->
-        <!-- PAGE CONTAINER-->
-        <div class="page-container2">
-            <!-- HEADER DESKTOP-->
-            <header class="header-desktop2">
-                <div class="section__content section__content--p30">
-                    <div class="container-fluid">
 
-                    </div>
-                </div>
-            </header>
-            <aside class="menu-sidebar2 js-right-sidebar d-block d-lg-none">
-                <div class="logo">
-                    <a href="#">
-                        <img src="~/Assets/images/icon/logo-white.png" alt="Cool Admin" />
-                    </a>
-                </div>
-                <div class="menu-sidebar2__content js-scrollbar2">
-                    <div class="account2">
-                        <div class="image img-cir img-120">
-                            <img src="~/Assets/images/icon/avatar-big-01.jpg" alt="John Doe" />
+                    <div class="clearfix"></div>
+
+                    <!-- menu profile quick info -->
+                    <div class="profile clearfix">
+                        <div class="profile_pic">
+                            @* <img src="~/Image/@userSession.Image" alt="..." class="img-circle profile_img"> *@
                         </div>
-                        <h4 class="name">john doe</h4>
-                        <a href="#">Sign out</a>
+                        <div class="profile_info">
+                            <span>Welcome,</span>
+                            @*     <h2>@userSession.FullName</h2> *@
+                        </div>
                     </div>
-                    <nav class="navbar-sidebar2">
-                        <ul class="list-unstyled navbar__list">
-                            <li class="active has-sub">
-                                <a class="js-arrow" href="#">
-                                    <i class="fas fa-tachometer-alt"></i>Dashboard
-                                    <span class="arrow">
-                                        <i class="fas fa-angle-down"></i>
-                                    </span>
+                    <!-- /menu profile quick info -->
+                    <br>
+                    <!-- sidebar menu -->
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                        <div class="menu_section active">
+                            <h3>General</h3>
+                            <ul class="nav side-menu" style="">
+                                <li>
+                                    <a><i class="fa fa-desktop"></i> Category <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu" id="bar">
+                                        <li><a href="/Product/Index?categoryId=1">Chair</a></li>
+                                        <li><a href="/Product/Index?categoryId=2">Keyboard</a></li>
+                                        <li><a href="/Product/Index?categoryId=3">Mouse</a></li>
+                                        <li><a href="/Product/Index?categoryId=4">PC</a></li>
+                                        <li><a href="/Product/Index?categoryId=5">Printer</a></li>
+                                        <li><a href="/Product/Index?categoryId=6">Screen</a></li>
+                                    </ul>
+                                </li>
+
+                                <li>
+                                    <a><i class="fa fa-table"></i> Manage Assets <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="/Asset/Index">Assets Information</a></li>
+                                        <li><a href="">Assign Assets</a></li>
+                                    </ul>
+                                </li>
+
+                                @* @if (roleSession.RoleName == "Manager")
+                                    {
+
+                                    }*@
+
+                                <li>
+                                    <a><i class="fa fa-bar-chart-o"></i> Report <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="chartjs.html">Chart JS</a></li>
+                                        <li><a href="chartjs2.html">Chart JS2</a></li>
+
+                                        <li><a href="morisjs.html">Moris JS</a></li>
+                                        <li><a href="echarts.html">ECharts</a></li>
+                                        <li><a href="other_charts.html">Other Charts</a></li>
+                                    </ul>
+                                </li>
+
+                                @* @if (roleSession.RoleName == "Manager")
+                                    {
+
+                                    }*@
+
+
+
+                                <li id="foo2">
+                                    <a><i class="fa fa-edit"></i> Asset Requests <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu" id="bar2">
+                                        <li><a href="form_advanced.html">Advanced Components</a></li>
+                                        <li><a href="form_validation.html">Form Validation</a></li>
+                                        <li><a href="form_wizards.html">Form Wizard</a></li>
+                                        <li><a href="form_upload.html">Form Upload</a></li>
+                                        <li><a href="form_buttons.html">Form Buttons</a></li>
+                                    </ul>
+                                </li>
+
+                                @* @if (roleSession.RoleName == "Manager" || roleSession.RoleName == "User" && userSession.JobTitle == "Accountant")
+                                    {
+
+                                    } *@
+                                <li>
+                                    <a><i class="fa fa-truck"></i> Vendors <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="tables.html">Tables</a></li>
+                                        <li><a href="tables_dynamic.html">Table Dynamic</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+
+                    </div>
+                    <!-- /sidebar menu -->
+                </div>
+            </div>
+
+            <!-- top navigation -->
+            <div class="top_nav">
+                <div class="nav_menu">
+                    <nav>
+                        <div class="nav toggle">
+                            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                        </div>
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="">
+                                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    @* <img src="~/Image/@userSession.Image" alt="...">@userSession.FullName *@
+                                    <span class=" fa fa-angle-down"></span>
                                 </a>
-                                <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                    <li><a href="javascript:;"> Profile</a></li>
                                     <li>
-                                        <a href="index.html">
-                                            <i class="fas fa-tachometer-alt"></i>Dashboard 1
+                                        <a href="javascript:;">
+                                            <span class="badge bg-red pull-right">50%</span>
+                                            <span>Settings</span>
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="index2.html">
-                                            <i class="fas fa-tachometer-alt"></i>Dashboard 2
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="index3.html">
-                                            <i class="fas fa-tachometer-alt"></i>Dashboard 3
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="index4.html">
-                                            <i class="fas fa-tachometer-alt"></i>Dashboard 4
-                                        </a>
-                                    </li>
+                                    <li><a href="javascript:;">Help</a></li>
+                                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                                 </ul>
                             </li>
-                            <li>
-                                <a href="inbox.html">
-                                    <i class="fas fa-chart-bar"></i>Inbox
+
+                            <li role="presentation" class="dropdown">
+                                <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa fa-envelope-o"></i>
+                                    <span class="badge bg-green">6</span>
                                 </a>
-                                <span class="inbox-num">3</span>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fas fa-shopping-basket"></i>eCommerce
-                                </a>
-                            </li>
-                            <li class="has-sub">
-                                <a class="js-arrow" href="#">
-                                    <i class="fas fa-trophy"></i>Features
-                                    <span class="arrow">
-                                        <i class="fas fa-angle-down"></i>
-                                    </span>
-                                </a>
-                                <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
                                     <li>
-                                        <a href="table.html">
-                                            <i class="fas fa-table"></i>Tables
+                                        <a>
+                                            <span class="image"><img src="images/img.jpg" alt="Profile Image"></span>
+                                            <span>
+                                                <span>John Smith</span>
+                                                <span class="time">3 mins ago</span>
+                                            </span>
+                                            <span class="message">
+                                                Film festivals used to be do-or-die s for movie makers. They were where...
+                                            </span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="form.html">
-                                            <i class="far fa-check-square"></i>Forms
+                                        <a>
+                                            <span class="image"><img src="images/img.jpg"></span>
+                                            <span>
+                                                <span>John Smith</span>
+                                                <span class="time">3 mins ago</span>
+                                            </span>
+                                            <span class="message">
+                                                Film festivals used to be do-or-die moments for movie makers. They were where...
+                                            </span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#">
-                                            <i class="fas fa-calendar-alt"></i>Calendar
+                                        <a>
+                                            <span class="image"><img src="images/img.jpg" alt="Profile Image"></span>
+                                            <span>
+                                                <span>John Smith</span>
+                                                <span class="time">3 mins ago</span>
+                                            </span>
+                                            <span class="message">
+                                                Film festivals used to be do-or-die moments for movie makers. They were where...
+                                            </span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="map.html">
-                                            <i class="fas fa-map-marker-alt"></i>Maps
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="has-sub">
-                                <a class="js-arrow" href="#">
-                                    <i class="fas fa-copy"></i>Pages
-                                    <span class="arrow">
-                                        <i class="fas fa-angle-down"></i>
-                                    </span>
-                                </a>
-                                <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                    <li>
-                                        <a href="login.html">
-                                            <i class="fas fa-sign-in-alt"></i>Login
+                                        <a>
+                                            <span class="image"><img src="images/img.jpg" alt="Profile Image"></span>
+                                            <span>
+                                                <span>John Smith</span>
+                                                <span class="time">3 mins ago</span>
+                                            </span>
+                                            <span class="message">
+                                                Film festivals used to be do-or-die moments for movie makers. They were where...
+                                            </span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="register.html">
-                                            <i class="fas fa-user"></i>Register
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="forget-pass.html">
-                                            <i class="fas fa-unlock-alt"></i>Forget Password
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="has-sub">
-                                <a class="js-arrow" href="#">
-                                    <i class="fas fa-desktop"></i>UI Elements
-                                    <span class="arrow">
-                                        <i class="fas fa-angle-down"></i>
-                                    </span>
-                                </a>
-                                <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                    <li>
-                                        <a href="button.html">
-                                            <i class="fab fa-flickr"></i>Button
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="badge.html">
-                                            <i class="fas fa-comment-alt"></i>Badges
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="tab.html">
-                                            <i class="far fa-window-maximize"></i>Tabs
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="card.html">
-                                            <i class="far fa-id-card"></i>Cards
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="alert.html">
-                                            <i class="far fa-bell"></i>Alerts
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="progress-bar.html">
-                                            <i class="fas fa-tasks"></i>Progress Bars
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="modal.html">
-                                            <i class="far fa-window-restore"></i>Modals
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="switch.html">
-                                            <i class="fas fa-toggle-on"></i>Switchs
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="grid.html">
-                                            <i class="fas fa-th-large"></i>Grids
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="fontawesome.html">
-                                            <i class="fab fa-font-awesome"></i>FontAwesome
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="typo.html">
-                                            <i class="fas fa-font"></i>Typography
-                                        </a>
+                                        <div class="text-center">
+                                            <a>
+                                                <strong>See All Alerts</strong>
+                                                <i class="fa fa-angle-right"></i>
+                                            </a>
+                                        </div>
                                     </li>
                                 </ul>
                             </li>
                         </ul>
                     </nav>
                 </div>
-            </aside>
-            <!-- END HEADER DESKTOP-->
-            <section>
-                <div class="section__content section__content--p30">
-                    <div class="container-fluid">
-                        @RenderBody()
-                    </div>
-                </div>
-            </section>
+            </div>
+            <!-- /top navigation -->
+            <!-- page content -->
+            <div class="right_col" role="main" style="min-height: 739px;">
+                @RenderBody()
+            </div>
+            <!-- /page content -->
 
+        <!-- footer content -->
+        <footer>
+            <div class="pull-right">
+                Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+            </div>
+            <div class="clearfix"></div>
+        </footer>
         </div>
-
     </div>
 
-    <!-- Jquery JS-->
-    <script src="~/Assets/vendor/jquery-3.2.1.min.js"></script>
-    <!-- Bootstrap JS-->
-    <script src="~/Assets/vendor/bootstrap-4.1/popper.min.js"></script>
-    <script src="~/Assets/vendor/bootstrap-4.1/bootstrap.min.js"></script>
-    <!-- Vendor JS       -->
-    <script src="~/Assets/vendor/slick/slick.min.js">
-    </script>
-    <script src="~/Assets/vendor/wow/wow.min.js"></script>
-    <script src="~/Assets/vendor/animsition/animsition.min.js"></script>
-    <script src="~/Assets/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
-    </script>
-    <script src="~/Assets/vendor/counter-up/jquery.waypoints.min.js"></script>
-    <script src="~/Assets/vendor/counter-up/jquery.counterup.min.js">
-    </script>
-    <script src="~/Assets/vendor/circle-progress/circle-progress.min.js"></script>
-    <script src="~/Assets/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="~/Assets/vendor/chartjs/Chart.bundle.min.js"></script>
-    <script src="~/Assets/vendor/select2/select2.min.js">
-    </script>
-    <script src="~/Assets/vendor/vector-map/jquery.vmap.js"></script>
-    <script src="~/Assets/vendor/vector-map/jquery.vmap.min.js"></script>
-    <script src="~/Assets/vendor/vector-map/jquery.vmap.sampledata.js"></script>
-    <script src="~/Assets/vendor/vector-map/jquery.vmap.world.js"></script>
+    <!-- jQuery -->
+    
 
-    <!-- Main JS-->
-    <script src="~/Assets/js/main.js"></script>
+    <!-- Custom Theme Scripts -->
 
+<script src="../build/js/custom.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            for (var i = window.location, o = $("ul.side-menu a").filter(function () {
+                return this.href == i;
+            }).addClass("active").parent().addClass("active"); ;) {
+                if (!o.is("li")) break;
+                o = o.parent().addClass("in").show().parent().addClass("active");
+            }
+        });
+    </script>
 </body>
-
 </html>
-<!-- end document-->

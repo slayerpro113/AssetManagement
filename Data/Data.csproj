@@ -74,6 +74,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataContext\IDataContext.cs" />
+    <Compile Include="DTO\Asset.cs" />
+    <Compile Include="DTO\History.cs" />
     <Compile Include="DTO\Product.cs" />
     <Compile Include="Entities\Asset.cs">
       <DependentUpon>AssetManagementEntities.tt</DependentUpon>
@@ -96,9 +98,6 @@
     <Compile Include="Entities\AssetRequest.cs">
       <DependentUpon>AssetManagementEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\AssetService.cs">
-      <DependentUpon>AssetManagementEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="Entities\AssetStatus.cs">
       <DependentUpon>AssetManagementEntities.tt</DependentUpon>
     </Compile>
@@ -108,6 +107,9 @@
     <Compile Include="Entities\Category.cs">
       <DependentUpon>AssetManagementEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\Employee.cs">
+      <DependentUpon>AssetManagementEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\History.cs">
       <DependentUpon>AssetManagementEntities.tt</DependentUpon>
     </Compile>
@@ -115,9 +117,6 @@
       <DependentUpon>AssetManagementEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\OrderDetail.cs">
-      <DependentUpon>AssetManagementEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Personnel.cs">
       <DependentUpon>AssetManagementEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Product.cs">
@@ -132,10 +131,7 @@
     <Compile Include="Entities\Role.cs">
       <DependentUpon>AssetManagementEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\RolePersonnel.cs">
-      <DependentUpon>AssetManagementEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\sysdiagram.cs">
+    <Compile Include="Entities\RoleEmployee.cs">
       <DependentUpon>AssetManagementEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Vendor.cs">
@@ -143,11 +139,13 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Services\IAssetService.cs" />
     <Compile Include="Services\IBaseService.cs" />
     <Compile Include="Services\ICategoryService.cs" />
-    <Compile Include="Services\IPersonnelService.cs" />
+    <Compile Include="Services\IEmployeeService.cs" />
+    <Compile Include="Services\IHistoryService.cs" />
     <Compile Include="Services\IProductService.cs" />
-    <Compile Include="Services\IRolePersonelService.cs" />
+    <Compile Include="Services\IRoleEmployeeService.cs" />
     <Compile Include="Services\IRoleService.cs" />
     <Compile Include="UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="Utilities\Constant.cs" />

@@ -18,10 +18,10 @@ namespace Data.Entities
         public Nullable<System.DateTime> Checkout_Date { get; set; }
         public Nullable<System.DateTime> Checkin_Date { get; set; }
         public string Comment { get; set; }
-        public int PersonnelID { get; set; }
         public int AssetID { get; set; }
+        public int EmployeeID { get; set; }
     
         public virtual Asset Asset { get; set; }
-        public virtual Personnel Personnel { get; set; }
+        public virtual Employee Employee { get; set; }
     }
 }

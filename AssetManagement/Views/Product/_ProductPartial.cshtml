@@ -1,0 +1,106 @@
+@using AssetManagement.Models
+@using Data.Entities
+@using Data.Utilities
+@using DevExpress.Web.Internal
+@* @{ *@
+@*     var roleSession = (Role)SessionHelper.GetSessionValue(Constant.RoleSession); *@
+@* } *@
+@(Html.DevExpress().GridView<ProductViewModel>(settings =>
+        {
+            settings.Name = "grid";
+            settings.CallbackRouteValues = new { Controller = "Product", Action = "GetProducts", categoryId = ViewBag.CategoryId };
+            settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Product", Action = "AddProduct", categoryId = ViewBag.CategoryId };
+            settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Product", Action = "UpdateProduct", categoryId = ViewBag.CategoryId };
+            settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Product", Action = "DeleteProduct", categoryId = ViewBag.CategoryId };
+            settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
+            settings.SettingsText.CommandNew = "New";
+            settings.SettingsText.CommandBatchEditUpdate = "Update";
+            settings.SettingsText.CommandBatchEditCancel = "Cancel";
+
+#region Toolbar Settings
+
+
+settings.Toolbars.Add(toolbar =>
+        {
+                toolbar.Enabled = true;
+                toolbar.Position = GridToolbarPosition.Top;
+                toolbar.ItemAlign = GridToolbarItemAlign.Right;
+                toolbar.Items.Add(GridViewToolbarCommand.New);
+                toolbar.Items.Add(GridViewToolbarCommand.Edit);
+                toolbar.Items.Add(GridViewToolbarCommand.Delete);
+
+            });
+
+
+#endregion Toolbar Settings
+#region Add Comlumns
+
+settings.Columns.Add(c =>
+                {
+                    c.FieldName = "ProductName";
+                    c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+                    c.Caption = "Product Name";
+                    c.Width = 150;
+                    c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                });
+
+            settings.Columns.Add(c =>
+            {
+                c.FieldName = "ImageBytes";
+                c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+                c.EditorProperties().BinaryImage(p =>
+                {
+
+                    p.ImageHeight = 150;
+                    p.ImageWidth = 160;
+                    p.EnableServerResize = true;
+                    p.ImageSizeMode = ImageSizeMode.FitProportional;
+                    p.CallbackRouteValues = new { Action = "BinaryImageColumnPhotoUpdate", Controller = "Product" };
+                    p.EditingSettings.Enabled = true;
+                    p.EditingSettings.UploadSettings.UploadValidationSettings.MaxFileSize = 4194304;
+                });
+            });
+
+            settings.Columns.Add(c =>
+            {
+                c.FieldName = "Description";
+                c.Width = 800;
+                c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            });
+
+            settings.Columns.Add(c =>
+            {
+                c.FieldName = "Brand";
+                c.Width = 200;
+                c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+                c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            });
+
+#endregion
+settings.KeyFieldName = "ProductID";
+            settings.EditFormLayoutProperties.ColCount = 2;
+
+            settings.EditFormLayoutProperties.Items.Add(i =>
+            {
+                i.ColumnName = "ImageBytes";
+                i.RowSpan = 4;
+                i.ShowCaption = DefaultBoolean.False;
+                i.Width = 160;
+
+            });
+            settings.EditFormLayoutProperties.Items.Add(i => i.ProductName);
+            settings.EditFormLayoutProperties.Items.Add(i => i.Description);
+            settings.EditFormLayoutProperties.Items.Add(i => i.Brand);
+            settings.EditFormLayoutProperties.Items.AddCommandItem(i =>
+            {
+                i.ColSpan = 2;
+                i.HorizontalAlign = FormLayoutHorizontalAlign.Right;
+            });
+
+            settings.SettingsBehavior.AllowFocusedRow = true;
+            settings.Width = Unit.Percentage(100);
+            settings.SettingsBehavior.ConfirmDelete = true;
+
+            settings.SettingsPager.PageSize = 3;
+        }).Bind(Model).SetEditErrorText(ViewBag.EditError).GetHtml())
+

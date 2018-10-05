@@ -1,12 +1,11 @@
-﻿using Data.DataContext;
-using Data.Repositories;
+﻿using Data.Repositories;
 using Data.Services;
 using Data.UnitOfWork;
 using System.Collections.Generic;
 
 namespace Service
 {
-    public abstract class BaseService<TEntity, TContext> : IBaseService<TEntity> where TEntity : class where TContext : IDataContext
+    public abstract class BaseService<TEntity> : IBaseService<TEntity> where TEntity : class
     {
         private readonly IRepository<TEntity> _repository;
         private readonly IUnitOfWork _unitOfWork;
@@ -23,9 +22,9 @@ namespace Service
             _unitOfWork.SaveChanges();
         }
 
-        public TEntity Get(object id)
+        public TEntity GetEntity(object id)
         {
-            return _repository.Get(id);
+            return _repository.GetEntity(id);
         }
 
         public IList<TEntity> GetAll()
@@ -36,6 +35,12 @@ namespace Service
         public void UpdateEntity(TEntity entity)
         {
             _repository.UpdateEntity(entity);
+            _unitOfWork.SaveChanges();
+        }
+
+        public void DeleteEntity(object id)
+        {
+            _repository.DeleteEntity(id);
             _unitOfWork.SaveChanges();
         }
     }

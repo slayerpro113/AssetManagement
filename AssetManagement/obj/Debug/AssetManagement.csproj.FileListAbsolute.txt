@@ -208,3 +208,8 @@ C:\Users\quoc.ho\Desktop\AssetManagement\AssetManagement\bin\ru\DevExpress.Xpo.v
 C:\Users\quoc.ho\Desktop\AssetManagement\AssetManagement\obj\Debug\AssetManagement.csproj.CopyComplete
 C:\Users\quoc.ho\Desktop\AssetManagement\AssetManagement\obj\Debug\AssetManagement.dll
 C:\Users\quoc.ho\Desktop\AssetManagement\AssetManagement\obj\Debug\AssetManagement.pdb
+C:\Users\quoc.ho\Desktop\AssetManagement\AssetManagement\bin\AutoMapper.dll
+C:\Users\quoc.ho\Desktop\AssetManagement\AssetManagement\bin\System.ValueTuple.dll
+C:\Users\quoc.ho\Desktop\AssetManagement\AssetManagement\bin\AutoMapper.pdb
+C:\Users\quoc.ho\Desktop\AssetManagement\AssetManagement\bin\AutoMapper.xml
+C:\Users\quoc.ho\Desktop\AssetManagement\AssetManagement\bin\System.ValueTuple.xml

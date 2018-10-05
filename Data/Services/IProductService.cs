@@ -7,5 +7,7 @@ namespace Data.Services
     {
         IList<Product> GetProductsByCategoryId(int categoryId);
         void UpdateProduct(Product product);
+        void AddProduct(Product product);
+
     }
 }

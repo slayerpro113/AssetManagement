@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
+using AssetManagement.AutoMapper;
 
 namespace AssetManagement {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
@@ -17,7 +18,7 @@ namespace AssetManagement {
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            
+            AutoMapperConfiguration.Configure();
             ModelBinders.Binders.DefaultBinder = new DevExpress.Web.Mvc.DevExpressEditorsBinder();
 
             DevExpress.Web.ASPxWebControl.CallbackError += Application_Error;

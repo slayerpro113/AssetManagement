@@ -1,5 +1,4 @@
-﻿using AssetManagement.Models;
-using Data.Services;
+﻿using Data.Services;
 using Data.Utilities;
 using Data.Utilities.Enumeration;
 using System;
@@ -9,14 +8,14 @@ namespace AssetManagement.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly IPersonnelService _personnelService;
-        private readonly IRolePersonnelService _rolePersonnelService;
+        private readonly IEmployeeService _employeeService;
+        private readonly IRoleEmployeeService _roleEmployeeService;
         private readonly IRoleService _roleService;
 
-        public LoginController(IPersonnelService personnelService, IRolePersonnelService rolePersonnelService, IRoleService roleService)
+        public LoginController(IEmployeeService personnelService, IRoleEmployeeService roleEmployeeService, IRoleService roleService)
         {
-            _personnelService = personnelService;
-            _rolePersonnelService = rolePersonnelService;
+            _employeeService = personnelService;
+            _roleEmployeeService = roleEmployeeService;
             _roleService = roleService;
         }
 
@@ -29,11 +28,11 @@ namespace AssetManagement.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public ActionResult Login(LoginModel model)
+        public ActionResult Login(string userName, string password)
         {
             try
             {
-                var loginStatus = _personnelService.CheckLogin(model.UserName, Encryptor.MD5Hash(model.PassWord));
+                var loginStatus = _employeeService.CheckLogin(userName, Encryptor.MD5Hash(password));
 
                 if (loginStatus == Enumerations.LoginStatus.WrongUserName)
                 {
@@ -45,13 +44,15 @@ namespace AssetManagement.Controllers
                 }
                 else if (loginStatus == Enumerations.LoginStatus.Succsess)
                 {
-                    var user = _personnelService.GetPersonnelByUserName(model.UserName);
-                    var rolePersonnel = _rolePersonnelService.GetRolePersonnelByPersonnelId(user.PersonnelID);
-                    var role = _roleService.Get(rolePersonnel.RoleID);
+                    var user = _employeeService.GetEmployeeByUserName(userName);
+                    var roleEmployee = _roleEmployeeService.GetRoleEmployeeByEmployeeId(user.EmployeeID);
+                    var role = _roleService.GetEntity(roleEmployee.RoleID);
+
                     Session.Add(Constant.UserSession, user);
                     Session.Add(Constant.RoleSession, role);
                     return Json(new { status = "Succsess" }, JsonRequestBehavior.AllowGet);
                 }
+
                 return Json(new { status = "Failed" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)

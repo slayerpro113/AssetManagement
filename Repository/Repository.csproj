@@ -47,11 +47,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PersonnelRepository.cs" />
+    <Compile Include="AssetRepository.cs" />
+    <Compile Include="EmployeeRepository.cs" />
+    <Compile Include="HistoryRepository.cs" />
     <Compile Include="ProductRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository.cs" />
-    <Compile Include="RolePersonnelRepository.cs" />
+    <Compile Include="RoleEmployeeRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
