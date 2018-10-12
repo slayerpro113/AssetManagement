@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using DevExpress.Web.Mvc;
-using System.Web.Mvc;
-using Data.Entities;
+﻿using System;
 using Data.Services;
+using System.Web.Mvc;
+using Data.Utilities.Enumeration;
 
 namespace AssetManagement.Controllers
 {
@@ -10,16 +9,20 @@ namespace AssetManagement.Controllers
     {
         private readonly IAssetService _assetService;
         private readonly IHistoryService _historyService;
+        private readonly IEmployeeService _employeeService;
 
-        public AssetController(IAssetService assetService, IHistoryService historyService)
+        public AssetController(IAssetService assetService, IHistoryService historyService,
+            IEmployeeService employeeService)
         {
             _assetService = assetService;
             _historyService = historyService;
+            _employeeService = employeeService;
         }
 
         public ActionResult Index()
         {
-            return View();
+            var assets = _assetService.GetAssets();
+            return View(assets);
         }
 
         public ActionResult GetAssets()
@@ -28,11 +31,51 @@ namespace AssetManagement.Controllers
             return View("_AssetPartial", assets);
         }
 
-        public ActionResult MasterDetailDetailPartial(int assetId)
+        public ActionResult ShowHistories(int assetId)
         {
             ViewBag.AssetID = assetId;
             var histories = _historyService.GetHistoriesByAssetId(assetId);
-            return PartialView("_MasterDetailPartial", histories);
+            return PartialView("_AssetHistorieslPartial", histories);
+        }
+
+        public ActionResult LoadDataCbb()
+        {
+            var employees = _employeeService.GetAll();
+            return PartialView("_ComboboxPartial", employees);
+        }
+
+        [HttpPost]
+        public ActionResult AssignAsset(int assetId, int employeeId)
+        {
+            var statusId = 2;
+            _assetService.SetAssetStatus(assetId, statusId);
+            var status = _historyService.HandleHistory(assetId, employeeId);
+            
+            if (status == Enumerations.AddEntityStatus.Success)
+            {
+                return Json(new { status = "Success" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { status = "Failed" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult RecallAsset(int assetId, string remark)
+        {
+            var statusId = 1;
+            _assetService.SetAssetStatus(assetId, statusId);
+            var status = _historyService.SaveCheckoutDate(assetId, remark);
+
+            if (status == Enumerations.UpdateEntityStatus.Success)
+            {
+                return Json(new { status = "Success" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { status = "Failed" }, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

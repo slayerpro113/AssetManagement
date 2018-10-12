@@ -1,0 +1,36 @@
+﻿@model IList<Data.Entities.Product>
+
+@Html.DevExpress().ComboBox(settings => {
+    settings.Name = "ComboBoxProduct";
+    settings.Width = Unit.Pixel(280);
+    settings.Properties.NullText = "Select Product...";
+    settings.CallbackRouteValues = new { Controller = "PORequest", Action = "LoadDataCbbProduct" };
+    settings.SetItemTemplateContent((container) => {
+    ViewContext.Writer.Write(
+        "<table >" +
+            "<tr>" +
+                "<td rowspan='3' ><div class='frame' ><img class='photo' alt='photo' src='/Image/Categories/" + Url.Content(DataBinder.Eval(container.DataItem, "Image").ToString()) + "' /></div></td>" +
+                "<td class='name'>" +DataBinder.Eval(container.DataItem, "ProductName") +"</td>" +
+             "</tr>" +
+             "<tr>" +
+                "<td class='description'>" +
+                    "<div class='contactInfo'>" +
+                    DataBinder.Eval(container.DataItem, "ProductType") + "<br />" +
+                    DataBinder.Eval(container.DataItem, "Brand") +
+                    "</div>" +
+                    DataBinder.Eval(container.DataItem, "Brand") +
+                "</td>" +
+            "</tr>" +
+        "</table>"
+        );
+});
+
+    var properties = settings.Properties;
+    properties.TextField = "ProductName";
+    properties.ValueField = "ProductId";
+    properties.DropDownRows = 5;
+    properties.CallbackPageSize = 5;
+    properties.ItemStyle.SelectedStyle.CssClass = "selectedItem";
+    properties.ItemStyle.HoverStyle.CssClass = "hoveredItem";
+}).BindList(Model).Bind(ViewData["ComboBoxProduct"]).GetHtml()
+

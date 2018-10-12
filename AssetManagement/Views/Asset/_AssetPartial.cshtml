@@ -1,3 +1,6 @@
+@using Data.Entities
+@using DevExpress.XtraExport.Helpers
+@model IList<Data.Entities.Asset>
 @Html.DevExpress().GridView(settings => {
     settings.Name = "gvFocusedRow";
     settings.CallbackRouteValues = new { Controller = "Asset", Action = "GetAssets" };
@@ -7,6 +10,7 @@
     settings.SettingsBehavior.AllowFocusedRow = true;
     settings.SettingsDetail.AllowOnlyOneMasterRowExpanded = false;
     settings.SettingsDetail.ShowDetailRow = true;
+    settings.SettingsPager.PageSize = 5;
 
     settings.Toolbars.Add(toolbar =>
     {
@@ -29,7 +33,13 @@
             });
         });
     });
-
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "AssetID";
+        c.Caption = "AssetID";
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+    });
     settings.Columns.Add("Barcode");
 
     settings.Columns.Add(c =>
@@ -42,13 +52,21 @@
     settings.Columns.Add(c =>
     {
         c.FieldName = "AssetName";
+        c.Caption = "Asset Name";
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
     });
     settings.Columns.Add(c =>
     {
         c.FieldName = "AssetStatusName";
-        c.Width = 150;
+        c.Caption = "Asset Status";
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+    });
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "AssetStatusName";
+        c.Caption = "Date Purchase";
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
     });
@@ -61,34 +79,76 @@
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
     });
 
-    settings.SetDetailRowTemplateContent(c => {
-        ViewContext.Writer.Write(
-        "Histories<b>" +
-        "<br />"
-        );
-        Html.RenderAction("MasterDetailDetailPartial",  new { assetId = DataBinder.Eval(c.DataItem, "AssetID") });
+
+    settings.Columns.Add(c =>
+    {
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.SetDataItemTemplateContent(p =>
+        {
+            int assetId = (int)DataBinder.Eval(p.DataItem, "AssetID");
+            var asset = Model.FirstOrDefault(_ => _.AssetID == assetId);
+
+            if (asset.AssetStatusName == "In Storage")
+            {
+                ViewContext.Writer.Write(
+                    "<button type='button' class='btn btn-round btn-default'  onclick =\"OpenAssignPopup(" + assetId + ",'" + asset.Barcode + "', '" + asset.AssetName + "')\"  >Assign</button>"
+                );
+            }
+            //           
+            else
+            {
+                ViewContext.Writer.Write(
+                    "<button type='button' class='btn btn-round btn-default' " +
+                    "onclick=\"OpenRecallPopup(" + assetId + ",'" + asset.Barcode  + "', '" + asset.AssetName + "','" + asset.EmployeeName + "')\">Recall</button>"
+                );
+            }
+        });
     });
 
-    settings.Columns.Add("EmployeeImage").Visible = false;
-    settings.Columns.Add("EmployeeName").Visible = false;
-    settings.Columns.Add("EmployeeEmail").Visible = false;
-    settings.Columns.Add("EmployeeAddress").Visible = false;
-    settings.Columns.Add("EmployeeJob").Visible = false;
-    settings.Columns.Add("EmployeePhone").Visible = false;
-    settings.Columns.Add("EmployeeBirthdate").Visible = false;
+    settings.SetDetailRowTemplateContent(c => {
+        ViewContext.Writer.Write(
+            "Histories:" +
+            "<br />"
+            );
+        Html.RenderAction("ShowHistories",  new { assetId = DataBinder.Eval(c.DataItem, "AssetID") });
+        ViewContext.Writer.Write(
+            "<div class='container'>"+
+                "<div class='row'>"+
+                    "<div class='col-md-6 fix-position'>"+
+                    "<br />"
+          );
+        int assetId = (int)DataBinder.Eval(c.DataItem, "AssetID");
+        var asset = Model.FirstOrDefault(_ => _.AssetID == assetId);
+        Html.RenderPartial("_AssetDetailPartial", asset);
+        ViewContext.Writer.Write(
+                    "</div>"+
+                    "<div class='col-md-6 fix-position' > " +
+                    "<br />"
+        );
+        Html.RenderPartial("_OwnerDetailPartial", asset);
+        //        ViewContext.Writer.Write(
+        //                     "</div>"+
+        //                     "<div class='col-md-4'>"+
+        //                     "<br/>"
+        //            );
 
-
-    settings.Columns.Add("AssetImage").Visible = false;
-    settings.Columns.Add("AssetName").Visible = false;
-    settings.Columns.Add("AssetDescription").Visible = false;
-    settings.Columns.Add("AssetBrand").Visible = false;
-    settings.Columns.Add("AssetCategory").Visible = false;
+        //Html.RenderPartial("_AssetOwnerPartial", asset);
+        ViewContext.Writer.Write(
+                     "</div>"+
+                  "</div>"+
+               "</div>"
+        );
+    });
 
     settings.SettingsPager.Position = PagerPosition.Bottom;
     settings.SettingsPager.FirstPageButton.Visible = true;
     settings.SettingsPager.LastPageButton.Visible = true;
     settings.SettingsPager.PageSizeItemSettings.Visible = true;
-    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "5", "10", "15" };
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "5", "7", "9" };
     settings.SettingsSearchPanel.CustomEditorName = "search";
-    settings.ClientSideEvents.FocusedRowChanged = "OnGridFocusedRowChanged";
 }).Bind(Model).GetHtml()
+
+
+
+
+

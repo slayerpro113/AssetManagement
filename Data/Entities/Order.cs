@@ -18,9 +18,10 @@ namespace Data.Entities
         public Order()
         {
             this.OrderDetails = new HashSet<OrderDetail>();
+            this.PORequests = new HashSet<PORequest>();
         }
     
-        public int OrderId { get; set; }
+        public int OrderID { get; set; }
         public string OrderTotal { get; set; }
         public System.DateTime PurchaseDate { get; set; }
         public int VendorID { get; set; }
@@ -28,5 +29,7 @@ namespace Data.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public virtual Vendor Vendor { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PORequest> PORequests { get; set; }
     }
 }

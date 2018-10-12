@@ -14,16 +14,19 @@ namespace Data.Entities
     
     public partial class Quote
     {
-        public int QuoteID { get; set; }
-        public string ProductName { get; set; }
-        public string Note { get; set; }
-        public string Brand { get; set; }
-        public string Warranty { get; set; }
-        public string SerialNumber { get; set; }
-        public Nullable<decimal> Price { get; set; }
-        public string VendorName { get; set; }
-        public int AssetRequestID { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Quote()
+        {
+            this.PORequests = new HashSet<PORequest>();
+        }
     
-        public virtual AssetRequest AssetRequest { get; set; }
+        public int QuoteID { get; set; }
+        public string Note { get; set; }
+        public string Warranty { get; set; }
+        public decimal Price { get; set; }
+        public string VendorName { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PORequest> PORequests { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿@model IList<Data.Entities.Asset>
+﻿
+@using DevExpress.XtraExport.Helpers
+@model  IList<Data.Entities.Asset>
 @{
     Layout = "~/Views/Shared/_Layouts.cshtml";
 }
@@ -10,181 +12,131 @@
 @Html.DevExpress().GetScripts(
     new Script { ExtensionSuite = ExtensionSuite.GridView },
     new Script { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
-    new Script { ExtensionSuite = ExtensionSuite.Editors }
+    new Script { ExtensionSuite = ExtensionSuite.Editors },
+    new Script { ExtensionType = ExtensionType.PopupControl }
     )
 
-<script type="text/javascript">
-    function OnGridFocusedRowChanged(s, e) {
-        s.GetRowValues(s.GetFocusedRowIndex(), 'EmployeeImage;EmployeeName;EmployeeEmail;EmployeeAddress;EmployeeJob;EmployeePhone;EmployeeBirthdate;AssetImage;AssetName;AssetDescription;AssetBrand;AssetCategory', OnGetRowValues);
-    }
-    //AssetImage; AssetName; AssetDescription; AssetBrand; AssetCategory
-    function OnGetRowValues(values) {
-        EmployeeImage.SetImageUrl("/Image/" + values[0]);
-        EmployeeName.SetText(values[1]);
-        EmployeeEmail.SetText(values[2]);
-        EmployeeAddress.SetText(values[3]);
-        EmployeeJob.SetText(values[4]);
-        EmployeePhone.SetText(values[5]);
-        EmployeeBirthdate.SetText(values[6]);
-
-        AssetImage.SetImageUrl("/Image/Categories/" + values[7]);
-        AssetName.SetText(values[8]);
-        AssetDescription.SetText(values[9]);
-        AssetBrand.SetText(values[10]);
-        AssetCategory.SetText(values[11]);
-
-    }
-</script>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-6">
-            @Html.Action("GetAssets")
-        </div>
-
-        <div class="col-md-6">
-            <div class="row">
-
-                <table class="table table-bordered">
-                    <tbody>
-                    <tr>
-                        <td rowspan="4" style="width: 159px">
-                            @Html.DevExpress().Image(settings =>
-                            {
-                                settings.Name = "EmployeeImage";
-                                settings.Width = 160;
-                                settings.Height = 170;
-                                settings.ControlStyle.CssClass = "image";
-                                settings.Properties.EnableClientSideAPI = true;
-                            }).GetHtml()
-                        </td>
-                        <th colspan="4" style="text-align: center">Owner Details</th>
-                    </tr>
-                    <tr>
-                        <th>Full Name</th>
-                        <td>
-                            @Html.DevExpress().Label(settings =>
-                            {
-                                settings.Name = "EmployeeName";
-                                settings.Properties.EnableClientSideAPI = true;
-                            }).GetHtml()
-                        </td>
-                        <th>Job Title</th>
-                        <td>
-                            @Html.DevExpress().Label(settings =>
-                            {
-                                settings.Name = "EmployeeJob";
-                                settings.Properties.EnableClientSideAPI = true;
-                            }).GetHtml()
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Address</th>
-                        <td>
-                            @Html.DevExpress().Label(settings =>
-                            {
-                                settings.Name = "EmployeeAddress";
-                                settings.Properties.EnableClientSideAPI = true;
-                            }).GetHtml()
-                        </td>
-                        <th>Date of Birth</th>
-                        <td>
-                            @Html.DevExpress().Label(settings =>
-                            {
-                                settings.Name = "EmployeeBirthdate";
-                                settings.Properties.EnableClientSideAPI = true;
-                            }).GetHtml()
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Phone</th>
-                        <td>
-                            @Html.DevExpress().Label(settings =>
-                            {
-                                settings.Name = "EmployeePhone";
-                                settings.Properties.EnableClientSideAPI = true;
-                            }).GetHtml()
-                        </td>
-                        <th>Email</th>
-                        <td>
-                            @Html.DevExpress().Label(settings =>
-                            {
-                                settings.Name = "EmployeeEmail";
-                                settings.Properties.EnableClientSideAPI = true;
-                            }).GetHtml()
-                        </td>
-                    </tr>
-
-                    </tbody>
-                </table>
-            </div>
-
-            @* Asset Detail *@
-
-            <div class="row">
-                <table class="table table-bordered">
-                    <tbody>
-                        <tr>
-                            <td rowspan="4">
-                                @Html.DevExpress().Image(settings =>
-                                {
-                                    settings.Name = "AssetImage";
-                                    settings.Width = 160;
-                                    settings.Height = 170;
-                                    settings.ControlStyle.CssClass = "image";
-                                    settings.Properties.EnableClientSideAPI = true;
-                                }).GetHtml()
-                            </td>
-                        <th colspan="4" style="text-align: center">Asset Details</th>
-                    </tr>
-                    <tr>
-                            <th>Name</th>
-                            <td>
-                                @Html.DevExpress().Label(settings =>
-                                {
-                                    settings.Name = "AssetName";
-                                    settings.Properties.EnableClientSideAPI = true;
-                                }).GetHtml()
-                            </td>
-                            <th>Brand</th>
-                            <td>
-                                @Html.DevExpress().Label(settings =>
-                                {
-                                    settings.Name = "AssetBrand";
-                                    settings.Properties.EnableClientSideAPI = true;
-                                }).GetHtml()
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Description</th>
-                            <td colspan="3">
-                                @Html.DevExpress().Label(settings =>
-                                {
-                                    settings.Name = "AssetDescription";
-                                    settings.Properties.EnableClientSideAPI = true;
-                                }).GetHtml()
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <th>Asset Type</th>
-                            <td>
-                                @Html.DevExpress().Label(settings =>
-                                {
-                                    settings.Name = "AssetCategory";
-                                    settings.Properties.EnableClientSideAPI = true;
-                                }).GetHtml()
-                            </td>
-                            <th>Nothing</th>
-                            <td>
-                                nothing
-                            </td>
-                        </tr>                     
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
+<script src="~/Scripts/app/manage-asset.js"></script>
+<link href="~/Content/ManageAsset/manage-asset.css" rel="stylesheet" />
 
 
+@Html.Partial("_AssetPartial", Model);
+
+
+@Html.DevExpress().PopupControl(
+    settings =>
+    {
+        settings.Name = "RecallPopup";
+        settings.Width = 440;
+        settings.AllowDragging = true;
+        settings.CloseAction = CloseAction.CloseButton;
+        settings.CloseOnEscape = true;
+        settings.PopupAnimationType = AnimationType.None;
+        settings.HeaderText = "Recall Asset";
+        settings.Modal = true;
+        settings.AutoUpdatePosition = true;
+        settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+        settings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+        settings.SetContent(() =>
+        {
+            ViewContext.Writer.Write(
+            "<form class='form-horizontal form-label-left input_mask'>"+
+                "<input type='hidden' class='form-control' readonly id='assetId'>" +
+
+                "<div class='form-group'>"+
+                    "<label class='control-label col-md-4 col-sm-3 col-xs-12'>Barcode: </label>"+
+                    "<div class='col-md-7 col-sm-9 col-xs-12'>"+
+                    "<input type='text' class='form-control' readonly id='barcode'>" +
+                    "</div>"+
+                "</div>"+
+
+                "<div class='form-group'>"+
+                    "<label class='control-label col-md-4 col-sm-3 col-xs-12'>Asset Name: </label>"+
+                    "<div class='col-md-7 col-sm-9 col-xs-12'>"+
+                    "<input type='text' class='form-control' readonly id='assetName'>" +
+                    "</div>"+
+                "</div>"+
+
+                "<div class='form-group'>"+
+                    "<label class='control-label col-md-4 col-sm-3 col-xs-12'>Owner Name: </label>"+
+                    "<div class='col-md-7 col-sm-9 col-xs-12'>"+
+                    "<input type='text' class='form-control' readonly id='employeeName'>" +
+                    "</div>"+
+                "</div>"+
+
+                "<div class='form-group'>"+
+                    "<label class='control-label col-md-4 col-sm-3 col-xs-12'>Remark: </label>" +
+                    "<div class='col-md-7 col-sm-9 col-xs-12'>"+
+                    "<textarea class='form-control' id='remark'></textarea>" +
+                    "</div>"+
+                "</div>"+
+
+            "<div class='ln_solid'></div>"+
+            "<div class='form-group'>"+
+                "<div class='col-md-8 col-sm-9 col-xs-12 col-md-offset-4'>"+
+                    "<button type='button' class='btn btn-round btn-success' id='btnRecall' >Recall</button>" +
+                    "<button type='button' class='btn btn-round btn-default' id='btnCancel1' >Cancel</button>" +
+                "</div>"+
+            "</div>"+
+            "</form>"
+        );
+        });
+    }).GetHtml()
+
+
+@Html.DevExpress().PopupControl(
+    settings =>
+    {
+        settings.Name = "AssignPopup";
+        settings.Width = 500;
+        settings.AllowDragging = true;
+        settings.CloseAction = CloseAction.CloseButton;
+        settings.CloseOnEscape = true;
+        settings.PopupAnimationType = AnimationType.None;
+        settings.HeaderText = "Assign Asset";
+        settings.Modal = true;
+        settings.AutoUpdatePosition = true;
+        settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+        settings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+        settings.SetContent(() =>
+        {
+            ViewContext.Writer.Write(
+
+                "<form class='form-horizontal form-label-left input_mask'>" +
+                "<input type='hidden' class='form-control' readonly id='assetId2'>" +
+
+                "<div class='form-group'>" +
+                    "<label class='control-label col-md-4 col-sm-3 col-xs-12'>Barcode: </label>" +
+                    "<div class='col-md-8 col-sm-9 col-xs-12'>" +
+                    "<input type='text' class='form-control' readonly id='barcode2' style='Width:97%' >" +
+                    "</div>" +
+                "</div>" +
+
+                "<div class='form-group'>" +
+                    "<label class='control-label col-md-4 col-sm-3 col-xs-12'>Asset Name: </label>" +
+                    "<div class='col-md-8 col-sm-9 col-xs-12'>" +
+                    "<input type='text' class='form-control' readonly id='assetName2' style='Width:97%' >" +
+                    "</div>" +
+                "</div>" +
+
+                "<div class='form-group'>" +
+                "<label class='control-label col-md-4 col-sm-3 col-xs-12'>Select Employee:<span class='required'>*</span> </label>" +
+                "<div class='col-md-8 col-sm-9 col-xs-12'>"
+                );
+            @Html.RenderAction("LoadDataCbb");
+            ViewContext.Writer.Write(
+                "</div>"+
+                "</div>"+
+                "<p class='col-md-offset-4' id='message2'><p>" +
+                "<div class='ln_solid'></div>" +
+                "<div class='form-group'>"+
+                    "<div class='col-md-8 col-sm-9 col-xs-12 col-md-offset-4'>"+
+                        "<button type='button' class='btn btn-round btn-success' id='btnAssign' >Assign</button>" +
+                        "<button type='button' class='btn btn-round btn-default' id='btnCancel2' >Cancel</button>" +
+                    "</div>"+
+                "</div>"+
+                "</form>"
+                    );
+        });
+    }).GetHtml()
 

@@ -1,10 +1,13 @@
-﻿using Data.Entities;
+﻿using System;
+using Data.Entities;
 using Data.Repositories;
 using Data.Services;
 using Data.UnitOfWork;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using Repository;
+using System.Linq.Expressions;
+using System.Web;
 
 namespace Service
 {
@@ -23,9 +26,13 @@ namespace Service
 
             foreach (Asset asset in assets)
             {
+                string path = HttpContext.Current.Server.MapPath("~/Image/Categories/" + asset.AssetImage);
+                asset.AssetImageBytes = File.ReadAllBytes(path);
+
                 var history = asset.Histories.FirstOrDefault(_ => _.Checkout_Date == null);
                 if (history != null)
                 {
+                    asset.EmployeeId = history.Employee.EmployeeID;
                     asset.EmployeeImage = history.Employee.Image;
                     asset.EmployeeName = history.Employee.FullName;
                     asset.EmployeeAddress = history.Employee.Address;
@@ -33,14 +40,18 @@ namespace Service
                     asset.EmployeeJob = history.Employee.JobTitle;
                     asset.EmployeePhone = history.Employee.Phone;
                     asset.EmployeeBirthdate = history.Employee.BirthDate;
+                    string path2 = HttpContext.Current.Server.MapPath("~/Image/" + asset.EmployeeImage);
+                    asset.EmployeeImageBytes = File.ReadAllBytes(path2);
                 }
             }
             return assets;
         }
 
-        public int CountAsset(int productId)
+        public void SetAssetStatus(int assetId, int assetStatus)
         {
-            return _assetRepository.CountAsset(productId);
+            var asset = GetEntity(assetId);
+            asset.AssetStatusID = assetStatus;
+            UpdateEntity(asset);
         }
     }
 }

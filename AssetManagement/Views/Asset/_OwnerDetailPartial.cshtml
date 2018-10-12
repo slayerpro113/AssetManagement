@@ -1,0 +1,51 @@
+﻿@model Data.Entities.Asset
+<table class="table table-bordered" id="concac">
+    <div>
+        <tbody>
+        <tr>
+            <th colspan="5" style="text-align: center">Owner Details</th>
+        </tr>
+        <tr>
+            <td rowspan="4" style="width: 99px">
+                @Html.DevExpress().Image(settings =>
+                {
+                    settings.ImageUrl = "/Image/" + @Model.EmployeeImage;
+                    settings.Width = 99;
+                    settings.Height = 120;
+                    settings.ControlStyle.CssClass = "image";
+                    settings.Properties.EnableClientSideAPI = true;
+                }).GetHtml()
+            </td>
+
+        </tr>
+        <tr>
+            <td >Full Name</td>
+            <td colspan="3">
+                @Model.EmployeeName
+            </td>
+        </tr>
+        <tr>
+            <td>Job</td>
+            <td>
+                @Model.EmployeeJob
+            </td>
+            <td>BirthDate</td>
+            <td>
+                @Model.EmployeeBirthdate
+            </td>
+        </tr>
+        <tr>
+            <td>Phone</td>
+            <td>
+                @Model.EmployeePhone
+            </td>
+            <td>Email</td>
+            <td>
+                @Model.EmployeeEmail
+            </td>
+        </tr>
+        </tbody>
+    </div>
+  
+</table>
+

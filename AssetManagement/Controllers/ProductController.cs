@@ -12,12 +12,10 @@ namespace AssetManagement.Controllers
     public class ProductController : Controller
     {
         private readonly IProductService _productService;
-        private readonly IAssetService _assetService;
 
-        public ProductController(IProductService productService, IAssetService assetService)
+        public ProductController(IProductService productService)
         {
             _productService = productService;
-            _assetService = assetService;
         }
 
         public ActionResult Index(int categoryId)
@@ -28,8 +26,7 @@ namespace AssetManagement.Controllers
 
         public ActionResult GetProducts(int categoryId)
         {
-            ViewBag.CategoryId = categoryId;
-            
+            ViewBag.CategoryId = categoryId;          
             var products = Mapper.Map<List<ProductViewModel>>(_productService.GetProductsByCategoryId(categoryId));
             return View("_ProductPartial", products);
         }

@@ -17,7 +17,7 @@ namespace Data.Entities
         public int HistoryID { get; set; }
         public Nullable<System.DateTime> Checkout_Date { get; set; }
         public Nullable<System.DateTime> Checkin_Date { get; set; }
-        public string Comment { get; set; }
+        public string Remark { get; set; }
         public int AssetID { get; set; }
         public int EmployeeID { get; set; }
     

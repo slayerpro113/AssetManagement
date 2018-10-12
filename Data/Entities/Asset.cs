@@ -17,24 +17,23 @@ namespace Data.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Asset()
         {
-            this.OrderDetails = new HashSet<OrderDetail>();
             this.Histories = new HashSet<History>();
+            this.OrderDetails = new HashSet<OrderDetail>();
         }
     
         public int AssetID { get; set; }
-        public string CurrentPrice { get; set; }
-        public Nullable<int> AuditID { get; set; }
         public string Barcode { get; set; }
+        public Nullable<int> warranty { get; set; }
         public int ProductID { get; set; }
         public Nullable<int> AssetServiceID { get; set; }
         public int AssetStatusID { get; set; }
+        public Nullable<int> MonthDepreciation { get; set; }
     
         public virtual AssetStatus AssetStatus { get; set; }
-        public virtual Audit Audit { get; set; }
         public virtual Product Product { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<History> Histories { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

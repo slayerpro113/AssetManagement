@@ -12,25 +12,21 @@ namespace Data.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class AssetRequest
+    public partial class PORequest
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public AssetRequest()
-        {
-            this.Quotes = new HashSet<Quote>();
-        }
-    
         public int AssetRequestID { get; set; }
-        public string RequestDate { get; set; }
-        public string Purpose { get; set; }
-        public int PersonnelID { get; set; }
+        public string Description { get; set; }
+        public System.DateTime CreatedDate { get; set; }
+        public int EmployeeID { get; set; }
         public Nullable<int> ProductID { get; set; }
         public int RequestStatusID { get; set; }
+        public Nullable<int> QuoteID { get; set; }
+        public Nullable<int> OrderID { get; set; }
     
+        public virtual Employee Employee { get; set; }
+        public virtual Order Order { get; set; }
         public virtual Product Product { get; set; }
         public virtual RequestStatus RequestStatus { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Quote> Quotes { get; set; }
-        public virtual Employee Employee { get; set; }
+        public virtual Quote Quote { get; set; }
     }
 }

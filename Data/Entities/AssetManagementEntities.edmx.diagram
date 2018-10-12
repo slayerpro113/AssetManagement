@@ -5,36 +5,35 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="4717ea353267474c99a9756348550aa1" Name="Diagram1">
-        <EntityTypeShape EntityType="AssetManagementModel.AssetRequest" Width="1.5" PointX="5.25" PointY="6.375" />
-        <EntityTypeShape EntityType="AssetManagementModel.Asset" Width="1.5" PointX="8.25" PointY="6.125" />
-        <EntityTypeShape EntityType="AssetManagementModel.AssetStatus" Width="1.5" PointX="6" PointY="14.375" />
-        <EntityTypeShape EntityType="AssetManagementModel.Audit" Width="1.5" PointX="6" PointY="3.875" />
-        <EntityTypeShape EntityType="AssetManagementModel.Category" Width="1.5" PointX="0.75" PointY="7.125" />
-        <EntityTypeShape EntityType="AssetManagementModel.OrderDetail" Width="1.5" PointX="13.5" PointY="6.625" />
-        <EntityTypeShape EntityType="AssetManagementModel.Order" Width="1.5" PointX="11.25" PointY="10.875" />
-        <EntityTypeShape EntityType="AssetManagementModel.Product" Width="1.5" PointX="3" PointY="6.5" />
-        <EntityTypeShape EntityType="AssetManagementModel.Quote" Width="1.5" PointX="7.5" PointY="10.375" />
-        <EntityTypeShape EntityType="AssetManagementModel.RequestStatus" Width="1.5" PointX="3" PointY="4.125" />
-        <EntityTypeShape EntityType="AssetManagementModel.Role" Width="1.5" PointX="3" PointY="15.25" />
-        <EntityTypeShape EntityType="AssetManagementModel.Vendor" Width="1.5" PointX="8.25" PointY="2.75" />
-        <AssociationConnector Association="AssetManagementModel.FK_AssetRequest_Product" />
-        <AssociationConnector Association="AssetManagementModel.FK_AssetRequest_RequestStatus" />
-        <AssociationConnector Association="AssetManagementModel.FK_Quotes_AssetRequests" />
+        <EntityTypeShape EntityType="AssetManagementModel.Asset" Width="1.5" PointX="0.75" PointY="11.375" />
+        <EntityTypeShape EntityType="AssetManagementModel.AssetStatus" Width="1.5" PointX="1.5" PointY="22" />
+        <EntityTypeShape EntityType="AssetManagementModel.Category" Width="1.5" PointX="1.5" PointY="19" />
+        <EntityTypeShape EntityType="AssetManagementModel.Employee" Width="1.5" PointX="0.75" PointY="5.75" />
+        <EntityTypeShape EntityType="AssetManagementModel.History" Width="1.5" PointX="3" PointY="3.25" />
+        <EntityTypeShape EntityType="AssetManagementModel.OrderDetail" Width="1.5" PointX="6" PointY="18.125" />
+        <EntityTypeShape EntityType="AssetManagementModel.Order" Width="1.5" PointX="3.75" PointY="25" />
+        <EntityTypeShape EntityType="AssetManagementModel.PORequest" Width="1.5" PointX="6" PointY="5.75" />
+        <EntityTypeShape EntityType="AssetManagementModel.Product" Width="1.5" PointX="1.5" PointY="15.5" />
+        <EntityTypeShape EntityType="AssetManagementModel.Quote" Width="1.5" PointX="3.75" PointY="10.125" />
+        <EntityTypeShape EntityType="AssetManagementModel.RequestStatus" Width="1.5" PointX="3.75" PointY="0.75" />
+        <EntityTypeShape EntityType="AssetManagementModel.RoleEmployee" Width="1.5" PointX="3" PointY="6.625" />
+        <EntityTypeShape EntityType="AssetManagementModel.Role" Width="1.5" PointX="0.75" PointY="2.75" />
+        <EntityTypeShape EntityType="AssetManagementModel.Vendor" Width="1.5" PointX="1.5" PointY="25.125" />
         <AssociationConnector Association="AssetManagementModel.FK_Assets_AssetStatus" />
-        <AssociationConnector Association="AssetManagementModel.FK_Assets_Audits" />
         <AssociationConnector Association="AssetManagementModel.FK_Assets_Product" />
+        <AssociationConnector Association="AssetManagementModel.FK_History_Assets" />
         <AssociationConnector Association="AssetManagementModel.FK_OrderDetail_Assets" />
         <AssociationConnector Association="AssetManagementModel.FK_Product_Category" />
+        <AssociationConnector Association="AssetManagementModel.FK_AssetRequest_Personel" />
+        <AssociationConnector Association="AssetManagementModel.FK_Histories_Employees" />
+        <AssociationConnector Association="AssetManagementModel.FK_RoleEmployees_Employees" />
         <AssociationConnector Association="AssetManagementModel.FK_OrderDetail_Order" />
         <AssociationConnector Association="AssetManagementModel.FK_Order_Vendor" />
-        <EntityTypeShape EntityType="AssetManagementModel.Employee" Width="1.5" PointX="0.75" PointY="2.375" />
-        <EntityTypeShape EntityType="AssetManagementModel.RoleEmployee" Width="1.5" PointX="9" PointY="14.75" />
-        <AssociationConnector Association="AssetManagementModel.FK_AssetRequest_Personel1" />
-        <AssociationConnector Association="AssetManagementModel.FK_RoleEmployees_Employees" />
-        <AssociationConnector Association="AssetManagementModel.FK_RolePersonnel_Role1" />
-        <EntityTypeShape EntityType="AssetManagementModel.History" Width="1.5" PointX="10.5" PointY="4.625" />
-        <AssociationConnector Association="AssetManagementModel.FK_History_Assets" />
-        <AssociationConnector Association="AssetManagementModel.FK_Histories_Employees" />
+        <AssociationConnector Association="AssetManagementModel.FK_PORequest_Orders" />
+        <AssociationConnector Association="AssetManagementModel.FK_AssetRequest_Product" />
+        <AssociationConnector Association="AssetManagementModel.FK_AssetRequest_RequestStatus" />
+        <AssociationConnector Association="AssetManagementModel.FK_PORequest_Quotes" />
+        <AssociationConnector Association="AssetManagementModel.FK_RolePersonnel_Role" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

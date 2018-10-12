@@ -15,5 +15,27 @@
             WrongPassword,
             Succsess
         }
+
+        public enum CategoryName
+        {
+            Chair,
+            Keyboard,
+            Mouse,
+            PC,
+            Printer,
+            Screen
+        }
+
+        public enum AddEntityStatus
+        {
+            Success,
+            Failed
+        }
+
+        public enum UpdateEntityStatus
+        {
+            Success,
+            Failed
+        }
     }
 }

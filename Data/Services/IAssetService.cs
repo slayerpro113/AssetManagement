@@ -6,6 +6,6 @@ namespace Data.Services
     public interface IAssetService : IBaseService<Asset>
     {
         IList<Asset> GetAssets();
-        int CountAsset(int productId);
+        void SetAssetStatus(int assetId, int statusId);
     }
 }

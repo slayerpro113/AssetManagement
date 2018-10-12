@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Web;
+using Data.Utilities.Enumeration;
 
 namespace Service
 {
@@ -25,10 +26,10 @@ namespace Service
             var products = _productRepository.GetProductsByCategoryId(categoryId);
             foreach (var product in products)
             {
-               
                 string path = HttpContext.Current.Server.MapPath("~/Image/Categories/" + product.Image);
                 product.ImageBytes = File.ReadAllBytes(path);
             }
+
             return products;
         }
 
@@ -47,51 +48,45 @@ namespace Service
         public Product HandleImage(Product product)
         {
             byte[] imageBytes = product.ImageBytes;
-            string category = Category(product.CategoryID);
+            Enumerations.CategoryName category = Category(product.CategoryID);
 
             using (var ms = new MemoryStream(imageBytes))
             {
                 using (var image = Image.FromStream(ms))
                 {
-                    image.Save(HttpContext.Current.Server.MapPath("~/Image/Categories/" + category + "/" + category + product.ProductName + ".jpg"), ImageFormat.Jpeg);
+                    image.Save(HttpContext.Current.Server.MapPath("~/Image/Categories/" + category + "/" + category + product.ProductID + ".jpg"), ImageFormat.Jpeg);
                 }
             }
-            product.Image = category + "/" + category + product.ProductName + ".jpg";
+            product.Image = category + "/" + category + product.ProductID + ".jpg";
 
             return product;
         }
 
-        public string Category(int categoryId)
+        public Enumerations.CategoryName Category(int categoryId)
         {
             if (categoryId == 1)
-            {
-                string category = "Chair";
-                return category;
+            {              
+                return Enumerations.CategoryName.Chair;
             }
             else if (categoryId == 2)
             {
-                string category = "Keyboard";
-                return category;
+                return Enumerations.CategoryName.Keyboard;
             }
             else if (categoryId == 3)
             {
-                string category = "Mouse";
-                return category;
+                return Enumerations.CategoryName.Mouse;
             }
             else if (categoryId == 4)
             {
-                string category = "PC";
-                return category;
+                return Enumerations.CategoryName.PC;
             }
             else if (categoryId == 5)
             {
-                string category = "Printer";
-                return category;
+                return Enumerations.CategoryName.Printer;
             }
             else
             {
-                string category = "Screen";
-                return category;
+                return Enumerations.CategoryName.Screen;
             }
         }
     }

@@ -17,13 +17,13 @@ namespace Data.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public RequestStatus()
         {
-            this.AssetRequests = new HashSet<AssetRequest>();
+            this.PORequests = new HashSet<PORequest>();
         }
     
         public int RequestStatusID { get; set; }
         public string StatusName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AssetRequest> AssetRequests { get; set; }
+        public virtual ICollection<PORequest> PORequests { get; set; }
     }
 }

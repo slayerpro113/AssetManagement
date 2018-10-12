@@ -17,8 +17,8 @@ namespace Data.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
         {
-            this.AssetRequests = new HashSet<AssetRequest>();
             this.Assets = new HashSet<Asset>();
+            this.PORequests = new HashSet<PORequest>();
         }
     
         public int ProductID { get; set; }
@@ -29,9 +29,9 @@ namespace Data.Entities
         public string Image { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AssetRequest> AssetRequests { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Asset> Assets { get; set; }
         public virtual Category Category { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PORequest> PORequests { get; set; }
     }
 }

@@ -1,0 +1,37 @@
+﻿@model IList<Data.Entities.Employee>
+
+@Html.DevExpress().ComboBox(settings => {
+    settings.Name = "ComboBox";
+    settings.Width = Unit.Pixel(285);
+    settings.Properties.NullText = "Select Employee...";
+    settings.CallbackRouteValues = new { Controller = "Asset", Action = "LoadDataCbb" };
+    settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+    settings.ShowModelErrors = true;
+    settings.SetItemTemplateContent((container) => {
+        ViewContext.Writer.Write(
+            "<table id='employeePopup'>" +
+                "<tr>" +
+                    "<td rowspan='2'><div class='frame'><img class='photo' alt='photo' src='/Image/" + Url.Content(DataBinder.Eval(container.DataItem, "Image").ToString()) + "' /></div></td>" +
+                    "<td class='name'>" +DataBinder.Eval(container.DataItem, "FullName") +"</td>" +
+                "</tr>" +
+                "<tr>" +
+                    "<td class='description'>" +
+                    "<div class='contactInfo'>" +
+                    DataBinder.Eval(container.DataItem, "Address") + "<br />" +
+                    DataBinder.Eval(container.DataItem, "Phone") +
+                    "</div>" +
+                    DataBinder.Eval(container.DataItem, "Email") +
+                    "</td>" +
+                "</tr>" +
+            "</table>"
+            );
+    });
+
+    var properties = settings.Properties;
+    properties.TextField = "FullName";
+    properties.ValueField = "EmployeeID";
+    properties.DropDownRows = 3;
+    properties.CallbackPageSize = 3;
+    properties.ItemStyle.SelectedStyle.CssClass = "selectedItem";
+    properties.ItemStyle.HoverStyle.CssClass = "hoveredItem";
+}).BindList(Model).Bind(ViewData["ComboBox"]).GetHtml()

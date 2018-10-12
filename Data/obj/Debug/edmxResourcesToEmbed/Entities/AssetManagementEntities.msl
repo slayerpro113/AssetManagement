@@ -1,27 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="AssetManagementModelStoreContainer" CdmEntityContainer="AssetManagementEntities">
-    <EntitySetMapping Name="AssetRequests">
-      <EntityTypeMapping TypeName="AssetManagementModel.AssetRequest">
-        <MappingFragment StoreEntitySet="AssetRequests">
-          <ScalarProperty Name="RequestStatusID" ColumnName="RequestStatusID" />
-          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-          <ScalarProperty Name="PersonnelID" ColumnName="PersonnelID" />
-          <ScalarProperty Name="Purpose" ColumnName="Purpose" />
-          <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
-          <ScalarProperty Name="AssetRequestID" ColumnName="AssetRequestID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Assets">
       <EntityTypeMapping TypeName="AssetManagementModel.Asset">
         <MappingFragment StoreEntitySet="Assets">
+          <ScalarProperty Name="MonthDepreciation" ColumnName="MonthDepreciation" />
           <ScalarProperty Name="AssetStatusID" ColumnName="AssetStatusID" />
           <ScalarProperty Name="AssetServiceID" ColumnName="AssetServiceID" />
           <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="warranty" ColumnName="warranty" />
           <ScalarProperty Name="Barcode" ColumnName="Barcode" />
-          <ScalarProperty Name="AuditID" ColumnName="AuditID" />
-          <ScalarProperty Name="CurrentPrice" ColumnName="CurrentPrice" />
           <ScalarProperty Name="AssetID" ColumnName="AssetID" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -34,20 +22,39 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Audits">
-      <EntityTypeMapping TypeName="AssetManagementModel.Audit">
-        <MappingFragment StoreEntitySet="Audits">
-          <ScalarProperty Name="AssetID" ColumnName="AssetID" />
-          <ScalarProperty Name="Audit1" ColumnName="Audit" />
-          <ScalarProperty Name="AuditID" ColumnName="AuditID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Categories">
       <EntityTypeMapping TypeName="AssetManagementModel.Category">
         <MappingFragment StoreEntitySet="Categories">
           <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
           <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employees">
+      <EntityTypeMapping TypeName="AssetManagementModel.Employee">
+        <MappingFragment StoreEntitySet="Employees">
+          <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Histories">
+      <EntityTypeMapping TypeName="AssetManagementModel.History">
+        <MappingFragment StoreEntitySet="Histories">
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="AssetID" ColumnName="AssetID" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Checkin_Date" ColumnName="Checkin_Date" />
+          <ScalarProperty Name="Checkout_Date" ColumnName="Checkout_Date" />
+          <ScalarProperty Name="HistoryID" ColumnName="HistoryID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -69,7 +76,21 @@
           <ScalarProperty Name="VendorID" ColumnName="VendorID" />
           <ScalarProperty Name="PurchaseDate" ColumnName="PurchaseDate" />
           <ScalarProperty Name="OrderTotal" ColumnName="OrderTotal" />
-          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PORequests">
+      <EntityTypeMapping TypeName="AssetManagementModel.PORequest">
+        <MappingFragment StoreEntitySet="PORequest">
+          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+          <ScalarProperty Name="QuoteID" ColumnName="QuoteID" />
+          <ScalarProperty Name="RequestStatusID" ColumnName="RequestStatusID" />
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="AssetRequestID" ColumnName="AssetRequestID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -88,14 +109,10 @@
     <EntitySetMapping Name="Quotes">
       <EntityTypeMapping TypeName="AssetManagementModel.Quote">
         <MappingFragment StoreEntitySet="Quotes">
-          <ScalarProperty Name="AssetRequestID" ColumnName="AssetRequestID" />
           <ScalarProperty Name="VendorName" ColumnName="VendorName" />
           <ScalarProperty Name="Price" ColumnName="Price" />
-          <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
           <ScalarProperty Name="Warranty" ColumnName="Warranty" />
-          <ScalarProperty Name="Brand" ColumnName="Brand" />
           <ScalarProperty Name="Note" ColumnName="Note" />
-          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
           <ScalarProperty Name="QuoteID" ColumnName="QuoteID" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -105,6 +122,15 @@
         <MappingFragment StoreEntitySet="RequestStatuses">
           <ScalarProperty Name="StatusName" ColumnName="StatusName" />
           <ScalarProperty Name="RequestStatusID" ColumnName="RequestStatusID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RoleEmployees">
+      <EntityTypeMapping TypeName="AssetManagementModel.RoleEmployee">
+        <MappingFragment StoreEntitySet="RoleEmployees">
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="RoleEmployeeID" ColumnName="RoleEmployeeID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -124,43 +150,6 @@
           <ScalarProperty Name="Phone" ColumnName="Phone" />
           <ScalarProperty Name="VendorName" ColumnName="VendorName" />
           <ScalarProperty Name="VendorID" ColumnName="VendorID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Employees">
-      <EntityTypeMapping TypeName="AssetManagementModel.Employee">
-        <MappingFragment StoreEntitySet="Employees">
-          <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
-          <ScalarProperty Name="Password" ColumnName="Password" />
-          <ScalarProperty Name="UserName" ColumnName="UserName" />
-          <ScalarProperty Name="Address" ColumnName="Address" />
-          <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
-          <ScalarProperty Name="Phone" ColumnName="Phone" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="FullName" ColumnName="FullName" />
-          <ScalarProperty Name="Image" ColumnName="Image" />
-          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="RoleEmployees">
-      <EntityTypeMapping TypeName="AssetManagementModel.RoleEmployee">
-        <MappingFragment StoreEntitySet="RoleEmployees">
-          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
-          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-          <ScalarProperty Name="RoleEmployeeID" ColumnName="RoleEmployeeID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Histories">
-      <EntityTypeMapping TypeName="AssetManagementModel.History">
-        <MappingFragment StoreEntitySet="Histories">
-          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-          <ScalarProperty Name="AssetID" ColumnName="AssetID" />
-          <ScalarProperty Name="Comment" ColumnName="Comment" />
-          <ScalarProperty Name="Checkin_Date" ColumnName="Checkin_Date" />
-          <ScalarProperty Name="Checkout_Date" ColumnName="Checkout_Date" />
-          <ScalarProperty Name="HistoryID" ColumnName="HistoryID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

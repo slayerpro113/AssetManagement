@@ -1,10 +1,9 @@
 ﻿using Data.Entities;
-using Data.Utilities;
 using Data.Utilities.Enumeration;
 using System.Web;
 using System.Web.Mvc;
 
-namespace AssetManagement.Helper
+namespace Data.Utilities
 {
     public class PermissionLogin : ActionFilterAttribute
     {

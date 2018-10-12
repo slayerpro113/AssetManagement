@@ -95,13 +95,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AssetManagementEntities.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Entities\AssetRequest.cs">
-      <DependentUpon>AssetManagementEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="Entities\AssetStatus.cs">
-      <DependentUpon>AssetManagementEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Audit.cs">
       <DependentUpon>AssetManagementEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Category.cs">
@@ -117,6 +111,9 @@
       <DependentUpon>AssetManagementEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\OrderDetail.cs">
+      <DependentUpon>AssetManagementEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\PORequest.cs">
       <DependentUpon>AssetManagementEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Product.cs">
@@ -151,6 +148,7 @@
     <Compile Include="Utilities\Constant.cs" />
     <Compile Include="Utilities\Encryptor.cs" />
     <Compile Include="Utilities\Enumeration\Enumerations.cs" />
+    <Compile Include="Utilities\PermissionLogin.cs" />
     <Compile Include="Utilities\SessionHelper.cs" />
   </ItemGroup>
   <ItemGroup>

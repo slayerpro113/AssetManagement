@@ -1,0 +1,48 @@
+﻿@model Data.Entities.Asset
+<table class="table table-bordered">
+    <tbody>
+    <tr>
+        <th colspan="5" style="text-align: center">Asset Details</th>
+    </tr>
+    <tr>
+        <td rowspan="4" style="width: 99px">
+            @Html.DevExpress().Image(settings =>
+            {
+                settings.ImageUrl = "/Image/Categories/" + @Model.AssetImage;
+                settings.Width = 99;
+                settings.Height = 120;
+                settings.ControlStyle.CssClass = "image";
+                settings.Properties.EnableClientSideAPI = true;
+            }).GetHtml()
+        </td>
+
+    </tr>
+    <tr>
+        <td>Name</td>
+        <td colspan="3">
+            @Model.AssetName
+        </td>
+    </tr>
+    <tr>
+        <td>Type</td>
+        <td>
+            @Model.AssetCategory
+        </td>
+        <td>Brand</td>
+        <td>
+            @Model.AssetBrand
+        </td>
+    </tr>
+    <tr>
+        <td>Depreciation</td>
+        <td>
+            Nothing
+        </td>
+        <td>Depreciation</td>
+        <td>
+            Nothing
+        </td>
+    </tr>
+    </tbody>
+</table>
+

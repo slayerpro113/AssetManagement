@@ -179,6 +179,8 @@
     <Content Include="Content\Images\RedWineHeader.jpg" />
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\jquery-ui.min.css" />
+    <Content Include="Content\ManageAsset\manage-asset.css" />
+    <Content Include="Content\PORequest\PORequest.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
@@ -213,13 +215,13 @@
     <Content Include="Image\Employees\Manager.jpg" />
     <Content Include="Image\icon.co.png" />
     <Content Include="Image\Employees\HoVanAnhQuoc.JPG" />
-    <Content Include="LoginCss\background1.jpg" />
-    <Content Include="LoginCss\style.css" />
+    <Content Include="Content\LoginCss\background1.jpg" />
+    <Content Include="Content\LoginCss\style.css" />
     <Content Include="Scripts\ace.js" />
     <Content Include="Scripts\additional-methods.js" />
     <Content Include="Scripts\additional-methods.min.js" />
-    <Content Include="Scripts\app\layout.js" />
     <Content Include="Scripts\app\login.js" />
+    <Content Include="Scripts\app\manage-asset.js" />
     <Content Include="Scripts\cldr.event.js" />
     <Content Include="Scripts\cldr.js" />
     <Content Include="Scripts\cldr.supplemental.js" />
@@ -705,8 +707,14 @@
     <Content Include="vendors\nprogress\Readme.md" />
     <Content Include="Views\Asset\Index.cshtml" />
     <Content Include="Views\Asset\_AssetPartial.cshtml" />
-    <Content Include="Views\Asset\_MasterDetailPartial.cshtml" />
+    <Content Include="Views\Asset\_AssetHistorieslPartial.cshtml" />
     <Content Include="Views\Product\_ProductPartial.cshtml" />
+    <Content Include="Views\Asset\_ComboboxPartial.cshtml" />
+    <Content Include="Views\Asset\_OwnerDetailPartial.cshtml" />
+    <Content Include="Views\Asset\_AssetDetailPartial.cshtml" />
+    <Content Include="Views\PORequest\Index.cshtml" />
+    <Content Include="Views\PORequest\_CbbProductPartial.cshtml" />
+    <Content Include="Views\PORequest\_CbbCategoryPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -723,15 +731,12 @@
     <Compile Include="Controllers\AssetController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\PORequestController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helper\PermissionLogin.cs" />
-    <Compile Include="Helper\Validation.cs" />
     <Compile Include="Models\LoginModel.cs" />
-    <Compile Include="Models\NorthwindContext.cs" />
-    <Compile Include="Models\NorthwindDataProvider.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AutoMapper\AutoMapperConfiguration.cs" />
@@ -753,9 +758,7 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Category\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -1,0 +1,18 @@
+﻿
+@model IList<Data.Entities.Category>
+
+@Html.DevExpress().ComboBox(settings => {
+    settings.Name = "ComboBoxCategory";
+    settings.Width = Unit.Pixel(240);
+    settings.Properties.NullText = "Select Product...";
+    
+    var properties = settings.Properties;
+    properties.TextField = "CategoryName";
+    properties.ValueField = "CategoryID";
+    properties.DropDownRows = 5;
+    properties.ItemStyle.SelectedStyle.CssClass = "selectedItem";
+    properties.ItemStyle.HoverStyle.CssClass = "hoveredItem";
+    properties.ClientSideEvents.SelectedIndexChanged = "OnSelectedCountryChanged";
+
+}).BindList(Model).Bind(ViewData["ComboBoxCategory"]).GetHtml()
+

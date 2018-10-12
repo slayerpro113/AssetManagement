@@ -19,7 +19,6 @@ namespace AssetManagement.Controllers
             _roleService = roleService;
         }
 
-        // GET: Login
         [AllowAnonymous]
         public ActionResult Login()
         {
