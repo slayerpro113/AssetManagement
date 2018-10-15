@@ -33,7 +33,7 @@ namespace Service
 
                 return Enumerations.AddEntityStatus.Success;
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 return Enumerations.AddEntityStatus.Failed;
             }

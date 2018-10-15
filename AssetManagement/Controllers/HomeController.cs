@@ -4,7 +4,7 @@ using Data.Utilities;
 
 namespace AssetManagement.Controllers
 {
-    [PermissionLogin]
+    //[PermissionLogin]
     public class HomeController : Controller
     {
         private readonly ICategoryService _categoryService;

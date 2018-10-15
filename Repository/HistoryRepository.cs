@@ -15,7 +15,7 @@ namespace Repository
 
         public static History GetHistoryByAssetId(this IRepository<History> repository, int assetId)
         {
-            var history = repository.Entity.FirstOrDefault(_ => _.AssetID == assetId && _.Checkout_Date == null);
+            var history = repository.Entity.FirstOrDefault(_ => _.AssetID == assetId && _.CheckoutDate == null);
             return history;
         }
     }

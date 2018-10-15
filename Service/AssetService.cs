@@ -29,7 +29,7 @@ namespace Service
                 string path = HttpContext.Current.Server.MapPath("~/Image/Categories/" + asset.AssetImage);
                 asset.AssetImageBytes = File.ReadAllBytes(path);
 
-                var history = asset.Histories.FirstOrDefault(_ => _.Checkout_Date == null);
+                var history = asset.Histories.FirstOrDefault(_ => _.CheckoutDate == null);
                 if (history != null)
                 {
                     asset.EmployeeId = history.Employee.EmployeeID;

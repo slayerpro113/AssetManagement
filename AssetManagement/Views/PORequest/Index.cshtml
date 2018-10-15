@@ -4,9 +4,9 @@
 @{
     Layout = "~/Views/Shared/_Layouts.cshtml";
 }
-@{
+@*@{
     var userSession = (Employee)SessionHelper.GetSessionValue(Constant.UserSession);
-}
+}*@
 @Html.DevExpress().GetStyleSheets(
     new StyleSheet { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
     new StyleSheet { ExtensionSuite = ExtensionSuite.GridView },
@@ -49,7 +49,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-3 ">Full Name: </label>
                             <div class="col-md-6 col-sm-9 col-xs-9">
-                                <input type="text" class="form-control has-feedback-left" value="@userSession.FullName" readonly="readonly">
+                                @*<input type="text" class="form-control has-feedback-left" value="@userSession.FullName" readonly="readonly">*@
                                 <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                             </div>
                         </div>
@@ -57,7 +57,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-3">Email: </label>
                             <div class="col-md-6 col-sm-9 col-xs-9">
-                                <input type="text" class="form-control has-feedback-left" value="@userSession.Email" readonly="readonly">
+                                @*<input type="text" class="form-control has-feedback-left" value="@userSession.Email" readonly="readonly">*@
                                 <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
                             </div>
                         </div>
@@ -110,9 +110,9 @@
             $("#message").html("Please, select a device !");
         }
 
-        $.ajax({
+        @*$.ajax({
             type: 'Post',
-            url: "/PORequest/HandlePoRequest?productId=" + productId + "&employeeId=" + @userSession.EmployeeID + "&description=" + $("#description").val(),
+            //url: "/PORequest/HandlePoRequest?productId=" + productId + "&employeeId=" + @userSession.EmployeeID + "&description=" + $("#description").val(),
             dataType: 'json',
             success: function (data) {
 
@@ -123,6 +123,6 @@
                     $("#errorMessage").html("Please Try again!");
                 }
             }
-        });
+        });*@
     }
 </script>

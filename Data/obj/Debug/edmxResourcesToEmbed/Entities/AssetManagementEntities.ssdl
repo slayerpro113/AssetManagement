@@ -6,7 +6,7 @@
     </Key>
     <Property Name="AssetID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Barcode" Type="nvarchar" MaxLength="100" />
-    <Property Name="warranty" Type="int" />
+    <Property Name="Warranty" Type="int" />
     <Property Name="ProductID" Type="int" Nullable="false" />
     <Property Name="AssetServiceID" Type="int" />
     <Property Name="AssetStatusID" Type="int" Nullable="false" />
@@ -46,8 +46,8 @@
       <PropertyRef Name="HistoryID" />
     </Key>
     <Property Name="HistoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Checkout_Date" Type="date" />
-    <Property Name="Checkin_Date" Type="date" />
+    <Property Name="CheckoutDate" Type="date" />
+    <Property Name="CheckinDate" Type="date" />
     <Property Name="Remark" Type="nvarchar" MaxLength="100" />
     <Property Name="AssetID" Type="int" Nullable="false" />
     <Property Name="EmployeeID" Type="int" Nullable="false" />

@@ -8,7 +8,7 @@
           <ScalarProperty Name="AssetStatusID" ColumnName="AssetStatusID" />
           <ScalarProperty Name="AssetServiceID" ColumnName="AssetServiceID" />
           <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-          <ScalarProperty Name="warranty" ColumnName="warranty" />
+          <ScalarProperty Name="Warranty" ColumnName="Warranty" />
           <ScalarProperty Name="Barcode" ColumnName="Barcode" />
           <ScalarProperty Name="AssetID" ColumnName="AssetID" />
         </MappingFragment>
@@ -52,8 +52,8 @@
           <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
           <ScalarProperty Name="AssetID" ColumnName="AssetID" />
           <ScalarProperty Name="Remark" ColumnName="Remark" />
-          <ScalarProperty Name="Checkin_Date" ColumnName="Checkin_Date" />
-          <ScalarProperty Name="Checkout_Date" ColumnName="Checkout_Date" />
+          <ScalarProperty Name="CheckinDate" ColumnName="CheckinDate" />
+          <ScalarProperty Name="CheckoutDate" ColumnName="CheckoutDate" />
           <ScalarProperty Name="HistoryID" ColumnName="HistoryID" />
         </MappingFragment>
       </EntityTypeMapping>

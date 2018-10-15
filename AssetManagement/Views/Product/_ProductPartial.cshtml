@@ -19,8 +19,7 @@
     settings.SettingsText.CommandBatchEditCancel = "Cancel";
 
 
-    if(roleSession.RoleName == Enumerations.Roles.Manager.ToString())
-    {
+   
         settings.Toolbars.Add(toolbar =>
         {
             toolbar.Enabled = true;
@@ -31,7 +30,7 @@
             toolbar.Items.Add(GridViewToolbarCommand.Delete);
 
         });
-    }
+    
    
 
     settings.Columns.Add(c =>

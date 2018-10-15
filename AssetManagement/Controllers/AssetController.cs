@@ -6,8 +6,8 @@ using Data.Utilities.Enumeration;
 
 namespace AssetManagement.Controllers
 {
-    [PermissionLogin]
-    [RolePermission(Enumerations.Roles.Manager)]
+    //[PermissionLogin]
+    //[RolePermission(Enumerations.Roles.Manager)]
     public class AssetController : Controller
     {
         private readonly IAssetService _assetService;
@@ -34,7 +34,7 @@ namespace AssetManagement.Controllers
             return View("_AssetPartial", assets);
         }
 
-        [RolePermission(Enumerations.Roles.Manager)]
+        //[RolePermission(Enumerations.Roles.Manager)]
         public ActionResult ShowHistories(int assetId)
         {
             ViewBag.AssetID = assetId;
@@ -48,7 +48,7 @@ namespace AssetManagement.Controllers
             return PartialView("_ComboboxPartial", employees);
         }
 
-        [RolePermission(Enumerations.Roles.Manager)]
+        //[RolePermission(Enumerations.Roles.Manager)]
         [HttpPost]
         public ActionResult AssignAsset(int assetId, int employeeId)
         {
@@ -66,7 +66,7 @@ namespace AssetManagement.Controllers
             }
         }
 
-        [RolePermission(Enumerations.Roles.Manager)]
+        //[RolePermission(Enumerations.Roles.Manager)]
         [HttpPost]
         public ActionResult RecallAsset(int assetId, string remark)
         {

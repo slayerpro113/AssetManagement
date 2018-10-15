@@ -16,6 +16,50 @@
     @Html.Action("GetProducts", new { categoryId = (int)ViewBag.CategoryId });
 }
 
+<script>
+    $(".chair").click(function () {
+        getProducts(chair);
+    });
+    $(".keyboard").click(function () {
+        getProducts(keyboard);
+    });
+    $(".mouse").click(function () {
+        getProducts(mouse);
+    });
+    $(".pc").click(function () {
+        getProducts(pc);
+    });
+    $(".printer").click(function () {
+        getProducts(printer);
+    });
+    $(".screen").click(function () {
+        getProducts(screen);
+    });
 
+    function getProducts(type) {
+        var categoryId;
+        if (type === "chair") {
+            categoryId = 1;
+        } else if (type === "keyboard") {
+            categoryId = 2;
+        } else if (type === "mouse") {
+            categoryId = 3;
+        }
+        else if (type === "pc") {
+            categoryId = 5;
+        }
+        else if (type === "printer") {
+            categoryId = 5;
+        }
+        else {
+            categoryId = 6;
+        }
+
+        $.ajax({
+            type: 'Post',
+            url: "Product/Login?categoryId=" + categoryId,            
+        });
+    }
+</script>
 
 

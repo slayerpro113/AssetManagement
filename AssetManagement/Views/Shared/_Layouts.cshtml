@@ -24,10 +24,10 @@
     <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
 
 </head>
-@{
+@*@{
     var userSession = (Employee)SessionHelper.GetSessionValue(Constant.UserSession);
     var roleSession = (Role)SessionHelper.GetSessionValue(Constant.RoleSession);
-}
+}*@
 <body class="nav-md">
     <div class="container body">
         <div class="main_container">
@@ -42,11 +42,11 @@
                     <!-- menu profile quick info -->
                     <div class="profile clearfix">
                         <div class="profile_pic">
-                            <img src="~/Image/@userSession.Image" alt="..." class="img-circle profile_img">
+                           @* <img src="~/Image/@userSession.Image" alt="..." class="img-circle profile_img">*@
                         </div>
                         <div class="profile_info">
                             <span>Welcome,</span>
-                            <h2>@userSession.FullName</h2>
+                           @* <h2>@userSession.FullName</h2>*@
                         </div>
                     </div>
                     <!-- /menu profile quick info -->
@@ -58,45 +58,43 @@
                             <ul class="nav side-menu" style="">
                                 <li>
                                     <a><i class="fa fa-desktop"></i> Category <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="/Product/Index?categoryId=1">Chair</a></li>
-                                        <li><a href="/Product/Index?categoryId=2">Keyboard</a></li>
-                                        <li><a href="/Product/Index?categoryId=3">Mouse</a></li>
-                                        <li><a href="/Product/Index?categoryId=4">PC</a></li>
-                                        <li><a href="/Product/Index?categoryId=5">Printer</a></li>
-                                        <li><a href="/Product/Index?categoryId=6">Screen</a></li>
-                                    </ul>
+                                    
+                                        <li><button class="chair" >Chair</button></li>
+                                        <li><button class="keyboard" >Keyboard</button></li>
+                                        <li><button class="mouse" >Mouse</button></li>
+                                        <li><button class="pc" >PC</button></li>
+                                        <li><button class="printer">Printer</button></li>
+                                        <li><button class="screen" >Screen</button></li>
+                                   
+                                </li>
+                                @*@if (roleSession.RoleName == "Manager")
+        {
+
+        }*@
+                                <li>
+                                    <a href="/Asset/Index"><i class="fa fa-table"></i> Manage Assets <span class="fa fa-chevron-down"></span></a>
                                 </li>
 
-                                @if (roleSession.RoleName == "Manager")
-                                {
-                                    <li>
-                                        <a href="/Asset/Index"><i class="fa fa-table"></i> Manage Assets <span class="fa fa-chevron-down"></span></a>
-                                    </li>
-                                }
+                                <li>
+                                    <a><i class="fa fa-bar-chart-o"></i> Report <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="chartjs.html">Chart JS</a></li>
+                                        <li><a href="chartjs2.html">Chart JS2</a></li>
+                                        <li><a href="morisjs.html">Moris JS</a></li>
+                                        <li><a href="echarts.html">ECharts</a></li>
+                                        <li><a href="other_charts.html">Other Charts</a></li>
+                                    </ul>
+                                </li>
+                                @*@if (roleSession.RoleName == "Manager")
+        {
 
-
-                                @if (roleSession.RoleName == "Manager")
-                                {
-                                    <li>
-                                        <a><i class="fa fa-bar-chart-o"></i> Report <span class="fa fa-chevron-down"></span></a>
-                                        <ul class="nav child_menu">
-                                            <li><a href="chartjs.html">Chart JS</a></li>
-                                            <li><a href="chartjs2.html">Chart JS2</a></li>
-
-                                            <li><a href="morisjs.html">Moris JS</a></li>
-                                            <li><a href="echarts.html">ECharts</a></li>
-                                            <li><a href="other_charts.html">Other Charts</a></li>
-                                        </ul>
-                                    </li>
-                                }
+        }*@
 
 
                                 @* @if (roleSession.RoleName == "Manager")
-                                    {
+        {
 
-                                    }*@
-
+        }*@
 
                                 <li>
                                     <a><i class="fa fa-edit"></i>Purchase Order Request <span class="fa fa-chevron-down"></span></a>
@@ -109,17 +107,18 @@
                                     </ul>
                                 </li>
 
-                                @if (roleSession.RoleName == "Manager" || roleSession.RoleName == "User" && userSession.JobTitle == "Accountant")
-                                {
-                                    <li>
-                                        <a><i class="fa fa-truck"></i> Vendors <span class="fa fa-chevron-down"></span></a>
-                                        <ul class="nav child_menu">
-                                            <li><a href="tables.html">Tables</a></li>
-                                            <li><a href="tables_dynamic.html">Table Dynamic</a></li>
-                                        </ul>
-                                    </li>
-                                }
 
+                                <li>
+                                    <a><i class="fa fa-truck"></i> Vendors <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="tables.html">Tables</a></li>
+                                        <li><a href="tables_dynamic.html">Table Dynamic</a></li>
+                                    </ul>
+                                </li>
+                                @*@if (roleSession.RoleName == "Manager" || roleSession.RoleName == "User" && userSession.JobTitle == "Accountant")
+                                {
+
+                                }*@
                             </ul>
                         </div>
 
@@ -140,7 +139,7 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li class="">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="~/Image/@userSession.Image" alt="...">@userSession.FullName
+                                    @*<img src="~/Image/@userSession.Image" alt="...">@userSession.FullName*@
                                     <span class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">

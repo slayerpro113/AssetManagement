@@ -82,7 +82,7 @@
     </Key>
     <Property Name="AssetID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Barcode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="warranty" Type="Int32" />
+    <Property Name="Warranty" Type="Int32" />
     <Property Name="ProductID" Type="Int32" Nullable="false" />
     <Property Name="AssetServiceID" Type="Int32" />
     <Property Name="AssetStatusID" Type="Int32" Nullable="false" />
@@ -131,8 +131,8 @@
       <PropertyRef Name="HistoryID" />
     </Key>
     <Property Name="HistoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Checkout_Date" Type="DateTime" Precision="0" />
-    <Property Name="Checkin_Date" Type="DateTime" Precision="0" />
+    <Property Name="CheckoutDate" Type="DateTime" Precision="0" />
+    <Property Name="CheckinDate" Type="DateTime" Precision="0" />
     <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="AssetID" Type="Int32" Nullable="false" />
     <Property Name="EmployeeID" Type="Int32" Nullable="false" />

@@ -31,14 +31,14 @@ namespace Service
             try
             {
                 DateTime today = DateTime.Now.Date;
-                history.Checkin_Date = today;
+                history.CheckinDate = today;
                 history.EmployeeID = employeeId;
                 history.AssetID = assetId;
                 AddEntity(history);
 
                 return Enumerations.AddEntityStatus.Success;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return Enumerations.AddEntityStatus.Failed;
             }           
@@ -51,7 +51,7 @@ namespace Service
             try
             {
                 DateTime today = DateTime.Now.Date;
-                history.Checkout_Date = today;
+                history.CheckoutDate = today;
                 history.Remark = remark;
                 UpdateEntity(history);
 

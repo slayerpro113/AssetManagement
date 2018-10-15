@@ -11,7 +11,7 @@ using Data.Utilities.Enumeration;
 
 namespace AssetManagement.Controllers
 {
-    [PermissionLogin]
+   // [PermissionLogin]
     public class ProductController : Controller
     {
         private readonly IProductService _productService;
@@ -34,7 +34,7 @@ namespace AssetManagement.Controllers
             return View("_ProductPartial", products);
         }
 
-        [RolePermission(Enumerations.Roles.Manager)]
+        //[RolePermission(Enumerations.Roles.Manager)]
         [HttpPost, ValidateInput(false)]
         public ActionResult AddProduct(Product product, int categoryId)
         {
@@ -42,7 +42,7 @@ namespace AssetManagement.Controllers
             {
                 _productService.AddProduct(product);
             }
-            catch (Exception e)
+            catch (Exception )
             {
                 ViewData["EditError"] = "Please, Enter Your Information again.";
             }
@@ -50,7 +50,7 @@ namespace AssetManagement.Controllers
             return GetProducts(categoryId);
         }
 
-        [RolePermission(Enumerations.Roles.Manager)]
+       // [RolePermission(Enumerations.Roles.Manager)]
         [HttpPost, ValidateInput(false)]
         public ActionResult UpdateProduct(Product product, int categoryId)
         {
@@ -58,7 +58,7 @@ namespace AssetManagement.Controllers
             {
                 _productService.UpdateProduct(product);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 ViewData["EditError"] = "Please, Enter Your Information again.";
             }
@@ -66,7 +66,7 @@ namespace AssetManagement.Controllers
             return GetProducts(categoryId);
         }
 
-        [RolePermission(Enumerations.Roles.Manager)]
+        //[RolePermission(Enumerations.Roles.Manager)]
         public ActionResult DeleteProduct(int productId, int categoryId)
         {
             _productService.DeleteEntity(productId);

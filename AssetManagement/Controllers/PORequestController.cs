@@ -5,7 +5,7 @@ using Data.Utilities.Enumeration;
 
 namespace AssetManagement.Controllers
 {
-    [PermissionLogin]
+    //[PermissionLogin]
     public class PORequestController : Controller
     {
         private readonly IProductService _productService;

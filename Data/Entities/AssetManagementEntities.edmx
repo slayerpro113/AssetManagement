@@ -485,6 +485,7 @@
           </Key>
           <Property Name="AssetID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Barcode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Warranty" Type="Int32" />
           <Property Name="ProductID" Type="Int32" Nullable="false" />
           <Property Name="AssetServiceID" Type="Int32" />
           <Property Name="AssetStatusID" Type="Int32" Nullable="false" />
@@ -493,7 +494,6 @@
           <NavigationProperty Name="Product" Relationship="AssetManagementModel.FK_Assets_Product" FromRole="Asset" ToRole="Product" />
           <NavigationProperty Name="Histories" Relationship="AssetManagementModel.FK_History_Assets" FromRole="Asset" ToRole="History" />
           <NavigationProperty Name="OrderDetails" Relationship="AssetManagementModel.FK_OrderDetail_Assets" FromRole="Asset" ToRole="OrderDetail" />
-          <Property Name="Warranty" Type="Int32" />
         </EntityType>
         <EntityType Name="AssetStatus">
           <Key>
@@ -534,13 +534,13 @@
             <PropertyRef Name="HistoryID" />
           </Key>
           <Property Name="HistoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CheckoutDate" Type="DateTime" Precision="0" />
+          <Property Name="CheckinDate" Type="DateTime" Precision="0" />
           <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="AssetID" Type="Int32" Nullable="false" />
           <Property Name="EmployeeID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Asset" Relationship="AssetManagementModel.FK_History_Assets" FromRole="History" ToRole="Asset" />
           <NavigationProperty Name="Employee" Relationship="AssetManagementModel.FK_Histories_Employees" FromRole="History" ToRole="Employee" />
-          <Property Name="CheckoutDate" Type="DateTime" Precision="0" />
-          <Property Name="CheckinDate" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
@@ -836,11 +836,11 @@
           <EntitySetMapping Name="Assets">
             <EntityTypeMapping TypeName="AssetManagementModel.Asset">
               <MappingFragment StoreEntitySet="Assets">
-                <ScalarProperty Name="Warranty" ColumnName="Warranty" />
                 <ScalarProperty Name="MonthDepreciation" ColumnName="MonthDepreciation" />
                 <ScalarProperty Name="AssetStatusID" ColumnName="AssetStatusID" />
                 <ScalarProperty Name="AssetServiceID" ColumnName="AssetServiceID" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="Warranty" ColumnName="Warranty" />
                 <ScalarProperty Name="Barcode" ColumnName="Barcode" />
                 <ScalarProperty Name="AssetID" ColumnName="AssetID" />
               </MappingFragment>
@@ -881,11 +881,11 @@
           <EntitySetMapping Name="Histories">
             <EntityTypeMapping TypeName="AssetManagementModel.History">
               <MappingFragment StoreEntitySet="Histories">
-                <ScalarProperty Name="CheckinDate" ColumnName="CheckinDate" />
-                <ScalarProperty Name="CheckoutDate" ColumnName="CheckoutDate" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
                 <ScalarProperty Name="AssetID" ColumnName="AssetID" />
                 <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="CheckinDate" ColumnName="CheckinDate" />
+                <ScalarProperty Name="CheckoutDate" ColumnName="CheckoutDate" />
                 <ScalarProperty Name="HistoryID" ColumnName="HistoryID" />
               </MappingFragment>
             </EntityTypeMapping>
