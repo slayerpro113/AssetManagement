@@ -207,14 +207,13 @@
     <Content Include="Image\Categories\Screen\Screen2.jpg" />
     <Content Include="Image\Categories\Screen\Screen3.jpg" />
     <Content Include="Image\Employees\Accountant.jpg" />
-    <Content Include="Image\Employees\Employee1.jpeg" />
+    <Content Include="Image\Employees\Employee1.jpg" />
     <Content Include="Image\Employees\Employee4.jpg" />
     <Content Include="Image\Employees\Employee5.jpg" />
     <Content Include="Image\Employees\Employee6.jpg" />
     <Content Include="Image\Employees\Employee7.jpg" />
     <Content Include="Image\Employees\Manager.jpg" />
     <Content Include="Image\icon.co.png" />
-    <Content Include="Image\Employees\HoVanAnhQuoc.JPG" />
     <Content Include="Content\LoginCss\background1.jpg" />
     <Content Include="Content\LoginCss\style.css" />
     <Content Include="Scripts\ace.js" />

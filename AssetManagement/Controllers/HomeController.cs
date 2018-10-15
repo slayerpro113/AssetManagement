@@ -1,9 +1,10 @@
 using Data.Services;
 using System.Web.Mvc;
+using Data.Utilities;
 
 namespace AssetManagement.Controllers
 {
-    //[PermissionLogin]
+    [PermissionLogin]
     public class HomeController : Controller
     {
         private readonly ICategoryService _categoryService;

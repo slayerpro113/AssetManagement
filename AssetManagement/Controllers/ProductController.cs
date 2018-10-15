@@ -6,9 +6,12 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using AssetManagement.Models;
 using AutoMapper;
+using Data.Utilities;
+using Data.Utilities.Enumeration;
 
 namespace AssetManagement.Controllers
 {
+    [PermissionLogin]
     public class ProductController : Controller
     {
         private readonly IProductService _productService;
@@ -31,7 +34,7 @@ namespace AssetManagement.Controllers
             return View("_ProductPartial", products);
         }
 
-        //[RolePermission(Enumerations.Roles.Manager)
+        [RolePermission(Enumerations.Roles.Manager)]
         [HttpPost, ValidateInput(false)]
         public ActionResult AddProduct(Product product, int categoryId)
         {
@@ -47,7 +50,7 @@ namespace AssetManagement.Controllers
             return GetProducts(categoryId);
         }
 
-        //[RolePermission(Enumerations.Roles.Manager)
+        [RolePermission(Enumerations.Roles.Manager)]
         [HttpPost, ValidateInput(false)]
         public ActionResult UpdateProduct(Product product, int categoryId)
         {
@@ -63,7 +66,7 @@ namespace AssetManagement.Controllers
             return GetProducts(categoryId);
         }
 
-        //[RolePermission(Enumerations.Roles.Manager)
+        [RolePermission(Enumerations.Roles.Manager)]
         public ActionResult DeleteProduct(int productId, int categoryId)
         {
             _productService.DeleteEntity(productId);

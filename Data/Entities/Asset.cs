@@ -23,11 +23,11 @@ namespace Data.Entities
     
         public int AssetID { get; set; }
         public string Barcode { get; set; }
-        public Nullable<int> warranty { get; set; }
         public int ProductID { get; set; }
         public Nullable<int> AssetServiceID { get; set; }
         public int AssetStatusID { get; set; }
         public Nullable<int> MonthDepreciation { get; set; }
+        public Nullable<int> Warranty { get; set; }
     
         public virtual AssetStatus AssetStatus { get; set; }
         public virtual Product Product { get; set; }

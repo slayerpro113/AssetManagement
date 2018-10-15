@@ -1,3 +1,4 @@
+@using System.Drawing
 @using Data.Entities
 @using DevExpress.XtraExport.Helpers
 @model IList<Data.Entities.Asset>
@@ -11,6 +12,7 @@
     settings.SettingsDetail.AllowOnlyOneMasterRowExpanded = false;
     settings.SettingsDetail.ShowDetailRow = true;
     settings.SettingsPager.PageSize = 5;
+
 
     settings.Toolbars.Add(toolbar =>
     {
@@ -33,33 +35,27 @@
             });
         });
     });
-    settings.Columns.Add(c =>
-    {
-        c.FieldName = "AssetID";
-        c.Caption = "AssetID";
-        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
-        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
-    });
+    
     settings.Columns.Add("Barcode");
 
     settings.Columns.Add(c =>
     {
         c.FieldName = "AssetCategory";
-        c.Caption = "Asset Type";
+        c.Caption = "Type";
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
     });
     settings.Columns.Add(c =>
     {
         c.FieldName = "AssetName";
-        c.Caption = "Asset Name";
+        c.Caption = "Name";
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
     });
     settings.Columns.Add(c =>
     {
         c.FieldName = "AssetStatusName";
-        c.Caption = "Asset Status";
+        c.Caption = "Status";
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
     });
@@ -94,7 +90,6 @@
                     "<button type='button' class='btn btn-round btn-default'  onclick =\"OpenAssignPopup(" + assetId + ",'" + asset.Barcode + "', '" + asset.AssetName + "')\"  >Assign</button>"
                 );
             }
-            //           
             else
             {
                 ViewContext.Writer.Write(
@@ -126,13 +121,7 @@
                     "<br />"
         );
         Html.RenderPartial("_OwnerDetailPartial", asset);
-        //        ViewContext.Writer.Write(
-        //                     "</div>"+
-        //                     "<div class='col-md-4'>"+
-        //                     "<br/>"
-        //            );
-
-        //Html.RenderPartial("_AssetOwnerPartial", asset);
+       
         ViewContext.Writer.Write(
                      "</div>"+
                   "</div>"+

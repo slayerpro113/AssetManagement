@@ -43,7 +43,7 @@ function doLogin() {
                 toastr["error"]("Password is in correct", "Error:");               
             }
             else if (data.status === "Succsess") {
-                location.href = "/Category/Index?categoryId=1";
+                location.href = "/Product/Index?categoryId=1";
             }
             else {
                 toastr["error"]("Data input is in correct", "Error:");

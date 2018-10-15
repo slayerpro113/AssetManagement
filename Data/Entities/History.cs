@@ -15,11 +15,11 @@ namespace Data.Entities
     public partial class History
     {
         public int HistoryID { get; set; }
-        public Nullable<System.DateTime> Checkout_Date { get; set; }
-        public Nullable<System.DateTime> Checkin_Date { get; set; }
         public string Remark { get; set; }
         public int AssetID { get; set; }
         public int EmployeeID { get; set; }
+        public Nullable<System.DateTime> CheckoutDate { get; set; }
+        public Nullable<System.DateTime> CheckinDate { get; set; }
     
         public virtual Asset Asset { get; set; }
         public virtual Employee Employee { get; set; }

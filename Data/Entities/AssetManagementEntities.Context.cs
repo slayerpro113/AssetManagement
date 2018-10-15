@@ -7,15 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using Data.DataContext;
-
 namespace Data.Entities
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class AssetManagementEntities : DbContext, IDataContext
+    public partial class AssetManagementEntities : DbContext
     {
         public AssetManagementEntities()
             : base("name=AssetManagementEntities")

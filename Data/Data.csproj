@@ -141,6 +141,7 @@
     <Compile Include="Services\ICategoryService.cs" />
     <Compile Include="Services\IEmployeeService.cs" />
     <Compile Include="Services\IHistoryService.cs" />
+    <Compile Include="Services\IPORequest.cs" />
     <Compile Include="Services\IProductService.cs" />
     <Compile Include="Services\IRoleEmployeeService.cs" />
     <Compile Include="Services\IRoleService.cs" />
