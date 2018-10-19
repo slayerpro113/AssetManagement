@@ -1,0 +1,124 @@
+@using System.Drawing
+@using Data.Entities
+@using DevExpress.XtraExport.Helpers
+@model IList<Data.Entities.Asset>
+@Html.DevExpress().GridView(settings => {
+    settings.Name = "gvFocusedRow";
+    settings.CallbackRouteValues = new { Controller = "Asset", Action = "CallBackAssetsInStock" };
+    settings.KeyFieldName = "AssetID";
+    settings.Width = Unit.Percentage(100);
+    settings.Settings.ShowGroupPanel = true;
+    settings.SettingsBehavior.AllowFocusedRow = true;
+    settings.SettingsDetail.AllowOnlyOneMasterRowExpanded = false;
+    settings.SettingsDetail.ShowDetailRow = true;
+    settings.SettingsPager.PageSize = 5;
+
+
+    settings.Toolbars.Add(toolbar =>
+    {
+        toolbar.Enabled = true;
+        toolbar.Position = GridToolbarPosition.Top;
+        toolbar.ItemAlign = GridToolbarItemAlign.Right;
+        toolbar.Items.Add(i =>
+        {
+            i.BeginGroup = true;
+            i.SetTemplateContent(c =>
+            {
+                Html.DevExpress().ButtonEdit(s =>
+                {
+                    s.Name = "search";
+                    s.Properties.NullText = "Search...";
+                    s.Properties.Buttons
+                        .Add()
+                        .Image.IconID = DevExpress.Web.ASPxThemes.IconID.FindFind16x16gray;
+                }).Render();
+            });
+        });
+    });
+
+    settings.Columns.Add("Barcode");
+
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "AssetCategory";
+        c.Caption = "Type";
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+    });
+
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "AssetName";
+        c.Caption = "Name";
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+    });
+
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "AssetBrand";
+        c.Caption = "Brand";
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+    });
+
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "AssetStatusName";
+        c.Caption = "Status";
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+    });
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "AssetStatusName";
+        c.Caption = "Date Purchase";
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+    });
+
+    settings.Columns.Add(c =>
+    {
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.SetDataItemTemplateContent(p =>
+        {
+            int assetId = (int)DataBinder.Eval(p.DataItem, "AssetID");
+            var asset = Model.FirstOrDefault(_ => _.AssetID == assetId);
+            ViewContext.Writer.Write(
+                "<button type='button' class='btn btn-round btn-default'  onclick =\"OpenAssignPopup(" + assetId + ",'" + asset.Barcode + "', '" + asset.AssetName + "')\"  >Assign</button>"
+            );
+        });
+    });
+
+    settings.SetDetailRowTemplateContent(c => {
+        ViewContext.Writer.Write(
+            "Histories:" +
+            "<br />"
+            );
+        Html.RenderAction("ShowHistories",  new { assetId = DataBinder.Eval(c.DataItem, "AssetID") });
+        ViewContext.Writer.Write(
+            "<div class='container'>"+
+            "<div class='row'>"+
+            "<div class='col-md-12 '>"+
+            "<br />"
+            );
+        int assetId = (int)DataBinder.Eval(c.DataItem, "AssetID");
+        var asset = Model.FirstOrDefault(_ => _.AssetID == assetId);
+        Html.RenderPartial("_AssetDetailPartial", asset);
+        ViewContext.Writer.Write(
+            "</div>"
+            );
+    });
+
+    settings.SettingsPager.Position = PagerPosition.Bottom;
+    settings.SettingsPager.FirstPageButton.Visible = true;
+    settings.SettingsPager.LastPageButton.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "5", "7", "9" };
+    settings.SettingsSearchPanel.CustomEditorName = "search";
+}).Bind(Model).GetHtml()
+
+
+
+
+

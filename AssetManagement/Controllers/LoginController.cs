@@ -49,7 +49,7 @@ namespace AssetManagement.Controllers
 
                     Session.Add(Constant.UserSession, user);
                     Session.Add(Constant.RoleSession, role);
-                    return Json(new { status = "Succsess" }, JsonRequestBehavior.AllowGet);
+                    return Json(new { status = "Succsess" , employeeId = user.EmployeeID, role = role.RoleName}, JsonRequestBehavior.AllowGet);
                 }
 
                 return Json(new { status = "Failed" }, JsonRequestBehavior.AllowGet);

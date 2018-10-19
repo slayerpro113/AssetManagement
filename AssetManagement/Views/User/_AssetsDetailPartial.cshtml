@@ -1,0 +1,44 @@
+﻿@model IList<Data.Entities.Asset>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h3>- Current Assets - </h3>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                
+                    <div class="clearfix"></div>
+                    @foreach (var asset in Model)
+                    {
+                        <div class="col-md-4 col-sm-4 col-xs-12 profile_details">
+                            <div class="well profile_view">
+                                <div class="col-sm-12">
+                                    <button type="button" class="btn btn-round btn-success"><i class="fa fa-tags"> <a id="asset-name">@asset.AssetName</a></i></button>
+                                    <div class="ln_solid"></div>
+                                    <div class="left col-xs-7">
+                                        <ul class="list-unstyled">
+                                            <li><i class="fa fa-square"></i> Brand: @asset.AssetBrand</li>
+                                            <li><i class="fa fa-barcode"></i> Barcode: @asset.Barcode</li>
+                                            <li><i class="fa fa-calendar"></i> Warranty: @asset.Warranty months </li>
+                                        </ul>
+                                    </div>
+                                    <div class="right col-xs-5 text-center">
+                                        <img src="/Image/Categories/@asset.AssetImage" alt="" class="img-circle img-responsive">
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 bottom text-center">
+                                    <div class="col-xs-12 col-sm-12 emphasis">
+                                        <p class="ratings">
+                                            <a>Assigned Date: <i>@asset.CheckinDate</i> by <i>@asset.StaffAssign</i></a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>

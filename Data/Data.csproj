@@ -76,6 +76,7 @@
     <Compile Include="DataContext\IDataContext.cs" />
     <Compile Include="DTO\Asset.cs" />
     <Compile Include="DTO\History.cs" />
+    <Compile Include="DTO\PoRequest.cs" />
     <Compile Include="DTO\Product.cs" />
     <Compile Include="Entities\Asset.cs">
       <DependentUpon>AssetManagementEntities.tt</DependentUpon>
@@ -113,7 +114,7 @@
     <Compile Include="Entities\OrderDetail.cs">
       <DependentUpon>AssetManagementEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\PORequest.cs">
+    <Compile Include="Entities\PoRequest.cs">
       <DependentUpon>AssetManagementEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Product.cs">
@@ -141,7 +142,7 @@
     <Compile Include="Services\ICategoryService.cs" />
     <Compile Include="Services\IEmployeeService.cs" />
     <Compile Include="Services\IHistoryService.cs" />
-    <Compile Include="Services\IPORequest.cs" />
+    <Compile Include="Services\IPoRequestService.cs" />
     <Compile Include="Services\IProductService.cs" />
     <Compile Include="Services\IRoleEmployeeService.cs" />
     <Compile Include="Services\IRoleService.cs" />

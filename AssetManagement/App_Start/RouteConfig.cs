@@ -14,7 +14,7 @@ namespace AssetManagement {
             routes.MapRoute(
                 name: "Default", // Route name
                 url: "{controller}/{action}/{id}", // URL with parameters
-                defaults: new { controller = "Login", action = "Login", id = UrlParameter.Optional } // Parameter defaults
+                defaults: new { controller = "login", action = "login", id = UrlParameter.Optional } // Parameter defaults
             );
         }
     }

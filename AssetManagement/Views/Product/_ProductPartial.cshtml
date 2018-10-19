@@ -19,19 +19,18 @@
     settings.SettingsText.CommandBatchEditCancel = "Cancel";
 
 
-   
-        settings.Toolbars.Add(toolbar =>
-        {
-            toolbar.Enabled = true;
-            toolbar.Position = GridToolbarPosition.Top;
-            toolbar.ItemAlign = GridToolbarItemAlign.Right;
-            toolbar.Items.Add(GridViewToolbarCommand.New);
-            toolbar.Items.Add(GridViewToolbarCommand.Edit);
-            toolbar.Items.Add(GridViewToolbarCommand.Delete);
+    settings.Toolbars.Add(toolbar =>
+    {
+        toolbar.Enabled = true;
+        toolbar.Position = GridToolbarPosition.Top;
+        toolbar.ItemAlign = GridToolbarItemAlign.Right;
+        toolbar.Items.Add(GridViewToolbarCommand.New);
+        toolbar.Items.Add(GridViewToolbarCommand.Edit);
+        toolbar.Items.Add(GridViewToolbarCommand.Delete);
 
-        });
-    
-   
+    });
+
+
 
     settings.Columns.Add(c =>
     {

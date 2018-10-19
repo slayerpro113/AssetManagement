@@ -11,8 +11,9 @@ namespace Data.Entities
         public string AssetImage => Product.Image;
         public string AssetBrand => Product.Brand;
         public string AssetCategory => Product.Category.CategoryName;
-        public byte[] AssetImageBytes { get; set; }
-        public byte[] EmployeeImageBytes { get; set; }
+        public string StaffAssign { get; set; }
+        public string CheckinDate { get; set; }
+        public byte[] AssetImageByte { get; set; }
 
         public int EmployeeId { get; set; }
         public string EmployeeImage { get; set; }

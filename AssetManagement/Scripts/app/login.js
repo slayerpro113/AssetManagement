@@ -1,4 +1,6 @@
-﻿toastr.options = {
+﻿
+
+toastr.options = {
     "closeButton": false,
     "debug": false,
     "newestOnTop": false,
@@ -43,7 +45,7 @@ function doLogin() {
                 toastr["error"]("Password is in correct", "Error:");               
             }
             else if (data.status === "Succsess") {
-                location.href = "/Product/Index?categoryId=1";
+                location.href = "/user/index?employeeId=" + data.employeeId;
             }
             else {
                 toastr["error"]("Data input is in correct", "Error:");

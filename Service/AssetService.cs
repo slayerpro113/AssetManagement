@@ -3,10 +3,10 @@ using Data.Entities;
 using Data.Repositories;
 using Data.Services;
 using Data.UnitOfWork;
+using Repository;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Web;
 
 namespace Service
@@ -20,15 +20,17 @@ namespace Service
             _assetRepository = assetRepository;
         }
 
-        public IList<Asset> GetAssets()
+        public IList<Asset> GetAssetsInStock()
         {
-            var assets = GetAll();
+            return _assetRepository.GetAssetsInStock();
+        }
 
-            foreach (Asset asset in assets)
+        public IList<Asset> GetAssetsInUse()
+        {
+            var assets = _assetRepository.GetAssetsInUse();
+
+            foreach (var asset in assets)
             {
-                string path = HttpContext.Current.Server.MapPath("~/Image/Categories/" + asset.AssetImage);
-                asset.AssetImageBytes = File.ReadAllBytes(path);
-
                 var history = asset.Histories.FirstOrDefault(_ => _.CheckoutDate == null);
                 if (history != null)
                 {
@@ -40,18 +42,28 @@ namespace Service
                     asset.EmployeeJob = history.Employee.JobTitle;
                     asset.EmployeePhone = history.Employee.Phone;
                     asset.EmployeeBirthdate = history.Employee.BirthDate;
-                    string path2 = HttpContext.Current.Server.MapPath("~/Image/" + asset.EmployeeImage);
-                    asset.EmployeeImageBytes = File.ReadAllBytes(path2);
                 }
             }
             return assets;
         }
 
-        public void SetAssetStatus(int assetId, int assetStatus)
+        public IList<Asset> GetAssetsByHistories(IList<History> histories)
         {
-            var asset = GetEntity(assetId);
-            asset.AssetStatusID = assetStatus;
-            UpdateEntity(asset);
+            IList<Asset> assets = new List<Asset>();
+            foreach (var history in histories)
+            {
+                var asset = new Asset();
+                asset = history.Asset;
+                asset.Product = history.Asset.Product;
+                asset.CheckinDate = history.CheckinDate.Value.ToShortDateString();
+
+                asset.StaffAssign = history.StaffAssign;
+                string path = HttpContext.Current.Server.MapPath("~/Image/Categories/" + asset.Product.Image);
+                asset.AssetImageByte = File.ReadAllBytes(path);
+
+                assets.Add(asset);
+            }
+            return assets;
         }
     }
 }

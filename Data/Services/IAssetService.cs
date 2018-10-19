@@ -5,7 +5,8 @@ namespace Data.Services
 {
     public interface IAssetService : IBaseService<Asset>
     {
-        IList<Asset> GetAssets();
-        void SetAssetStatus(int assetId, int statusId);
+        IList<Asset> GetAssetsInStock();
+        IList<Asset> GetAssetsInUse();
+        IList<Asset> GetAssetsByHistories(IList<History> histories);
     }
 }

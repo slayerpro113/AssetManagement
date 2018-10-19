@@ -1,8 +1,6 @@
-﻿using System;
-using Data.Services;
-using System.Web.Mvc;
-using Data.Utilities;
+﻿using Data.Services;
 using Data.Utilities.Enumeration;
+using System.Web.Mvc;
 
 namespace AssetManagement.Controllers
 {
@@ -22,17 +20,30 @@ namespace AssetManagement.Controllers
             _employeeService = employeeService;
         }
 
-        public ActionResult Index()
+        public ActionResult AssetsInStock()
         {
-            var assets = _assetService.GetAssets();
-            return View(assets);
+            var assets = _assetService.GetAssetsInStock();
+            return View("AssetsInStock", assets);
         }
 
-        public ActionResult GetAssets()
+        public ActionResult CallBackAssetsInStock()
         {
-            var assets = _assetService.GetAssets();
-            return View("_AssetPartial", assets);
+            var assets = _assetService.GetAssetsInStock();
+            return View("_AssetsInStockPartial", assets);
         }
+
+        public ActionResult AssetsInUse()
+        {
+            var assets = _assetService.GetAssetsInUse();
+            return View("AssetsInUse", assets);
+        }
+
+        public ActionResult CallBackAssetsInUse()
+        {
+            var assets = _assetService.GetAssetsInUse();
+            return View("_AssetsInUsePartial", assets);
+        }
+
 
         //[RolePermission(Enumerations.Roles.Manager)]
         public ActionResult ShowHistories(int assetId)
@@ -50,12 +61,10 @@ namespace AssetManagement.Controllers
 
         //[RolePermission(Enumerations.Roles.Manager)]
         [HttpPost]
-        public ActionResult AssignAsset(int assetId, int employeeId)
+        public ActionResult AssignAsset(int assetId, int employeeId, string assignRemark, string staffAssign)
         {
-            var statusId = 2;
-            _assetService.SetAssetStatus(assetId, statusId);
-            var status = _historyService.HandleHistory(assetId, employeeId);
-            
+            var status = _historyService.HandleAssign(assetId, employeeId, assignRemark, staffAssign);
+
             if (status == Enumerations.AddEntityStatus.Success)
             {
                 return Json(new { status = "Success" }, JsonRequestBehavior.AllowGet);
@@ -68,11 +77,9 @@ namespace AssetManagement.Controllers
 
         //[RolePermission(Enumerations.Roles.Manager)]
         [HttpPost]
-        public ActionResult RecallAsset(int assetId, string remark)
+        public ActionResult RecallAsset(int assetId, string recallRemark, string staffRecall)
         {
-            var statusId = 1;
-            _assetService.SetAssetStatus(assetId, statusId);
-            var status = _historyService.SaveCheckoutDate(assetId, remark);
+            var status = _historyService.HandleRecall(assetId, recallRemark, staffRecall);
 
             if (status == Enumerations.UpdateEntityStatus.Success)
             {

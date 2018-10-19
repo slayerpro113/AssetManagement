@@ -1,0 +1,15 @@
+﻿#asset-name {
+    color: white;
+    font-size: large;
+    font-family: Montserrat-Regular;
+}
+.asset-detail {
+    font-size: large;
+}
+.x_title {
+    background-color: #1ABB9C !important;
+}
+h3 {
+    color: #fff;
+    text-align: center !important;
+}

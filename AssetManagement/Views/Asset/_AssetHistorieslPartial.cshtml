@@ -4,7 +4,6 @@
     settings.SettingsDetail.MasterGridName = "grid";
     settings.CallbackRouteValues = new { Controller = "Asset", Action = "ShowHistories", assetId = ViewBag.AssetID };
     settings.Width = Unit.Percentage(100);
-
     settings.Styles.Header.BackColor = System.Drawing.ColorTranslator.FromHtml("#009688");
     settings.Styles.Header.ForeColor = Color.White;
 
@@ -29,9 +28,11 @@
     settings.Columns.Add(c =>
     {
         c.FieldName = "EmployeeName";
+        c.Caption = "Owner Name";
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
     });
+
 
 }).Bind(Model).GetHtml()
 

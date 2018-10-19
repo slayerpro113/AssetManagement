@@ -1,5 +1,4 @@
-﻿
-function OpenAssignPopup(assetId, barcode, assetName) {
+﻿function OpenAssignPopup(assetId, barcode, assetName) {
     $('#assetId2').val(assetId);
     $('#barcode2').val(barcode);
     $('#assetName2').val(assetName);
@@ -18,12 +17,12 @@ function doAssignAsset() {
     var employeeId = ComboBox.GetValue();
 
     if (employeeId === null) {
-        $("#message2").html("   "+"Please, Select an employee to assign!");
+        $("#message2").html("   " + "Please, Select an employee to assign!");
     }
     else {
         $.ajax({
             type: 'Post',
-            url: "/Asset/AssignAsset?assetId=" + $("#assetId2").val() + "&employeeId=" + employeeId,
+            url: "/Asset/AssignAsset?assetId=" + $("#assetId2").val() + "&employeeId=" + employeeId + "&assignRemark=" + $("#assignRemark").val() + "&StaffAssign=" + $("#staffRecall").val(),
             dataType: 'json',
             success: function (data) {
                 if (data.status === "Success") {
@@ -58,7 +57,7 @@ function OpenRecallPopup(assetId, barcode, assetName, employeeName) {
 function doRecallAsset() {
     $.ajax({
         type: 'Post',
-        url: "/Asset/RecallAsset?assetId=" + $("#assetId").val() + "&remark=" + $("#remark").val(),
+        url: "/Asset/RecallAsset?assetId=" + $("#assetId").val() + "&recallRemark=" + $("#recallRemark").val() + "&staffRecall=" + $("#staffRecall").val(),
         dataType: 'json',
         success: function (data) {
             if (data.status === "Success") {

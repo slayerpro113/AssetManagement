@@ -48,9 +48,12 @@
     <Property Name="HistoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CheckoutDate" Type="date" />
     <Property Name="CheckinDate" Type="date" />
-    <Property Name="Remark" Type="nvarchar" MaxLength="100" />
-    <Property Name="AssetID" Type="int" Nullable="false" />
-    <Property Name="EmployeeID" Type="int" Nullable="false" />
+    <Property Name="RecallRemark" Type="nvarchar" MaxLength="200" />
+    <Property Name="AssignRemark" Type="nvarchar" MaxLength="200" />
+    <Property Name="StaffRecall" Type="nvarchar" MaxLength="50" />
+    <Property Name="EmployeeID" Type="int" />
+    <Property Name="AssetID" Type="int" />
+    <Property Name="StaffAssign" Type="nvarchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="OrderDetails">
     <Key>
@@ -71,19 +74,20 @@
     <Property Name="OrderTotal" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="PurchaseDate" Type="datetime" Nullable="false" />
     <Property Name="VendorID" Type="int" Nullable="false" />
+    <Property Name="PoRequestID" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="PORequest">
+  <EntityType Name="PoRequest">
     <Key>
-      <PropertyRef Name="AssetRequestID" />
+      <PropertyRef Name="PoRequestID" />
     </Key>
-    <Property Name="AssetRequestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PoRequestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Description" Type="nvarchar" MaxLength="500" />
+    <Property Name="CategoryName" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="CreatedDate" Type="date" Nullable="false" />
     <Property Name="EmployeeID" Type="int" Nullable="false" />
     <Property Name="ProductID" Type="int" />
     <Property Name="RequestStatusID" Type="int" Nullable="false" />
-    <Property Name="QuoteID" Type="int" />
-    <Property Name="OrderID" Type="int" />
+    <Property Name="StaffName" Type="nvarchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="Products">
     <Key>
@@ -105,6 +109,7 @@
     <Property Name="Warranty" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="Price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
     <Property Name="VendorName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="PoRequestID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="RequestStatuses">
     <Key>
@@ -140,36 +145,36 @@
   </EntityType>
   <Association Name="FK_AssetRequest_Personel">
     <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
-    <End Role="PORequest" Type="Self.PORequest" Multiplicity="*" />
+    <End Role="PoRequest" Type="Self.PoRequest" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Employees">
         <PropertyRef Name="EmployeeID" />
       </Principal>
-      <Dependent Role="PORequest">
+      <Dependent Role="PoRequest">
         <PropertyRef Name="EmployeeID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_AssetRequest_Product">
     <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
-    <End Role="PORequest" Type="Self.PORequest" Multiplicity="*" />
+    <End Role="PoRequest" Type="Self.PoRequest" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Products">
         <PropertyRef Name="ProductID" />
       </Principal>
-      <Dependent Role="PORequest">
+      <Dependent Role="PoRequest">
         <PropertyRef Name="ProductID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_AssetRequest_RequestStatus">
     <End Role="RequestStatuses" Type="Self.RequestStatuses" Multiplicity="1" />
-    <End Role="PORequest" Type="Self.PORequest" Multiplicity="*" />
+    <End Role="PoRequest" Type="Self.PoRequest" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="RequestStatuses">
         <PropertyRef Name="RequestStatusID" />
       </Principal>
-      <Dependent Role="PORequest">
+      <Dependent Role="PoRequest">
         <PropertyRef Name="RequestStatusID" />
       </Dependent>
     </ReferentialConstraint>
@@ -199,7 +204,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Histories_Employees">
-    <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+    <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
     <End Role="Histories" Type="Self.Histories" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Employees">
@@ -211,7 +216,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_History_Assets">
-    <End Role="Assets" Type="Self.Assets" Multiplicity="1" />
+    <End Role="Assets" Type="Self.Assets" Multiplicity="0..1" />
     <End Role="Histories" Type="Self.Histories" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Assets">
@@ -258,27 +263,15 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_PORequest_Orders">
-    <End Role="Orders" Type="Self.Orders" Multiplicity="0..1" />
-    <End Role="PORequest" Type="Self.PORequest" Multiplicity="*" />
+  <Association Name="FK_Orders_PoRequest">
+    <End Role="PoRequest" Type="Self.PoRequest" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Orders">
-        <PropertyRef Name="OrderID" />
+      <Principal Role="PoRequest">
+        <PropertyRef Name="PoRequestID" />
       </Principal>
-      <Dependent Role="PORequest">
-        <PropertyRef Name="OrderID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_PORequest_Quotes">
-    <End Role="Quotes" Type="Self.Quotes" Multiplicity="0..1" />
-    <End Role="PORequest" Type="Self.PORequest" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Quotes">
-        <PropertyRef Name="QuoteID" />
-      </Principal>
-      <Dependent Role="PORequest">
-        <PropertyRef Name="QuoteID" />
+      <Dependent Role="Orders">
+        <PropertyRef Name="PoRequestID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -291,6 +284,18 @@
       </Principal>
       <Dependent Role="Products">
         <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Quotes_PoRequest">
+    <End Role="PoRequest" Type="Self.PoRequest" Multiplicity="1" />
+    <End Role="Quotes" Type="Self.Quotes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PoRequest">
+        <PropertyRef Name="PoRequestID" />
+      </Principal>
+      <Dependent Role="Quotes">
+        <PropertyRef Name="PoRequestID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -326,7 +331,7 @@
     <EntitySet Name="Histories" EntityType="Self.Histories" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="PORequest" EntityType="Self.PORequest" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PoRequest" EntityType="Self.PoRequest" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Quotes" EntityType="Self.Quotes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="RequestStatuses" EntityType="Self.RequestStatuses" Schema="dbo" store:Type="Tables" />
@@ -335,15 +340,15 @@
     <EntitySet Name="Vendors" EntityType="Self.Vendors" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_AssetRequest_Personel" Association="Self.FK_AssetRequest_Personel">
       <End Role="Employees" EntitySet="Employees" />
-      <End Role="PORequest" EntitySet="PORequest" />
+      <End Role="PoRequest" EntitySet="PoRequest" />
     </AssociationSet>
     <AssociationSet Name="FK_AssetRequest_Product" Association="Self.FK_AssetRequest_Product">
       <End Role="Products" EntitySet="Products" />
-      <End Role="PORequest" EntitySet="PORequest" />
+      <End Role="PoRequest" EntitySet="PoRequest" />
     </AssociationSet>
     <AssociationSet Name="FK_AssetRequest_RequestStatus" Association="Self.FK_AssetRequest_RequestStatus">
       <End Role="RequestStatuses" EntitySet="RequestStatuses" />
-      <End Role="PORequest" EntitySet="PORequest" />
+      <End Role="PoRequest" EntitySet="PoRequest" />
     </AssociationSet>
     <AssociationSet Name="FK_Assets_AssetStatus" Association="Self.FK_Assets_AssetStatus">
       <End Role="AssetStatuses" EntitySet="AssetStatuses" />
@@ -373,17 +378,17 @@
       <End Role="Orders" EntitySet="Orders" />
       <End Role="OrderDetails" EntitySet="OrderDetails" />
     </AssociationSet>
-    <AssociationSet Name="FK_PORequest_Orders" Association="Self.FK_PORequest_Orders">
+    <AssociationSet Name="FK_Orders_PoRequest" Association="Self.FK_Orders_PoRequest">
+      <End Role="PoRequest" EntitySet="PoRequest" />
       <End Role="Orders" EntitySet="Orders" />
-      <End Role="PORequest" EntitySet="PORequest" />
-    </AssociationSet>
-    <AssociationSet Name="FK_PORequest_Quotes" Association="Self.FK_PORequest_Quotes">
-      <End Role="Quotes" EntitySet="Quotes" />
-      <End Role="PORequest" EntitySet="PORequest" />
     </AssociationSet>
     <AssociationSet Name="FK_Product_Category" Association="Self.FK_Product_Category">
       <End Role="Categories" EntitySet="Categories" />
       <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Quotes_PoRequest" Association="Self.FK_Quotes_PoRequest">
+      <End Role="PoRequest" EntitySet="PoRequest" />
+      <End Role="Quotes" EntitySet="Quotes" />
     </AssociationSet>
     <AssociationSet Name="FK_RoleEmployees_Employees" Association="Self.FK_RoleEmployees_Employees">
       <End Role="Employees" EntitySet="Employees" />

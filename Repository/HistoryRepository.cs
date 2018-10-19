@@ -9,7 +9,7 @@ namespace Repository
     {
         public static IList<History> GetHistoriesByAssetId(this IRepository<History> repository, int assetId)
         {
-            var histories = repository.Entity.Where(_ => _.AssetID == assetId).ToList();
+            var histories = repository.Entity.Where(_ => _.AssetID == assetId).OrderByDescending(_ => _.CheckinDate).ToList();
             return histories;
         }
 
@@ -17,6 +17,12 @@ namespace Repository
         {
             var history = repository.Entity.FirstOrDefault(_ => _.AssetID == assetId && _.CheckoutDate == null);
             return history;
+        }
+
+        public static IList<History> GetHistoriesByEmployeeId(this IRepository<History> repository, int employeeId)
+        {
+            var histories = repository.Entity.Where(_ => _.EmployeeID == employeeId && _.CheckoutDate == null).ToList();
+            return histories;
         }
     }
 }

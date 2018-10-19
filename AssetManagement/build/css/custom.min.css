@@ -405,7 +405,7 @@
     }
 
 body .container.body .right_col {
-    background: #F7F7F7
+    background: #ffffff;
 }
 
 .nav-md .container.body .right_col {
@@ -1151,6 +1151,7 @@ h2 {
 }
 
 .x_title {
+  
     border-bottom: 2px solid #E6E9ED;
     padding: 1px 5px 6px
 }
@@ -1166,7 +1167,6 @@ h2 {
 
 .x_title h2 {
     margin: 5px 0 6px;
-    float: left;
     display: block
 }
 
@@ -1198,9 +1198,9 @@ legend {
     height: 280px
 }
 
-.profile_details:nth-child(3n) {
-    clear: both
-}
+/* .profile_details:nth-child(3n) { */
+/*     clear: both */
+/* } */
 
 .profile_details .profile_view {
     display: inline-block;
@@ -3237,14 +3237,15 @@ ul.messages {
     }
 
         img.avatar, ul.messages li img.avatar {
-            height: 32px;
-            width: 32px;
+            height: 35px;
+            width: 35px;
             float: left;
             display: inline-block;
             border-radius: 2px;
             padding: 2px;
             background: #f7f7f7;
-            border: 1px solid #e6e6e6
+            border: 1px solid #e6e6e6;
+            border-radius: 50%;
         }
 
         ul.messages li .message_date {

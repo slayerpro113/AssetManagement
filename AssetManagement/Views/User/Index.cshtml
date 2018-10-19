@@ -1,0 +1,14 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layouts.cshtml";
+}
+
+@Html.DevExpress().GetStyleSheets(
+    new StyleSheet { ExtensionSuite = ExtensionSuite.VerticalGrid }
+    )
+@Html.DevExpress().GetScripts(
+    new Script { ExtensionSuite = ExtensionSuite.VerticalGrid }
+    )
+
+@Html.Action("GetAssetsDetail", new { categoryId = (int)ViewBag.EmployeeId })
+
+<link href="~/Content/User/AssetDetail.css" rel="stylesheet" />

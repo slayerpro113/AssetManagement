@@ -1,48 +1,57 @@
 ﻿@model Data.Entities.Asset
-<table class="table table-bordered">
-    <tbody>
-    <tr>
-        <th colspan="5" style="text-align: center; background-color: #009688; color:white">Asset Details</th>
-    </tr>
-    <tr>
-        <td rowspan="4" style="width: 99px">
-            @Html.DevExpress().Image(settings =>
-            {
-                settings.ImageUrl = "/Image/Categories/" + @Model.AssetImage;
-                settings.Width = 99;
-                settings.Height = 120;
-                settings.ControlStyle.CssClass = "image";
-                settings.Properties.EnableClientSideAPI = true;
-            }).GetHtml()
-        </td>
 
-    </tr>
-    <tr>
-        <th>Name</th>
-        <td colspan="3" style="text-align: center">
-            @Model.AssetName
-        </td>
-    </tr>
-    <tr>
-        <th>Type</th>
-        <td>
-            @Model.AssetCategory
-        </td>
-        <th>Brand</th>
-        <td>
-            @Model.AssetBrand
-        </td>
-    </tr>
-    <tr>
-        <th>Depreciation</th>
-        <td>
-            Nothing
-        </td>
-        <th>Depreciation</th>
-        <td>
-            Nothing
-        </td>
-    </tr>
-    </tbody>
-</table>
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>Asset Detail</h2>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
 
+            <table class="table table-bordered">
+                <tbody style="text-align: center">
+                <tr>
+                    <td rowspan="4" style="width: 99px">
+                        @Html.DevExpress().Image(settings =>
+                        {
+                            settings.ImageUrl = "/Image/Categories/" + @Model.AssetImage;
+                            settings.Width = 99;
+                            settings.Height = 120;
+                            settings.ControlStyle.CssClass = "image";
+                            settings.Properties.EnableClientSideAPI = true;
+                        }).GetHtml()
+                    </td>
+
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <td colspan="3">
+                        @Model.AssetName
+                    </td>
+                </tr>
+                <tr>
+                    <th>Type</th>
+                    <td>
+                        @Model.AssetCategory
+                    </td>
+                    <th>Brand</th>
+                    <td>
+                        @Model.AssetBrand
+                    </td>
+                </tr>
+                <tr>
+                    <th>Depreciation</th>
+                    <td>
+                        Nothing
+                    </td>
+                    <th>Depreciation</th>
+                    <td>
+                        Nothing
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
