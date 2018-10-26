@@ -1,0 +1,34 @@
+﻿.x_panel {
+    margin-top: 25px;
+}
+
+.x_title {
+    background: #476482 !important;
+}
+
+h2 {
+    color: #fff;
+    text-align: center !important;
+}
+
+.required {
+    color: red
+}
+
+.message {
+    color: red;
+    font-size: medium;
+    padding-left: 10px;
+}
+
+.successMessage {
+    color: #26B99A;
+    font-size: medium;
+    padding-left: 10px;
+}
+
+/* form */
+
+textarea {
+    height: 70px ! important
+}

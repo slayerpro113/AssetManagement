@@ -4,143 +4,45 @@
     Layout = "~/Views/Shared/_Layouts.cshtml";
 }
 
-@{
-    var userSession = (Employee)SessionHelper.GetSessionValue(Constant.UserSession);
-}
+ @{ 
+     var userSession = (Employee)SessionHelper.GetSessionValue(Constant.UserSession); 
+ } 
 
-
-<style>
-    .x_panel {
-        margin-top: 25px;
-    }
-
-    .x_title {
-        background-color: #1ABB9C !important;
-    }
-
-    h2 {
-        color: #fff;
-        text-align: center !important;
-    }
-
-    .required {
-        color: red
-    }
-
-    .message {
-        color: red;
-        font-size: medium;
-        padding-left: 10px;
-    }
-
-    .successMessage {
-        color: #26B99A;
-        font-size: medium;
-        padding-left: 10px;
-    }
-
-    /* swal */
-
-    .swal-overlay {
-        overflow-y: auto;
-    }
-
-    .swal-icon--success {
-        border-color: #66a8a6;
-    }
-
-    .swal-icon--success__line {
-        background-color: #66a8a6;
-    }
-
-    .swal-icon--success__ring {
-        border: 4px solid rgba(102, 168, 166, 0.2);
-    }
-
-    .swal-button:focus {
-        outline: none;
-        box-shadow: none;
-    }
-
-    .swal-button {
-        background-color: #e65540;
-        font-family: Montserrat-Regular;
-        font-size: 15px;
-        color: white;
-        text-transform: uppercase;
-        font-weight: unset;
-        border-radius: 20px;
-        -webkit-transition: all 0.3s;
-        -o-transition: all 0.3s;
-        -moz-transition: all 0.3s;
-        transition: all 0.3s;
-    }
-
-        .swal-button:hover {
-            background-color: #333333;
-        }
-
-        .swal-button:active {
-            background-color: #e65540;
-        }
-
-    .swal-title {
-        font-family: Montserrat-Medium;
-        color: #333333;
-        font-size: 16px;
-        line-height: 1.5;
-        padding: 0 15px;
-    }
-
-    .swal-text {
-        font-family: Montserrat-Regular;
-        color: #333333;
-        font-size: 15px;
-        text-align: center;
-    }
-
-    .swal-footer {
-        margin-top: 0;
-    }
-</style>
-
+<link href="~/Content/User/RequestForm.css" rel="stylesheet" />
+<link href="~/Content/SweetAlert/SweetAlert.css" rel="stylesheet" />
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-6 col-sm-12 col-xs-12 col-md-offset-3">
+        <div class="col-md-8 col-sm-12 col-xs-12 col-md-offset-2">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Asset Request</h2>
+                    <h2>- Asset Request -</h2>
                     <div class="clearfix"></div>
                 </div>
 
                 <div class="x_content">
-                    <br />
-                    <p class="col-md-offset-3 message" id="errorMessage"></p>
-                    <p class="col-md-offset-3 successMessage" id="successMessage"></p>
+                    <br/>
                     <form class="form-horizontal form-label-left" id="formRequest">
-                    <input type="hidden" id="employeeId" class="form-control has-feedback-left" value="@userSession.EmployeeID" readonly="readonly"> 
+                        <input type="hidden" id="employeeId" class="form-control has-feedback-left" value="@userSession.EmployeeID" readonly="readonly">
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-3 ">Full Name: </label>
-                            <div class="col-md-6 col-sm-9 col-xs-9">
+                            <div class="col-md-7 col-sm-9 col-xs-9">
                                 <input type="text" class="form-control has-feedback-left" value="@userSession.FullName" readonly="readonly">
-                                @* <input type="text" class="form-control has-feedback-left" value="aaaaaaaaa" readonly="readonly"> *@
                                 <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-3">Email: </label>
-                            <div class="col-md-6 col-sm-9 col-xs-9">
+                            <div class="col-md-7 col-sm-9 col-xs-9">
                                 <input type="text" class="form-control has-feedback-left" value="@userSession.Email" readonly="readonly">
-                                @* <input type="text" class="form-control has-feedback-left" value="aaaaaaaaa" readonly="readonly"> *@
                                 <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-3">Select:<span class="required">*</span></label>
-                            <div class="col-md-6 col-sm-9 col-xs-9">
+                            <div class="col-md-7 col-sm-9 col-xs-9">
                                 <select class="form-control" id="device">
                                     <option>Choose option</option>
                                     <option>Chair</option>
@@ -150,21 +52,25 @@
                                     <option>Printer</option>
                                     <option>Screen</option>
                                 </select>
-                                <p class="message" id="deviceMessage"></p>
+
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-3">Rationale: </label>
-                            <div class="col-md-6 col-sm-9 col-xs-9">
-                                <textarea id="description" class="form-control" data-parsley-maxlength="200"></textarea>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-3">Rationale:<span class="required">*</span></label>
+                            <div class="col-md-7 col-sm-9 col-xs-9">
+                                <textarea id="description" class="form-control has-feedback-left" data-parsley-maxlength="150"></textarea>
+                                <span class="fa fa-comments form-control-feedback left" aria-hidden="true"></span>
                             </div>
-                        </div>
 
+                        </div>
+                        <div class="col-md-9 col-md-offset-3">
+                            <p class="message" id="errorMessage"></p>
+                        </div>
+                        <br>
                         <div class="ln_solid"></div>
-
                         <div class="form-group">
-                            <div class="col-md-7 col-md-offset-4">
+                            <div class="col-md-9 col-md-offset-5">
                                 <button type="button" class="btn btn-round btn-success" id="btnSubmit">Submit</button>
                                 <button type="button" class="btn btn-round btn-default" id="btnReset">Reset</button>
                             </div>
@@ -177,56 +83,8 @@
 </div>
 
 
-
-
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="~/Scripts/app/sweetalert.min.js"></script>
+<script src="~/Scripts/app/sweetalert.js"></script>
 <script src="~/Scripts/jquery.js"></script>
 
-<script>
-    $("#btnSubmit").click(function () {
-        doAssetRequest();
-    });
-
-    $("#btnReset").click(function () {
-       $("#formRequest")[0].reset();
-      
-    });
-
-    function doAssetRequest() {
-        var device = $("#device").val();
-
-        if (device === "Choose option") {
-            $("#deviceMessage").html("Please select a type of device!");
-            timeout();
-        }
-        else {
-            $.ajax({
-                type: 'Post',
-                url: "/User/HandlePoRequest?employeeId=" + $("#employeeId").val() + "&description=" + $("#description").val() + "&device=" + device,
-                dataType: 'json',
-                success: function (data) {
-                    if (data.status === "Success") {
-                          swal({
-                            title: "Your Request",
-                                text: "Has Been sent Successfully",
-                                icon: "success",
-                                buttons: false,
-                                timer: 1500
-                        });
-                        $("#formRequest")[0].reset();
-                    }
-                    else {
-                        $("#errorMessage").html("Please Try again!");
-                    }
-                }
-            });
-        }
-    }
-
-    function timeout() {
-        setTimeout(function () {
-            $("#deviceMessage").empty();
-        }, 1500);
-    }
-    
-</script>
+<script src="~/Scripts/app/RequestForm.js"></script>

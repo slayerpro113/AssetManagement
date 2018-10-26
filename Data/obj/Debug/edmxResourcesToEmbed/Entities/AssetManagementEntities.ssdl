@@ -51,9 +51,9 @@
     <Property Name="RecallRemark" Type="nvarchar" MaxLength="200" />
     <Property Name="AssignRemark" Type="nvarchar" MaxLength="200" />
     <Property Name="StaffRecall" Type="nvarchar" MaxLength="50" />
-    <Property Name="EmployeeID" Type="int" />
     <Property Name="AssetID" Type="int" />
     <Property Name="StaffAssign" Type="nvarchar" MaxLength="100" />
+    <Property Name="PoRequestID" Type="int" />
   </EntityType>
   <EntityType Name="OrderDetails">
     <Key>
@@ -81,20 +81,18 @@
       <PropertyRef Name="PoRequestID" />
     </Key>
     <Property Name="PoRequestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Description" Type="nvarchar" MaxLength="500" />
-    <Property Name="CategoryName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="CategoryName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="CreatedDate" Type="date" Nullable="false" />
     <Property Name="EmployeeID" Type="int" Nullable="false" />
-    <Property Name="ProductID" Type="int" />
     <Property Name="RequestStatusID" Type="int" Nullable="false" />
-    <Property Name="StaffName" Type="nvarchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="Products">
     <Key>
       <PropertyRef Name="ProductID" />
     </Key>
     <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ProductName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="ProductName" Type="nvarchar" MaxLength="150" Nullable="false" />
     <Property Name="Description" Type="nvarchar" MaxLength="200" />
     <Property Name="Brand" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="CategoryID" Type="int" Nullable="false" />
@@ -105,10 +103,14 @@
       <PropertyRef Name="QuoteID" />
     </Key>
     <Property Name="QuoteID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Note" Type="nvarchar" MaxLength="100" />
-    <Property Name="Warranty" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Image" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="ProductName" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Brand" Type="nvarchar" MaxLength="150" />
+    <Property Name="CategoryName" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Vendor" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="Price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
-    <Property Name="VendorName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Warranty" Type="int" Nullable="false" />
+    <Property Name="Note" Type="nvarchar" MaxLength="100" />
     <Property Name="PoRequestID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="RequestStatuses">
@@ -155,18 +157,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_AssetRequest_Product">
-    <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
-    <End Role="PoRequest" Type="Self.PoRequest" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Products">
-        <PropertyRef Name="ProductID" />
-      </Principal>
-      <Dependent Role="PoRequest">
-        <PropertyRef Name="ProductID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_AssetRequest_RequestStatus">
     <End Role="RequestStatuses" Type="Self.RequestStatuses" Multiplicity="1" />
     <End Role="PoRequest" Type="Self.PoRequest" Multiplicity="*" />
@@ -203,15 +193,15 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Histories_Employees">
-    <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+  <Association Name="FK_Histories_PoRequest">
+    <End Role="PoRequest" Type="Self.PoRequest" Multiplicity="0..1" />
     <End Role="Histories" Type="Self.Histories" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Employees">
-        <PropertyRef Name="EmployeeID" />
+      <Principal Role="PoRequest">
+        <PropertyRef Name="PoRequestID" />
       </Principal>
       <Dependent Role="Histories">
-        <PropertyRef Name="EmployeeID" />
+        <PropertyRef Name="PoRequestID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -342,10 +332,6 @@
       <End Role="Employees" EntitySet="Employees" />
       <End Role="PoRequest" EntitySet="PoRequest" />
     </AssociationSet>
-    <AssociationSet Name="FK_AssetRequest_Product" Association="Self.FK_AssetRequest_Product">
-      <End Role="Products" EntitySet="Products" />
-      <End Role="PoRequest" EntitySet="PoRequest" />
-    </AssociationSet>
     <AssociationSet Name="FK_AssetRequest_RequestStatus" Association="Self.FK_AssetRequest_RequestStatus">
       <End Role="RequestStatuses" EntitySet="RequestStatuses" />
       <End Role="PoRequest" EntitySet="PoRequest" />
@@ -358,8 +344,8 @@
       <End Role="Products" EntitySet="Products" />
       <End Role="Assets" EntitySet="Assets" />
     </AssociationSet>
-    <AssociationSet Name="FK_Histories_Employees" Association="Self.FK_Histories_Employees">
-      <End Role="Employees" EntitySet="Employees" />
+    <AssociationSet Name="FK_Histories_PoRequest" Association="Self.FK_Histories_PoRequest">
+      <End Role="PoRequest" EntitySet="PoRequest" />
       <End Role="Histories" EntitySet="Histories" />
     </AssociationSet>
     <AssociationSet Name="FK_History_Assets" Association="Self.FK_History_Assets">

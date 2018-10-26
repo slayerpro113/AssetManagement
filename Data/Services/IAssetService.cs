@@ -8,5 +8,6 @@ namespace Data.Services
         IList<Asset> GetAssetsInStock();
         IList<Asset> GetAssetsInUse();
         IList<Asset> GetAssetsByHistories(IList<History> histories);
+        IList<Asset> GetAvailableAssetsByCategoryName(string categoryName);
     }
 }

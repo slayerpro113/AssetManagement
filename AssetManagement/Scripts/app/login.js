@@ -17,6 +17,11 @@ toastr.options = {
     "showMethod": "fadeIn",
     "hideMethod": "fadeOut"
 }
+$(document).keypress(function (e) {
+    if (e.which === 13) {
+        doLogin();
+    }
+});
 
 $(document).ready(function () {
     $("#btnSubmit").click(function () {
@@ -45,7 +50,7 @@ function doLogin() {
                 toastr["error"]("Password is in correct", "Error:");               
             }
             else if (data.status === "Succsess") {
-                location.href = "/user/index?employeeId=" + data.employeeId;
+                location.href = "/user/GetAssetsDetail?employeeId=" + data.employeeId;
             }
             else {
                 toastr["error"]("Data input is in correct", "Error:");

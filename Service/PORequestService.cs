@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Data.Entities;
 using Data.Repositories;
 using Data.Services;
@@ -12,9 +13,12 @@ namespace Service
     public class PoRequestService : BaseService<PoRequest>, IPoRequestService
     {
         private readonly IRepository<PoRequest> _poRequestRepository;
-        public PoRequestService(IUnitOfWork unitOfWork, IRepository<PoRequest> poRequestRepository) : base(unitOfWork, poRequestRepository)
+        private readonly IRepository<Asset> _assetRepository;
+
+        public PoRequestService(IUnitOfWork unitOfWork, IRepository<PoRequest> poRequestRepository, IRepository<Asset> assetRepository) : base(unitOfWork, poRequestRepository)
         {
             _poRequestRepository = poRequestRepository;
+            _assetRepository = assetRepository;
         }
 
         public Enumerations.AddEntityStatus HandlePoRequest(int employeeId, string description, string device)
@@ -41,15 +45,26 @@ namespace Service
             }
         }
 
-        public IList<PoRequest> GetPoRequestByEmployeeId(int employeeId)
+        public IList<PoRequest> GetPoRequestsByEmployeeId(int employeeId)
         {
-            var poRequests = _poRequestRepository.GetPoRequestByEmployeeId(employeeId);
-            foreach (var poRquest in poRequests)
+            return _poRequestRepository.GetPoRequestsByEmployeeId(employeeId);
+        }
+
+        public IList<PoRequest> GetPoRequests()
+        {
+            var poRequests = GetAll().OrderByDescending(_ => _.PoRequestID);
+            var requestsAvailableAsset = new List<PoRequest>();
+            foreach (var poRequest in poRequests)
             {
-                poRquest.CreatedDateString = poRquest.CreatedDate.ToShortDateString();
+                var quantity = _assetRepository.GetQuantityOfAsset(poRequest.CategoryName);
+                if (poRequest.RequestStatusID != 3)
+                {
+                    poRequest.Quantity = quantity;
+                    requestsAvailableAsset.Add(poRequest);
+                }             
             }
 
-            return poRequests;
+            return requestsAvailableAsset.OrderByDescending(_ => _.CreatedDate).ToList();
         }
     }
 }

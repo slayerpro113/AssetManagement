@@ -60,20 +60,20 @@ namespace AssetManagement.Controllers
         }
 
         //[RolePermission(Enumerations.Roles.Manager)]
-        [HttpPost]
-        public ActionResult AssignAsset(int assetId, int employeeId, string assignRemark, string staffAssign)
-        {
-            var status = _historyService.HandleAssign(assetId, employeeId, assignRemark, staffAssign);
-
-            if (status == Enumerations.AddEntityStatus.Success)
-            {
-                return Json(new { status = "Success" }, JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                return Json(new { status = "Failed" }, JsonRequestBehavior.AllowGet);
-            }
-        }
+//        [HttpPost]
+//        public ActionResult AssignAsset(int assetId, int employeeId, string assignRemark, string staffAssign)
+//        {
+//            var status = _historyService.HandleAssign(assetId, employeeId, assignRemark, staffAssign);
+//
+//            if (status == Enumerations.AddEntityStatus.Success)
+//            {
+//                return Json(new { status = "Success" }, JsonRequestBehavior.AllowGet);
+//            }
+//            else
+//            {
+//                return Json(new { status = "Failed" }, JsonRequestBehavior.AllowGet);
+//            }
+//        }
 
         //[RolePermission(Enumerations.Roles.Manager)]
         [HttpPost]

@@ -21,7 +21,7 @@ namespace Repository
 
         public static IList<History> GetHistoriesByEmployeeId(this IRepository<History> repository, int employeeId)
         {
-            var histories = repository.Entity.Where(_ => _.EmployeeID == employeeId && _.CheckoutDate == null).ToList();
+            var histories = repository.Entity.Where(_ => _.PoRequest.EmployeeID == employeeId && _.CheckoutDate == null).ToList();
             return histories;
         }
     }

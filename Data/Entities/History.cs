@@ -20,11 +20,11 @@ namespace Data.Entities
         public string RecallRemark { get; set; }
         public string AssignRemark { get; set; }
         public string StaffRecall { get; set; }
-        public Nullable<int> EmployeeID { get; set; }
         public Nullable<int> AssetID { get; set; }
         public string StaffAssign { get; set; }
+        public Nullable<int> PoRequestID { get; set; }
     
         public virtual Asset Asset { get; set; }
-        public virtual Employee Employee { get; set; }
+        public virtual PoRequest PoRequest { get; set; }
     }
 }

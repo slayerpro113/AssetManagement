@@ -13,7 +13,6 @@ namespace Data.Entities
         public string AssetCategory => Product.Category.CategoryName;
         public string StaffAssign { get; set; }
         public string CheckinDate { get; set; }
-        public byte[] AssetImageByte { get; set; }
 
         public int EmployeeId { get; set; }
         public string EmployeeImage { get; set; }

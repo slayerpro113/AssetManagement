@@ -1,5 +1,7 @@
-﻿@using Data.Entities
-@using Data.Utilities
+﻿@* @{ *@
+@*     var userSession = (Employee)SessionHelper.GetSessionValue(Constant.UserSession); *@
+@*     var roleSession = (Role)SessionHelper.GetSessionValue(Constant.RoleSession); *@
+@* } *@
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,15 +18,16 @@
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <!-- Custom Theme Style -->
-    <link href="../build/css/custom.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
     <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
 
+
+    <!-- Custom Theme Style -->
+    <link href="../build/css/custom.min.css" rel="stylesheet">
 </head>
-@{
-    var userSession = (Employee)SessionHelper.GetSessionValue(Constant.UserSession);
-    var roleSession = (Role)SessionHelper.GetSessionValue(Constant.RoleSession);
-}
+
 <body class="nav-md">
     <div class="container body">
         <div class="main_container">
@@ -53,38 +56,47 @@
                     <!-- sidebar menu -->
                     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                         <div class="menu_section">
+                            <h3>General</h3>
                             <ul class="nav side-menu">
                                 <li>
                                     <a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="/user/Index?employeeId=1">My Assets</a></li>
-                                        <li><a href="/user/RequestForm?employeeId=1">Make request</a></li>
-                                        <li><a href="/user/RequestsDetail?employeeId=1">Tracking Requests</a></li>
+                                        <li><a href="index.html">Dashboard</a></li>
+                                        <li><a href="index2.html">Dashboard2</a></li>
+                                        <li><a href="index3.html">Dashboard3</a></li>
                                     </ul>
                                 </li>
                                 <li>
-                                    <a><i class="fa fa-edit"></i> Category <span class="fa fa-chevron-down"></span></a>
+                                    <a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a id="chair">Chair</a></li>
-                                        <li><a id="keyboard">Keyboard</a></li>
-                                        <li><a id="mouse">Mouse</a></li>
-                                        <li><a id="pc">PC</a></li>
-                                        <li><a id="printer">Printer</a></li>
-                                        <li><a id="Screen">Screen</a></li>
+                                        <li><a href="form.html">General Form</a></li>
+                                        <li><a href="form_advanced.html">Advanced Components</a></li>
+                                        <li><a href="form_validation.html">Form Validation</a></li>
+                                        <li><a href="form_wizards.html">Form Wizard</a></li>
+                                        <li><a href="form_upload.html">Form Upload</a></li>
+                                        <li><a href="form_buttons.html">Form Buttons</a></li>
                                     </ul>
                                 </li>
                                 <li>
-                                    <a><i class="fa fa-desktop"></i> UI Elements <span class="fa fa-chevron-down"></span></a>
+                                    <a><i class="fa fa-sitemap"></i> Multilevel Menu <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="general_elements.html">General Elements</a></li>
-                                        <li><a href="media_gallery.html">Media Gallery</a></li>
-                                        <li><a href="typography.html">Typography</a></li>
-                                        <li><a href="icons.html">Icons</a></li>
-                                        <li><a href="glyphicons.html">Glyphicons</a></li>
-                                        <li><a href="widgets.html">Widgets</a></li>
-                                        <li><a href="invoice.html">Invoice</a></li>
-                                        <li><a href="inbox.html">Inbox</a></li>
-                                        <li><a href="calendar.html">Calendar</a></li>
+                                        <li>
+                                            <a>Request List<span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+                                                <li class="sub_menu">
+                                                    <a href="level2.html">Available Asset</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#level2_1"></a>
+                                                </li>
+                                                <li>
+                                                    <a href="#level2_2">Finish Request</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="#level1_2">Level One</a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <li>
@@ -215,10 +227,11 @@
             </div>
             <!-- /top navigation -->
             <!-- page content -->
-            <div class="right_col" role="main">
-                <div class="">
-                    @RenderBody()
+            <div class="right_col" role="main">              
+                <div class="row">
+                       @RenderBody()
                 </div>
+                <br />  
             </div>
             <!-- /page content -->
             <!-- footer content -->
@@ -238,28 +251,12 @@
     <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- FastClick -->
     <script src="../vendors/fastclick/lib/fastclick.js"></script>
+
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
-
-    <script src="../vendors/iCheck/icheck.min.js"></script>
 
 </body>
 </html>
 
-<script>
-    $("#chair").click(function () {
-        $(".right_col").load("/product/GetProducts?categoryId=1");
-    });
 
-    $("#keyboard").click(function () {
-        $(".right_col").load("/product/GetProducts?categoryId=2");
-    });
 
-    $("#mouse").click(function () {
-        $(".nav-md").load("/product/Index?categoryId=3");
-    });
-
-    $("#pc").click(function () {
-        $(".nav-md").load("/product/Index?categoryId=4");
-    });
-</script>

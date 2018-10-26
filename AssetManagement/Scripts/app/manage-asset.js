@@ -4,10 +4,12 @@
     $('#assetName2').val(assetName);
     AssignPopup.Show();
 }
+
 $(document).ready(function () {
     $("#btnAssign").click(function () {
         doAssignAsset();
     });
+
     $("#btnCancel2").click(function () {
         AssignPopup.Hide();
     });
@@ -17,7 +19,7 @@ function doAssignAsset() {
     var employeeId = ComboBox.GetValue();
 
     if (employeeId === null) {
-        $("#message2").html("   " + "Please, Select an employee to assign!");
+        $("#message2").html("Please, Select an employee to assign!");
     }
     else {
         $.ajax({

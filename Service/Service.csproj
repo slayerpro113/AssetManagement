@@ -78,6 +78,7 @@
     <Compile Include="PoRequestService.cs" />
     <Compile Include="ProductService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuoteService.cs" />
     <Compile Include="RoleEmployeeService.cs" />
     <Compile Include="RoleService.cs" />
   </ItemGroup>

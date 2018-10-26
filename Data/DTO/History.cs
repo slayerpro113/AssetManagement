@@ -2,6 +2,6 @@
 {
     public partial class History
     {
-        public string EmployeeName => Employee.FullName;
+        public string EmployeeName => PoRequest.Employee.FullName;
     }
 }

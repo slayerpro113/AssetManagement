@@ -181,10 +181,13 @@
     <Content Include="Content\jquery-ui.min.css" />
     <Content Include="Content\ManageAsset\manage-asset.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\Staff\PoRequests.css" />
+    <Content Include="Content\SweetAlert\SweetAlert.css" />
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
     <Content Include="Content\User\AssetDetail.css" />
-    <Content Include="Content\User\RequestsStatus.css" />
+    <Content Include="Content\User\RequestForm.css" />
+    <Content Include="Content\User\RequestsHistory.css" />
     <Content Include="Global.asax" />
     <Content Include="Image\Categories\Chair\Chair1.jpg" />
     <Content Include="Image\Categories\Chair\Chair2.jpg" />
@@ -223,6 +226,9 @@
     <Content Include="Scripts\app\login.js" />
     <Content Include="Scripts\app\manage-asset.js" />
     <Content Include="Scripts\app\RequestForm.js" />
+    <Content Include="Scripts\app\PoRequests.js" />
+    <Content Include="Scripts\app\sweetalert.js" />
+    <Content Include="Scripts\app\sweetalert.min.js" />
     <Content Include="Scripts\cldr.event.js" />
     <Content Include="Scripts\cldr.js" />
     <Content Include="Scripts\cldr.supplemental.js" />
@@ -704,14 +710,16 @@
     <Content Include="Views\Asset\_AssetDetailPartial.cshtml" />
     <Content Include="Views\Asset\AssetsInUse.cshtml" />
     <Content Include="Views\Asset\_AssetsInUsePartial.cshtml" />
-    <Content Include="Views\User\Index.cshtml" />
-    <Content Include="Views\User\_AssetsDetailPartial.cshtml" />
+    <Content Include="Views\User\AssetsDetail.cshtml" />
     <Content Include="Views\User\RequestForm.cshtml" />
-    <Content Include="Views\User\RequestsDetail.cshtml" />
-    <Content Include="Views\Staff\RequestList.cshtml" />
+    <Content Include="Views\User\RequestsHistory.cshtml" />
+    <Content Include="Views\Staff\PoRequests.cshtml" />
     <Content Include="vendors\iCheck\.bower.json" />
     <Content Include="vendors\iCheck\bower.json" />
     <Content Include="vendors\iCheck\icheck.jquery.json" />
+    <Content Include="Views\Staff\_AssetCbbPartial.cshtml" />
+    <Content Include="Views\Staff\_PoRequestsPartial.cshtml" />
+    <Content Include="Views\Staff\test.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -755,7 +763,9 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Image\Quotes\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

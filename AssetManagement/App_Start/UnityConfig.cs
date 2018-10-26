@@ -71,6 +71,8 @@ namespace AssetManagement
                 .RegisterType<IRepository<History>, Repository<History>>();
             container
                 .RegisterType<IRepository<PoRequest>, Repository<PoRequest>>();
+            container
+                .RegisterType<IRepository<Quote>, Repository<Quote>>();
 
             //Service layer
             container.RegisterType<ICategoryService, CategoryService>();
@@ -81,6 +83,7 @@ namespace AssetManagement
             container.RegisterType<IAssetService, AssetService>();
             container.RegisterType<IHistoryService, HistoryService>();
             container.RegisterType<IPoRequestService, PoRequestService>();
+            container.RegisterType<IQuoteService, QuoteService>();
 
         }
     }

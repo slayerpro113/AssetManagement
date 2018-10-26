@@ -18,7 +18,6 @@ namespace Data.Entities
         public Employee()
         {
             this.PoRequests = new HashSet<PoRequest>();
-            this.Histories = new HashSet<History>();
             this.RoleEmployees = new HashSet<RoleEmployee>();
         }
     
@@ -35,8 +34,6 @@ namespace Data.Entities
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PoRequest> PoRequests { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<History> Histories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RoleEmployee> RoleEmployees { get; set; }
     }

@@ -22,9 +22,9 @@
 <script src="~/Scripts/app/manage-asset.js"></script>
 <link href="~/Content/ManageAsset/manage-asset.css" rel="stylesheet" />
 
-
-@Html.Partial("_AssetsInUsePartial", Model);
-
+<div class="col-md-12 col-sm-12 col-xs-12">
+    @Html.Partial("_AssetsInUsePartial", Model)
+</div>
 
 @Html.DevExpress().PopupControl(
     settings =>

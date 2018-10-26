@@ -15,10 +15,14 @@ namespace Data.Entities
     public partial class Quote
     {
         public int QuoteID { get; set; }
-        public string Note { get; set; }
-        public string Warranty { get; set; }
+        public string Image { get; set; }
+        public string ProductName { get; set; }
+        public string Brand { get; set; }
+        public string CategoryName { get; set; }
+        public string Vendor { get; set; }
         public decimal Price { get; set; }
-        public string VendorName { get; set; }
+        public int Warranty { get; set; }
+        public string Note { get; set; }
         public int PoRequestID { get; set; }
     
         public virtual PoRequest PoRequest { get; set; }

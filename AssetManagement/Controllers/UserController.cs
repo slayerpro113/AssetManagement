@@ -17,19 +17,12 @@ namespace AssetManagement.Controllers
             _poRequestService = poRequestService;
         }
 
-        public ActionResult Index(int employeeId)
-        {
-            ViewBag.EmployeeId = employeeId;
-            return View();
-        }
-
         public ActionResult GetAssetsDetail(int employeeId)
         {
-            ViewBag.EmployeeId = employeeId;
             var histories = _historyService.GetHistoriesByEmployeeId(employeeId);
             var assets = _assetServiceService.GetAssetsByHistories(histories);
 
-            return PartialView("_AssetsDetailPartial", assets);
+            return View("AssetsDetail", assets);
         }
 
         public ActionResult RequestForm()
@@ -50,9 +43,9 @@ namespace AssetManagement.Controllers
             }
         }
 
-        public ActionResult RequestsDetail(int employeeId)
+        public ActionResult RequestsHistory(int employeeId)
         {
-            var poRequests = _poRequestService.GetPoRequestByEmployeeId(employeeId);
+            var poRequests = _poRequestService.GetPoRequestsByEmployeeId(employeeId);
             return View(poRequests);
         }
     }

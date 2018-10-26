@@ -1,0 +1,35 @@
+﻿@model IList<Data.Entities.Asset>
+@Html.DevExpress().CallbackPanel(
+    settings => {
+        settings.Name = "CallbackPanel";
+        settings.CallbackRouteValues = new { Controller = "Staff", Action = "LoadAssetCbb" };
+        settings.SettingsLoadingPanel.Enabled = false;
+        settings.ClientSideEvents.BeginCallback = "SettingCategory";
+        settings.SetContent(
+            @Html.DevExpress().ComboBox(c => {
+             c.Name = "AssetCbb";
+                c.Width = Unit.Pixel(357);
+             c.Properties.NullText = "Select asset...";
+             c.Properties.ValidationSettings.RequiredField.IsRequired = true;
+             c.ShowModelErrors = true;
+             c.SetItemTemplateContent((container) => {
+        ViewContext.Writer.Write(
+            "<table >" +
+            "<tr>" +
+                "<td ><div class='frame'><img class='photo' alt='photo' src='/Image/Categories/" + Url.Content(DataBinder.Eval(container.DataItem, "AssetImage").ToString()) + "' /></div></td>" +
+                "<td class='name'>" +DataBinder.Eval(container.DataItem, "AssetName") +"</td>" +
+            "</tr>" +
+            "</table>"
+        );
+    });
+
+        var properties = c.Properties;
+        properties.TextField = "AssetName";
+        properties.ValueField = "AssetID";
+        properties.DropDownRows = 3;
+        properties.CallbackPageSize = 3;
+        properties.ItemStyle.SelectedStyle.CssClass = "selectedItem";
+        properties.ItemStyle.HoverStyle.CssClass = "hoveredItem";
+    }).BindList(Model).Bind(ViewData["AssetCbb"]).Render);
+    }
+    ).GetHtml()

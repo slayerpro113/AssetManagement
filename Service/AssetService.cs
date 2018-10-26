@@ -34,14 +34,14 @@ namespace Service
                 var history = asset.Histories.FirstOrDefault(_ => _.CheckoutDate == null);
                 if (history != null)
                 {
-                    asset.EmployeeId = history.Employee.EmployeeID;
-                    asset.EmployeeImage = history.Employee.Image;
-                    asset.EmployeeName = history.Employee.FullName;
-                    asset.EmployeeAddress = history.Employee.Address;
-                    asset.EmployeeEmail = history.Employee.Email;
-                    asset.EmployeeJob = history.Employee.JobTitle;
-                    asset.EmployeePhone = history.Employee.Phone;
-                    asset.EmployeeBirthdate = history.Employee.BirthDate;
+                    asset.EmployeeId = history.PoRequest.Employee.EmployeeID;
+                    asset.EmployeeImage = history.PoRequest.Employee.Image;
+                    asset.EmployeeName = history.PoRequest.Employee.FullName;
+                    asset.EmployeeAddress = history.PoRequest.Employee.Address;
+                    asset.EmployeeEmail = history.PoRequest.Employee.Email;
+                    asset.EmployeeJob = history.PoRequest.Employee.JobTitle;
+                    asset.EmployeePhone = history.PoRequest.Employee.Phone;
+                    asset.EmployeeBirthdate = history.PoRequest.Employee.BirthDate;
                 }
             }
             return assets;
@@ -56,14 +56,15 @@ namespace Service
                 asset = history.Asset;
                 asset.Product = history.Asset.Product;
                 asset.CheckinDate = history.CheckinDate.Value.ToShortDateString();
-
                 asset.StaffAssign = history.StaffAssign;
-                string path = HttpContext.Current.Server.MapPath("~/Image/Categories/" + asset.Product.Image);
-                asset.AssetImageByte = File.ReadAllBytes(path);
-
                 assets.Add(asset);
             }
             return assets;
+        }
+
+        public IList<Asset> GetAvailableAssetsByCategoryName(string categoryName)
+        {
+            return _assetRepository.GetAssetsByCategoryName(categoryName);
         }
     }
 }

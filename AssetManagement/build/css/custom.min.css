@@ -393,7 +393,7 @@
     min-height: 100%;
     width: 230px;
     padding: 0;
-    position: absolute;
+    position: fixed;
     display: -ms-flexbox;
     display: flex;
     z-index: 1
@@ -3237,9 +3237,9 @@ ul.messages {
     }
 
         img.avatar, ul.messages li img.avatar {
-            height: 35px;
-            width: 35px;
-            float: left;
+            height: 36px;
+            width: 36px;
+            /* float: left; */
             display: inline-block;
             border-radius: 2px;
             padding: 2px;

@@ -18,7 +18,6 @@ namespace Data.Entities
         public Product()
         {
             this.Assets = new HashSet<Asset>();
-            this.PoRequests = new HashSet<PoRequest>();
         }
     
         public int ProductID { get; set; }
@@ -31,7 +30,5 @@ namespace Data.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Asset> Assets { get; set; }
         public virtual Category Category { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PoRequest> PoRequests { get; set; }
     }
 }

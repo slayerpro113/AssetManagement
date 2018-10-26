@@ -7,6 +7,7 @@ namespace Data.Services
     public interface IPoRequestService : IBaseService<PoRequest>
     {
         Enumerations.AddEntityStatus HandlePoRequest(int employeeId, string description, string device);
-        IList<PoRequest> GetPoRequestByEmployeeId(int employeeId);
+        IList<PoRequest> GetPoRequestsByEmployeeId(int employeeId);
+        IList<PoRequest> GetPoRequests();
     }
 }
