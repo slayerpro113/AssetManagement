@@ -45,8 +45,15 @@ namespace AssetManagement.Controllers
 
         public ActionResult RequestsHistory(int employeeId)
         {
+            ViewBag.EmployeeId = employeeId;
+            return View("RequestsHistory");
+        }
+
+        public ActionResult GetRequestHistory(int employeeId)
+        {
+            ViewBag.EmployeeId = employeeId;
             var poRequests = _poRequestService.GetPoRequestsByEmployeeId(employeeId);
-            return View(poRequests);
+            return View("_RequestHistoryPartial", poRequests);
         }
     }
 }

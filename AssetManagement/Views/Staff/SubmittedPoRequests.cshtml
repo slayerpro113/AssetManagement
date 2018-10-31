@@ -1,0 +1,126 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layouts.cshtml";
+}
+
+<link href="~/Content/SweetAlert/SweetAlert.css" rel="stylesheet" />
+<script src="~/Scripts/app/sweetalert.min.js"></script>
+<script src="~/Scripts/app/sweetalert.js"></script>
+
+@Html.DevExpress().GetStyleSheets(
+    new StyleSheet { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.GridView },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.Editors }
+    )
+
+@Html.DevExpress().GetScripts(
+    new Script { ExtensionSuite = ExtensionSuite.GridView },
+    new Script { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
+    new Script { ExtensionSuite = ExtensionSuite.Editors }
+    )
+
+@model IList<Data.Entities.PoRequest>
+
+<style>
+    h2 {
+        text-align: center;
+        font-size: x-large;
+    }
+</style>
+
+<script type="text/javascript">
+    function SelectionChanged(s, e) {
+        s.GetSelectedFieldValues("PoRequestID", GetPoRequestId);
+    }
+</script>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Requests Wait For Approving</h2>
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="x_content">
+                    <table style="width:100%">
+                        <tr>
+                            <td style="vertical-align: top;min-width:110px">
+                                <div style="padding-right: 15px;">
+                                    <div class="text">
+                                        Selected values:
+                                    </div>
+                                    @Html.DevExpress().ListBox(settings => {
+                                       settings.Name = "SelectedRows";
+                                       settings.Width = Unit.Percentage(100);
+                                       settings.Height = 250;
+                                       settings.Properties.EnableClientSideAPI = true;
+                                    }).GetHtml()
+
+                                </div>
+                            </td>
+                            <td>
+                                @Html.Partial("_SubmittedPoRequestsPartial", Model)
+                                <br />
+                                Selected count:&nbsp;<strong id="count">0</strong>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input id="requestIdArray" />
+<button onclick="test()">phuda</button>
+<div class="">
+    <label>
+        <input type="checkbox" class="js-switch" /> dasd
+    </label>
+</div>
+
+<script>
+
+    function GetPoRequestId(poRequestId) {
+        var array = $('#requestIdArray').val();
+
+        $('#requestIdArray').val(array + poRequestId + ",");
+    }
+
+    $('#btnTest').click(function () {
+        test();
+    });
+
+    function test() {
+        var requestId = $('#requestId').val();
+
+        $.ajax({
+            type: 'Post',
+            url: "/Staff/CreateOrder?poRequestIdArray=17,18",
+            dataType: 'json',
+            success: function (data) {
+                if (data.status === "Success") {
+                    swal({
+                        title: "Assign Asset",
+                        text: "Successfully",
+                        icon: "success",
+                        buttons: false,
+                        timer: 1300
+                    });
+                    $('#assignPopup').modal('hide');
+                    gvFilterRow.Refresh();
+                } else {
+                    swal({
+                        title: "Something Went Wrong",
+                        text: "Please try again!",
+                        icon: "error",
+                        buttons: false,
+                        timer: 1300
+                    });
+                }
+            }
+        });
+
+    }
+</script>

@@ -6,18 +6,17 @@ using Data.Utilities.Enumeration;
 using Repository;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Service
 {
     public class HistoryService : BaseService<History>, IHistoryService
     {
         private readonly IRepository<History> _historyRepository;
-        private readonly IRepository<PoRequest> _poRequestRepository;
 
-        public HistoryService(IUnitOfWork unitOfWork, IRepository<History> historyRepository, IRepository<PoRequest> poRequestRepository) : base(unitOfWork, historyRepository)
+        public HistoryService(IUnitOfWork unitOfWork, IRepository<History> historyRepository) : base(unitOfWork, historyRepository)
         {
             _historyRepository = historyRepository;
-            _poRequestRepository = poRequestRepository;
         }
 
         public IList<History> GetHistoriesByAssetId(int assetId)
@@ -26,19 +25,17 @@ namespace Service
             return histories;
         }
 
-        public Enumerations.AddEntityStatus HandleAssign(PoRequest poRequest,Asset asset, string assignRemark, string staffAssign)
+        public Enumerations.AddEntityStatus HandleAssign(Employee employee,Asset asset, string assignRemark, string staffAssign)
         {
             var history = new History();
 
             try
             {
-                history.PoRequest = poRequest;
+                history.Employee = employee;
                 history.Asset = asset;
                 history.Asset.AssetStatusID = 2;
-                history.PoRequest.RequestStatusID = 3;
                 history.CheckinDate = DateTime.Now.Date;
                 history.StaffAssign = staffAssign;
-                history.PoRequest.RequestStatusID = 3;
                 if (!String.IsNullOrEmpty(assignRemark))
                 {
                     history.AssignRemark = assignRemark;

@@ -1,0 +1,147 @@
+﻿
+@using System.Drawing
+@using Data.Entities
+@using DevExpress.XtraExport.Helpers
+@model IList<Data.Entities.PoRequest>
+
+@Html.DevExpress().GridView(settings => {
+    settings.Name = "masterGrid";
+
+    settings.SettingsLoadingPanel.Mode = GridViewLoadingPanelMode.Disabled;
+    //Custom css
+    settings.Styles.Header.BackColor = System.Drawing.ColorTranslator.FromHtml("#476482");
+    settings.Styles.Header.ForeColor = Color.White;
+    // Hover
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Styles.RowHotTrack.BackColor = System.Drawing.ColorTranslator.FromHtml("#f4f4f4");
+    settings.Styles.RowHotTrack.Font.Bold = true;
+
+    settings.CallbackRouteValues = new { Controller = "Manager", Action = "GetPoRequestsFromStaffPartial" };
+    settings.Width = Unit.Percentage(100);
+
+    // show detail partial
+    settings.SettingsDetail.AllowOnlyOneMasterRowExpanded = true;
+    settings.SettingsDetail.ShowDetailRow = true;
+
+    settings.KeyFieldName = "PoRequestID";
+    settings.Columns.Add("CategoryName").Visible = false;
+    settings.Columns.Add(c =>
+    {
+        c.Caption = "Requested By";
+        c.FieldName = "EmployeeName";
+        c.SetDataItemTemplateContent(p =>
+        {
+            int poRequestId = (int)DataBinder.Eval(p.DataItem, "PoRequestID");
+            var poRequest = Model.FirstOrDefault(_ => _.PoRequestID == poRequestId);
+
+            ViewContext.Writer.Write(
+                "<img src=\"/Image/" + HttpUtility.UrlDecode(poRequest.Employee.Image) + "\" class='avatar' alt='Avatar'>     " +
+
+                "<a style='text-decoration: none'>" + poRequest.Employee.FullName + "</a>" +
+                "<br/>" +
+                "<small>Created On <i>" + poRequest.CreatedDate.ToLongDateString() + "</i></small>"
+                );
+        });
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.Width = 300;
+    });
+
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "StaffSubmit";
+        c.Caption = "Submitted By";
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.Width = 180;
+    });
+
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "CategoryName";
+        c.Caption = "Type";
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.Width = 180;
+        c.EditorProperties().ComboBox(cb =>
+        {
+            cb.DataSource = PoRequest.GetCategories();
+            cb.TextField = "CategoryName";
+            cb.ValueField = "CategoryName";
+            cb.DropDownStyle = DropDownStyle.DropDown;
+        });
+    });
+
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "Description";
+        c.Caption = "Rationale";
+        c.Settings.AllowAutoFilter = DefaultBoolean.False;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.Width = 300;
+    });
+
+
+    settings.Columns.Add(c =>
+    {
+        c.SetDataItemTemplateContent(p =>
+        {
+            int poRequestId = (int)DataBinder.Eval(p.DataItem, "PoRequestID");
+            var poRequest = Model.FirstOrDefault(_ => _.PoRequestID == poRequestId);
+            var quoteQuantity = poRequest.Quotes.Count;
+
+            ViewContext.Writer.Write(
+                @quoteQuantity
+                );
+
+        });
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.Caption = "Quotes";
+        c.Width = 150;
+    });
+
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "Status";
+        c.Caption = "Status";
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.Width = 150;
+
+        c.SetDataItemTemplateContent(p =>
+        {
+            int poRequestId = (int)DataBinder.Eval(p.DataItem, "PoRequestID");
+            var poRequest = Model.FirstOrDefault(_ => _.PoRequestID == poRequestId);
+
+            ViewContext.Writer.Write(
+                "<button type='button' class='btn btn-warning btn-sm'>" + poRequest.RequestStatus.StatusName + "</button>"
+              );
+        });
+    });
+
+
+    settings.SetDetailRowTemplateContent(c =>
+    {
+        ViewContext.Writer.Write(
+            "<div class='quote-detail' style='display:flex;justify-content:center'>"
+            );
+        Html.RenderAction("GetQuotesByPoRequestId", new { poRequestId = DataBinder.Eval(c.DataItem, "poRequestID") });
+        ViewContext.Writer.Write(
+            "<div>"
+            );
+    });
+
+    settings.SettingsPager.PageSize = 5;
+
+    settings.SettingsPager.Position = PagerPosition.Bottom;
+    settings.SettingsPager.FirstPageButton.Visible = true;
+    settings.SettingsPager.LastPageButton.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "5", "7", "9" };
+}).Bind(Model).GetHtml()
+
+
+
+
+

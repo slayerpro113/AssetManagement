@@ -1,0 +1,110 @@
+﻿
+@using System.Drawing
+@using Data.Entities
+@using Image = System.Web.UI.WebControls.Image
+@model IList<Data.Entities.Quote>
+@Html.DevExpress().GridView(settings =>{
+    settings.Name = "detailGrid";
+    settings.SettingsDetail.MasterGridName = "masterGrid";
+    //select one row
+    //settings.SettingsBehavior.AllowSelectSingleRowOnly = true;
+
+    settings.SettingsBehavior.AllowFocusedRow = false;
+
+    settings.SettingsLoadingPanel.Mode = GridViewLoadingPanelMode.Disabled;
+
+    //Custom css
+    settings.Styles.Header.BackColor = System.Drawing.ColorTranslator.FromHtml("#476482");
+    settings.Styles.Header.ForeColor = Color.White;
+
+    // Hover
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Styles.RowHotTrack.BackColor = System.Drawing.ColorTranslator.FromHtml("#f4f4f4");
+    settings.Styles.RowHotTrack.Font.Bold = true;
+
+    settings.CallbackRouteValues = new { Controller = "Manager", Action = "GetQuotesByPoRequestId" , poRequestId = ViewBag.PoRequestId };
+    settings.Width = Unit.Percentage(90);
+    
+    settings.KeyFieldName = "QuoteID";
+
+    settings.Columns.Add(c =>
+    {
+        c.Width = 100;
+        c.FieldName = "Image";
+        c.Caption = "Image";
+        c.SetDataItemTemplateContent(p =>
+        {
+            ViewContext.Writer.Write(
+                "<img src=\"/Image/Quotes/" + HttpUtility.UrlDecode(p.Text) + "\" class='avatar' >"
+                );
+        });
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+    });
+
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "ProductName";
+        c.Caption = "Product Name";
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.Width = 150;
+    });
+
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "Brand";
+        c.Caption = "Brand";
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.Width = 150;
+    });
+
+
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "Price";
+        c.Caption = "Price";
+        c.PropertiesEdit.DisplayFormatString = "c";
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.Width = 150;
+    });
+
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "Warranty";
+        c.Caption = "Warranty (Months)";
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.Width = 150;
+    });
+
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "Vendor";
+        c.Caption = "Vendor";
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.Width = 150;
+    });
+
+
+   settings.Columns.Add(c =>
+   {
+       c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+       c.SetDataItemTemplateContent(p =>
+       {
+           int quoteId = (int)DataBinder.Eval(p.DataItem, "QuoteID");
+           var quote = Model.FirstOrDefault(_ => _.QuoteID == quoteId);
+
+           ViewContext.Writer.Write(
+               "<button type='button' class='btn btn-round btn-default' " +
+               "onclick =\"ApproveQuote(" + quote.PoRequestID + ", " + quoteId + ")\"'>Approve</button>"
+               );
+       });
+
+       c.Width = 100;
+   });
+
+}).Bind(Model).GetHtml()

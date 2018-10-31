@@ -1,0 +1,92 @@
+﻿@model IList<Data.Entities.PoRequest>
+@{
+    Layout = "~/Views/Shared/_Layouts.cshtml";
+}
+<link href="~/Content/SweetAlert/SweetAlert.css" rel="stylesheet" />
+
+
+@Html.DevExpress().GetStyleSheets(
+    new StyleSheet { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.GridView },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.Editors }
+    )
+
+@Html.DevExpress().GetScripts(
+    new Script { ExtensionSuite = ExtensionSuite.GridView },
+    new Script { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
+    new Script { ExtensionSuite = ExtensionSuite.Editors }
+    )
+
+
+<style>
+    h2 {
+        text-align: center;
+        font-size: x-large;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Request Lists</h2>
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="x_content">
+                    @Html.Partial("_PoRequestsFromStaffPartial", Model)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/app/sweetalert.min.js"></script>
+<script src="~/Scripts/app/sweetalert.js"></script>
+
+<script>
+
+    function ApproveQuote(poRequestId, quoteId) {
+        swal({
+            title: "Are you sure?",
+            icon: "warning",
+            buttons: true
+        }).then(function (isConfirm) {
+            if (isConfirm) {
+                $.ajax({
+                    type: 'Post',
+                    url: "/Manager/SelectQuote?poRequestId=" + poRequestId + "&quoteId=" + quoteId,
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status === "Success") {
+
+                            swal({
+                                title: "Successfully",
+                                text: "The quote has been selected",
+                                icon: "success",
+                                buttons: false,
+                                timer: 1300
+                            });
+                            masterGrid.Refresh();
+                        } else {
+                            swal({
+                                title: "Something Went Wrong",
+                                text: "Please try again!",
+                                icon: "error",
+                                buttons: false,
+                                timer: 1300
+                            });
+                        }
+                    }
+                });
+            }
+            //cancel
+            else {
+                swal.close();
+            }
+        });
+
+    }
+
+</script>

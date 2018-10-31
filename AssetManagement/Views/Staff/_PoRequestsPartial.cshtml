@@ -1,5 +1,6 @@
 ﻿@using System.Drawing
 @using Data.Entities
+@using Data.Utilities
 @using Image = System.Web.UI.WebControls.Image
 @model IList<Data.Entities.PoRequest>
 @Html.DevExpress().GridView(settings => {
@@ -13,8 +14,10 @@
     settings.Styles.RowHotTrack.BackColor = System.Drawing.ColorTranslator.FromHtml("#f4f4f4");
     settings.Styles.RowHotTrack.Font.Bold = true;
 
-    settings.CallbackRouteValues = new { Controller = "Staff", Action = "GetRequestsUsingAssetPartial" };
+    settings.CallbackRouteValues = new { Controller = "Staff", Action = "GetPoRequestsFromUsersPartial" };
     settings.Width = Unit.Percentage(100);
+
+    settings.KeyFieldName = "PoRequestID";
 
     settings.Columns.Add(c =>
     {
@@ -29,13 +32,12 @@
 
                 "<a style='text-decoration: none'>" + poRequest.Employee.FullName + "</a>"+
                 "<br/>"+
-                "<small style='padding-left: 40px'> Created on <i>"+ poRequest.CreatedDate.ToLongDateString() +"</i></small>"
+                "<small>On <i>"+ poRequest.CreatedDate.ToLongDateString() +"</i></small>"
                 );
-
         });
         c.Caption = "Requested By";
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
-        c.Width = 220;
+        c.Width = 230;
     });
 
     settings.Columns.Add(c => {
@@ -43,7 +45,7 @@
         c.Caption = "Type";
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
-        c.Width = 50;
+        c.Width = 150;
         c.EditorProperties().ComboBox(cb => {
             cb.DataSource = PoRequest.GetCategories();
             cb.TextField = "CategoryName";
@@ -61,14 +63,14 @@
         c.Width = 300;
     });
 
-    settings.Columns.Add(c => {
-        c.FieldName = "Quantity";
-        c.Caption = "Available Assets";
-        c.Settings.AllowAutoFilter = DefaultBoolean.False;
-        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
-        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
-        c.Width = 60;
-    });
+    //    settings.Columns.Add(c => {
+    //        c.FieldName = "Quantity";
+    //        c.Caption = "Available Assets";
+    //        c.Settings.AllowAutoFilter = DefaultBoolean.False;
+    //        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+    //        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+    //        c.Width = 60;
+    //    });
 
     settings.Columns.Add(c =>
     {
@@ -102,32 +104,26 @@
 
     settings.Columns.Add(c =>
     {
+        c.FieldName = "Status";
         c.Caption = "Status";
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.Width = 120;
+        c.EditorProperties().ComboBox(cb => {
+            cb.DataSource = PoRequest.GetStatuses();
+            cb.TextField = "StatusName";
+            cb.ValueField = "StatusName";
+            cb.DropDownStyle = DropDownStyle.DropDown;
+        });
+
         c.SetDataItemTemplateContent(p =>
         {
             int poRequestId = (int)DataBinder.Eval(p.DataItem, "PoRequestID");
             var poRequest = Model.FirstOrDefault(_ => _.PoRequestID == poRequestId);
-            if (poRequest.RequestStatusID == 1)
-            {
-                ViewContext.Writer.Write(
-                    "<button type='button' class='btn btn-info btn-sm'>In Progress</button>"
-                );
-            }
-            else if(poRequest.RequestStatusID == 2)
-            {
-                ViewContext.Writer.Write(
-                 "<button type='button' class='btn btn-primary btn-sm'>Approved</button>"
-                );
-            }
-            else
-            {
-                ViewContext.Writer.Write(
-                  "<button type='button' class='btn btn-success btn-sm'>Finish</button>"
-                );
-            }
+           
+            ViewContext.Writer.Write(
+                "<button type='button' class='btn btn-info btn-sm'>In Progress</button>"
+            );
         });
     });
 
@@ -141,21 +137,38 @@
             var category = poRequest.CategoryName;
             var employeeId = poRequest.EmployeeID;
             var employeeName = poRequest.EmployeeName;
-            if (poRequest.Quantity != 0)
-            {
-                ViewContext.Writer.Write(
-                    "<button type='button' class='open-popup btn btn-round btn-default' data-toggle='modal' data-target='#assignPopup'" +
-                    "onclick =\"OpenAssignPopup("+ poRequestId +",'" + category + "','" + employeeName + "')\" >Assign</button>"
-                );
-            }
-            else
-            {
-                ViewContext.Writer.Write(
-                    "<button type='button' class='open-popup btn btn-round btn-default' data-toggle='modal' data-target='#quotePopup'" +
-                    "onclick =\"OpenQuotePopup("+ poRequestId + ")\" >Quote</button>"
-                    );
-            }
 
+            if (poRequest.RequestStatusID != 4)
+            {
+                if (poRequest.Quantity != 0)
+                {
+                    ViewContext.Writer.Write(
+                        "<button type='button' class='open-popup btn btn-round btn-default' data-toggle='modal' data-target='#assignPopup'" +
+                        "onclick =\"OpenAssignPopup(" + poRequestId + "," + employeeId + ",'" + category + "','" + employeeName + "')\" >Assign <a class='quantity'>" + @poRequest.Quantity + "</a></button>"
+                        );
+                }
+                else
+                {
+                    if (poRequest.Quotes.Count == 0)
+                    {
+                        ViewContext.Writer.Write(
+                            "<button type='button' class='open-popup btn btn-round btn-default' data-toggle='modal' data-target='#quotePopup'" +
+                            "onclick =\"OpenQuotePopup("+ poRequestId + ")\" >Quote</button>"
+                            );
+                    }
+                    else
+                    {
+                        var userSession = (Employee) SessionHelper.GetSessionValue(Constant.UserSession);
+                        
+                        ViewContext.Writer.Write(
+                            "<button type='button' class='open-popup btn btn-round btn-default' data-toggle='modal' data-target='#quotePopup'" +
+                            "onclick =\"OpenQuotePopup(" + poRequestId + ")\" >Quote</button>"+
+                            "&nbsp"+
+                            "<button type='button' class='btn btn-round btn-primary' onclick =\"SubmitRequest(" + poRequestId + ", '"+ userSession.FullName + "')\" >Submit</button>"
+                            );
+                    }
+                }
+            }
         });
         c.Width = 120;
     });
@@ -164,7 +177,7 @@
     settings.Settings.ShowFilterRowMenu = true;
     settings.CommandColumn.ShowClearFilterButton = true;
 
-    settings.SettingsPager.PageSize = 7;
+    settings.SettingsPager.PageSize = 5;
 
     settings.SettingsPager.Position = PagerPosition.Bottom;
     settings.SettingsPager.FirstPageButton.Visible = true;

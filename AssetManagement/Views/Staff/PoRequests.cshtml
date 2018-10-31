@@ -11,10 +11,9 @@
 
 <link href="~/Content/Staff/PoRequests.css" rel="stylesheet" />
 
-@* @{ *@
-@*     var userSession = (Employee)SessionHelper.GetSessionValue(Constant.UserSession); *@
-@* } *@
-
+@{
+    var userSession = (Employee)SessionHelper.GetSessionValue(Constant.UserSession);
+}
 @Html.DevExpress().GetStyleSheets(
     new StyleSheet { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
     new StyleSheet { ExtensionSuite = ExtensionSuite.GridView },
@@ -29,20 +28,31 @@
     new Script { ExtensionType = ExtensionType.CallbackPanel },
     new Script { ExtensionType = ExtensionType.PopupControl }
     )
-
-
+<style>
+    .quantity {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background-color: #1AAB9C !important;
+        color: white !important;
+        font-size: 12px;
+        text-decoration: none !important;
+    }
+</style>
 
 <script>
     var SettingCategory = function (s, e) {
         e.customArgs['categoryName'] = categoryName;
     }
 </script>
+
 <div class="container">
     <div class="row">
         <div class="col-md-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Request Lists</h2>
+                    <h2>Requests For Using Asset</h2>
                     <div class="clearfix"></div>
                 </div>
 
@@ -68,8 +78,9 @@
                     <form class='form-horizontal form-label-left input_mask' id="formAssign">
 
                         <input type='hidden' class='form-control' readonly id='poRequestId'>
+                        <input type='hidden' class='form-control' readonly id='employeeId'>
 
-                        @* <input type='hidden' class='form-control' readonly id='StaffAssign' value='@userSession.FullName'> *@
+                        <input type='hidden' class='form-control' readonly id='StaffAssign' value='@userSession.FullName'>
                         <div class='form-group'>
                             <label class='control-label col-md-3 col-sm-3 col-xs-12'>Employee Name: </label>
                             <div class='col-md-8 col-sm-9 col-xs-12'>
@@ -115,10 +126,10 @@
 </div>
 
 
-<div id="quotePopup" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+<div id="quotePopup" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="vertical-alignment-helper">
         <div class="modal-dialog vertical-align-center">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog ">
 
                 <div class="modal-content">
 
@@ -192,7 +203,7 @@
                                     <span class="fa fa-money form-control-feedback left" aria-hidden="true"></span>
                                 </div>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-3">Warranty: </label>
                                 <div class="col-md-7 col-sm-9 col-xs-9">
@@ -215,7 +226,7 @@
                             <br>
                             <div class="ln_solid"></div>
                             <div class="form-group">
-                                <div class="col-md-9 col-md-offset-5">
+                                <div class="col-md-9 col-md-offset-4">
                                     <button type="button" class="btn btn-round btn-success" id="btnSubmit">Submit</button>
                                     <button type="button" class="btn btn-round btn-default" data-dismiss="modal" id="btnSubmit22">Cancel</button>
                                 </div>
@@ -231,8 +242,5 @@
 
 
 
+
 <script src="~/Scripts/app/PoRequests.js"></script>
-
-
-
-

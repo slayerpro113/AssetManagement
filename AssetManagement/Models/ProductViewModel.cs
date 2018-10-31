@@ -18,6 +18,8 @@ namespace AssetManagement.Models
 
         public int CategoryID { get; set; }
         public string Image { get; set; }
+        public int NumberUsingProduct { get; set; }
+
 
         [Required]
         public byte[] ImageBytes { get; set; }

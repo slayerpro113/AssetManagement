@@ -14,11 +14,14 @@ namespace Service
 {
     public class ProductService : BaseService<Product>, IProductService
     {
+        private readonly IRepository<Asset> _assetRepository;
+
         private readonly IRepository<Product> _productRepository;
 
-        public ProductService(IUnitOfWork unitOfWork, IRepository<Product> productRepository) : base(unitOfWork, productRepository)
+        public ProductService(IUnitOfWork unitOfWork, IRepository<Product> productRepository, IRepository<Asset> assetRepository) : base(unitOfWork, productRepository)
         {
             _productRepository = productRepository;
+            _assetRepository = assetRepository;
         }
 
         public IList<Product> GetProductsByCategoryId(int categoryId)
@@ -26,6 +29,8 @@ namespace Service
             var products = _productRepository.GetProductsByCategoryId(categoryId);
             foreach (var product in products)
             {
+                product.NumberUsingProduct = _assetRepository.GetQuantityOfAsset(GetCategoryName(product.CategoryID).ToString());
+
                 string path = HttpContext.Current.Server.MapPath("~/Image/Categories/" + product.Image);
                 product.ImageBytes = File.ReadAllBytes(path);
             }
@@ -48,7 +53,7 @@ namespace Service
         public Product HandleImage(Product product)
         {
             byte[] imageBytes = product.ImageBytes;
-            Enumerations.CategoryName category = Category(product.CategoryID);
+            Enumerations.CategoryName category = GetCategoryName(product.CategoryID);
 
             using (var ms = new MemoryStream(imageBytes))
             {
@@ -62,10 +67,10 @@ namespace Service
             return product;
         }
 
-        public Enumerations.CategoryName Category(int categoryId)
+        public Enumerations.CategoryName GetCategoryName(int categoryId)
         {
             if (categoryId == 1)
-            {              
+            {
                 return Enumerations.CategoryName.Chair;
             }
             else if (categoryId == 2)

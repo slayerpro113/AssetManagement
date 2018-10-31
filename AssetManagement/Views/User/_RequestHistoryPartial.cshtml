@@ -1,0 +1,149 @@
+﻿
+@using System.Drawing
+@using Data.Entities
+@using Image = System.Web.UI.WebControls.Image
+@model IList<Data.Entities.PoRequest>
+@Html.DevExpress().GridView(settings => {
+    settings.Name = "gvFilterRow";
+    settings.SettingsBehavior.AllowFocusedRow = false;
+    settings.SettingsLoadingPanel.Mode = GridViewLoadingPanelMode.Disabled;
+    settings.Styles.Header.BackColor = System.Drawing.ColorTranslator.FromHtml("#476482");
+    settings.Styles.Header.ForeColor = Color.White;
+
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Styles.RowHotTrack.BackColor = System.Drawing.ColorTranslator.FromHtml("#f4f4f4");
+    settings.Styles.RowHotTrack.Font.Bold = true;
+
+    settings.CallbackRouteValues = new { Controller = "User", Action = "GetRequestHistory", employeeId = ViewBag.EmployeeId };
+    settings.Width = Unit.Percentage(100);
+
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "CreatedDate";
+        c.Caption = "Request Date";
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.Width = 200;
+        c.PropertiesEdit.DisplayFormatString = "D";
+        c.Settings.AllowAutoFilter = DefaultBoolean.False;
+
+    });
+
+    settings.Columns.Add(c => {
+        c.FieldName = "CategoryName";
+        c.Caption = "Type";
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.EditorProperties().ComboBox(cb => {
+            cb.DataSource = PoRequest.GetCategories();
+            cb.TextField = "CategoryName";
+            cb.ValueField = "CategoryName";
+            cb.DropDownStyle = DropDownStyle.DropDown;
+        });
+        c.Width = 70;
+
+    });
+
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "Status";
+        c.Caption = "Status";
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.Width = 120;
+        c.EditorProperties().ComboBox(cb => {
+            cb.DataSource = PoRequest.GetStatuses();
+            cb.TextField = "StatusName";
+            cb.ValueField = "StatusName";
+            cb.DropDownStyle = DropDownStyle.DropDown;
+        });
+
+        c.SetDataItemTemplateContent(p =>
+        {
+            int poRequestId = (int)DataBinder.Eval(p.DataItem, "PoRequestID");
+            var poRequest = Model.FirstOrDefault(_ => _.PoRequestID == poRequestId);
+            if (poRequest.RequestStatusID == 1)
+            {
+                ViewContext.Writer.Write(
+                    "<button type='button' class='btn btn-info btn-sm'>" + poRequest.RequestStatus.StatusName + "</button>"
+                    );
+            }
+            else if(poRequest.RequestStatusID == 2)
+            {
+                ViewContext.Writer.Write(
+                    "<button type='button' class='btn btn-warning btn-sm'>"+ poRequest.RequestStatus.StatusName + "</button>"
+                    );
+            }
+            else if (poRequest.RequestStatusID == 3)
+            {
+                ViewContext.Writer.Write(
+                    "<button type='button' class='btn btn-danger btn-sm'>" + poRequest.RequestStatus.StatusName + "</button>"
+                    );
+            }
+            else
+            {
+                ViewContext.Writer.Write(
+                    "<button type='button' class='btn btn-success btn-sm'>" + poRequest.RequestStatus.StatusName + "</button>"
+                    );
+            }
+        });
+    });
+
+
+    settings.Columns.Add(c =>
+    {
+        c.SetDataItemTemplateContent(p =>
+        {
+            int poRequestId = (int) DataBinder.Eval(p.DataItem, "PoRequestID");
+            var poRequest = Model.FirstOrDefault(_ => _.PoRequestID == poRequestId);
+            if (poRequest.RequestStatusID == 4)
+            {
+                ViewContext.Writer.Write(
+                    "<a style='text-decoration: none'>" + poRequest.StaffAssign + "</a>"+
+                    "<br/>"+
+                    "<small>On <i>"+ poRequest.FinishedDate.Value.ToLongDateString() +"</i></small>"
+                    );
+            }
+
+
+        });
+        c.Caption = "Assigned By";
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.Width = 230;
+    });
+
+    settings.Columns.Add(c =>
+    {
+        c.Caption = "Assigned Asset";
+        c.SetDataItemTemplateContent(p =>
+        {
+            int poRequestId = (int) DataBinder.Eval(p.DataItem, "PoRequestID");
+            var poRequest = Model.FirstOrDefault(_ => _.PoRequestID == poRequestId);
+            if (poRequest.RequestStatusID == 4)
+            {
+                ViewContext.Writer.Write(
+                    "<img src=\"/Image/Categories/" + HttpUtility.UrlDecode(@poRequest.AssetImage) + "\" class='avatar' alt='Avatar'>     "+
+
+                    "<a style='text-decoration: none'>" + poRequest.AssetName + "</a>"
+                    );
+            }
+        });
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.Width = 230;
+    });
+
+
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.CommandColumn.ShowClearFilterButton = true;
+
+    settings.SettingsPager.PageSize = 5;
+
+    settings.SettingsPager.Position = PagerPosition.Bottom;
+    settings.SettingsPager.FirstPageButton.Visible = true;
+    settings.SettingsPager.LastPageButton.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "5", "7", "9" };
+}).Bind(Model).GetHtml()

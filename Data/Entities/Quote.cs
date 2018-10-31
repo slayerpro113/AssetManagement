@@ -21,7 +21,7 @@ namespace Data.Entities
         public string CategoryName { get; set; }
         public string Vendor { get; set; }
         public decimal Price { get; set; }
-        public int Warranty { get; set; }
+        public Nullable<int> Warranty { get; set; }
         public string Note { get; set; }
         public int PoRequestID { get; set; }
     

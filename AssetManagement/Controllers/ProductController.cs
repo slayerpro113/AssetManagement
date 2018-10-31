@@ -21,13 +21,13 @@ namespace AssetManagement.Controllers
             _productService = productService;
         }
 
-        public ActionResult Index(int categoryId)
+        public ActionResult Product(int categoryId)
         {
             ViewBag.CategoryId = categoryId;
             return View();
         }
 
-        public ActionResult GetProducts(int categoryId)
+        public ActionResult GetProductByCategoryId(int categoryId)
         {
             ViewBag.CategoryId = categoryId;          
             var products = Mapper.Map<List<ProductViewModel>>(_productService.GetProductsByCategoryId(categoryId));
@@ -47,7 +47,7 @@ namespace AssetManagement.Controllers
                 ViewData["EditError"] = "Please, Enter Your Information again.";
             }
 
-            return GetProducts(categoryId);
+            return GetProductByCategoryId(categoryId);
         }
 
        // [RolePermission(Enumerations.Roles.Manager)]
@@ -63,14 +63,14 @@ namespace AssetManagement.Controllers
                 ViewData["EditError"] = "Please, Enter Your Information again.";
             }
 
-            return GetProducts(categoryId);
+            return GetProductByCategoryId(categoryId);
         }
 
         //[RolePermission(Enumerations.Roles.Manager)]
         public ActionResult DeleteProduct(int productId, int categoryId)
         {
             _productService.DeleteEntity(productId);
-            return GetProducts(categoryId);
+            return GetProductByCategoryId(categoryId);
         }
 
         public ActionResult BinaryImageColumnPhotoUpdate()

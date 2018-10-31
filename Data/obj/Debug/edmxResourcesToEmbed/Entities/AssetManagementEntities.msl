@@ -49,9 +49,9 @@
     <EntitySetMapping Name="Histories">
       <EntityTypeMapping TypeName="AssetManagementModel.History">
         <MappingFragment StoreEntitySet="Histories">
-          <ScalarProperty Name="PoRequestID" ColumnName="PoRequestID" />
-          <ScalarProperty Name="StaffAssign" ColumnName="StaffAssign" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
           <ScalarProperty Name="AssetID" ColumnName="AssetID" />
+          <ScalarProperty Name="StaffAssign" ColumnName="StaffAssign" />
           <ScalarProperty Name="StaffRecall" ColumnName="StaffRecall" />
           <ScalarProperty Name="AssignRemark" ColumnName="AssignRemark" />
           <ScalarProperty Name="RecallRemark" ColumnName="RecallRemark" />
@@ -70,29 +70,6 @@
           <ScalarProperty Name="Subtotal" ColumnName="Subtotal" />
           <ScalarProperty Name="Quantity" ColumnName="Quantity" />
           <ScalarProperty Name="OrderDetailID" ColumnName="OrderDetailID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Orders">
-      <EntityTypeMapping TypeName="AssetManagementModel.Order">
-        <MappingFragment StoreEntitySet="Orders">
-          <ScalarProperty Name="PoRequestID" ColumnName="PoRequestID" />
-          <ScalarProperty Name="VendorID" ColumnName="VendorID" />
-          <ScalarProperty Name="PurchaseDate" ColumnName="PurchaseDate" />
-          <ScalarProperty Name="OrderTotal" ColumnName="OrderTotal" />
-          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="PoRequests">
-      <EntityTypeMapping TypeName="AssetManagementModel.PoRequest">
-        <MappingFragment StoreEntitySet="PoRequest">
-          <ScalarProperty Name="RequestStatusID" ColumnName="RequestStatusID" />
-          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="PoRequestID" ColumnName="PoRequestID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -157,6 +134,31 @@
           <ScalarProperty Name="ProductName" ColumnName="ProductName" />
           <ScalarProperty Name="Image" ColumnName="Image" />
           <ScalarProperty Name="QuoteID" ColumnName="QuoteID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PoRequests">
+      <EntityTypeMapping TypeName="AssetManagementModel.PoRequest">
+        <MappingFragment StoreEntitySet="PoRequest">
+          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+          <ScalarProperty Name="SelectedQuoteID" ColumnName="SelectedQuoteID" />
+          <ScalarProperty Name="RequestStatusID" ColumnName="RequestStatusID" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="StaffSubmit" ColumnName="StaffSubmit" />
+          <ScalarProperty Name="FinishedDate" ColumnName="FinishedDate" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="PoRequestID" ColumnName="PoRequestID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="AssetManagementModel.Order">
+        <MappingFragment StoreEntitySet="Orders">
+          <ScalarProperty Name="PurchaseDate" ColumnName="PurchaseDate" />
+          <ScalarProperty Name="OrderTotal" ColumnName="OrderTotal" />
+          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

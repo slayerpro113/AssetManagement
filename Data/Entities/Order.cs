@@ -18,17 +18,16 @@ namespace Data.Entities
         public Order()
         {
             this.OrderDetails = new HashSet<OrderDetail>();
+            this.PoRequests = new HashSet<PoRequest>();
         }
     
         public int OrderID { get; set; }
-        public string OrderTotal { get; set; }
+        public decimal OrderTotal { get; set; }
         public System.DateTime PurchaseDate { get; set; }
-        public int VendorID { get; set; }
-        public int PoRequestID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
-        public virtual Vendor Vendor { get; set; }
-        public virtual PoRequest PoRequest { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PoRequest> PoRequests { get; set; }
     }
 }

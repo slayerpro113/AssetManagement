@@ -1,8 +1,9 @@
 ﻿
 
 var categoryName;
-function OpenAssignPopup(poRequestId, category, employeeName) {
+function OpenAssignPopup(poRequestId, employeeId, category, employeeName) {
     $('#poRequestId').val(poRequestId);
+    $('#employeeId').val(employeeId);
     $('#employeeName').val(employeeName);
 
     categoryName = category;
@@ -23,7 +24,7 @@ function doAssignAsset() {
     else {
         $.ajax({
             type: 'Post',
-            url: "/Staff/AssignAsset?poRequestId=" + $("#poRequestId").val() + "&assetId=" + assetId + "&assignRemark=" + $("#assignRemark").val() + "&StaffAssign=" + $("#StaffAssign").val(),
+            url: "/Staff/AssignAsset?poRequestId=" + $("#poRequestId").val() + "&employeeId=" + $("#employeeId").val() + "&assetId=" + assetId + "&assignRemark=" + $("#assignRemark").val() + "&StaffAssign=" + $("#StaffAssign").val(),
             dataType: 'json',
             success: function (data) {
                 if (data.status === "Success") {
@@ -62,7 +63,6 @@ function timeoutAsset() {
 function OpenQuotePopup(poRequestId) {
     $("#poRequestId2").val(poRequestId);
     $("#formQuote")[0].reset();
-
 }
 
 $("#btnSubmit").click(function () {
@@ -136,3 +136,47 @@ function timeout() {
         $("#quoteMessage").empty();
     }, 1300);
 }
+
+
+//---------------------- Submit request
+function SubmitRequest(poRequestId, staffSubmit) {
+    swal({
+        title: "Are you sure?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true
+    }).then(function(isConfirm) {
+        if (isConfirm) {
+            $.ajax({
+                type: 'Post',
+                url: "/Staff/SubmitRequest?poRequestId=" + poRequestId + "&staffSubmit=" + staffSubmit,
+                dataType: 'json',
+                success: function(data) {
+                    if (data.status === "Success") {
+                        swal({
+                            title: "Successfully",
+                            text: "The request has been sent",
+                            icon: "success",
+                            buttons: false,
+                            timer: 1300
+                        });
+                        gvFilterRow.Refresh();
+                    } else {
+                        swal({
+                            title: "Something Went Wrong",
+                            text: "Please try again!",
+                            icon: "error",
+                            buttons: false,
+                            timer: 1300
+                        });
+                    }
+                }
+            });
+        }
+        //cancel
+        else {
+            swal.close();
+        }
+    });
+}
+

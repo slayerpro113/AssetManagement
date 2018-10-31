@@ -1,0 +1,172 @@
+@using System.Drawing
+@using Data.Entities
+@using Image = System.Web.UI.WebControls.Image
+@model IList<Data.Entities.PoRequest>
+
+@Html.DevExpress().GridView(settings => {
+    settings.Name = "gvRowSelection";
+    settings.SettingsBehavior.AllowFocusedRow = false;
+    settings.SettingsLoadingPanel.Mode = GridViewLoadingPanelMode.Disabled;
+    settings.Styles.Header.BackColor = System.Drawing.ColorTranslator.FromHtml("#476482");
+    settings.Styles.Header.ForeColor = Color.White;
+
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Styles.RowHotTrack.BackColor = System.Drawing.ColorTranslator.FromHtml("#f4f4f4");
+    settings.Styles.RowHotTrack.Font.Bold = true;
+
+    settings.CallbackRouteValues = new { Controller = "Staff", Action = "GetSubmittedPoRequestsPartial" };
+    settings.Width = Unit.Percentage(100);
+
+    settings.KeyFieldName = "PoRequestID";
+
+    settings.CommandColumn.Visible = true;
+
+    settings.CommandColumn.Width = 80;
+    settings.CommandColumn.Caption = " ";
+    settings.CommandColumn.ShowSelectCheckbox = true;
+
+
+    settings.Columns.Add("PoRequestID").Visible = false;
+    settings.Columns.Add(c =>
+    {
+        c.Caption = "Requested By";
+        c.FieldName = "EmployeeName";
+        c.SetDataItemTemplateContent(p =>
+        {
+            int poRequestId = (int) DataBinder.Eval(p.DataItem, "PoRequestID");
+            var poRequest = Model.FirstOrDefault(_ => _.PoRequestID == poRequestId);
+
+            ViewContext.Writer.Write(
+                "<img src=\"/Image/" + HttpUtility.UrlDecode(poRequest.Employee.Image) + "\" class='avatar' alt='Avatar'>     "+
+
+                "<a style='text-decoration: none'>" + poRequest.Employee.FullName + "</a>"+
+                "<br/>"+
+                "<small>Created On <i>"+ poRequest.CreatedDate.ToLongDateString() +"</i></small>"
+                );
+        });
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.Width = 300;
+    });
+
+    settings.Columns.Add(c => {
+        c.FieldName = "CategoryName";
+        c.Caption = "Type";
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.Width = 180;
+        c.EditorProperties().ComboBox(cb => {
+            cb.DataSource = PoRequest.GetCategories();
+            cb.TextField = "CategoryName";
+            cb.ValueField = "CategoryName";
+            cb.DropDownStyle = DropDownStyle.DropDown;
+        });
+    });
+
+    settings.Columns.Add(c =>
+    {
+        c.SetDataItemTemplateContent(p =>
+        {
+            int poRequestId = (int) DataBinder.Eval(p.DataItem, "PoRequestID");
+            var poRequest = Model.FirstOrDefault(_ => _.PoRequestID == poRequestId);
+            var quotes = poRequest.Quotes;
+
+            if (poRequest.RequestStatusID == 2)
+            {
+                ViewContext.Writer.Write(
+                    "<ul class='list-inline'>"
+                    );
+                foreach (var quote in quotes)
+                {
+                    ViewContext.Writer.Write(
+                        "<li>"+
+                        "<img class='avatar' alt='Avatar' src=\"/Image/Quotes/" + HttpUtility.UrlDecode(@quote.Image) + "\">"+
+                        "</li>"
+                        );
+                }
+                ViewContext.Writer.Write(
+                    "</ul>"
+                );
+            }
+            else
+            {
+                var quoteId = poRequest.SelectedQuoteID;
+                var quote = quotes.FirstOrDefault(_ => _.QuoteID == quoteId);
+                ViewContext.Writer.Write(
+                    "<ul class='list-inline'>"+
+                    "<li>"+
+                    "<img class='avatar' alt='Avatar' src=\"/Image/Quotes/" + HttpUtility.UrlDecode(@quote.Image) + "\">"+
+                    "</li>"+
+                    "</ul>"
+                 );
+            }
+
+        });
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.Caption = "Quote";
+        c.Width = 150;
+    });
+
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "Status";
+        c.Caption = "Status";
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.Width = 150;
+
+        c.SetDataItemTemplateContent(p =>
+        {
+            int poRequestId = (int)DataBinder.Eval(p.DataItem, "PoRequestID");
+            var poRequest = Model.FirstOrDefault(_ => _.PoRequestID == poRequestId);
+            if (poRequest.RequestStatusID == 2)
+            {
+                ViewContext.Writer.Write(
+                    "<button type='button' class='btn btn-warning btn-sm'>"+ poRequest.RequestStatus.StatusName +"</button>"
+                    );
+            }
+            else
+            {
+                ViewContext.Writer.Write(
+                    "<button type='button' class='btn btn-danger btn-sm'>" + poRequest.RequestStatus.StatusName + "</button>"
+                    );
+            }
+        });
+    });
+
+    settings.Columns.Add(c =>
+    {
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.Width = 150;
+
+        c.SetDataItemTemplateContent(p =>
+        {
+            int poRequestId = (int)DataBinder.Eval(p.DataItem, "PoRequestID");
+            var poRequest = Model.FirstOrDefault(_ => _.PoRequestID == poRequestId);
+          
+                ViewContext.Writer.Write(
+                    "<div class='checkbox'>" +
+                        "<label>"+
+                            "<input type='checkbox'  onclick =\"GetPoRequestId(" + poRequestId + ")\">" +
+                         "</label>"+
+                     "</div>"
+                );
+        });
+    });
+
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.CommandColumn.ShowClearFilterButton = true;
+
+    settings.SettingsPager.PageSize = 5;
+
+    settings.SettingsPager.Position = PagerPosition.Bottom;
+    settings.SettingsPager.FirstPageButton.Visible = true;
+    settings.SettingsPager.LastPageButton.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "5", "7", "9" };
+
+    settings.ClientSideEvents.SelectionChanged = "SelectionChanged";
+
+}).Bind(Model).GetHtml()

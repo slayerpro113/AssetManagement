@@ -33,13 +33,13 @@ namespace Data.Entities
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<History> Histories { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
-        public virtual DbSet<Order> Orders { get; set; }
-        public virtual DbSet<PoRequest> PoRequests { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<RequestStatus> RequestStatuses { get; set; }
         public virtual DbSet<RoleEmployee> RoleEmployees { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Vendor> Vendors { get; set; }
         public virtual DbSet<Quote> Quotes { get; set; }
+        public virtual DbSet<PoRequest> PoRequests { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
     }
 }

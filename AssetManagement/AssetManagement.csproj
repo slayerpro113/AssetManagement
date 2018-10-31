@@ -534,6 +534,15 @@
     <Content Include="vendors\jquery\src\var\support.js" />
     <Content Include="vendors\jquery\src\var\toString.js" />
     <Content Include="vendors\jquery\src\wrap.js" />
+    <Content Include="vendors\switchery\dist\switchery.css" />
+    <Content Include="vendors\switchery\dist\switchery.js" />
+    <Content Include="vendors\switchery\dist\switchery.min.css" />
+    <Content Include="vendors\switchery\dist\switchery.min.js" />
+    <Content Include="vendors\switchery\meteor\export.js" />
+    <Content Include="vendors\switchery\meteor\tests.js" />
+    <Content Include="vendors\switchery\package.js" />
+    <Content Include="vendors\switchery\switchery.css" />
+    <Content Include="vendors\switchery\switchery.js" />
     <Content Include="Views\Login\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -695,7 +704,7 @@
     <Content Include="vendors\fastclick\bower.json" />
     <Content Include="vendors\fastclick\LICENSE" />
     <Content Include="vendors\fastclick\README.md" />
-    <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Product\Product.cshtml" />
     <Content Include="vendors\jquery-sparkline\.bower.json" />
     <Content Include="vendors\jquery-sparkline\bower.json" />
     <Content Include="vendors\jquery-sparkline\Makefile" />
@@ -719,7 +728,16 @@
     <Content Include="vendors\iCheck\icheck.jquery.json" />
     <Content Include="Views\Staff\_AssetCbbPartial.cshtml" />
     <Content Include="Views\Staff\_PoRequestsPartial.cshtml" />
-    <Content Include="Views\Staff\test.cshtml" />
+    <Content Include="Views\User\_RequestHistoryPartial.cshtml" />
+    <Content Include="Views\Staff\_SubmittedPoRequestsPartial.cshtml" />
+    <Content Include="Views\Staff\SubmittedPoRequests.cshtml" />
+    <Content Include="Views\Manager\PoRequestsFromStaff.cshtml" />
+    <Content Include="Views\Manager\_QuoteDetailPartial.cshtml" />
+    <Content Include="Views\Manager\_PoRequestsFromStaffPartial.cshtml" />
+    <Content Include="vendors\switchery\.bower.json" />
+    <Content Include="vendors\switchery\bower.json" />
+    <Content Include="vendors\switchery\CHANGELOG.md" />
+    <Content Include="vendors\switchery\package.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -736,6 +754,7 @@
     <Compile Include="Controllers\AssetController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\ManagerController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
     <Compile Include="Controllers\UserController.cs" />
