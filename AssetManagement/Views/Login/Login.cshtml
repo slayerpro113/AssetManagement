@@ -3,10 +3,10 @@
 
 <!DOCTYPE html>
 <html lang="en">
-@{
+@*@{
       var userSession = (Employee)SessionHelper.GetSessionValue(Constant.UserSession);
      var roleSession = (Role)SessionHelper.GetSessionValue(Constant.RoleSession);
-}
+}*@
 
 <head>
     <meta charset="UTF-8">
@@ -14,6 +14,7 @@
     <link href='https://fonts.googleapis.com/css?family=Raleway:300,200' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
     <link rel="icon" href="~/Image/icon.co.png" type="image/ico" />
+
     <link rel="stylesheet" href="~/Content/LoginCss/style.css" />
     <link href="~/Content/toastr.css" rel="stylesheet" />
 </head>
@@ -34,5 +35,4 @@
 </html>
 <script src="~/Scripts/jquery.js"></script>
 <script src="~/Scripts/toastr.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="~/Scripts/app/login.js"></script>

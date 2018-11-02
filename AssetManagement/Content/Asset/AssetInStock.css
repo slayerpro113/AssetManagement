@@ -1,0 +1,90 @@
+﻿
+    h2 {
+     text-align: center;
+     font-size: x-large;
+ }
+
+.x_content {
+    display: flex;
+    justify-content: center;
+}
+
+/*Pop up*/
+.modal-header {
+    background-color: #1AAB9C;
+}
+
+.modal-title {
+    text-align: center;
+    color: #fff;
+    font-size: x-large;
+}
+
+.vertical-alignment-helper {
+    display: table;
+    height: 100%;
+    width: 100%;
+}
+
+.vertical-align-center {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.modal-content {
+    width: inherit;
+    height: inherit;
+    margin: 0 auto;
+}
+
+#errorMessage {
+    text-align: center;
+    color: Red;
+    width: 200px;
+}
+.required {
+    color:red
+}
+
+/* Combobox */
+.name {
+    font-weight: bold;
+    padding-top: 5px;
+    padding-left: 10px;
+}
+
+.photo {
+    width: 84px;
+    height: 84px;
+    vertical-align: middle;
+}
+
+.frame {
+    border: 1px solid lightgray;
+    padding: 4px;
+}
+
+.description {
+    color: gray;
+    padding-top: 1px;
+    padding-left: 10px;
+}
+
+.contactInfo {
+    padding-bottom: 11px;
+}
+
+.hoveredItem .description {
+    color: inherit; 
+}
+
+.selectedItem .description,
+.selectedItem .name {
+    color: #ffffff;
+}
+
+/*history partial*/
+.history-area {
+    display: flex;
+    justify-content: center
+}

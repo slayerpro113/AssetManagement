@@ -2,11 +2,12 @@
 
 @Html.DevExpress().ComboBox(settings => {
     settings.Name = "ComboBox";
-    settings.Width = Unit.Pixel(285);
+    settings.Width = Unit.Pixel(310);
     settings.Properties.NullText = "Select Employee...";
     settings.CallbackRouteValues = new { Controller = "Asset", Action = "LoadDataCbb" };
     settings.Properties.ValidationSettings.RequiredField.IsRequired = true;
     settings.ShowModelErrors = true;
+
     settings.SetItemTemplateContent((container) => {
         ViewContext.Writer.Write(
             "<table id='employeePopup'>" +

@@ -53,8 +53,8 @@ namespace AssetManagement.Controllers
         {
             var employee = _employeeService.GetEntity(employeeId);
             var asset = _assetService.GetEntity(assetId);
-            _poRequestService.SetStatusAndFinishDate(poRequestId);
-            var status = _historyService.HandleAssign(employee, asset, assignRemark, staffAssign);
+
+            var status = _historyService.HandleAssign(poRequestId, employee, asset, assignRemark, staffAssign);
 
             if (status == Enumerations.AddEntityStatus.Success)
             {
@@ -67,9 +67,11 @@ namespace AssetManagement.Controllers
         }
 
         [HttpPost]
-        public ActionResult HandleQuote(HttpPostedFileBase image, string productName, string brand, string category,
+        public ActionResult HandleQuote(HttpPostedFileBase image, string productName, string brand,
             string vendor, decimal price, string warranty, string note, int poRequestId)
         {
+            var poRequest = _poRequestService.GetEntity(poRequestId);
+
             if (warranty.Length == 0)
             {
                 warranty = "0";
@@ -79,13 +81,12 @@ namespace AssetManagement.Controllers
             {
                 ProductName = productName,
                 Brand = brand,
-                CategoryName = category,
+                CategoryName = poRequest.CategoryName,
                 Vendor = vendor,
                 Price = price,
                 Warranty = int.Parse(warranty),
                 Note = note
             };
-            var poRequest = _poRequestService.GetEntity(poRequestId);
 
             var status = _quoteService.HandleQuote(image, quote, poRequest);
 
@@ -126,9 +127,10 @@ namespace AssetManagement.Controllers
             return PartialView("_SubmittedPoRequestsPartial", poRequests);
         }
 
-        public ActionResult CreateOrder(string poRequestIdArray)
+        [HttpPost]
+        public ActionResult CreateOrder(string poRequestIdString)
         {
-            var status = _orderService.HandleCreateOrder(poRequestIdArray);
+            var status = _orderService.HandleCreateOrder(poRequestIdString);
 
             if (status == Enumerations.AddEntityStatus.Success)
             {

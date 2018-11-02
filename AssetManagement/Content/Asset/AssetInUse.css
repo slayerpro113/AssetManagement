@@ -1,0 +1,36 @@
+﻿   h2 {
+       text-align: center;
+       font-size: x-large;
+   }
+   .history-area {
+       display: flex;
+       justify-content: center;
+   }
+
+   /*Pop up*/
+   .modal-header {
+       background-color: #1AAB9C;
+   }
+
+   .modal-title {
+       text-align: center;
+       color: #fff;
+       font-size: x-large;
+   }
+
+   .vertical-alignment-helper {
+       display: table;
+       height: 100%;
+       width: 100%;
+   }
+
+   .vertical-align-center {
+       display: table-cell;
+       vertical-align: middle;
+   }
+
+   .modal-content {
+       width: inherit;
+       height: inherit;
+       margin: 0 auto;
+   }

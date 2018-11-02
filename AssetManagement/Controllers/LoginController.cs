@@ -9,13 +9,11 @@ namespace AssetManagement.Controllers
     public class LoginController : Controller
     {
         private readonly IEmployeeService _employeeService;
-        private readonly IRoleEmployeeService _roleEmployeeService;
         private readonly IRoleService _roleService;
 
-        public LoginController(IEmployeeService personnelService, IRoleEmployeeService roleEmployeeService, IRoleService roleService)
+        public LoginController(IEmployeeService personnelService, IRoleService roleService)
         {
             _employeeService = personnelService;
-            _roleEmployeeService = roleEmployeeService;
             _roleService = roleService;
         }
 
@@ -44,12 +42,10 @@ namespace AssetManagement.Controllers
                 else if (loginStatus == Enumerations.LoginStatus.Succsess)
                 {
                     var user = _employeeService.GetEmployeeByUserName(userName);
-                    var roleEmployee = _roleEmployeeService.GetRoleEmployeeByEmployeeId(user.EmployeeID);
-                    var role = _roleService.GetEntity(roleEmployee.RoleID);
-
+                    var roleName = user.Role.RoleName;
                     Session.Add(Constant.UserSession, user);
-                    Session.Add(Constant.RoleSession, role);
-                    return Json(new { status = "Succsess" , employeeId = user.EmployeeID, role = role.RoleName}, JsonRequestBehavior.AllowGet);
+                    Session.Add(Constant.RoleSession, roleName);
+                    return Json(new { status = "Succsess" , employeeId = user.EmployeeID, roleName = roleName }, JsonRequestBehavior.AllowGet);
                 }
 
                 return Json(new { status = "Failed" }, JsonRequestBehavior.AllowGet);

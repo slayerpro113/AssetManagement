@@ -1,9 +1,12 @@
-﻿$("#btnSubmit").click(function () {
-    doAssetRequest();
-});
+﻿
+$(document).ready(function() {
+    $("#btnSubmit").click(function() {
+        doAssetRequest();
+    });
 
-$("#btnReset").click(function () {
-    $("#formRequest")[0].reset();
+    $("#btnReset").click(function() {
+        $("#formRequest")[0].reset();
+    });
 });
 
 function doAssetRequest() {

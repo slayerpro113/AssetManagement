@@ -27,30 +27,33 @@ $(document).ready(function () {
     $("#btnSubmit").click(function () {
         doLogin();
     });
-   
+
 });
 
 function doLogin() {
     $.ajax({
         type: 'Post',
         url: "Login/Login?userName=" + $("#userName").val() + "&password=" + $("#password").val(),
-//        data: {
-//            UserName: $("#userName").val(),
-//            Password: $("#password").val()
-//        },
-
         dataType: 'json',
         success: function (data) {
 
             if (data.status === "WrongUserName") {
                 toastr["error"]("Username is in correct", "Error:");
-                
+
             }
             else if (data.status === "WrongPassword") {
-                toastr["error"]("Password is in correct", "Error:");               
+                toastr["error"]("Password is in correct", "Error:");
             }
             else if (data.status === "Succsess") {
-                location.href = "/user/GetAssetsDetail?employeeId=" + data.employeeId;
+                if (data.roleName === "User") {
+                    location.href = "/user/GetAssetsDetail?employeeId=" + data.employeeId;
+
+                } else if (data.roleName === "Staff") {
+                    location.href = "/staff/GetPoRequestsFromUsers";
+                }
+                else if (data.roleName === "Manager") {
+                    location.href = "/manager/GetPoRequestsFromStaff";
+                }
             }
             else {
                 toastr["error"]("Data input is in correct", "Error:");

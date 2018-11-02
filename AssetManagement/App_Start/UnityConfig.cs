@@ -58,9 +58,7 @@ namespace AssetManagement
             container
                 .RegisterType<IRepository<Category>, Repository<Category>>();
             container
-                .RegisterType<IRepository<Employee>, Repository<Employee>>();
-            container
-                .RegisterType<IRepository<RoleEmployee>, Repository<RoleEmployee>>();
+                .RegisterType<IRepository<Employee>, Repository<Employee>>();         
             container
                 .RegisterType<IRepository<Role>, Repository<Role>>();
             container
@@ -79,7 +77,6 @@ namespace AssetManagement
             //Service layer
             container.RegisterType<ICategoryService, CategoryService>();
             container.RegisterType<IEmployeeService, EmployeeService>();
-            container.RegisterType<IRoleEmployeeService, RoleEmployeeService>();
             container.RegisterType<IRoleService, RoleService>();
             container.RegisterType<IProductService, ProductService>();
             container.RegisterType<IAssetService, AssetService>();

@@ -11,7 +11,7 @@
     settings.Styles.Header.ForeColor = Color.White;
 
     settings.SettingsBehavior.EnableRowHotTrack = true;
-    settings.Styles.RowHotTrack.BackColor = System.Drawing.ColorTranslator.FromHtml("#f4f4f4");
+    settings.Styles.RowHotTrack.BackColor = System.Drawing.ColorTranslator.FromHtml("#f9fdff");
     settings.Styles.RowHotTrack.Font.Bold = true;
 
     settings.CallbackRouteValues = new { Controller = "Staff", Action = "GetPoRequestsFromUsersPartial" };
@@ -28,11 +28,11 @@
             var poRequest = Model.FirstOrDefault(_ => _.PoRequestID == poRequestId);
 
             ViewContext.Writer.Write(
-                "<img src=\"/Image/" + HttpUtility.UrlDecode(poRequest.Employee.Image) + "\" class='avatar' alt='Avatar'>     "+
+                "<img src=\"/Image/" + HttpUtility.UrlDecode(poRequest.Employee.Image) + "\" class='avatar' alt='Avatar'>"+
 
-                "<a style='text-decoration: none'>" + poRequest.Employee.FullName + "</a>"+
+                "&nbsp&nbsp<a &nbsp&nbsp<a style='text-decoration: none; font-size:medium!important'>" + poRequest.Employee.FullName + "</a>"+
                 "<br/>"+
-                "<small>On <i>"+ poRequest.CreatedDate.ToLongDateString() +"</i></small>"
+                "<small>Created On <i>"+ poRequest.CreatedDate.ToLongDateString() +"</i></small>"
                 );
         });
         c.Caption = "Requested By";
@@ -120,7 +120,7 @@
         {
             int poRequestId = (int)DataBinder.Eval(p.DataItem, "PoRequestID");
             var poRequest = Model.FirstOrDefault(_ => _.PoRequestID == poRequestId);
-           
+
             ViewContext.Writer.Write(
                 "<button type='button' class='btn btn-info btn-sm'>In Progress</button>"
             );
@@ -143,8 +143,11 @@
                 if (poRequest.Quantity != 0)
                 {
                     ViewContext.Writer.Write(
-                        "<button type='button' class='open-popup btn btn-round btn-default' data-toggle='modal' data-target='#assignPopup'" +
-                        "onclick =\"OpenAssignPopup(" + poRequestId + "," + employeeId + ",'" + category + "','" + employeeName + "')\" >Assign <a class='quantity'>" + @poRequest.Quantity + "</a></button>"
+                      "<div class='assign-area'>"+
+                            "<button type='button' class='open-popup btn btn-round btn-default' data-toggle='modal' data-target='#assignPopup'" +
+                            "onclick =\"OpenAssignPopup(" + poRequestId + "," + employeeId + ",'" + category + "','" + employeeName + "')\" >Assign</button>"+
+                              "<div class='quantity-noti'><a id='quantity'>" + @poRequest.Quantity + "</a></div>"+
+                      "</div>"
                         );
                 }
                 else
@@ -159,7 +162,7 @@
                     else
                     {
                         var userSession = (Employee) SessionHelper.GetSessionValue(Constant.UserSession);
-                        
+
                         ViewContext.Writer.Write(
                             "<button type='button' class='open-popup btn btn-round btn-default' data-toggle='modal' data-target='#quotePopup'" +
                             "onclick =\"OpenQuotePopup(" + poRequestId + ")\" >Quote</button>"+

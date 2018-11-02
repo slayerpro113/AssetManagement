@@ -1,8 +1,8 @@
 ﻿@model IList<Data.Entities.PoRequest>
+
 @{
     Layout = "~/Views/Shared/_Layouts.cshtml";
 }
-<link href="~/Content/SweetAlert/SweetAlert.css" rel="stylesheet" />
 
 
 @Html.DevExpress().GetStyleSheets(
@@ -18,12 +18,11 @@
     )
 
 
-<style>
-    h2 {
-        text-align: center;
-        font-size: x-large;
-    }
-</style>
+<link href="~/Content/SweetAlert/SweetAlert.css" rel="stylesheet" />
+<script src="~/Scripts/app/sweetalert.min.js"></script>
+<script src="~/Scripts/app/sweetalert.js"></script>
+
+<link href="~/Content/Manager/PoRequestsFromStaff.css" rel="stylesheet" />
 
 <div class="container">
     <div class="row">
@@ -42,51 +41,4 @@
     </div>
 </div>
 
-<script src="~/Scripts/app/sweetalert.min.js"></script>
-<script src="~/Scripts/app/sweetalert.js"></script>
-
-<script>
-
-    function ApproveQuote(poRequestId, quoteId) {
-        swal({
-            title: "Are you sure?",
-            icon: "warning",
-            buttons: true
-        }).then(function (isConfirm) {
-            if (isConfirm) {
-                $.ajax({
-                    type: 'Post',
-                    url: "/Manager/SelectQuote?poRequestId=" + poRequestId + "&quoteId=" + quoteId,
-                    dataType: 'json',
-                    success: function (data) {
-                        if (data.status === "Success") {
-
-                            swal({
-                                title: "Successfully",
-                                text: "The quote has been selected",
-                                icon: "success",
-                                buttons: false,
-                                timer: 1300
-                            });
-                            masterGrid.Refresh();
-                        } else {
-                            swal({
-                                title: "Something Went Wrong",
-                                text: "Please try again!",
-                                icon: "error",
-                                buttons: false,
-                                timer: 1300
-                            });
-                        }
-                    }
-                });
-            }
-            //cancel
-            else {
-                swal.close();
-            }
-        });
-
-    }
-
-</script>
+<script src="~/Scripts/app/PoRequestsFromStaff.js"></script>

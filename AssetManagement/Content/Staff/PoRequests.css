@@ -1,6 +1,4 @@
 ﻿
-
-
 .x_title {
     margin-top: 0;
 }
@@ -15,6 +13,31 @@ h2 {
     color: red;
 }
 
+
+.assign-area {
+    text-decoration: none;
+    position: relative;
+    display: inline-block;
+}
+
+
+.quantity-noti {
+    position: absolute;
+    top: -3px;
+    right: 0;
+    width: 19px;
+    height: 19px;
+    border-radius: 50%;
+    background-color: #1AAB9C !important;
+    color: white !important;
+    font-size: 13px;
+    text-decoration: none !important;
+}
+
+#quantity {
+    color: white;
+    text-decoration: none
+}
 
 /*Pop up*/
 .modal-header {

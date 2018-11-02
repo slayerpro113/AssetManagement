@@ -25,15 +25,18 @@
                                 <button type="button" class="btn btn-round btn-success"><i class="fa fa-tags"></i> <a id="asset-name">@asset.AssetName</a></button>
                                 <div class="ln_solid"></div>
 
-                                <div class="left col-xs-6 col-xs-offset-1">
+                                <div class="left col-xs-6">
                                     <ul class="list-unstyled">
                                         <li><i class="fa fa-square"></i> Brand: @asset.AssetBrand</li>
                                         <li><i class="fa fa-barcode"></i> Barcode: @asset.Barcode</li>
-                                        <li><i class="fa fa-calendar"></i> Warranty: @asset.Warranty months </li>
+                                       @* <li><i class="fa fa-calendar"></i> Warranty: @asset.Warranty months </li>*@
                                     </ul>
                                 </div>
-
-                                <div class="right col-xs-5 text-center">
+                                
+                                <div class="right col-xs-2 text-center">
+                                </div>
+                                
+                                <div class="right col-xs-4 text-center">
                                     <img src="/Image/Categories/@asset.AssetImage" alt="" class="img-circle img-responsive">
                                 </div>
                             </div>
@@ -41,7 +44,7 @@
                             <div class="phuda col-xs-12 bottom text-center">
                                 <div class="col-xs-12 col-sm-12 emphasis">
                                     <p class="ratings">
-                                        <a>Assigned Date: <i>@asset.CheckinDate</i> by <i>@asset.StaffAssign</i></a>
+                                        <small>Assigned On: <i>@asset.CheckinDate</i> by <i>@asset.StaffAssign</i></small>
                                     </p>
                                 </div>
                             </div>
@@ -74,9 +77,9 @@
         transition: all ease 0.4s;
     }
 
-    .test:hover .btn {
-        margin-left: 140px;
-    }
+    /*.test:hover .btn {
+        margin-left: 10px;
+    }*/
 
     .test:hover img {
         border: 1px solid #1AAB9C !important;

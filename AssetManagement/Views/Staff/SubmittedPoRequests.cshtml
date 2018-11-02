@@ -1,10 +1,9 @@
-﻿@{
+﻿@model IList <Data.Entities.PoRequest>
+
+@{
     Layout = "~/Views/Shared/_Layouts.cshtml";
 }
 
-<link href="~/Content/SweetAlert/SweetAlert.css" rel="stylesheet" />
-<script src="~/Scripts/app/sweetalert.min.js"></script>
-<script src="~/Scripts/app/sweetalert.js"></script>
 
 @Html.DevExpress().GetStyleSheets(
     new StyleSheet { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
@@ -18,7 +17,11 @@
     new Script { ExtensionSuite = ExtensionSuite.Editors }
     )
 
-@model IList<Data.Entities.PoRequest>
+
+
+<link href="~/Content/SweetAlert/SweetAlert.css" rel="stylesheet" />
+<script src="~/Scripts/app/sweetalert.min.js"></script>
+<script src="~/Scripts/app/sweetalert.js"></script>
 
 <style>
     h2 {
@@ -28,9 +31,26 @@
 </style>
 
 <script type="text/javascript">
-    function SelectionChanged(s, e) {
-        s.GetSelectedFieldValues("PoRequestID", GetPoRequestId);
+    function SelectQuote(s, e) {
+        s.GetSelectedFieldValues("PoRequestID", GetSelectedFieldValuesCallback);
     }
+
+    function GetSelectedFieldValuesCallback(values) {
+        $('#requestId').val(values);
+
+        SelectedRows.BeginUpdate();
+        try {
+            SelectedRows.ClearItems();
+            for (var i = 0; i < values.length; i++) {
+                SelectedRows.AddItem(values[i]);
+            }
+        } finally {
+            SelectedRows.EndUpdate();
+        }
+        $("#count").html(gvRowSelection.GetSelectedRowCount());
+
+    }
+
 </script>
 
 <div class="container">
@@ -72,32 +92,18 @@
     </div>
 </div>
 
-<input id="requestIdArray" />
+<input id="requestId" />
+
 <button onclick="test()">phuda</button>
-<div class="">
-    <label>
-        <input type="checkbox" class="js-switch" /> dasd
-    </label>
-</div>
 
 <script>
 
-    function GetPoRequestId(poRequestId) {
-        var array = $('#requestIdArray').val();
-
-        $('#requestIdArray').val(array + poRequestId + ",");
-    }
-
-    $('#btnTest').click(function () {
-        test();
-    });
-
     function test() {
-        var requestId = $('#requestId').val();
+        var poRequestIdString = $('#requestId').val();
 
         $.ajax({
             type: 'Post',
-            url: "/Staff/CreateOrder?poRequestIdArray=17,18",
+            url: "/Staff/CreateOrder?poRequestIdString=" + poRequestIdString,
             dataType: 'json',
             success: function (data) {
                 if (data.status === "Success") {

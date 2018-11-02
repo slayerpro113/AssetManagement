@@ -15,9 +15,11 @@ namespace Data.Entities
     public partial class Vendor
     {
         public int VendorID { get; set; }
-        public string VendorName { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }
+        public Nullable<int> OrderDetailID { get; set; }
+    
+        public virtual OrderDetail OrderDetail { get; set; }
     }
 }

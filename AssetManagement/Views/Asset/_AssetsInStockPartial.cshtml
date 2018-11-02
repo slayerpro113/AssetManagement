@@ -3,16 +3,31 @@
 @using DevExpress.XtraExport.Helpers
 @model IList<Data.Entities.Asset>
 @Html.DevExpress().GridView(settings => {
-    settings.Name = "gvFocusedRow";
+    settings.Name = "InStockGrid";
     settings.CallbackRouteValues = new { Controller = "Asset", Action = "CallBackAssetsInStock" };
     settings.KeyFieldName = "AssetID";
     settings.Width = Unit.Percentage(100);
-    settings.Settings.ShowGroupPanel = true;
-    settings.SettingsBehavior.AllowFocusedRow = true;
+    settings.SettingsLoadingPanel.Mode = GridViewLoadingPanelMode.Disabled;
 
-    settings.SettingsDetail.AllowOnlyOneMasterRowExpanded = false;
+    //Custom css
+    settings.Styles.Header.BackColor = System.Drawing.ColorTranslator.FromHtml("#476482");
+    settings.Styles.Header.ForeColor = Color.White;
+    // Hover
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Styles.RowHotTrack.BackColor = System.Drawing.ColorTranslator.FromHtml("#f9fdff");
+    settings.Styles.RowHotTrack.Font.Bold = true;
+
+    settings.Settings.ShowGroupPanel = true;
+    settings.SettingsBehavior.AllowFocusedRow = false;
+
+    settings.SettingsDetail.AllowOnlyOneMasterRowExpanded = true;
     settings.SettingsDetail.ShowDetailRow = true;
     settings.SettingsPager.PageSize = 5;
+
+    //filter
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.CommandColumn.ShowClearFilterButton = true;
 
 
     settings.Toolbars.Add(toolbar =>
@@ -37,7 +52,15 @@
         });
     });
 
-    settings.Columns.Add("Barcode");
+
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "Barcode";
+        c.Caption = "Barcode";
+        c.Settings.AllowAutoFilter = DefaultBoolean.False;
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+    });
 
     settings.Columns.Add(c =>
     {
@@ -45,13 +68,34 @@
         c.Caption = "Type";
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.EditorProperties().ComboBox(cb =>
+        {
+            cb.DataSource = PoRequest.GetCategories();
+            cb.TextField = "CategoryName";
+            cb.ValueField = "CategoryName";
+            cb.DropDownStyle = DropDownStyle.DropDown;
+        });
+        c.Width = 150;
     });
 
     settings.Columns.Add(c =>
     {
         c.FieldName = "AssetName";
         c.Caption = "Name";
-        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+
+
+        c.SetDataItemTemplateContent(p =>
+        {
+            int assetId = (int) DataBinder.Eval(p.DataItem, "AssetID");
+            var asset = Model.FirstOrDefault(_ => _.AssetID == assetId);
+
+            ViewContext.Writer.Write(
+                "<img src=\"/Image/Categories/" + HttpUtility.UrlDecode(asset.AssetImage) + "\" class='avatar' >" +
+
+                "&nbsp&nbsp<a &nbsp&nbsp<a style='text-decoration: none; font-size:medium!important'>" + asset .AssetName + "</a>"
+                );
+        });
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Left;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
     });
 
@@ -61,6 +105,7 @@
         c.Caption = "Brand";
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.Width = 150;
     });
 
     settings.Columns.Add(c =>
@@ -69,11 +114,19 @@
         c.Caption = "Status";
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.Settings.AllowAutoFilter = DefaultBoolean.False;
+        c.SetDataItemTemplateContent(r =>
+        {
+            ViewContext.Writer.Write("<button type='button' class='btn btn-success btn-sm'>" + HttpUtility.UrlDecode(r.Text) + "</button>");
+
+        });
     });
+
     settings.Columns.Add(c =>
     {
         c.FieldName = "AssetStatusName";
         c.Caption = "Date Purchase";
+        c.Settings.AllowAutoFilter = DefaultBoolean.False;
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
     });
@@ -86,26 +139,18 @@
             int assetId = (int)DataBinder.Eval(p.DataItem, "AssetID");
             var asset = Model.FirstOrDefault(_ => _.AssetID == assetId);
             ViewContext.Writer.Write(
-                "<button type='button' class='btn btn-round btn-default'  onclick =\"OpenAssignPopup(" + assetId + ",'" + asset.Barcode + "', '" + asset.AssetName + "')\"  >Assign</button>"
+                "<button type='button' class='btn btn-round btn-default' data-toggle='modal' data-target='#assignPopup'" +
+                " onclick =\"OpenAssignPopup(" + assetId + ",'" + asset.Barcode + "', '" + asset.AssetName + "')\"  >Assign</button>"
             );
         });
     });
 
     settings.SetDetailRowTemplateContent(c => {
+
         ViewContext.Writer.Write(
-            "Histories:" +
-            "<br />"
+            "<div class='history-area'>"
             );
         Html.RenderAction("ShowHistories",  new { assetId = DataBinder.Eval(c.DataItem, "AssetID") });
-        ViewContext.Writer.Write(
-            "<div class='container'>"+
-            "<div class='row'>"+
-            "<div class='col-md-12 '>"+
-            "<br />"
-            );
-        int assetId = (int)DataBinder.Eval(c.DataItem, "AssetID");
-        var asset = Model.FirstOrDefault(_ => _.AssetID == assetId);
-        Html.RenderPartial("_AssetDetailPartial", asset);
         ViewContext.Writer.Write(
             "</div>"
             );

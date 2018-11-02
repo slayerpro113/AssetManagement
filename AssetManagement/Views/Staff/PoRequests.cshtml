@@ -5,11 +5,8 @@
 @{
     Layout = "~/Views/Shared/_Layouts.cshtml";
 }
-<link href="~/Content/SweetAlert/SweetAlert.css" rel="stylesheet" />
-<script src="~/Scripts/app/sweetalert.min.js"></script>
-<script src="~/Scripts/app/sweetalert.js"></script>
 
-<link href="~/Content/Staff/PoRequests.css" rel="stylesheet" />
+
 
 @{
     var userSession = (Employee)SessionHelper.GetSessionValue(Constant.UserSession);
@@ -28,24 +25,18 @@
     new Script { ExtensionType = ExtensionType.CallbackPanel },
     new Script { ExtensionType = ExtensionType.PopupControl }
     )
-<style>
-    .quantity {
-        display: inline-block;
-        width: 16px;
-        height: 16px;
-        border-radius: 50%;
-        background-color: #1AAB9C !important;
-        color: white !important;
-        font-size: 12px;
-        text-decoration: none !important;
-    }
-</style>
 
 <script>
     var SettingCategory = function (s, e) {
         e.customArgs['categoryName'] = categoryName;
     }
 </script>
+
+<link href="~/Content/SweetAlert/SweetAlert.css" rel="stylesheet" />
+<script src="~/Scripts/app/sweetalert.min.js"></script>
+<script src="~/Scripts/app/sweetalert.js"></script>
+
+<link href="~/Content/Staff/PoRequests.css" rel="stylesheet" />
 
 <div class="container">
     <div class="row">
@@ -169,21 +160,6 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-3">Select category:<span class="required">*</span></label>
-                                <div class="col-md-7 col-sm-9 col-xs-9">
-                                    <select class="form-control" id="category">
-                                        <option>Choose category</option>
-                                        <option>Chair</option>
-                                        <option>Keyboard</option>
-                                        <option>Mouse</option>
-                                        <option>PC</option>
-                                        <option>Printer</option>
-                                        <option>Screen</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-3">Select Vendor:<span class="required">*</span></label>
                                 <div class="col-md-7 col-sm-9 col-xs-9">
                                     <select class="form-control" id="vendor">
@@ -238,9 +214,6 @@
         </div>
     </div>
 </div>
-
-
-
 
 
 <script src="~/Scripts/app/PoRequests.js"></script>

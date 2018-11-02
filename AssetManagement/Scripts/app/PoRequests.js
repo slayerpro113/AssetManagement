@@ -10,8 +10,10 @@ function OpenAssignPopup(poRequestId, employeeId, category, employeeName) {
     CallbackPanel.PerformCallback();
 }
 
-$("#btnAssign").click(function () {
-    doAssignAsset();
+$(document).ready(function() {
+    $("#btnAssign").click(function() {
+        doAssignAsset();
+    });
 });
 
 function doAssignAsset() {
@@ -65,22 +67,23 @@ function OpenQuotePopup(poRequestId) {
     $("#formQuote")[0].reset();
 }
 
-$("#btnSubmit").click(function () {
-    doEnterQuote();
+$(document).ready(function() {
+    $("#btnSubmit").click(function() {
+        doEnterQuote();
+    });
 });
 
 function doEnterQuote() {
     var image = $('#image').val();
     var productName = $('#productName').val();
     var brand = $('#brand').val();
-    var category = $('#category').val();
     var price = $('#price').val();
     var vendor = $('#vendor').val();
     var warranty = $('#warranty').val();
     var note = $('#note').val();
     var poRequestId = $('#poRequestId2').val();
 
-    if (image.length === 0 || productName.length === 0 || category === "Choose category" || vendor === "Choose vendor" || price.length === 0) {
+    if (image.length === 0 || productName.length === 0  || vendor === "Choose vendor" || price.length === 0) {
         $("#quoteMessage").html("Please, fill all required fields!");
         timeout();
     }
@@ -89,7 +92,6 @@ function doEnterQuote() {
         formData.append('image', $('input[type=file]')[0].files[0]);
         formData.append('productName', productName);
         formData.append('brand', brand);
-        formData.append('category', category);
         formData.append('vendor', vendor);
         formData.append('price', price);
         formData.append('warranty', warranty);

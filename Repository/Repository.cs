@@ -13,10 +13,7 @@ namespace Repository
         protected readonly DbSet<TEntity> _dbSet;
         public DbSet<TEntity> Entity => _dbSet;
 
-        public IDataContext Context
-        {
-            get { return _context; }
-        }
+        public IDataContext Context => _context;
 
         public Repository(IDataContext context)
         {

@@ -13,7 +13,7 @@
     settings.Styles.Header.ForeColor = Color.White;
     // Hover
     settings.SettingsBehavior.EnableRowHotTrack = true;
-    settings.Styles.RowHotTrack.BackColor = System.Drawing.ColorTranslator.FromHtml("#f4f4f4");
+    settings.Styles.RowHotTrack.BackColor = System.Drawing.ColorTranslator.FromHtml("#f9fdff");
     settings.Styles.RowHotTrack.Font.Bold = true;
 
     settings.CallbackRouteValues = new { Controller = "Manager", Action = "GetPoRequestsFromStaffPartial" };
@@ -22,6 +22,11 @@
     // show detail partial
     settings.SettingsDetail.AllowOnlyOneMasterRowExpanded = true;
     settings.SettingsDetail.ShowDetailRow = true;
+
+    //filter
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.CommandColumn.ShowClearFilterButton = true;
 
     settings.KeyFieldName = "PoRequestID";
     settings.Columns.Add("CategoryName").Visible = false;
@@ -37,7 +42,7 @@
             ViewContext.Writer.Write(
                 "<img src=\"/Image/" + HttpUtility.UrlDecode(poRequest.Employee.Image) + "\" class='avatar' alt='Avatar'>     " +
 
-                "<a style='text-decoration: none'>" + poRequest.Employee.FullName + "</a>" +
+                "&nbsp&nbsp<a style='text-decoration: none; font-size:medium!important'>" + poRequest.Employee.FullName + "</a>" +
                 "<br/>" +
                 "<small>Created On <i>" + poRequest.CreatedDate.ToLongDateString() + "</i></small>"
                 );
@@ -105,6 +110,8 @@
     {
         c.FieldName = "Status";
         c.Caption = "Status";
+        c.Settings.AllowAutoFilter = DefaultBoolean.False;
+
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.Width = 150;

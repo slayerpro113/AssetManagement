@@ -1,9 +1,28 @@
 ﻿@model Data.Entities.Asset
 
+
+
+<style>
+    .x_panel {
+        border-left: none;
+        border-right: none;
+        border-bottom: none;
+    }
+
+    .detail-title {
+        color: white
+    }
+
+    .detail-x_title {
+        background: #1AAB9C !important;
+    }   
+
+ </style>
+
 <div class="col-md-12 col-sm-12 col-xs-12">
-    <div class="x_panel">
-        <div class="x_title">
-            <h2>Asset Detail</h2>
+    <div class="">
+        <div class="detail-x_title">
+            <h2 class="detail-title">Asset Detail</h2>
             <div class="clearfix"></div>
         </div>
         <div class="x_content">
@@ -21,7 +40,6 @@
                             settings.Properties.EnableClientSideAPI = true;
                         }).GetHtml()
                     </td>
-
                 </tr>
                 <tr>
                     <th>Name</th>

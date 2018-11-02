@@ -11,7 +11,7 @@
     settings.Styles.Header.ForeColor = Color.White;
 
     settings.SettingsBehavior.EnableRowHotTrack = true;
-    settings.Styles.RowHotTrack.BackColor = System.Drawing.ColorTranslator.FromHtml("#f4f4f4");
+    settings.Styles.RowHotTrack.BackColor = System.Drawing.ColorTranslator.FromHtml("#f9fdff");
     settings.Styles.RowHotTrack.Font.Bold = true;
 
     settings.CallbackRouteValues = new { Controller = "Staff", Action = "GetSubmittedPoRequestsPartial" };
@@ -25,6 +25,15 @@
     settings.CommandColumn.Caption = " ";
     settings.CommandColumn.ShowSelectCheckbox = true;
 
+    settings.CommandButtonInitialize = (sender, e) => {
+        MVCxGridView grid = sender as MVCxGridView;
+        if (e.ButtonType == ColumnCommandButtonType.SelectCheckbox && e.VisibleIndex >= 0) {
+            int poRequestId = Convert.ToInt32(grid.GetRowValues(e.VisibleIndex, grid.KeyFieldName));
+            var poRequest = Model.FirstOrDefault(_ => _.PoRequestID == poRequestId);
+
+            e.Visible = (poRequest.RequestStatusID == 3);
+        }
+    };
 
     settings.Columns.Add("PoRequestID").Visible = false;
     settings.Columns.Add(c =>
@@ -37,15 +46,15 @@
             var poRequest = Model.FirstOrDefault(_ => _.PoRequestID == poRequestId);
 
             ViewContext.Writer.Write(
-                "<img src=\"/Image/" + HttpUtility.UrlDecode(poRequest.Employee.Image) + "\" class='avatar' alt='Avatar'>     "+
+                "<img src=\"/Image/" + HttpUtility.UrlDecode(poRequest.Employee.Image) + "\" class='avatar' alt='Avatar'>"+
 
-                "<a style='text-decoration: none'>" + poRequest.Employee.FullName + "</a>"+
+                "&nbsp&nbsp<a &nbsp&nbsp<a style='text-decoration: none; font-size:medium!important'>" + poRequest.Employee.FullName + "</a>"+
                 "<br/>"+
                 "<small>Created On <i>"+ poRequest.CreatedDate.ToLongDateString() +"</i></small>"
                 );
         });
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
-        c.Width = 300;
+        c.Width = 220;
     });
 
     settings.Columns.Add(c => {
@@ -53,7 +62,7 @@
         c.Caption = "Type";
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
-        c.Width = 180;
+        c.Width = 150;
         c.EditorProperties().ComboBox(cb => {
             cb.DataSource = PoRequest.GetCategories();
             cb.TextField = "CategoryName";
@@ -95,6 +104,7 @@
                     "<ul class='list-inline'>"+
                     "<li>"+
                     "<img class='avatar' alt='Avatar' src=\"/Image/Quotes/" + HttpUtility.UrlDecode(@quote.Image) + "\">"+
+                    "&nbsp&nbsp<a style='text-decoration: none'>" + quote.ProductName + "</a>"+
                     "</li>"+
                     "</ul>"
                  );
@@ -134,27 +144,6 @@
         });
     });
 
-    settings.Columns.Add(c =>
-    {
-        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
-        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
-        c.Width = 150;
-
-        c.SetDataItemTemplateContent(p =>
-        {
-            int poRequestId = (int)DataBinder.Eval(p.DataItem, "PoRequestID");
-            var poRequest = Model.FirstOrDefault(_ => _.PoRequestID == poRequestId);
-          
-                ViewContext.Writer.Write(
-                    "<div class='checkbox'>" +
-                        "<label>"+
-                            "<input type='checkbox'  onclick =\"GetPoRequestId(" + poRequestId + ")\">" +
-                         "</label>"+
-                     "</div>"
-                );
-        });
-    });
-
     settings.Settings.ShowFilterRow = true;
     settings.Settings.ShowFilterRowMenu = true;
     settings.CommandColumn.ShowClearFilterButton = true;
@@ -167,6 +156,6 @@
     settings.SettingsPager.PageSizeItemSettings.Visible = true;
     settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "5", "7", "9" };
 
-    settings.ClientSideEvents.SelectionChanged = "SelectionChanged";
+    settings.ClientSideEvents.SelectionChanged = "SelectQuote";
 
 }).Bind(Model).GetHtml()

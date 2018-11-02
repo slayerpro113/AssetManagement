@@ -1,9 +1,14 @@
 ﻿
+@using Data.Entities
+@using Data.Utilities
 @using DevExpress.XtraExport.Helpers
 @model  IList<Data.Entities.Asset>
 
 @{
     Layout = "~/Views/Shared/_Layouts.cshtml";
+}
+@{
+    var userSession = (Employee)SessionHelper.GetSessionValue(Constant.UserSession);
 }
 
 @Html.DevExpress().GetStyleSheets(
@@ -19,70 +24,85 @@
     new Script { ExtensionType = ExtensionType.PopupControl }
     )
 
-<script src="~/Scripts/app/manage-asset.js"></script>
-<link href="~/Content/ManageAsset/manage-asset.css" rel="stylesheet" />
+<link href="~/Content/SweetAlert/SweetAlert.css" rel="stylesheet" />
+<script src="~/Scripts/app/sweetalert.min.js"></script>
+<script src="~/Scripts/app/sweetalert.js"></script>
 
-<div class="col-md-12 col-sm-12 col-xs-12">
-    @Html.Partial("_AssetsInUsePartial", Model)
+<link href="~/Content/Asset/AssetInUse.css" rel="stylesheet" />
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Available Assets</h2>
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="x_content">
+                    @Html.Partial("_AssetsInUsePartial", Model)
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-@Html.DevExpress().PopupControl(
-    settings =>
-    {
-        settings.Name = "RecallPopup";
-        settings.Width = 440;
-        settings.AllowDragging = true;
-        settings.CloseAction = CloseAction.CloseButton;
-        settings.CloseOnEscape = true;
-        settings.PopupAnimationType = AnimationType.None;
-        settings.HeaderText = "Recall Asset";
-        settings.Modal = true;
-        settings.AutoUpdatePosition = true;
-        settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
-        settings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
-        settings.SetContent(() =>
-        {
-            ViewContext.Writer.Write(
-            "<form class='form-horizontal form-label-left input_mask'>"+
-                "<input type='hidden' class='form-control' readonly id='assetId'>" +
-               //  "<input type='hidden' class='form-control' readonly id='staffRecall' value='@userSession.FullName'>" +
+<div id="recallPopup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title">Recall Asset</h4>
+                </div>
+                <div class="modal-body">
+                    <form class='form-horizontal form-label-left input_mask'>
+                        <input type='hidden' class='form-control' readonly id='assetId'>
+                        <input type='hidden' class='form-control' readonly id='staffRecall' value='@userSession.FullName'>
 
-                "<div class='form-group'>"+
-                    "<label class='control-label col-md-4 col-sm-3 col-xs-12'>Barcode: </label>" +
-                    "<div class='col-md-8 col-sm-9 col-xs-12'>" +
-                    "<input type='text' class='form-control' readonly id='barcode'>" +
-                    "</div>"+
-                "</div>"+
+                        <div class='form-group'>
+                            <label class='control-label col-md-4 col-sm-3 col-xs-12'>Barcode: </label>
+                            <div class='col-md-7 col-sm-7 col-xs-12'>
+                                <input type='text' class='form-control' readonly id='barcode'>
+                            </div>
+                        </div>
 
-                "<div class='form-group'>"+
-                    "<label class='control-label col-md-4 col-sm-3 col-xs-12'>Asset Name: </label>"+
-                    "<div class='col-md-8 col-sm-9 col-xs-12'>"+
-                    "<input type='text' class='form-control' readonly id='assetName'>" +
-                    "</div>"+
-                "</div>"+
+                        <div class='form-group'>
+                            <label class='control-label col-md-4 col-sm-3 col-xs-12'>Asset Name: </label>
+                            <div class='col-md-7 col-sm-7 col-xs-12'>
+                                <input type='text' class='form-control' readonly id='assetName'>
+                            </div>
+                        </div>
 
-                "<div class='form-group'>"+
-                    "<label class='control-label col-md-4 col-sm-3 col-xs-12'>Retrieve from : </label>"+
-                    "<div class='col-md-8 col-sm-9 col-xs-12'>"+
-                    "<input type='text' class='form-control' readonly id='employeeName'>" +
-                    "</div>"+
-                "</div>"+
+                        <div class='form-group'>
+                            <label class='control-label col-md-4 col-sm-3 col-xs-12'>Retrieve from : </label>
+                            <div class='col-md-7 col-sm-7 col-xs-12'>
+                                <input type='text' class='form-control' readonly id='employeeName'>
+                            </div>
+                        </div>
 
-                "<div class='form-group'>"+
-                    "<label class='control-label col-md-4 col-sm-3 col-xs-12'>Remark: </label>" +
-                    "<div class='col-md-8 col-sm-9 col-xs-12'>"+
-                    "<textarea class='form-control' id='recallRemark'></textarea>" +
-                    "</div>"+
-                "</div>"+
+                        <div class='form-group'>
+                            <label class='control-label col-md-4 col-sm-3 col-xs-12'>Remark: </label>
+                            <div class='col-md-7 col-sm-7 col-xs-12'>
+                                <textarea class='form-control' id='recallRemark'></textarea>
+                            </div>
+                        </div>
 
-                "<div class='ln_solid'></div>"+
-                "<div class='form-group'>"+
-                    "<div class='col-md-8 col-sm-9 col-xs-12 col-md-offset-4'>"+
-                        "<button type='button' class='btn btn-round btn-success' id='btnRecall' >Recall</button>" +
-                        "<button type='button' class='btn btn-round btn-default' id='btnCancel1' >Cancel</button>" +
-                    "</div>"+
-                "</div>"+
-            "</form>"
-        );
-        });
-    }).GetHtml()
+                        <div class='ln_solid'></div>
+                        <div class='form-group'>
+                            <div class='col-md-7 col-sm-9 col-xs-12 col-md-offset-4'>
+                                <button type='button' class='btn btn-round btn-success' id='btnRecall'>Recall</button>
+                                <button type='button' class='btn btn-round btn-default' data-dismiss="modal" >Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/app/AssetInUse.js"></script>

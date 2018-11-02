@@ -11,10 +11,10 @@
     settings.Styles.Header.ForeColor = Color.White;
 
     settings.SettingsBehavior.EnableRowHotTrack = true;
-    settings.Styles.RowHotTrack.BackColor = System.Drawing.ColorTranslator.FromHtml("#f4f4f4");
+    settings.Styles.RowHotTrack.BackColor = System.Drawing.ColorTranslator.FromHtml("#f9fdff");
     settings.Styles.RowHotTrack.Font.Bold = true;
 
-    settings.CallbackRouteValues = new { Controller = "User", Action = "GetRequestHistory", employeeId = ViewBag.EmployeeId };
+    settings.CallbackRouteValues = new { Controller = "User", Action = "GetRequestHistoryPartial", employeeId = ViewBag.EmployeeId };
     settings.Width = Unit.Percentage(100);
 
     settings.Columns.Add(c =>

@@ -4,12 +4,15 @@
     Layout = "~/Views/Shared/_Layouts.cshtml";
 }
 
- @{ 
-     var userSession = (Employee)SessionHelper.GetSessionValue(Constant.UserSession); 
- } 
+@{
+    var userSession = (Employee)SessionHelper.GetSessionValue(Constant.UserSession);
+}
 
 <link href="~/Content/User/RequestForm.css" rel="stylesheet" />
+
 <link href="~/Content/SweetAlert/SweetAlert.css" rel="stylesheet" />
+<script src="~/Scripts/app/sweetalert.min.js"></script>
+<script src="~/Scripts/app/sweetalert.js"></script>
 
 <div class="container-fluid">
     <div class="row">
@@ -21,7 +24,7 @@
                 </div>
 
                 <div class="x_content">
-                    <br/>
+                    <br />
                     <form class="form-horizontal form-label-left" id="formRequest">
                         <input type="hidden" id="employeeId" class="form-control has-feedback-left" value="@userSession.EmployeeID" readonly="readonly">
                         <div class="form-group">
@@ -59,7 +62,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-3">Rationale:<span class="required">*</span></label>
                             <div class="col-md-7 col-sm-9 col-xs-9">
-                                <textarea id="description" class="form-control has-feedback-left" data-parsley-maxlength="150"></textarea>
+                                <textarea id="description" class="form-control has-feedback-left" maxlength="100"></textarea>
                                 <span class="fa fa-comments form-control-feedback left" aria-hidden="true"></span>
                             </div>
 
@@ -83,8 +86,5 @@
 </div>
 
 
-<script src="~/Scripts/app/sweetalert.min.js"></script>
-<script src="~/Scripts/app/sweetalert.js"></script>
 <script src="~/Scripts/jquery.js"></script>
-
 <script src="~/Scripts/app/RequestForm.js"></script>

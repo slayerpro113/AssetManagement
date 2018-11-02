@@ -129,9 +129,6 @@
     <Compile Include="Entities\Role.cs">
       <DependentUpon>AssetManagementEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\RoleEmployee.cs">
-      <DependentUpon>AssetManagementEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="Entities\Vendor.cs">
       <DependentUpon>AssetManagementEntities.tt</DependentUpon>
     </Compile>
@@ -146,7 +143,6 @@
     <Compile Include="Services\IPoRequestService.cs" />
     <Compile Include="Services\IProductService.cs" />
     <Compile Include="Services\IQuoteService.cs" />
-    <Compile Include="Services\IRoleEmployeeService.cs" />
     <Compile Include="Services\IRoleService.cs" />
     <Compile Include="UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="Utilities\Constant.cs" />
@@ -166,7 +162,9 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Entities\AssetManagementEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -178,9 +176,6 @@
       <DependentUpon>AssetManagementEntities.edmx</DependentUpon>
       <LastGenOutput>AssetManagementEntities.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

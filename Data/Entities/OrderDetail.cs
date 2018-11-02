@@ -14,14 +14,22 @@ namespace Data.Entities
     
     public partial class OrderDetail
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public OrderDetail()
+        {
+            this.Vendors = new HashSet<Vendor>();
+        }
+    
         public int OrderDetailID { get; set; }
         public int Quantity { get; set; }
         public decimal Subtotal { get; set; }
         public decimal Price { get; set; }
-        public int AssetID { get; set; }
-        public int OrderID { get; set; }
+        public Nullable<int> AssetID { get; set; }
+        public Nullable<int> OrderID { get; set; }
     
         public virtual Asset Asset { get; set; }
         public virtual Order Order { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Vendor> Vendors { get; set; }
     }
 }

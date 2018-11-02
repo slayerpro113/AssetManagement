@@ -45,6 +45,7 @@
           <Property Name="UserName" Type="nvarchar" MaxLength="100" />
           <Property Name="Password" Type="nvarchar" MaxLength="100" />
           <Property Name="BirthDate" Type="nvarchar" MaxLength="100" />
+          <Property Name="RoleID" Type="int" />
         </EntityType>
         <EntityType Name="Histories">
           <Key>
@@ -68,8 +69,8 @@
           <Property Name="Quantity" Type="int" Nullable="false" />
           <Property Name="Subtotal" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="AssetID" Type="int" Nullable="false" />
-          <Property Name="OrderID" Type="int" Nullable="false" />
+          <Property Name="AssetID" Type="int" />
+          <Property Name="OrderID" Type="int" />
         </EntityType>
         <EntityType Name="Orders">
           <Key>
@@ -127,14 +128,6 @@
           <Property Name="RequestStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="StatusName" Type="nvarchar" MaxLength="100" />
         </EntityType>
-        <EntityType Name="RoleEmployees">
-          <Key>
-            <PropertyRef Name="RoleEmployeeID" />
-          </Key>
-          <Property Name="RoleEmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="EmployeeID" Type="int" Nullable="false" />
-          <Property Name="RoleID" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="Roles">
           <Key>
             <PropertyRef Name="RoleID" />
@@ -146,11 +139,11 @@
           <Key>
             <PropertyRef Name="VendorID" />
           </Key>
-          <Property Name="VendorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="VendorName" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Phone" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Address" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="VendorID" Type="int" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="150" />
+          <Property Name="OrderDetailID" Type="int" />
         </EntityType>
         <Association Name="FK_AssetRequest_Personel">
           <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
@@ -200,6 +193,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Employees_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Histories_Employees">
           <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
           <End Role="Histories" Type="Self.Histories" Multiplicity="*" />
@@ -225,7 +230,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrderDetail_Assets">
-          <End Role="Assets" Type="Self.Assets" Multiplicity="1" />
+          <End Role="Assets" Type="Self.Assets" Multiplicity="0..1" />
           <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Assets">
@@ -236,8 +241,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OrderDetail_Order">
-          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+        <Association Name="FK_OrderDetails_Orders">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="0..1" />
           <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Orders">
@@ -284,27 +289,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_RoleEmployees_Employees">
-          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
-          <End Role="RoleEmployees" Type="Self.RoleEmployees" Multiplicity="*" />
+        <Association Name="FK_Vendors_OrderDetails">
+          <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="0..1" />
+          <End Role="Vendors" Type="Self.Vendors" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Employees">
-              <PropertyRef Name="EmployeeID" />
+            <Principal Role="OrderDetails">
+              <PropertyRef Name="OrderDetailID" />
             </Principal>
-            <Dependent Role="RoleEmployees">
-              <PropertyRef Name="EmployeeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_RolePersonnel_Role">
-          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
-          <End Role="RoleEmployees" Type="Self.RoleEmployees" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Roles">
-              <PropertyRef Name="RoleID" />
-            </Principal>
-            <Dependent Role="RoleEmployees">
-              <PropertyRef Name="RoleID" />
+            <Dependent Role="Vendors">
+              <PropertyRef Name="OrderDetailID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -320,7 +313,6 @@
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Quotes" EntityType="Self.Quotes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RequestStatuses" EntityType="Self.RequestStatuses" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="RoleEmployees" EntityType="Self.RoleEmployees" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vendors" EntityType="Self.Vendors" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_AssetRequest_Personel" Association="Self.FK_AssetRequest_Personel">
@@ -339,6 +331,10 @@
             <End Role="Products" EntitySet="Products" />
             <End Role="Assets" EntitySet="Assets" />
           </AssociationSet>
+          <AssociationSet Name="FK_Employees_Roles" Association="Self.FK_Employees_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
           <AssociationSet Name="FK_Histories_Employees" Association="Self.FK_Histories_Employees">
             <End Role="Employees" EntitySet="Employees" />
             <End Role="Histories" EntitySet="Histories" />
@@ -351,7 +347,7 @@
             <End Role="Assets" EntitySet="Assets" />
             <End Role="OrderDetails" EntitySet="OrderDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK_OrderDetail_Order" Association="Self.FK_OrderDetail_Order">
+          <AssociationSet Name="FK_OrderDetails_Orders" Association="Self.FK_OrderDetails_Orders">
             <End Role="Orders" EntitySet="Orders" />
             <End Role="OrderDetails" EntitySet="OrderDetails" />
           </AssociationSet>
@@ -367,87 +363,15 @@
             <End Role="PoRequest" EntitySet="PoRequest" />
             <End Role="Quotes" EntitySet="Quotes" />
           </AssociationSet>
-          <AssociationSet Name="FK_RoleEmployees_Employees" Association="Self.FK_RoleEmployees_Employees">
-            <End Role="Employees" EntitySet="Employees" />
-            <End Role="RoleEmployees" EntitySet="RoleEmployees" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RolePersonnel_Role" Association="Self.FK_RolePersonnel_Role">
-            <End Role="Roles" EntitySet="Roles" />
-            <End Role="RoleEmployees" EntitySet="RoleEmployees" />
+          <AssociationSet Name="FK_Vendors_OrderDetails" Association="Self.FK_Vendors_OrderDetails">
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+            <End Role="Vendors" EntitySet="Vendors" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AssetManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="AssetManagementEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Assets" EntityType="AssetManagementModel.Asset" />
-          <EntitySet Name="AssetStatuses" EntityType="AssetManagementModel.AssetStatus" />
-          <EntitySet Name="Categories" EntityType="AssetManagementModel.Category" />
-          <EntitySet Name="Employees" EntityType="AssetManagementModel.Employee" />
-          <EntitySet Name="Histories" EntityType="AssetManagementModel.History" />
-          <EntitySet Name="OrderDetails" EntityType="AssetManagementModel.OrderDetail" />
-          <EntitySet Name="Products" EntityType="AssetManagementModel.Product" />
-          <EntitySet Name="RequestStatuses" EntityType="AssetManagementModel.RequestStatus" />
-          <EntitySet Name="RoleEmployees" EntityType="AssetManagementModel.RoleEmployee" />
-          <EntitySet Name="Roles" EntityType="AssetManagementModel.Role" />
-          <EntitySet Name="Vendors" EntityType="AssetManagementModel.Vendor" />
-          <AssociationSet Name="FK_Assets_AssetStatus" Association="AssetManagementModel.FK_Assets_AssetStatus">
-            <End Role="AssetStatus" EntitySet="AssetStatuses" />
-            <End Role="Asset" EntitySet="Assets" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Assets_Product" Association="AssetManagementModel.FK_Assets_Product">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="Asset" EntitySet="Assets" />
-          </AssociationSet>
-          <AssociationSet Name="FK_History_Assets" Association="AssetManagementModel.FK_History_Assets">
-            <End Role="Asset" EntitySet="Assets" />
-            <End Role="History" EntitySet="Histories" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderDetail_Assets" Association="AssetManagementModel.FK_OrderDetail_Assets">
-            <End Role="Asset" EntitySet="Assets" />
-            <End Role="OrderDetail" EntitySet="OrderDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Product_Category" Association="AssetManagementModel.FK_Product_Category">
-            <End Role="Category" EntitySet="Categories" />
-            <End Role="Product" EntitySet="Products" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Histories_Employees" Association="AssetManagementModel.FK_Histories_Employees">
-            <End Role="Employee" EntitySet="Employees" />
-            <End Role="History" EntitySet="Histories" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RoleEmployees_Employees" Association="AssetManagementModel.FK_RoleEmployees_Employees">
-            <End Role="Employee" EntitySet="Employees" />
-            <End Role="RoleEmployee" EntitySet="RoleEmployees" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RolePersonnel_Role" Association="AssetManagementModel.FK_RolePersonnel_Role">
-            <End Role="Role" EntitySet="Roles" />
-            <End Role="RoleEmployee" EntitySet="RoleEmployees" />
-          </AssociationSet>
-          <EntitySet Name="Quotes" EntityType="AssetManagementModel.Quote" />
-          <EntitySet Name="PoRequests" EntityType="AssetManagementModel.PoRequest" />
-          <AssociationSet Name="FK_AssetRequest_Personel" Association="AssetManagementModel.FK_AssetRequest_Personel">
-            <End Role="Employee" EntitySet="Employees" />
-            <End Role="PoRequest" EntitySet="PoRequests" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AssetRequest_RequestStatus" Association="AssetManagementModel.FK_AssetRequest_RequestStatus">
-            <End Role="RequestStatus" EntitySet="RequestStatuses" />
-            <End Role="PoRequest" EntitySet="PoRequests" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Quotes_PoRequest" Association="AssetManagementModel.FK_Quotes_PoRequest">
-            <End Role="PoRequest" EntitySet="PoRequests" />
-            <End Role="Quote" EntitySet="Quotes" />
-          </AssociationSet>
-          <EntitySet Name="Orders" EntityType="AssetManagementModel.Order" />
-          <AssociationSet Name="FK_OrderDetail_Order" Association="AssetManagementModel.FK_OrderDetail_Order">
-            <End Role="Order" EntitySet="Orders" />
-            <End Role="OrderDetail" EntitySet="OrderDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PoRequest_Orders" Association="AssetManagementModel.FK_PoRequest_Orders">
-            <End Role="Order" EntitySet="Orders" />
-            <End Role="PoRequest" EntitySet="PoRequests" />
-          </AssociationSet>
-          </EntityContainer>
         <EntityType Name="Asset">
           <Key>
             <PropertyRef Name="AssetID" />
@@ -459,26 +383,26 @@
           <Property Name="AssetServiceID" Type="Int32" />
           <Property Name="AssetStatusID" Type="Int32" Nullable="false" />
           <Property Name="MonthDepreciation" Type="Int32" />
-          <NavigationProperty Name="AssetStatus" Relationship="AssetManagementModel.FK_Assets_AssetStatus" FromRole="Asset" ToRole="AssetStatus" />
-          <NavigationProperty Name="Product" Relationship="AssetManagementModel.FK_Assets_Product" FromRole="Asset" ToRole="Product" />
-          <NavigationProperty Name="Histories" Relationship="AssetManagementModel.FK_History_Assets" FromRole="Asset" ToRole="History" />
-          <NavigationProperty Name="OrderDetails" Relationship="AssetManagementModel.FK_OrderDetail_Assets" FromRole="Asset" ToRole="OrderDetail" />
+          <NavigationProperty Name="AssetStatus" Relationship="Self.FK_Assets_AssetStatus" FromRole="Assets" ToRole="AssetStatuses" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Assets_Product" FromRole="Assets" ToRole="Products" />
+          <NavigationProperty Name="Histories" Relationship="Self.FK_History_Assets" FromRole="Assets" ToRole="Histories" />
+          <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetail_Assets" FromRole="Assets" ToRole="OrderDetails" />
         </EntityType>
         <EntityType Name="AssetStatus">
           <Key>
             <PropertyRef Name="AssetStatusID" />
           </Key>
           <Property Name="AssetStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StatusName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Assets" Relationship="AssetManagementModel.FK_Assets_AssetStatus" FromRole="AssetStatus" ToRole="Asset" />
+          <Property Name="StatusName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Assets" Relationship="Self.FK_Assets_AssetStatus" FromRole="AssetStatuses" ToRole="Assets" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="CategoryID" />
           </Key>
           <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Products" Relationship="AssetManagementModel.FK_Product_Category" FromRole="Category" ToRole="Product" />
+          <Property Name="CategoryName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_Product_Category" FromRole="Categories" ToRole="Products" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -494,9 +418,10 @@
           <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="BirthDate" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Histories" Relationship="AssetManagementModel.FK_Histories_Employees" FromRole="Employee" ToRole="History" />
-          <NavigationProperty Name="RoleEmployees" Relationship="AssetManagementModel.FK_RoleEmployees_Employees" FromRole="Employee" ToRole="RoleEmployee" />
-          <NavigationProperty Name="PoRequests" Relationship="AssetManagementModel.FK_AssetRequest_Personel" FromRole="Employee" ToRole="PoRequest" />
+          <Property Name="RoleID" Type="Int32" />
+          <NavigationProperty Name="PoRequests" Relationship="Self.FK_AssetRequest_Personel" FromRole="Employees" ToRole="PoRequest" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_Employees_Roles" FromRole="Employees" ToRole="Roles" />
+          <NavigationProperty Name="Histories" Relationship="Self.FK_Histories_Employees" FromRole="Employees" ToRole="Histories" />
         </EntityType>
         <EntityType Name="History">
           <Key>
@@ -511,8 +436,8 @@
           <Property Name="StaffAssign" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="AssetID" Type="Int32" Nullable="false" />
           <Property Name="EmployeeID" Type="Int32" />
-          <NavigationProperty Name="Asset" Relationship="AssetManagementModel.FK_History_Assets" FromRole="History" ToRole="Asset" />
-          <NavigationProperty Name="Employee" Relationship="AssetManagementModel.FK_Histories_Employees" FromRole="History" ToRole="Employee" />
+          <NavigationProperty Name="Asset" Relationship="Self.FK_History_Assets" FromRole="Histories" ToRole="Assets" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Histories_Employees" FromRole="Histories" ToRole="Employees" />
         </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
@@ -520,181 +445,31 @@
           </Key>
           <Property Name="OrderDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Quantity" Type="Int32" Nullable="false" />
-          <Property Name="Subtotal" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="AssetID" Type="Int32" Nullable="false" />
-          <Property Name="OrderID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Asset" Relationship="AssetManagementModel.FK_OrderDetail_Assets" FromRole="OrderDetail" ToRole="Asset" />
-          <NavigationProperty Name="Order" Relationship="AssetManagementModel.FK_OrderDetail_Order" FromRole="OrderDetail" ToRole="Order" />
+          <Property Name="Subtotal" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="AssetID" Type="Int32" />
+          <Property Name="OrderID" Type="Int32" />
+          <NavigationProperty Name="Asset" Relationship="Self.FK_OrderDetail_Assets" FromRole="OrderDetails" ToRole="Assets" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_OrderDetails_Orders" FromRole="OrderDetails" ToRole="Orders" />
+          <NavigationProperty Name="Vendors" Relationship="AssetManagementModel.FK_Vendors_OrderDetails" FromRole="OrderDetail" ToRole="Vendor" />
         </EntityType>
-        <EntityType Name="Product">
+        <EntityType Name="Order">
           <Key>
-            <PropertyRef Name="ProductID" />
+            <PropertyRef Name="OrderID" />
           </Key>
-          <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProductName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Brand" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CategoryID" Type="Int32" Nullable="false" />
-          <Property Name="Image" Type="String" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Assets" Relationship="AssetManagementModel.FK_Assets_Product" FromRole="Product" ToRole="Asset" />
-          <NavigationProperty Name="Category" Relationship="AssetManagementModel.FK_Product_Category" FromRole="Product" ToRole="Category" />
-        </EntityType>
-        <EntityType Name="RequestStatus">
-          <Key>
-            <PropertyRef Name="RequestStatusID" />
-          </Key>
-          <Property Name="RequestStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StatusName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="PoRequests" Relationship="AssetManagementModel.FK_AssetRequest_RequestStatus" FromRole="RequestStatus" ToRole="PoRequest" />
-        </EntityType>
-        <EntityType Name="RoleEmployee">
-          <Key>
-            <PropertyRef Name="RoleEmployeeID" />
-          </Key>
-          <Property Name="RoleEmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
-          <Property Name="RoleID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Employee" Relationship="AssetManagementModel.FK_RoleEmployees_Employees" FromRole="RoleEmployee" ToRole="Employee" />
-          <NavigationProperty Name="Role" Relationship="AssetManagementModel.FK_RolePersonnel_Role" FromRole="RoleEmployee" ToRole="Role" />
-        </EntityType>
-        <EntityType Name="Role">
-          <Key>
-            <PropertyRef Name="RoleID" />
-          </Key>
-          <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RoleName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="RoleEmployees" Relationship="AssetManagementModel.FK_RolePersonnel_Role" FromRole="Role" ToRole="RoleEmployee" />
-        </EntityType>
-        <EntityType Name="Vendor">
-          <Key>
-            <PropertyRef Name="VendorID" />
-          </Key>
-          <Property Name="VendorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="VendorName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Phone" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <Association Name="FK_Assets_AssetStatus">
-          <End Type="AssetManagementModel.AssetStatus" Role="AssetStatus" Multiplicity="1" />
-          <End Type="AssetManagementModel.Asset" Role="Asset" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AssetStatus">
-              <PropertyRef Name="AssetStatusID" />
-            </Principal>
-            <Dependent Role="Asset">
-              <PropertyRef Name="AssetStatusID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Assets_Product">
-          <End Type="AssetManagementModel.Product" Role="Product" Multiplicity="1" />
-          <End Type="AssetManagementModel.Asset" Role="Asset" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="ProductID" />
-            </Principal>
-            <Dependent Role="Asset">
-              <PropertyRef Name="ProductID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_History_Assets">
-          <End Type="AssetManagementModel.Asset" Role="Asset" Multiplicity="1" />
-          <End Type="AssetManagementModel.History" Role="History" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Asset">
-              <PropertyRef Name="AssetID" />
-            </Principal>
-            <Dependent Role="History">
-              <PropertyRef Name="AssetID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrderDetail_Assets">
-          <End Type="AssetManagementModel.Asset" Role="Asset" Multiplicity="1" />
-          <End Type="AssetManagementModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Asset">
-              <PropertyRef Name="AssetID" />
-            </Principal>
-            <Dependent Role="OrderDetail">
-              <PropertyRef Name="AssetID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Product_Category">
-          <End Type="AssetManagementModel.Category" Role="Category" Multiplicity="1" />
-          <End Type="AssetManagementModel.Product" Role="Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Category">
-              <PropertyRef Name="CategoryID" />
-            </Principal>
-            <Dependent Role="Product">
-              <PropertyRef Name="CategoryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Histories_Employees">
-          <End Type="AssetManagementModel.Employee" Role="Employee" Multiplicity="0..1" />
-          <End Type="AssetManagementModel.History" Role="History" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="EmployeeID" />
-            </Principal>
-            <Dependent Role="History">
-              <PropertyRef Name="EmployeeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_RoleEmployees_Employees">
-          <End Type="AssetManagementModel.Employee" Role="Employee" Multiplicity="1" />
-          <End Type="AssetManagementModel.RoleEmployee" Role="RoleEmployee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="EmployeeID" />
-            </Principal>
-            <Dependent Role="RoleEmployee">
-              <PropertyRef Name="EmployeeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_RolePersonnel_Role">
-          <End Type="AssetManagementModel.Role" Role="Role" Multiplicity="1" />
-          <End Type="AssetManagementModel.RoleEmployee" Role="RoleEmployee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Role">
-              <PropertyRef Name="RoleID" />
-            </Principal>
-            <Dependent Role="RoleEmployee">
-              <PropertyRef Name="RoleID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Quote">
-          <Key>
-            <PropertyRef Name="QuoteID" />
-          </Key>
-          <Property Name="QuoteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Image" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="ProductName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Brand" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Vendor" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="Warranty" Type="Int32" />
-          <Property Name="Note" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="PoRequestID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="PoRequest" Relationship="AssetManagementModel.FK_Quotes_PoRequest" FromRole="Quote" ToRole="PoRequest" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderTotal" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="PurchaseDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_Orders" FromRole="Orders" ToRole="OrderDetails" />
+          <NavigationProperty Name="PoRequests" Relationship="Self.FK_PoRequest_Orders" FromRole="Orders" ToRole="PoRequest" />
         </EntityType>
         <EntityType Name="PoRequest">
           <Key>
             <PropertyRef Name="PoRequestID" />
           </Key>
           <Property Name="PoRequestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Description" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="FinishedDate" Type="DateTime" Precision="0" />
           <Property Name="StaffSubmit" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
@@ -702,16 +477,121 @@
           <Property Name="RequestStatusID" Type="Int32" Nullable="false" />
           <Property Name="SelectedQuoteID" Type="Int32" />
           <Property Name="OrderID" Type="Int32" />
-          <NavigationProperty Name="Employee" Relationship="AssetManagementModel.FK_AssetRequest_Personel" FromRole="PoRequest" ToRole="Employee" />
-          <NavigationProperty Name="RequestStatus" Relationship="AssetManagementModel.FK_AssetRequest_RequestStatus" FromRole="PoRequest" ToRole="RequestStatus" />
-          <NavigationProperty Name="Quotes" Relationship="AssetManagementModel.FK_Quotes_PoRequest" FromRole="PoRequest" ToRole="Quote" />
-          <NavigationProperty Name="Order" Relationship="AssetManagementModel.FK_PoRequest_Orders" FromRole="PoRequest" ToRole="Order" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_AssetRequest_Personel" FromRole="PoRequest" ToRole="Employees" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_PoRequest_Orders" FromRole="PoRequest" ToRole="Orders" />
+          <NavigationProperty Name="RequestStatus" Relationship="Self.FK_AssetRequest_RequestStatus" FromRole="PoRequest" ToRole="RequestStatuses" />
+          <NavigationProperty Name="Quotes" Relationship="Self.FK_Quotes_PoRequest" FromRole="PoRequest" ToRole="Quotes" />
         </EntityType>
-        <Association Name="FK_AssetRequest_Personel">
-          <End Type="AssetManagementModel.Employee" Role="Employee" Multiplicity="1" />
-          <End Type="AssetManagementModel.PoRequest" Role="PoRequest" Multiplicity="*" />
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Brand" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CategoryID" Type="Int32" Nullable="false" />
+          <Property Name="Image" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Assets" Relationship="Self.FK_Assets_Product" FromRole="Products" ToRole="Assets" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_Product_Category" FromRole="Products" ToRole="Categories" />
+        </EntityType>
+        <EntityType Name="Quote">
+          <Key>
+            <PropertyRef Name="QuoteID" />
+          </Key>
+          <Property Name="QuoteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Image" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProductName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Brand" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Vendor" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Warranty" Type="Int32" />
+          <Property Name="Note" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PoRequestID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PoRequest" Relationship="Self.FK_Quotes_PoRequest" FromRole="Quotes" ToRole="PoRequest" />
+        </EntityType>
+        <EntityType Name="RequestStatus">
+          <Key>
+            <PropertyRef Name="RequestStatusID" />
+          </Key>
+          <Property Name="RequestStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StatusName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PoRequests" Relationship="Self.FK_AssetRequest_RequestStatus" FromRole="RequestStatuses" ToRole="PoRequest" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_Roles" FromRole="Roles" ToRole="Employees" />
+        </EntityType>
+        <Association Name="FK_Assets_AssetStatus">
+          <End Role="AssetStatuses" Type="Self.AssetStatus" Multiplicity="1" />
+          <End Role="Assets" Type="Self.Asset" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Employee">
+            <Principal Role="AssetStatuses">
+              <PropertyRef Name="AssetStatusID" />
+            </Principal>
+            <Dependent Role="Assets">
+              <PropertyRef Name="AssetStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Assets_Product">
+          <End Role="Products" Type="Self.Product" Multiplicity="1" />
+          <End Role="Assets" Type="Self.Asset" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="Assets">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_History_Assets">
+          <End Role="Assets" Type="Self.Asset" Multiplicity="1" />
+          <End Role="Histories" Type="Self.History" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Assets">
+              <PropertyRef Name="AssetID" />
+            </Principal>
+            <Dependent Role="Histories">
+              <PropertyRef Name="AssetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetail_Assets">
+          <End Role="Assets" Type="Self.Asset" Multiplicity="0..1" />
+          <End Role="OrderDetails" Type="Self.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Assets">
+              <PropertyRef Name="AssetID" />
+            </Principal>
+            <Dependent Role="OrderDetails">
+              <PropertyRef Name="AssetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Category">
+          <End Role="Categories" Type="Self.Category" Multiplicity="1" />
+          <End Role="Products" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AssetRequest_Personel">
+          <End Role="Employees" Type="Self.Employee" Multiplicity="1" />
+          <End Role="PoRequest" Type="Self.PoRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
               <PropertyRef Name="EmployeeID" />
             </Principal>
             <Dependent Role="PoRequest">
@@ -719,11 +599,59 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_AssetRequest_RequestStatus">
-          <End Type="AssetManagementModel.RequestStatus" Role="RequestStatus" Multiplicity="1" />
-          <End Type="AssetManagementModel.PoRequest" Role="PoRequest" Multiplicity="*" />
+        <Association Name="FK_Employees_Roles">
+          <End Role="Roles" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="Employees" Type="Self.Employee" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="RequestStatus">
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Histories_Employees">
+          <End Role="Employees" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Histories" Type="Self.History" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Histories">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetails_Orders">
+          <End Role="Orders" Type="Self.Order" Multiplicity="0..1" />
+          <End Role="OrderDetails" Type="Self.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="OrderDetails">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PoRequest_Orders">
+          <End Role="Orders" Type="Self.Order" Multiplicity="0..1" />
+          <End Role="PoRequest" Type="Self.PoRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="PoRequest">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AssetRequest_RequestStatus">
+          <End Role="RequestStatuses" Type="Self.RequestStatus" Multiplicity="1" />
+          <End Role="PoRequest" Type="Self.PoRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RequestStatuses">
               <PropertyRef Name="RequestStatusID" />
             </Principal>
             <Dependent Role="PoRequest">
@@ -732,52 +660,108 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Quotes_PoRequest">
-          <End Type="AssetManagementModel.PoRequest" Role="PoRequest" Multiplicity="1" />
-          <End Type="AssetManagementModel.Quote" Role="Quote" Multiplicity="*" />
+          <End Role="PoRequest" Type="Self.PoRequest" Multiplicity="1" />
+          <End Role="Quotes" Type="Self.Quote" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PoRequest">
               <PropertyRef Name="PoRequestID" />
             </Principal>
-            <Dependent Role="Quote">
+            <Dependent Role="Quotes">
               <PropertyRef Name="PoRequestID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Order">
+        <EntityContainer Name="AssetManagementEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Assets" EntityType="Self.Asset" />
+          <EntitySet Name="AssetStatuses" EntityType="Self.AssetStatus" />
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="Histories" EntityType="Self.History" />
+          <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
+          <EntitySet Name="Orders" EntityType="Self.Order" />
+          <EntitySet Name="PoRequests" EntityType="Self.PoRequest" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="Quotes" EntityType="Self.Quote" />
+          <EntitySet Name="RequestStatuses" EntityType="Self.RequestStatus" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <AssociationSet Name="FK_Assets_AssetStatus" Association="Self.FK_Assets_AssetStatus">
+            <End Role="AssetStatuses" EntitySet="AssetStatuses" />
+            <End Role="Assets" EntitySet="Assets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Assets_Product" Association="Self.FK_Assets_Product">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Assets" EntitySet="Assets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_History_Assets" Association="Self.FK_History_Assets">
+            <End Role="Assets" EntitySet="Assets" />
+            <End Role="Histories" EntitySet="Histories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetail_Assets" Association="Self.FK_OrderDetail_Assets">
+            <End Role="Assets" EntitySet="Assets" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Category" Association="Self.FK_Product_Category">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssetRequest_Personel" Association="Self.FK_AssetRequest_Personel">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="PoRequest" EntitySet="PoRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_Roles" Association="Self.FK_Employees_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Histories_Employees" Association="Self.FK_Histories_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Histories" EntitySet="Histories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetails_Orders" Association="Self.FK_OrderDetails_Orders">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PoRequest_Orders" Association="Self.FK_PoRequest_Orders">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="PoRequest" EntitySet="PoRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssetRequest_RequestStatus" Association="Self.FK_AssetRequest_RequestStatus">
+            <End Role="RequestStatuses" EntitySet="RequestStatuses" />
+            <End Role="PoRequest" EntitySet="PoRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quotes_PoRequest" Association="Self.FK_Quotes_PoRequest">
+            <End Role="PoRequest" EntitySet="PoRequests" />
+            <End Role="Quotes" EntitySet="Quotes" />
+          </AssociationSet>
+          <EntitySet Name="Vendors" EntityType="AssetManagementModel.Vendor" />
+          <AssociationSet Name="FK_Vendors_OrderDetails" Association="AssetManagementModel.FK_Vendors_OrderDetails">
+            <End Role="OrderDetail" EntitySet="OrderDetails" />
+            <End Role="Vendor" EntitySet="Vendors" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Vendor">
           <Key>
-            <PropertyRef Name="OrderID" />
+            <PropertyRef Name="VendorID" />
           </Key>
-          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OrderTotal" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="PurchaseDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="OrderDetails" Relationship="AssetManagementModel.FK_OrderDetail_Order" FromRole="Order" ToRole="OrderDetail" />
-          <NavigationProperty Name="PoRequests" Relationship="AssetManagementModel.FK_PoRequest_Orders" FromRole="Order" ToRole="PoRequest" />
+          <Property Name="VendorID" Type="Int32" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="OrderDetailID" Type="Int32" />
+          <NavigationProperty Name="OrderDetail" Relationship="AssetManagementModel.FK_Vendors_OrderDetails" FromRole="Vendor" ToRole="OrderDetail" />
         </EntityType>
-        <Association Name="FK_OrderDetail_Order">
-          <End Type="AssetManagementModel.Order" Role="Order" Multiplicity="1" />
-          <End Type="AssetManagementModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+        <Association Name="FK_Vendors_OrderDetails">
+          <End Type="AssetManagementModel.OrderDetail" Role="OrderDetail" Multiplicity="0..1" />
+          <End Type="AssetManagementModel.Vendor" Role="Vendor" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Order">
-              <PropertyRef Name="OrderID" />
+            <Principal Role="OrderDetail">
+              <PropertyRef Name="OrderDetailID" />
             </Principal>
-            <Dependent Role="OrderDetail">
-              <PropertyRef Name="OrderID" />
+            <Dependent Role="Vendor">
+              <PropertyRef Name="OrderDetailID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PoRequest_Orders">
-          <End Type="AssetManagementModel.Order" Role="Order" Multiplicity="0..1" />
-          <End Type="AssetManagementModel.PoRequest" Role="PoRequest" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Order">
-              <PropertyRef Name="OrderID" />
-            </Principal>
-            <Dependent Role="PoRequest">
-              <PropertyRef Name="OrderID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        </Schema>
+      </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -786,161 +770,153 @@
           <EntitySetMapping Name="Assets">
             <EntityTypeMapping TypeName="AssetManagementModel.Asset">
               <MappingFragment StoreEntitySet="Assets">
-                <ScalarProperty Name="MonthDepreciation" ColumnName="MonthDepreciation" />
-                <ScalarProperty Name="AssetStatusID" ColumnName="AssetStatusID" />
-                <ScalarProperty Name="AssetServiceID" ColumnName="AssetServiceID" />
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-                <ScalarProperty Name="Warranty" ColumnName="Warranty" />
-                <ScalarProperty Name="Barcode" ColumnName="Barcode" />
                 <ScalarProperty Name="AssetID" ColumnName="AssetID" />
+                <ScalarProperty Name="Barcode" ColumnName="Barcode" />
+                <ScalarProperty Name="Warranty" ColumnName="Warranty" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="AssetServiceID" ColumnName="AssetServiceID" />
+                <ScalarProperty Name="AssetStatusID" ColumnName="AssetStatusID" />
+                <ScalarProperty Name="MonthDepreciation" ColumnName="MonthDepreciation" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AssetStatuses">
             <EntityTypeMapping TypeName="AssetManagementModel.AssetStatus">
               <MappingFragment StoreEntitySet="AssetStatuses">
-                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
                 <ScalarProperty Name="AssetStatusID" ColumnName="AssetStatusID" />
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="AssetManagementModel.Category">
               <MappingFragment StoreEntitySet="Categories">
-                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
                 <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="AssetManagementModel.Employee">
               <MappingFragment StoreEntitySet="Employees">
-                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="FullName" ColumnName="FullName" />
-                <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Histories">
             <EntityTypeMapping TypeName="AssetManagementModel.History">
               <MappingFragment StoreEntitySet="Histories">
-                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-                <ScalarProperty Name="AssetID" ColumnName="AssetID" />
-                <ScalarProperty Name="StaffAssign" ColumnName="StaffAssign" />
-                <ScalarProperty Name="StaffRecall" ColumnName="StaffRecall" />
-                <ScalarProperty Name="AssignRemark" ColumnName="AssignRemark" />
-                <ScalarProperty Name="RecallRemark" ColumnName="RecallRemark" />
-                <ScalarProperty Name="CheckinDate" ColumnName="CheckinDate" />
-                <ScalarProperty Name="CheckoutDate" ColumnName="CheckoutDate" />
                 <ScalarProperty Name="HistoryID" ColumnName="HistoryID" />
+                <ScalarProperty Name="CheckoutDate" ColumnName="CheckoutDate" />
+                <ScalarProperty Name="CheckinDate" ColumnName="CheckinDate" />
+                <ScalarProperty Name="RecallRemark" ColumnName="RecallRemark" />
+                <ScalarProperty Name="AssignRemark" ColumnName="AssignRemark" />
+                <ScalarProperty Name="StaffRecall" ColumnName="StaffRecall" />
+                <ScalarProperty Name="StaffAssign" ColumnName="StaffAssign" />
+                <ScalarProperty Name="AssetID" ColumnName="AssetID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderDetails">
             <EntityTypeMapping TypeName="AssetManagementModel.OrderDetail">
               <MappingFragment StoreEntitySet="OrderDetails">
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="AssetID" ColumnName="AssetID" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Subtotal" ColumnName="Subtotal" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="OrderDetailID" ColumnName="OrderDetailID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="AssetManagementModel.Product">
-              <MappingFragment StoreEntitySet="Products">
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
-                <ScalarProperty Name="Brand" ColumnName="Brand" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="RequestStatuses">
-            <EntityTypeMapping TypeName="AssetManagementModel.RequestStatus">
-              <MappingFragment StoreEntitySet="RequestStatuses">
-                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
-                <ScalarProperty Name="RequestStatusID" ColumnName="RequestStatusID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="RoleEmployees">
-            <EntityTypeMapping TypeName="AssetManagementModel.RoleEmployee">
-              <MappingFragment StoreEntitySet="RoleEmployees">
-                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
-                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-                <ScalarProperty Name="RoleEmployeeID" ColumnName="RoleEmployeeID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Roles">
-            <EntityTypeMapping TypeName="AssetManagementModel.Role">
-              <MappingFragment StoreEntitySet="Roles">
-                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
-                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Vendors">
-            <EntityTypeMapping TypeName="AssetManagementModel.Vendor">
-              <MappingFragment StoreEntitySet="Vendors">
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="VendorName" ColumnName="VendorName" />
-                <ScalarProperty Name="VendorID" ColumnName="VendorID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Quotes">
-            <EntityTypeMapping TypeName="AssetManagementModel.Quote">
-              <MappingFragment StoreEntitySet="Quotes">
-                <ScalarProperty Name="PoRequestID" ColumnName="PoRequestID" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="Warranty" ColumnName="Warranty" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Subtotal" ColumnName="Subtotal" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Vendor" ColumnName="Vendor" />
-                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
-                <ScalarProperty Name="Brand" ColumnName="Brand" />
-                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="QuoteID" ColumnName="QuoteID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PoRequests">
-            <EntityTypeMapping TypeName="AssetManagementModel.PoRequest">
-              <MappingFragment StoreEntitySet="PoRequest">
+                <ScalarProperty Name="AssetID" ColumnName="AssetID" />
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="SelectedQuoteID" ColumnName="SelectedQuoteID" />
-                <ScalarProperty Name="RequestStatusID" ColumnName="RequestStatusID" />
-                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-                <ScalarProperty Name="StaffSubmit" ColumnName="StaffSubmit" />
-                <ScalarProperty Name="FinishedDate" ColumnName="FinishedDate" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="PoRequestID" ColumnName="PoRequestID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="AssetManagementModel.Order">
               <MappingFragment StoreEntitySet="Orders">
-                <ScalarProperty Name="PurchaseDate" ColumnName="PurchaseDate" />
-                <ScalarProperty Name="OrderTotal" ColumnName="OrderTotal" />
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="OrderTotal" ColumnName="OrderTotal" />
+                <ScalarProperty Name="PurchaseDate" ColumnName="PurchaseDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PoRequests">
+            <EntityTypeMapping TypeName="AssetManagementModel.PoRequest">
+              <MappingFragment StoreEntitySet="PoRequest">
+                <ScalarProperty Name="PoRequestID" ColumnName="PoRequestID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="FinishedDate" ColumnName="FinishedDate" />
+                <ScalarProperty Name="StaffSubmit" ColumnName="StaffSubmit" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="RequestStatusID" ColumnName="RequestStatusID" />
+                <ScalarProperty Name="SelectedQuoteID" ColumnName="SelectedQuoteID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="AssetManagementModel.Product">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Brand" ColumnName="Brand" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Quotes">
+            <EntityTypeMapping TypeName="AssetManagementModel.Quote">
+              <MappingFragment StoreEntitySet="Quotes">
+                <ScalarProperty Name="QuoteID" ColumnName="QuoteID" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="Brand" ColumnName="Brand" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="Vendor" ColumnName="Vendor" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Warranty" ColumnName="Warranty" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="PoRequestID" ColumnName="PoRequestID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RequestStatuses">
+            <EntityTypeMapping TypeName="AssetManagementModel.RequestStatus">
+              <MappingFragment StoreEntitySet="RequestStatuses">
+                <ScalarProperty Name="RequestStatusID" ColumnName="RequestStatusID" />
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="AssetManagementModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vendors">
+            <EntityTypeMapping TypeName="AssetManagementModel.Vendor">
+              <MappingFragment StoreEntitySet="Vendors">
+                <ScalarProperty Name="OrderDetailID" ColumnName="OrderDetailID" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="VendorID" ColumnName="VendorID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

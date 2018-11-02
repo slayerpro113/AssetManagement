@@ -12,5 +12,17 @@ namespace Repository
             var products = repository.Entity.Where(_ => _.CategoryID == categoryId).ToList();
             return products;
         }
+
+        public static int CountProductByName(this IRepository<Product> repository, string productName)
+        {
+            var count = repository.Entity.Where(_ => _.ProductName == productName).ToList().Count;
+            return count;
+        }
+
+        public static Product GetProductsByCategoryName(this IRepository<Product> repository, string categoryName)
+        {
+            var product = repository.Entity.FirstOrDefault(_ => _.Category.CategoryName == categoryName);
+            return product;
+        }
     }
 }

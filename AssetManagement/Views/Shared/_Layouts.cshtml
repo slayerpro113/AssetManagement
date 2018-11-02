@@ -20,9 +20,7 @@
     <link href="/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
     <link href="/vendors/nprogress/nprogress.css" rel="stylesheet">
-    <!-- iCheck -->
-    <link href="/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-    <link href="/vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+
 
 
     <!-- Custom Theme Style -->
@@ -60,11 +58,14 @@
                             <h3>General</h3>
                             <ul class="nav side-menu">
                                 <li>
-                                    <a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                                    <a><i class="fa fa-edit"></i> Category <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="index.html">Dashboard</a></li>
-                                        <li><a href="index2.html">Dashboard2</a></li>
-                                        <li><a href="index3.html">Dashboard3</a></li>
+                                        <li><a class="product" href="/product/Product?categoryId=1">Chair</a></li>
+                                        <li><a class="product" href="/product/Product?categoryId=2">Keyboard</a></li>
+                                        <li><a class="product" href="/product/Product?categoryId=3">Mouse</a></li>
+                                        <li><a class="product" href="/product/Product?categoryId=4">PC</a></li>
+                                        <li><a class="product" href="/product/Product?categoryId=5">Printer</a></li>
+                                        <li><a class="product" href="/product/Product?categoryId=6">PC</a></li>
                                     </ul>
                                 </li>
                                 <li>
@@ -228,11 +229,11 @@
             </div>
             <!-- /top navigation -->
             <!-- page content -->
-            <div class="right_col" role="main">              
+            <div class="right_col" role="main">
                 <div class="row">
-                       @RenderBody()
+                    @RenderBody()
                 </div>
-                <br />  
+                <br />
             </div>
             <!-- /page content -->
             <!-- footer content -->
@@ -252,14 +253,25 @@
     <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- FastClick -->
     <script src="../vendors/fastclick/lib/fastclick.js"></script>
-<script src="/vendors/iCheck/icheck.min.js"></script>
-<script src="/vendors/switchery/dist/switchery.min.js"></script>
 
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
 
 </body>
 </html>
-
+<script>
+    $(".product").click(function (this) {
+        var url = this.href;
+        $.ajax({
+            type: 'Post',
+            url: url,
+            dataType: 'json',
+            success: function (data) {
+                $("right_col").html(data);
+            }
+        });
+        return false;
+    })
+</script>
 
 
