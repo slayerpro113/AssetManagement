@@ -17,7 +17,6 @@ namespace AssetManagement.Controllers
         private readonly IEmployeeService _employeeService;
         private readonly IOrderService _orderService;
 
-
         public StaffController(IPoRequestService poRequestService, IAssetService assetService,
             IHistoryService historyService, IQuoteService quoteService, IEmployeeService employeeService, IOrderService orderService)
         {
@@ -113,18 +112,6 @@ namespace AssetManagement.Controllers
             {
                 return Json(new {status = "Failed"}, JsonRequestBehavior.AllowGet);
             }
-        }
-
-        public ActionResult GetSubmittedPoRequests()
-        {
-            var poRequests = _poRequestService.GetSubmittedPoRequests();
-            return View("SubmittedPoRequests", poRequests);
-        }
-
-        public ActionResult GetSubmittedPoRequestsPartial()
-        {
-            var poRequests = _poRequestService.GetSubmittedPoRequests();
-            return PartialView("_SubmittedPoRequestsPartial", poRequests);
         }
 
         [HttpPost]

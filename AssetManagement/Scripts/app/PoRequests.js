@@ -182,3 +182,33 @@ function SubmitRequest(poRequestId, staffSubmit) {
     });
 }
 
+//------------------Create Order
+function createOrder() {
+    var poRequestIdString = $('#requestId').val();
+
+    $.ajax({
+        type: 'Post',
+        url: "/Staff/CreateOrder?poRequestIdString=" + poRequestIdString,
+        dataType: 'json',
+        success: function (data) {
+            if (data.status === "Success") {
+                swal({
+                    title: "Create Order",
+                    text: "Successfully",
+                    icon: "success",
+                    buttons: false,
+                    timer: 1300
+                });
+                gvFilterRow.Refresh();
+            } else {
+                swal({
+                    title: "Something Went Wrong",
+                    text: "Please try again!",
+                    icon: "error",
+                    buttons: false,
+                    timer: 1300
+                });
+            }
+        }
+    });
+}

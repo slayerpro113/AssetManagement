@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssetRepository.cs" />
+    <Compile Include="CategoryRepository.cs" />
     <Compile Include="EmployeeRepository.cs" />
     <Compile Include="HistoryRepository.cs" />
     <Compile Include="PoRequestRepository.cs" />

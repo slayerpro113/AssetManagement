@@ -14,6 +14,12 @@ namespace Data.Entities
     
     public partial class Quote
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Quote()
+        {
+            this.OrderDetails = new HashSet<OrderDetail>();
+        }
+    
         public int QuoteID { get; set; }
         public string Image { get; set; }
         public string ProductName { get; set; }
@@ -25,6 +31,8 @@ namespace Data.Entities
         public string Note { get; set; }
         public int PoRequestID { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public virtual PoRequest PoRequest { get; set; }
     }
 }

@@ -6,8 +6,6 @@
     Layout = "~/Views/Shared/_Layouts.cshtml";
 }
 
-
-
 @{
     var userSession = (Employee)SessionHelper.GetSessionValue(Constant.UserSession);
 }
@@ -32,6 +30,29 @@
     }
 </script>
 
+<script type="text/javascript">
+    function SelectQuote(s, e) {
+        s.GetSelectedFieldValues("PoRequestID", GetSelectedFieldValuesCallback);
+    }
+
+    function GetSelectedFieldValuesCallback(values) {
+        $('#requestId').val(values);
+
+        SelectedRows.BeginUpdate();
+        try {
+            SelectedRows.ClearItems();
+            for (var i = 0; i < values.length; i++) {
+                SelectedRows.AddItem(values[i]);
+            }
+        } finally {
+            SelectedRows.EndUpdate();
+        }
+        $("#count").html(gvRowSelection.GetSelectedRowCount());
+
+    }
+
+</script>
+
 <link href="~/Content/SweetAlert/SweetAlert.css" rel="stylesheet" />
 <script src="~/Scripts/app/sweetalert.min.js"></script>
 <script src="~/Scripts/app/sweetalert.js"></script>
@@ -48,6 +69,7 @@
                 </div>
 
                 <div class="x_content">
+                    Selected count:&nbsp;<strong id="count">0</strong>
                     @Html.Partial("_PoRequestsPartial", Model)
                 </div>
             </div>
@@ -215,5 +237,7 @@
     </div>
 </div>
 
+<input id="requestId" />
 
 <script src="~/Scripts/app/PoRequests.js"></script>
+<button onclick="createOrder()">phuda</button>

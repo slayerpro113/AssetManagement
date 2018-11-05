@@ -14,12 +14,7 @@ namespace Repository
 
         public static IList<PoRequest> GetPoRequestsFromUsers(this IRepository<PoRequest> repository)
         {
-            return repository.Entity.Where(_ => _.RequestStatusID == 1).OrderByDescending(_ => _.PoRequestID).ToList();
-        }
-
-        public static IList<PoRequest> GetSubmittedPoRequests(this IRepository<PoRequest> repository)
-        {
-            return repository.Entity.Where(_ => _.RequestStatusID == 2 || _.RequestStatusID == 3).OrderByDescending(_ => _.PoRequestID).ToList();
+            return repository.Entity.Where(_ => _.RequestStatusID != 5).OrderByDescending(_ => _.PoRequestID).ToList();
         }
 
         public static IList<PoRequest> GetPoRequestsFromStaff(this IRepository<PoRequest> repository)

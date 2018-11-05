@@ -16,7 +16,6 @@ namespace Service
         private readonly IRepository<PoRequest> _poRequestRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-
         public HistoryService(IUnitOfWork unitOfWork, IRepository<History> historyRepository, IRepository<PoRequest> poRequestRepository) : base(unitOfWork, historyRepository)
         {
             _unitOfWork = unitOfWork;
@@ -30,18 +29,17 @@ namespace Service
             return histories;
         }
 
-        public Enumerations.AddEntityStatus HandleAssign(int poRequestId, Employee employee,Asset asset, string assignRemark, string staffAssign)
+        public Enumerations.AddEntityStatus HandleAssign(int poRequestId, Employee employee, Asset asset, string assignRemark, string staffAssign)
         {
             var poRequest = _poRequestRepository.GetEntity(poRequestId);
             try
             {
                 _unitOfWork.BeginTransaction();
 
-                poRequest.RequestStatusID = 4;
+                poRequest.RequestStatusID = 5;
                 poRequest.FinishedDate = DateTime.Now.Date;
                 _poRequestRepository.UpdateEntity(poRequest);
                 _unitOfWork.SaveChanges();
-
 
                 var history = new History();
                 
@@ -62,7 +60,7 @@ namespace Service
 
                 return Enumerations.AddEntityStatus.Success;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 _unitOfWork.Rollback();
             }
@@ -90,7 +88,7 @@ namespace Service
 
                 return Enumerations.AddEntityStatus.Success;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return Enumerations.AddEntityStatus.Failed;
             }
@@ -115,7 +113,7 @@ namespace Service
 
                 return Enumerations.UpdateEntityStatus.Success;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return Enumerations.UpdateEntityStatus.Failed;
             }

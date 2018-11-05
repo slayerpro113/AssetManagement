@@ -13,14 +13,21 @@ namespace Service
     public class OrderService : BaseService<Order>, IOrderService
     {
         private readonly IRepository<PoRequest> _poRequestRepository;
-
         private readonly IRepository<Product> _productRepository;
+        private readonly IRepository<Category> _categoryRepository;
+        private readonly IRepository<OrderDetail> _orderDetailRepository;
 
-        public OrderService(IUnitOfWork unitOfWork, IRepository<Order> orderRepository, IRepository<PoRequest> poRequestRepository, IRepository<Product> productRepository) : base(unitOfWork, orderRepository)
+        private readonly IUnitOfWork _unitOfWork;
+
+        public OrderService(IUnitOfWork unitOfWork, IRepository<Order> orderRepository, IRepository<PoRequest> poRequestRepository,
+            IRepository<Product> productRepository, IRepository<Category> categoryRepository, IRepository<OrderDetail> orderDetailRepository) : base(unitOfWork, orderRepository)
 
         {
             _poRequestRepository = poRequestRepository;
             _productRepository = productRepository;
+            _categoryRepository = categoryRepository;
+            _orderDetailRepository = orderDetailRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public Enumerations.AddEntityStatus HandleCreateOrder(string poRequestIdString)
@@ -40,58 +47,108 @@ namespace Service
                     poRequests.Add(poReQuest);
                 }
 
-                order.PoRequests = poRequests;
                 order.PurchaseDate = DateTime.Now.Date;
                 order.OrderTotal = orderTotal;
 
                 IList<OrderDetail> orderDetails = new List<OrderDetail>();
-
                 var quotes = GetQuotesByPoRequests(poRequests);
 
                 foreach (var quote in quotes)
                 {
+                    //handle order detail
                     var orderDetail = new OrderDetail();
 
                     if (orderDetails.Count == 0)
                     {
+                        orderDetail.Quote = quote;
                         orderDetail.Price = quote.Price;
                         orderDetail.Quantity = 1;
                         orderDetail.Subtotal = orderDetail.Price * orderDetail.Quantity;
+
+                        orderDetails.Add(orderDetail);
                     }
                     else
                     {
-                        foreach (var tempOrderDetail in orderDetails)
+                        var tempOrderDetail =
+                            orderDetails.FirstOrDefault(_ => _.Quote.ProductName == quote.ProductName);
+                        if (tempOrderDetail == null)
                         {
-                            //if(quote.ProductName == tempOrderDetail.)
+                            orderDetail.Quote = quote;
+                            orderDetail.Price = quote.Price;
+                            orderDetail.Quantity = 1;
+                            orderDetail.Subtotal = orderDetail.Price * orderDetail.Quantity;
+
+                            orderDetails.Add(orderDetail);
+                        }
+                        else
+                        {
+                            tempOrderDetail.Quantity = tempOrderDetail.Quantity + 1;
+                            tempOrderDetail.Subtotal = tempOrderDetail.Price * tempOrderDetail.Quantity;
+                            orderDetails.Add(tempOrderDetail);
                         }
                     }
-                    orderDetails.Add(orderDetail);
                 }
 
-                foreach (var quote in quotes)
+                // handle product and asset 
+                foreach (var temp in orderDetails)
                 {
-                    //check if product exist
-                    var count = _productRepository.CountProductByName(quote.ProductName);
+                    //check if product not exist
+                    var count = _productRepository.CountProductByName(temp.Quote.ProductName);
                     if (count == 0)
                     {
-                        var product = new Product();
-                        product.ProductName = quote.ProductName;
-                        product.Brand = quote.Brand;
-                        product.CategoryID = GetVendorIdByVendorName(quote.CategoryName);
+                        var product = new Product
+                        {
+                            Image = temp.Quote.Image,
+                            ProductName = temp.Quote.ProductName,
+                            Brand = temp.Quote.ProductName,
+                            Category = _categoryRepository.GetCategoryByCategoryName(temp.Quote.CategoryName)
+                        };
+
+                        IList<Asset> assets = new List<Asset>();
+                        for (int i = 0; i < temp.Quantity; i++)
+                        {
+                            var asset = new Asset
+                            {
+                                Product = product,
+                                Warranty = temp.Quote.Warranty,
+                                AssetStatusID = 1
+                            };
+                            assets.Add(asset);
+                        }
+
+                        temp.Assets = assets;
+
                     }
-                    //save product to db
+                    else
+                    {
+                        //if exist
+                        var productExist = _productRepository.GetProductsByCategoryName(temp.Quote.CategoryName);
+                        //handle asset
+                        IList<Asset> assets = new List<Asset>();
+                        for (int i = 0; i < temp.Quantity; i++)
+                        {
+                            var asset = new Asset
+                            {
+                                Product = productExist,
+                                Warranty = temp.Quote.Warranty,
+                                AssetStatusID = 1
+                            };
+                            assets.Add(asset);
+                        }
 
-                    //handle asset
-                    var productExist = _productRepository.GetProductsByCategoryName(quote.CategoryName);
+                        temp.Assets = assets;
+                    }
+                }
+                order.OrderDetails = orderDetails;
 
-                        var asset = new Asset();
-                        asset.Product = productExist;
-                        asset.Warranty = quote.Warranty;
-                        asset.AssetStatusID = 1;
-                    
+                foreach (var tempPoRequest in poRequests)
+                {
+                    tempPoRequest.RequestStatusID = 4;
                 }
 
+                order.PoRequests = poRequests;
                 AddEntity(order);
+
                 return Enumerations.AddEntityStatus.Success;
             }
             catch (Exception e)

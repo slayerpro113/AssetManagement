@@ -65,25 +65,31 @@
             if (poRequest.RequestStatusID == 1)
             {
                 ViewContext.Writer.Write(
-                    "<button type='button' class='btn btn-info btn-sm'>" + poRequest.RequestStatus.StatusName + "</button>"
+                    "<button type='button' class='btn btn-info btn-xs'>" + poRequest.RequestStatus.StatusName + "</button>"
                     );
             }
             else if(poRequest.RequestStatusID == 2)
             {
                 ViewContext.Writer.Write(
-                    "<button type='button' class='btn btn-warning btn-sm'>"+ poRequest.RequestStatus.StatusName + "</button>"
+                    "<button type='button' class='btn btn-warning btn-xs'>" + poRequest.RequestStatus.StatusName + "</button>"
                     );
             }
             else if (poRequest.RequestStatusID == 3)
             {
                 ViewContext.Writer.Write(
-                    "<button type='button' class='btn btn-danger btn-sm'>" + poRequest.RequestStatus.StatusName + "</button>"
+                    "<button type='button' class='btn btn-danger btn-xs'>" + poRequest.RequestStatus.StatusName + "</button>"
+                    );
+            }
+            else if(poRequest.RequestStatusID == 4)
+            {
+                ViewContext.Writer.Write(
+                    "<button type='button' class='btn btn-primary btn-xs'>" + poRequest.RequestStatus.StatusName + "</button>"
                     );
             }
             else
             {
                 ViewContext.Writer.Write(
-                    "<button type='button' class='btn btn-success btn-sm'>" + poRequest.RequestStatus.StatusName + "</button>"
+                    "<button type='button' class='btn btn-success btn-xs'>" + poRequest.RequestStatus.StatusName + "</button>"
                     );
             }
         });
@@ -96,10 +102,10 @@
         {
             int poRequestId = (int) DataBinder.Eval(p.DataItem, "PoRequestID");
             var poRequest = Model.FirstOrDefault(_ => _.PoRequestID == poRequestId);
-            if (poRequest.RequestStatusID == 4)
+            if (poRequest.RequestStatusID == 5)
             {
                 ViewContext.Writer.Write(
-                    "<a style='text-decoration: none'>" + poRequest.StaffAssign + "</a>"+
+                    "<a style='text-decoration:none'>" + poRequest.StaffAssign + "</a>"+
                     "<br/>"+
                     "<small>On <i>"+ poRequest.FinishedDate.Value.ToLongDateString() +"</i></small>"
                     );
@@ -120,7 +126,7 @@
         {
             int poRequestId = (int) DataBinder.Eval(p.DataItem, "PoRequestID");
             var poRequest = Model.FirstOrDefault(_ => _.PoRequestID == poRequestId);
-            if (poRequest.RequestStatusID == 4)
+            if (poRequest.RequestStatusID == 5)
             {
                 ViewContext.Writer.Write(
                     "<img src=\"/Image/Categories/" + HttpUtility.UrlDecode(@poRequest.AssetImage) + "\" class='avatar' alt='Avatar'>     "+

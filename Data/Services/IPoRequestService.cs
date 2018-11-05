@@ -11,7 +11,6 @@ namespace Data.Services
         IList<PoRequest> GetPoRequestsFromUsers();
         void SetStatusAndFinishDate(int poRequestId);
         Enumerations.UpdateEntityStatus HandleSubmitRequest(int poRequestId, string staffSubmit);
-        IList<PoRequest> GetSubmittedPoRequests();
         IList<PoRequest> GetPoRequestsFromStaff();
         IList<Quote> GetQuotesByPoRequestId(int poRequestId);
         bool IsExistQuoteId(int poRequestId, int quoteId);

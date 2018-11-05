@@ -17,6 +17,7 @@ namespace Data.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public OrderDetail()
         {
+            this.Assets = new HashSet<Asset>();
             this.Vendors = new HashSet<Vendor>();
         }
     
@@ -24,11 +25,13 @@ namespace Data.Entities
         public int Quantity { get; set; }
         public decimal Subtotal { get; set; }
         public decimal Price { get; set; }
-        public Nullable<int> AssetID { get; set; }
         public Nullable<int> OrderID { get; set; }
+        public Nullable<int> QuoteID { get; set; }
     
-        public virtual Asset Asset { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Asset> Assets { get; set; }
         public virtual Order Order { get; set; }
+        public virtual Quote Quote { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Vendor> Vendors { get; set; }
     }

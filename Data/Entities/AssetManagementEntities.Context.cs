@@ -7,13 +7,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using Data.DataContext;
+
 namespace Data.Entities
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class AssetManagementEntities : DbContext
+    public partial class AssetManagementEntities : DbContext, IDataContext
     {
         public AssetManagementEntities()
             : base("name=AssetManagementEntities")
@@ -37,6 +39,7 @@ namespace Data.Entities
         public virtual DbSet<Quote> Quotes { get; set; }
         public virtual DbSet<RequestStatus> RequestStatuses { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Vendor> Vendors { get; set; }
     }
 }

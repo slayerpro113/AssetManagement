@@ -14,8 +14,13 @@
     <EntitySet Name="RequestStatuses" EntityType="AssetManagementModel.RequestStatus" />
     <EntitySet Name="Roles" EntityType="AssetManagementModel.Role" />
     <EntitySet Name="sysdiagrams" EntityType="AssetManagementModel.sysdiagram" />
+    <EntitySet Name="Vendors" EntityType="AssetManagementModel.Vendor" />
     <AssociationSet Name="FK_Assets_AssetStatus" Association="AssetManagementModel.FK_Assets_AssetStatus">
       <End Role="AssetStatus" EntitySet="AssetStatuses" />
+      <End Role="Asset" EntitySet="Assets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Assets_OrderDetails" Association="AssetManagementModel.FK_Assets_OrderDetails">
+      <End Role="OrderDetail" EntitySet="OrderDetails" />
       <End Role="Asset" EntitySet="Assets" />
     </AssociationSet>
     <AssociationSet Name="FK_Assets_Product" Association="AssetManagementModel.FK_Assets_Product">
@@ -25,10 +30,6 @@
     <AssociationSet Name="FK_History_Assets" Association="AssetManagementModel.FK_History_Assets">
       <End Role="Asset" EntitySet="Assets" />
       <End Role="History" EntitySet="Histories" />
-    </AssociationSet>
-    <AssociationSet Name="FK_OrderDetail_Assets" Association="AssetManagementModel.FK_OrderDetail_Assets">
-      <End Role="Asset" EntitySet="Assets" />
-      <End Role="OrderDetail" EntitySet="OrderDetails" />
     </AssociationSet>
     <AssociationSet Name="FK_Product_Category" Association="AssetManagementModel.FK_Product_Category">
       <End Role="Category" EntitySet="Categories" />
@@ -50,6 +51,14 @@
       <End Role="Order" EntitySet="Orders" />
       <End Role="OrderDetail" EntitySet="OrderDetails" />
     </AssociationSet>
+    <AssociationSet Name="FK_OrderDetails_Quotes" Association="AssetManagementModel.FK_OrderDetails_Quotes">
+      <End Role="Quote" EntitySet="Quotes" />
+      <End Role="OrderDetail" EntitySet="OrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Vendors_OrderDetails" Association="AssetManagementModel.FK_Vendors_OrderDetails">
+      <End Role="OrderDetail" EntitySet="OrderDetails" />
+      <End Role="Vendor" EntitySet="Vendors" />
+    </AssociationSet>
     <AssociationSet Name="FK_PoRequest_Orders" Association="AssetManagementModel.FK_PoRequest_Orders">
       <End Role="Order" EntitySet="Orders" />
       <End Role="PoRequest" EntitySet="PoRequests" />
@@ -70,14 +79,16 @@
     <Property Name="AssetID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Barcode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="Warranty" Type="Int32" />
+    <Property Name="MonthDepreciation" Type="Int32" />
     <Property Name="ProductID" Type="Int32" Nullable="false" />
     <Property Name="AssetServiceID" Type="Int32" />
     <Property Name="AssetStatusID" Type="Int32" Nullable="false" />
-    <Property Name="MonthDepreciation" Type="Int32" />
+    <Property Name="OrderDetailID" Type="Int32" />
     <NavigationProperty Name="AssetStatus" Relationship="AssetManagementModel.FK_Assets_AssetStatus" FromRole="Asset" ToRole="AssetStatus" />
+    <NavigationProperty Name="OrderDetail" Relationship="AssetManagementModel.FK_Assets_OrderDetails" FromRole="Asset" ToRole="OrderDetail" />
     <NavigationProperty Name="Product" Relationship="AssetManagementModel.FK_Assets_Product" FromRole="Asset" ToRole="Product" />
     <NavigationProperty Name="Histories" Relationship="AssetManagementModel.FK_History_Assets" FromRole="Asset" ToRole="History" />
-    <NavigationProperty Name="OrderDetails" Relationship="AssetManagementModel.FK_OrderDetail_Assets" FromRole="Asset" ToRole="OrderDetail" />
+    <Property Name="EndTimeDepreciation" Type="DateTime" Precision="0" />
   </EntityType>
   <EntityType Name="AssetStatus">
     <Key>
@@ -138,10 +149,12 @@
     <Property Name="Quantity" Type="Int32" Nullable="false" />
     <Property Name="Subtotal" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
     <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-    <Property Name="AssetID" Type="Int32" />
     <Property Name="OrderID" Type="Int32" />
-    <NavigationProperty Name="Asset" Relationship="AssetManagementModel.FK_OrderDetail_Assets" FromRole="OrderDetail" ToRole="Asset" />
+    <Property Name="QuoteID" Type="Int32" />
+    <NavigationProperty Name="Assets" Relationship="AssetManagementModel.FK_Assets_OrderDetails" FromRole="OrderDetail" ToRole="Asset" />
     <NavigationProperty Name="Order" Relationship="AssetManagementModel.FK_OrderDetails_Orders" FromRole="OrderDetail" ToRole="Order" />
+    <NavigationProperty Name="Quote" Relationship="AssetManagementModel.FK_OrderDetails_Quotes" FromRole="OrderDetail" ToRole="Quote" />
+    <NavigationProperty Name="Vendors" Relationship="AssetManagementModel.FK_Vendors_OrderDetails" FromRole="OrderDetail" ToRole="Vendor" />
   </EntityType>
   <EntityType Name="Order">
     <Key>
@@ -199,6 +212,7 @@
     <Property Name="Warranty" Type="Int32" />
     <Property Name="Note" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="PoRequestID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="OrderDetails" Relationship="AssetManagementModel.FK_OrderDetails_Quotes" FromRole="Quote" ToRole="OrderDetail" />
     <NavigationProperty Name="PoRequest" Relationship="AssetManagementModel.FK_Quotes_PoRequest" FromRole="Quote" ToRole="PoRequest" />
   </EntityType>
   <EntityType Name="RequestStatus">
@@ -227,6 +241,17 @@
     <Property Name="version" Type="Int32" />
     <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
+  <EntityType Name="Vendor">
+    <Key>
+      <PropertyRef Name="VendorID" />
+    </Key>
+    <Property Name="VendorID" Type="Int32" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="OrderDetailID" Type="Int32" />
+    <NavigationProperty Name="OrderDetail" Relationship="AssetManagementModel.FK_Vendors_OrderDetails" FromRole="Vendor" ToRole="OrderDetail" />
+  </EntityType>
   <Association Name="FK_Assets_AssetStatus">
     <End Type="AssetManagementModel.AssetStatus" Role="AssetStatus" Multiplicity="1" />
     <End Type="AssetManagementModel.Asset" Role="Asset" Multiplicity="*" />
@@ -236,6 +261,18 @@
       </Principal>
       <Dependent Role="Asset">
         <PropertyRef Name="AssetStatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Assets_OrderDetails">
+    <End Type="AssetManagementModel.OrderDetail" Role="OrderDetail" Multiplicity="0..1" />
+    <End Type="AssetManagementModel.Asset" Role="Asset" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrderDetail">
+        <PropertyRef Name="OrderDetailID" />
+      </Principal>
+      <Dependent Role="Asset">
+        <PropertyRef Name="OrderDetailID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -259,18 +296,6 @@
         <PropertyRef Name="AssetID" />
       </Principal>
       <Dependent Role="History">
-        <PropertyRef Name="AssetID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_OrderDetail_Assets">
-    <End Type="AssetManagementModel.Asset" Role="Asset" Multiplicity="0..1" />
-    <End Type="AssetManagementModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Asset">
-        <PropertyRef Name="AssetID" />
-      </Principal>
-      <Dependent Role="OrderDetail">
         <PropertyRef Name="AssetID" />
       </Dependent>
     </ReferentialConstraint>
@@ -332,6 +357,30 @@
       </Principal>
       <Dependent Role="OrderDetail">
         <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderDetails_Quotes">
+    <End Type="AssetManagementModel.Quote" Role="Quote" Multiplicity="0..1" />
+    <End Type="AssetManagementModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Quote">
+        <PropertyRef Name="QuoteID" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="QuoteID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Vendors_OrderDetails">
+    <End Type="AssetManagementModel.OrderDetail" Role="OrderDetail" Multiplicity="0..1" />
+    <End Type="AssetManagementModel.Vendor" Role="Vendor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrderDetail">
+        <PropertyRef Name="OrderDetailID" />
+      </Principal>
+      <Dependent Role="Vendor">
+        <PropertyRef Name="OrderDetailID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Data.Entities;
+using Data.Utilities.Enumeration;
 
 namespace Data.Services
 {
@@ -9,5 +10,7 @@ namespace Data.Services
         IList<Asset> GetAssetsInUse();
         IList<Asset> GetAssetsByHistories(IList<History> histories);
         IList<Asset> GetAvailableAssetsByCategoryName(string categoryName);
+        Enumerations.UpdateEntityStatus HandleEnterDetail(int assetId, string barcode, int monthsOfDepreciation);
+        Asset GetAssetDepreciationDetail(int assetId);
     }
 }

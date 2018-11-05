@@ -53,6 +53,13 @@ namespace AssetManagement.Controllers
             return PartialView("_AssetHistorieslPartial", histories);
         }
 
+        public ActionResult GetAssetDepreciationDetail(int assetId)
+        {
+            ViewBag.AssetID = assetId;
+            var histories = _assetService.GetAssetDepreciationDetail(assetId);
+            return PartialView("_AssetHistorieslPartial", histories);
+        }
+
         public ActionResult LoadDataCbb()
         {
             var employees = _employeeService.GetAll();
@@ -61,19 +68,28 @@ namespace AssetManagement.Controllers
 
        // [RolePermission(Enumerations.Roles.Manager)]
         [HttpPost]
-        public ActionResult AssignAsset(int employeeId, int assetId, string assignRemark, string staffAssign)
+        public ActionResult AssignWithoutRequest(int employeeId, int assetId, string assignRemark, string staffAssign)
         {
             var employee = _employeeService.GetEntity(employeeId);
             var asset = _assetService.GetEntity(assetId);
-            var status = _historyService.HandleAssignWithoutRequest(employee, asset, assignRemark, staffAssign);
-
-            if (status == Enumerations.AddEntityStatus.Success)
+            
+            if (asset.Barcode == null || asset.MonthDepreciation == null)
             {
-                return Json(new { status = "Success" }, JsonRequestBehavior.AllowGet);
+                return Json(new { status = "Failed" }, JsonRequestBehavior.AllowGet);
+
             }
             else
             {
-                return Json(new { status = "Failed" }, JsonRequestBehavior.AllowGet);
+                var status = _historyService.HandleAssignWithoutRequest(employee, asset, assignRemark, staffAssign);
+
+                if (status == Enumerations.AddEntityStatus.Success)
+                {
+                    return Json(new { status = "Success" }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { status = "Failed" }, JsonRequestBehavior.AllowGet);
+                }
             }
         }
 
@@ -90,6 +106,29 @@ namespace AssetManagement.Controllers
             else
             {
                 return Json(new { status = "Failed" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult HandleEnterDetail(int assetId, string barcode, int monthsOfDepreciation)
+        {
+            if (string.IsNullOrEmpty(barcode) || monthsOfDepreciation < 0)
+            {
+                return Json(new { status = "Failed" }, JsonRequestBehavior.AllowGet);
+
+            }
+            else
+            {
+                var status = _assetService.HandleEnterDetail(assetId, barcode, monthsOfDepreciation);
+
+                if (status == Enumerations.UpdateEntityStatus.Success)
+                {
+                    return Json(new { status = "Success" }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { status = "Failed" }, JsonRequestBehavior.AllowGet);
+                }
             }
         }
     }

@@ -4,10 +4,12 @@
     <EntitySetMapping Name="Assets">
       <EntityTypeMapping TypeName="AssetManagementModel.Asset">
         <MappingFragment StoreEntitySet="Assets">
-          <ScalarProperty Name="MonthDepreciation" ColumnName="MonthDepreciation" />
+          <ScalarProperty Name="EndTimeDepreciation" ColumnName="EndTimeDepreciation" />
+          <ScalarProperty Name="OrderDetailID" ColumnName="OrderDetailID" />
           <ScalarProperty Name="AssetStatusID" ColumnName="AssetStatusID" />
           <ScalarProperty Name="AssetServiceID" ColumnName="AssetServiceID" />
           <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="MonthDepreciation" ColumnName="MonthDepreciation" />
           <ScalarProperty Name="Warranty" ColumnName="Warranty" />
           <ScalarProperty Name="Barcode" ColumnName="Barcode" />
           <ScalarProperty Name="AssetID" ColumnName="AssetID" />
@@ -65,8 +67,8 @@
     <EntitySetMapping Name="OrderDetails">
       <EntityTypeMapping TypeName="AssetManagementModel.OrderDetail">
         <MappingFragment StoreEntitySet="OrderDetails">
+          <ScalarProperty Name="QuoteID" ColumnName="QuoteID" />
           <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-          <ScalarProperty Name="AssetID" ColumnName="AssetID" />
           <ScalarProperty Name="Price" ColumnName="Price" />
           <ScalarProperty Name="Subtotal" ColumnName="Subtotal" />
           <ScalarProperty Name="Quantity" ColumnName="Quantity" />
@@ -151,6 +153,17 @@
           <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
           <ScalarProperty Name="principal_id" ColumnName="principal_id" />
           <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vendors">
+      <EntityTypeMapping TypeName="AssetManagementModel.Vendor">
+        <MappingFragment StoreEntitySet="Vendors">
+          <ScalarProperty Name="OrderDetailID" ColumnName="OrderDetailID" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="VendorID" ColumnName="VendorID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

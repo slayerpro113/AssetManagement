@@ -13,8 +13,7 @@ namespace Service
     {
         private readonly IRepository<Quote> _quoteRepository;
 
-        public QuoteService(IUnitOfWork unitOfWork, IRepository<Quote> quoteRepository) : base(unitOfWork,
-            quoteRepository)
+        public QuoteService(IUnitOfWork unitOfWork, IRepository<Quote> quoteRepository) : base(unitOfWork, quoteRepository)
         {
             _quoteRepository = quoteRepository;
         }
@@ -23,9 +22,10 @@ namespace Service
         {
             try
             {
-                string imageName = _quoteRepository.CountQuote().ToString() + ".jpg";
+                var quoteId = _quoteRepository.CountQuote() + 1;
+                string imageName = quote.CategoryName + "/" + quote.CategoryName + quoteId  + ".jpg";
                 //string imageName = System.IO.Path.GetFileName(image.FileName);
-                string filePath = "~/Image/Quotes/" + imageName;
+                string filePath = "~/Image/Categories/" + imageName;
                 image.SaveAs(HttpContext.Current.Server.MapPath(filePath));
                 quote.Image = imageName;
                 quote.PoRequest = poRequest;
@@ -33,7 +33,7 @@ namespace Service
                 AddEntity(quote);
                 return Enumerations.AddEntityStatus.Success;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return Enumerations.AddEntityStatus.Failed;
             }

@@ -7,12 +7,33 @@
     settings.Name = "gvFilterRow";
     settings.SettingsBehavior.AllowFocusedRow = false;
     settings.SettingsLoadingPanel.Mode = GridViewLoadingPanelMode.Disabled;
+
+    //Custom css
     settings.Styles.Header.BackColor = System.Drawing.ColorTranslator.FromHtml("#476482");
     settings.Styles.Header.ForeColor = Color.White;
-
+    //hover
     settings.SettingsBehavior.EnableRowHotTrack = true;
     settings.Styles.RowHotTrack.BackColor = System.Drawing.ColorTranslator.FromHtml("#f9fdff");
     settings.Styles.RowHotTrack.Font.Bold = true;
+    //filter
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.CommandColumn.ShowClearFilterButton = true;
+    //check box
+    settings.CommandColumn.Visible = true;
+    settings.CommandColumn.Width = 80;
+    settings.CommandColumn.Caption = " ";
+    settings.CommandColumn.ShowSelectCheckbox = true;
+
+    settings.CommandButtonInitialize = (sender, e) => {
+        MVCxGridView grid = sender as MVCxGridView;
+        if (e.ButtonType == ColumnCommandButtonType.SelectCheckbox && e.VisibleIndex >= 0) {
+            int poRequestId = Convert.ToInt32(grid.GetRowValues(e.VisibleIndex, grid.KeyFieldName));
+            var poRequest = Model.FirstOrDefault(_ => _.PoRequestID == poRequestId);
+
+            e.Visible = (poRequest.RequestStatusID == 3);
+        }
+    };
 
     settings.CallbackRouteValues = new { Controller = "Staff", Action = "GetPoRequestsFromUsersPartial" };
     settings.Width = Unit.Percentage(100);
@@ -30,9 +51,9 @@
             ViewContext.Writer.Write(
                 "<img src=\"/Image/" + HttpUtility.UrlDecode(poRequest.Employee.Image) + "\" class='avatar' alt='Avatar'>"+
 
-                "&nbsp&nbsp<a &nbsp&nbsp<a style='text-decoration: none; font-size:medium!important'>" + poRequest.Employee.FullName + "</a>"+
+                "&nbsp&nbsp<a &nbsp&nbsp<a style='text-decoration:none'>" + poRequest.Employee.FullName + "</a>"+
                 "<br/>"+
-                "<small>Created On <i>"+ poRequest.CreatedDate.ToLongDateString() +"</i></small>"
+                "<small>On <i>"+ poRequest.CreatedDate.ToLongDateString() +"</i></small>"
                 );
         });
         c.Caption = "Requested By";
@@ -80,20 +101,37 @@
             var poRequest = Model.FirstOrDefault(_ => _.PoRequestID == poRequestId);
             var quotes = poRequest.Quotes;
 
-            ViewContext.Writer.Write(
-                "<ul class='list-inline'>"
-                );
-            foreach (var quote in quotes)
+            if (poRequest.RequestStatusID == 1 || poRequest.RequestStatusID == 2)
             {
                 ViewContext.Writer.Write(
-                    "<li>"+
-                    "<img class='avatar' alt='Avatar' src=\"/Image/Quotes/" + HttpUtility.UrlDecode(@quote.Image) + "\">"+
-                    "</li>"
+                    "<ul class='list-inline'>"
+                    );
+                foreach (var quote in quotes)
+                {
+                    ViewContext.Writer.Write(
+                        "<li>"+
+                        "<img class='avatar' alt='Avatar' src=\"/Image/Categories/" + HttpUtility.UrlDecode(@quote.Image) + "\">"+
+                        "</li>"
+                        );
+                }
+                ViewContext.Writer.Write(
+                    "</ul>"
                     );
             }
-            ViewContext.Writer.Write(
-                "</ul>"
-                );
+            else
+            {
+                var quoteId = poRequest.SelectedQuoteID;
+                var quote = quotes.FirstOrDefault(_ => _.QuoteID == quoteId);
+                ViewContext.Writer.Write(
+                    "<ul class='list-inline'>"+
+                    "<li>"+
+                    "<img class='avatar' alt='Avatar' src=\"/Image/Quotes/" + HttpUtility.UrlDecode(@quote.Image) + "\">"+
+                    "&nbsp&nbsp<a style='text-decoration: none'>" + quote.ProductName + "</a>"+
+                    "</li>"+
+                    "</ul>"
+                    );
+            }
+
         });
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
@@ -121,9 +159,30 @@
             int poRequestId = (int)DataBinder.Eval(p.DataItem, "PoRequestID");
             var poRequest = Model.FirstOrDefault(_ => _.PoRequestID == poRequestId);
 
-            ViewContext.Writer.Write(
-                "<button type='button' class='btn btn-info btn-sm'>In Progress</button>"
-            );
+            if (poRequest.RequestStatusID == 1)
+            {
+                ViewContext.Writer.Write(
+                    "<button type='button' class='btn btn-info btn-sm'>" + poRequest.RequestStatus.StatusName + "</button>"
+                    );
+            }
+            else if (poRequest.RequestStatusID == 2)
+            {
+                ViewContext.Writer.Write(
+                    "<button type='button' class='btn btn-warning btn-sm'>" + poRequest.RequestStatus.StatusName + "</button>"
+                    );
+            }
+            else if (poRequest.RequestStatusID == 3)
+            {
+                ViewContext.Writer.Write(
+                "<button type='button' class='btn btn-danger btn-sm'>" + poRequest.RequestStatus.StatusName + "</button>"
+                    );
+            }
+            else
+            {
+                ViewContext.Writer.Write(
+                    "<button type='button' class='btn btn-primary btn-sm'>" + poRequest.RequestStatus.StatusName + "</button>"
+                    );
+            }
         });
     });
 
@@ -138,7 +197,7 @@
             var employeeId = poRequest.EmployeeID;
             var employeeName = poRequest.EmployeeName;
 
-            if (poRequest.RequestStatusID != 4)
+            if (poRequest.RequestStatusID == 1)
             {
                 if (poRequest.Quantity != 0)
                 {
@@ -166,7 +225,7 @@
                         ViewContext.Writer.Write(
                             "<button type='button' class='open-popup btn btn-round btn-default' data-toggle='modal' data-target='#quotePopup'" +
                             "onclick =\"OpenQuotePopup(" + poRequestId + ")\" >Quote</button>"+
-                            "&nbsp"+
+                            "&nbsp" +
                             "<button type='button' class='btn btn-round btn-primary' onclick =\"SubmitRequest(" + poRequestId + ", '"+ userSession.FullName + "')\" >Submit</button>"
                             );
                     }
@@ -176,9 +235,9 @@
         c.Width = 120;
     });
 
-    settings.Settings.ShowFilterRow = true;
-    settings.Settings.ShowFilterRowMenu = true;
-    settings.CommandColumn.ShowClearFilterButton = true;
+    settings.ClientSideEvents.SelectionChanged = "SelectQuote";
+
+
 
     settings.SettingsPager.PageSize = 5;
 

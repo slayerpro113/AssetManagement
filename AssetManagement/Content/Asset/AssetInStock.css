@@ -37,7 +37,7 @@
     margin: 0 auto;
 }
 
-#errorMessage {
+#errorMessage, #message {
     text-align: center;
     color: Red;
     width: 200px;

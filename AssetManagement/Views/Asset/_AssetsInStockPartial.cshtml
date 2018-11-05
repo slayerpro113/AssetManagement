@@ -52,6 +52,14 @@
         });
     });
 
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "AssetID";
+        c.Caption = "AssetID";
+        c.Settings.AllowAutoFilter = DefaultBoolean.False;
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+    });
 
     settings.Columns.Add(c =>
     {
@@ -82,7 +90,6 @@
     {
         c.FieldName = "AssetName";
         c.Caption = "Name";
-
 
         c.SetDataItemTemplateContent(p =>
         {
@@ -117,7 +124,7 @@
         c.Settings.AllowAutoFilter = DefaultBoolean.False;
         c.SetDataItemTemplateContent(r =>
         {
-            ViewContext.Writer.Write("<button type='button' class='btn btn-success btn-sm'>" + HttpUtility.UrlDecode(r.Text) + "</button>");
+            ViewContext.Writer.Write("<button type='button' class='btn btn-success btn-xs'>" + HttpUtility.UrlDecode(r.Text) + "</button>");
 
         });
     });
@@ -138,22 +145,70 @@
         {
             int assetId = (int)DataBinder.Eval(p.DataItem, "AssetID");
             var asset = Model.FirstOrDefault(_ => _.AssetID == assetId);
+
+            if (asset.Barcode != null && asset.MonthDepreciation != null)
+            {
+                ViewContext.Writer.Write(
+                    "<button type='button' class='btn btn-round btn-default' data-toggle='modal' data-target='#assignPopup'" +
+                    " onclick =\"OpenAssignPopup(" + assetId + ",'" + asset.Barcode + "', '" + asset.AssetName + "')\"  >Assign</button>"
+                    );
+            }
+            else
+            {
+                ViewContext.Writer.Write(
+                    "<button type='button' class='btn btn-round btn-default' data-toggle='modal' data-target='#depreciatePopup'" +
+                    " onclick =\"OpenDepreciatePopup(" + assetId + ",'" + asset.AssetName + "')\" >Depreciate</button>"
+                    );
+            }
+        });
+    });
+
+
+    //settings.Columns.Add("monthlyAmount");
+    //settings.Columns.Add("depreciatedAmount");
+    //settings.Columns.Add("amountLeft");
+    //settings.Columns.Add("percentDepreciation");
+
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "AssetStatusName";
+        c.Caption = "Date Purchase";
+        c.Settings.AllowAutoFilter = DefaultBoolean.False;
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+    });
+
+    settings.Columns.Add(c =>
+    {
+        c.Caption = "Progress Depreciation";
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.SetDataItemTemplateContent(p =>
+        {
             ViewContext.Writer.Write(
-                "<button type='button' class='btn btn-round btn-default' data-toggle='modal' data-target='#assignPopup'" +
-                " onclick =\"OpenAssignPopup(" + assetId + ",'" + asset.Barcode + "', '" + asset.AssetName + "')\"  >Assign</button>"
+                "<div class='project_progress'>"+
+                "<div class='progress progress_sm'>" +
+                "<div class='progress-bar bg-green' role='progressbar'  style='width:"+75+"%'></div></div>"+
+                "</div>"+
+                "</div>"
+
             );
         });
     });
 
+
     settings.SetDetailRowTemplateContent(c => {
 
         ViewContext.Writer.Write(
-            "<div class='history-area'>"
+            "<div class='detail-area'>"+
+            "<div class='row'>"
             );
         Html.RenderAction("ShowHistories",  new { assetId = DataBinder.Eval(c.DataItem, "AssetID") });
         ViewContext.Writer.Write(
-            "</div>"
+            "</div>"+
+            "<div class='row'>"
             );
+        //Html.RenderPartial("ShowHistories",  new { assetId = DataBinder.Eval(c.DataItem, "AssetID") });
+
     });
 
     settings.SettingsPager.Position = PagerPosition.Bottom;

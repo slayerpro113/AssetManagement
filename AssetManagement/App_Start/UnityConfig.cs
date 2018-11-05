@@ -73,6 +73,8 @@ namespace AssetManagement
                 .RegisterType<IRepository<Quote>, Repository<Quote>>();
             container
                 .RegisterType<IRepository<Order>, Repository<Order>>();
+            container
+                .RegisterType<IRepository<OrderDetail>, Repository<OrderDetail>>();
 
             //Service layer
             container.RegisterType<ICategoryService, CategoryService>();
@@ -84,6 +86,7 @@ namespace AssetManagement
             container.RegisterType<IPoRequestService, PoRequestService>();
             container.RegisterType<IQuoteService, QuoteService>();
             container.RegisterType<IOrderService, OrderService>();
+            container.RegisterType<IOrderDetailService, OrderDetailService>();
 
         }
     }

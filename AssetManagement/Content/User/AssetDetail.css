@@ -15,8 +15,24 @@ h3 {
 }
 
 
-.thuanthao {
-    background-color: aquamarine;
+/* asset card */
+.content {
+    overflow: hidden;
+}
+
+.assign-date {
     opacity: 0;
-    z-index: 2;
+    transition: all ease 0.4s;
+}
+
+.test:hover .assign-date {
+    opacity: 1;
+}
+
+.btn {
+    transition: all ease 0.4s;
+}
+
+.test:hover img {
+    border: 1px solid #1AAB9C !important;
 }

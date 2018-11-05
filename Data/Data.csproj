@@ -129,6 +129,9 @@
     <Compile Include="Entities\Role.cs">
       <DependentUpon>AssetManagementEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\sysdiagram.cs">
+      <DependentUpon>AssetManagementEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\Vendor.cs">
       <DependentUpon>AssetManagementEntities.tt</DependentUpon>
     </Compile>
@@ -139,6 +142,7 @@
     <Compile Include="Services\ICategoryService.cs" />
     <Compile Include="Services\IEmployeeService.cs" />
     <Compile Include="Services\IHistoryService.cs" />
+    <Compile Include="Services\IOrderDetailService.cs" />
     <Compile Include="Services\IOrderService.cs" />
     <Compile Include="Services\IPoRequestService.cs" />
     <Compile Include="Services\IProductService.cs" />

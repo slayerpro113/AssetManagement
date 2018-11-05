@@ -9,7 +9,7 @@ namespace Repository
     {
         public static IList<Asset> GetAssetsInStock(this IRepository<Asset> repository)
         {
-            return repository.Entity.Where(_ => _.AssetStatusID == 1).ToList();
+            return repository.Entity.Where(_ => _.AssetStatusID == 1).OrderByDescending(_ => _.AssetID).ToList();
         }
 
         public static IList<Asset> GetAssetsInUse(this IRepository<Asset> repository)

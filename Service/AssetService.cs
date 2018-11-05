@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
+using Data.Utilities.Enumeration;
 
 namespace Service
 {
@@ -22,7 +23,32 @@ namespace Service
 
         public IList<Asset> GetAssetsInStock()
         {
-            return _assetRepository.GetAssetsInStock();
+            var assets = _assetRepository.GetAssetsInStock();
+
+            foreach (var asset in assets)
+            {
+                if (asset.AssetID == 60)
+                {
+                    //tien khau hao hang thang
+                    var monthlyAmount = asset.OrderDetail.Price / asset.MonthDepreciation;
+                    //So thang da khau hao
+                    var depreciatedMonth = DateTime.Now.Month - asset.OrderDetail.Order.PurchaseDate.Month;
+
+                    //so tien da khau hao
+                    var depreciatedAmount = depreciatedMonth * monthlyAmount;
+                    //so tien con lai
+                    var amountLeft = asset.OrderDetail.Price - depreciatedAmount;
+
+                    var percentDepreciation = depreciatedAmount % asset.OrderDetail.Price * 100;
+
+                    asset.monthlyAmount = monthlyAmount;
+                    asset.depreciatedAmount = depreciatedAmount;
+                    asset.amountLeft = amountLeft;
+                    asset.percentDepreciation = percentDepreciation;
+                }
+            }
+
+            return assets;
         }
 
         public IList<Asset> GetAssetsInUse()
@@ -65,6 +91,32 @@ namespace Service
         public IList<Asset> GetAvailableAssetsByCategoryName(string categoryName)
         {
             return _assetRepository.GetAssetsByCategoryName(categoryName);
+        }
+
+        public Enumerations.UpdateEntityStatus HandleEnterDetail(int assetId, string barcode, int monthsOfDepreciation)
+        {
+            try
+            {
+                var asset = GetEntity(assetId);
+                asset.Barcode = barcode;
+                asset.MonthDepreciation = monthsOfDepreciation;
+
+                var purchaseDate = asset.OrderDetail.Order.PurchaseDate;
+                var endTimeDepreciation = purchaseDate.AddMonths(monthsOfDepreciation);
+                asset.EndTimeDepreciation = endTimeDepreciation;
+
+                UpdateEntity(asset);
+                return Enumerations.UpdateEntityStatus.Success;
+            }
+            catch (Exception e)
+            {
+                return Enumerations.UpdateEntityStatus.Failed;
+            }
+        }
+
+        public Asset GetAssetDepreciationDetail(int assetId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

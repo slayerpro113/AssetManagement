@@ -23,7 +23,6 @@ namespace Service
             _historyRepository = historyRepository;
         }
 
-        //user
         public Enumerations.AddEntityStatus HandlePoRequest(int employeeId, string description, string device)
         {
             try
@@ -42,7 +41,7 @@ namespace Service
                 AddEntity(poRequest);
                 return Enumerations.AddEntityStatus.Success;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return Enumerations.AddEntityStatus.Failed;
             }
@@ -53,7 +52,7 @@ namespace Service
             var poRequests = _poRequestRepository.GetPoRequestsByEmployeeId(employeeId);
             foreach (var poRequest in poRequests)
             {
-                if (poRequest.RequestStatusID == 4)
+                if (poRequest.RequestStatusID == 5)
                 {
                     var history = _historyRepository.GetStaffAssignAndAssetImage(poRequest);
                     if (history != null)
@@ -83,7 +82,7 @@ namespace Service
         public void SetStatusAndFinishDate(int poRequestId)
         {
             var poRequest = GetEntity(poRequestId);
-            poRequest.RequestStatusID = 4;
+            poRequest.RequestStatusID = 5;
             poRequest.FinishedDate = DateTime.Now.Date;
             UpdateEntity(poRequest);
         }
@@ -99,15 +98,10 @@ namespace Service
                 UpdateEntity(poRequest);
                 return Enumerations.UpdateEntityStatus.Success;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return Enumerations.UpdateEntityStatus.Failed;
             }
-        }
-
-        public IList<PoRequest> GetSubmittedPoRequests()
-        {
-            return _poRequestRepository.GetSubmittedPoRequests();
         }
 
         public IList<PoRequest> GetPoRequestsFromStaff()
@@ -146,7 +140,7 @@ namespace Service
                 UpdateEntity(poRequest);
                 return Enumerations.UpdateEntityStatus.Success;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return Enumerations.UpdateEntityStatus.Failed;
             }

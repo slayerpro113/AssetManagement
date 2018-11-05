@@ -59,49 +59,49 @@
                     <h4 class="modal-title">Assign Asset</h4>
                 </div>
                 <div class="modal-body">
-                    <form class='form-horizontal form-label-left input_mask'>
-                        <input type='hidden' class='form-control' readonly id='assetId'>
-                        <input type='hidden' class='form-control' readonly id='staffAssign' value='@userSession.FullName'>
+                    <form class="form-horizontal form-label-left input_mask">
+                        <input type="hidden" class="form-control" readonly id="assetId">
+                        <input type="hidden" class="form-control" readonly id="staffAssign" value="@userSession.FullName">
 
-                        <div class='form-group'>
-                            <label class='control-label col-md-4 col-sm-3 col-xs-12'>Barcode: </label>
-                            <div class='col-md-7 col-sm-7 col-xs-12'>
-                                <input type='text' class='form-control' readonly id='barcode'>
+                        <div class="form-group">
+                            <label class="control-label col-md-4 col-sm-3 col-xs-12">Barcode: </label>
+                            <div class="col-md-7 col-sm-7 col-xs-12">
+                                <input type="text" class="form-control" readonly id="barcode">
                             </div>
                         </div>
 
-                        <div class='form-group'>
-                            <label class='control-label col-md-4 col-sm-3 col-xs-12'>Asset Name: </label>
-                            <div class='col-md-7 col-sm-7 col-xs-12'>
-                                <input type='text' class='form-control' readonly id='assetName'>
+                        <div class="form-group">
+                            <label class="control-label col-md-4 col-sm-3 col-xs-12">Asset Name: </label>
+                            <div class="col-md-7 col-sm-7 col-xs-12">
+                                <input type="text" class="form-control" readonly id="assetName">
                             </div>
                         </div>
 
-                        <div class='form-group'>
-                            <label class='control-label col-md-4 col-sm-3 col-xs-12'>Remark: </label>
-                            <div class='col-md-7 col-sm-7 col-xs-12'>
-                                <textarea class='form-control' id='assignRemark'></textarea>
+                        <div class="form-group">
+                            <label class="control-label col-md-4 col-sm-3 col-xs-12">Remark: </label>
+                            <div class="col-md-7 col-sm-7 col-xs-12">
+                                <textarea class="form-control" id="assignRemark"></textarea>
                             </div>
                         </div>
 
-                        <div class='form-group'>
-                            <label class='control-label col-md-4 col-sm-3 col-xs-12'>Select Employee:<span class='required'>*</span> </label>
-                            <div class='col-md-7 col-sm-7 col-xs-12'>
+                        <div class="form-group">
+                            <label class="control-label col-md-4 col-sm-3 col-xs-12">Select Employee:<span class="required">*</span> </label>
+                            <div class="col-md-7 col-sm-7 col-xs-12">
                                 @Html.Action("LoadDataCbb")
                             </div>
                         </div>
 
-                        <div class='form-group'>
+                        <div class="form-group">
                             <div class="col-md-8 col-md-offset-4">
                                 <a id="errorMessage"></a>
                             </div>
                         </div>
 
-                        <div class='ln_solid'></div>
-                        <div class='form-group'>
-                            <div class='col-md-8 col-sm-9 col-xs-12 col-md-offset-4'>
-                                <button type='button' class='btn btn-round btn-success' id='btnAssign'>Assign</button>
-                                <button type='button' class='btn btn-round btn-default' data-dismiss="modal" id='btnCancel'>Cancel</button>
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-8 col-sm-9 col-xs-12 col-md-offset-4">
+                                <button type="button" class="btn btn-round btn-success" id="btnAssign">Assign</button>
+                                <button type="button" class="btn btn-round btn-default" data-dismiss="modal" id="btnCancel">Cancel</button>
                             </div>
                         </div>
                     </form>
@@ -111,5 +111,59 @@
     </div>
 </div>
 
+<div id="depreciatePopup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title">Enter Detail Information</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal form-label-left input_mask">
+                        <input type="hidden" class="form-control" readonly id="assetId2">
+                        
+                        <div class="form-group">
+                            <label class="control-label col-md-4 col-sm-3 col-xs-12">Asset Name:</label>
+                            <div class="col-md-7 col-sm-7 col-xs-12">
+                                <input type="text" class="form-control" readonly id="assetName2">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-4 col-sm-3 col-xs-12">Barcode: <span class="required">*</span></label>
+                            <div class="col-md-7 col-sm-7 col-xs-12">
+                                <input type="text" class="form-control" id="barcodeInput" maxlength="20">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-4 col-sm-3 col-xs-12">Months Of Depreciation: <span class="required">*</span></label>
+                            <div class="col-md-7 col-sm-7 col-xs-12">
+                                <input type="number" class="form-control" min="0" max="84" maxlength="5" id="depreciation">
+                            </div>
+                        </div>
+
+                         <div class="form-group">
+                            <div class="col-md-8 col-md-offset-4">
+                                <a id="message"></a>
+                            </div>
+                        </div>
+
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-8 col-sm-9 col-xs-12 col-md-offset-5">
+                                <button type="button" class="btn btn-round btn-success" id="btnOK">OK</button>
+                                <button type="button" class="btn btn-round btn-default" data-dismiss="modal" id="btnCancel2">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="~/Scripts/app/AssetInStock.js"></script>

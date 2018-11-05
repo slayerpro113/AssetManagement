@@ -75,6 +75,7 @@
     <Compile Include="CategoryService.cs" />
     <Compile Include="EmployeeService.cs" />
     <Compile Include="HistoryService.cs" />
+    <Compile Include="OrderDetailService.cs" />
     <Compile Include="OrderService.cs" />
     <Compile Include="PoRequestService.cs" />
     <Compile Include="ProductService.cs" />
