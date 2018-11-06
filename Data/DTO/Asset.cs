@@ -14,11 +14,14 @@ namespace Data.Entities
         public string StaffAssign { get; set; }
         public string CheckinDate { get; set; }
 
+       // public DateTime PurchaseDate => OrderDetail.Order.PurchaseDate;
+
         public Nullable<decimal> monthlyAmount { get; set; }
         public Nullable<decimal> depreciatedAmount { get; set; }
 
         public Nullable<decimal> amountLeft { get; set; }
         public Nullable<decimal> percentDepreciation { get; set; }
+        public Nullable<int> monthsLeft { get; set; }
 
 
         public int EmployeeId { get; set; }

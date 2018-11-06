@@ -75,7 +75,7 @@
     </Key>
     <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="OrderTotal" Type="decimal" Precision="18" Scale="2" Nullable="false" />
-    <Property Name="PurchaseDate" Type="datetime" Nullable="false" />
+    <Property Name="PurchaseDate" Type="date" Nullable="false" />
   </EntityType>
   <EntityType Name="PoRequest">
     <Key>

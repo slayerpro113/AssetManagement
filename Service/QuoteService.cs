@@ -23,7 +23,7 @@ namespace Service
             try
             {
                 var quoteId = _quoteRepository.CountQuote() + 1;
-                string imageName = quote.CategoryName + "/" + quote.CategoryName + quoteId  + ".jpg";
+                string imageName = quote.CategoryName + "/" + quote.ProductName + quoteId  + ".jpg";
                 //string imageName = System.IO.Path.GetFileName(image.FileName);
                 string filePath = "~/Image/Categories/" + imageName;
                 image.SaveAs(HttpContext.Current.Server.MapPath(filePath));

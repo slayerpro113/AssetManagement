@@ -99,7 +99,7 @@
             ViewContext.Writer.Write(
                 "<img src=\"/Image/Categories/" + HttpUtility.UrlDecode(asset.AssetImage) + "\" class='avatar' >" +
 
-                "&nbsp&nbsp<a &nbsp&nbsp<a style='text-decoration: none; font-size:medium!important'>" + asset .AssetName + "</a>"
+                "&nbsp&nbsp<a &nbsp&nbsp<a style='text-decoration:none'>" + asset .AssetName + "</a>"
                 );
         });
         c.CellStyle.HorizontalAlign = HorizontalAlign.Left;
@@ -129,13 +129,44 @@
         });
     });
 
+    //settings.Columns.Add(c =>
+    //{
+    //    c.FieldName = "AssetStatusName";
+    //    c.Caption = "Date Purchase";
+    //    c.Settings.AllowAutoFilter = DefaultBoolean.False;
+    //    c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+    //    c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+    //});
+
+    //settings.Columns.Add(c =>
+    //{
+    //    c.FieldName = "PurchaseDate";
+    //    c.Caption = "Date Purchase";
+    //    c.Settings.AllowAutoFilter = DefaultBoolean.False;
+    //    c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+    //    c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+    //    c.PropertiesEdit.DisplayFormatString = "D";
+    //});
+
     settings.Columns.Add(c =>
     {
-        c.FieldName = "AssetStatusName";
-        c.Caption = "Date Purchase";
+        c.Caption = "Progress Depreciation";
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.SetDataItemTemplateContent(p =>
+        {
+            ViewContext.Writer.Write(
+                "<div class='project_progress'>"+
+                "<div class='progress progress_sm'>" +
+                "<div class='progress-bar bg-green' role='progressbar'  style='width:"+75+"%'></div></div>"+
+                "</div>"+
+                "</div>"+
+                "<small> 60 % Complete </small>"
+             );
+        });
         c.Settings.AllowAutoFilter = DefaultBoolean.False;
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.Width = 150;
     });
 
     settings.Columns.Add(c =>
@@ -163,52 +194,28 @@
         });
     });
 
-
-    //settings.Columns.Add("monthlyAmount");
-    //settings.Columns.Add("depreciatedAmount");
-    //settings.Columns.Add("amountLeft");
-    //settings.Columns.Add("percentDepreciation");
-
-    settings.Columns.Add(c =>
+    settings.SetDetailRowTemplateContent(c =>
     {
-        c.FieldName = "AssetStatusName";
-        c.Caption = "Date Purchase";
-        c.Settings.AllowAutoFilter = DefaultBoolean.False;
-        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
-        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
-    });
-
-    settings.Columns.Add(c =>
-    {
-        c.Caption = "Progress Depreciation";
-        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
-        c.SetDataItemTemplateContent(p =>
-        {
-            ViewContext.Writer.Write(
-                "<div class='project_progress'>"+
-                "<div class='progress progress_sm'>" +
-                "<div class='progress-bar bg-green' role='progressbar'  style='width:"+75+"%'></div></div>"+
-                "</div>"+
-                "</div>"
-
-            );
-        });
-    });
-
-
-    settings.SetDetailRowTemplateContent(c => {
-
         ViewContext.Writer.Write(
-            "<div class='detail-area'>"+
-            "<div class='row'>"
-            );
-        Html.RenderAction("ShowHistories",  new { assetId = DataBinder.Eval(c.DataItem, "AssetID") });
+            "<div class='depreciation'>"
+        );
+
+        int assetId = (int) DataBinder.Eval(c.DataItem, "AssetID");
+        var asset = Model.FirstOrDefault(_ => _.AssetID == assetId);
+        var assets = new List<Asset>();
+        assets.Add(asset);
+        Html.RenderPartial("_AssetDetailPartial",  assets);
+
         ViewContext.Writer.Write(
             "</div>"+
-            "<div class='row'>"
+            "<br>"+
+            "<div class='history'>"
             );
-        //Html.RenderPartial("ShowHistories",  new { assetId = DataBinder.Eval(c.DataItem, "AssetID") });
-
+     
+        Html.RenderAction("ShowHistories",  new { assetId = DataBinder.Eval(c.DataItem, "AssetID") });
+      ViewContext.Writer.Write(
+          "</div>"
+          );
     });
 
     settings.SettingsPager.Position = PagerPosition.Bottom;

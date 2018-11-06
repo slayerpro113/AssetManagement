@@ -1,6 +1,7 @@
 @using System.Drawing
-@Html.DevExpress().GridView(settings => {
-    settings.Name = "detailGrid_" + ViewData["AssetID"];
+@Html.DevExpress().GridView(settings =>
+{
+    settings.Name = "historyGrid";
     settings.SettingsDetail.MasterGridName = "grid";
     settings.CallbackRouteValues = new { Controller = "Asset", Action = "ShowHistories", assetId = ViewBag.AssetID };
     settings.Width = Unit.Percentage(80);

@@ -162,7 +162,7 @@
     </Key>
     <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="OrderTotal" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-    <Property Name="PurchaseDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="PurchaseDate" Type="DateTime" Nullable="false" Precision="0" />
     <NavigationProperty Name="OrderDetails" Relationship="AssetManagementModel.FK_OrderDetails_Orders" FromRole="Order" ToRole="OrderDetail" />
     <NavigationProperty Name="PoRequests" Relationship="AssetManagementModel.FK_PoRequest_Orders" FromRole="Order" ToRole="PoRequest" />
   </EntityType>

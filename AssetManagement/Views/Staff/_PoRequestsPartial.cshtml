@@ -4,7 +4,7 @@
 @using Image = System.Web.UI.WebControls.Image
 @model IList<Data.Entities.PoRequest>
 @Html.DevExpress().GridView(settings => {
-    settings.Name = "gvFilterRow";
+    settings.Name = "gvRowSelection";
     settings.SettingsBehavior.AllowFocusedRow = false;
     settings.SettingsLoadingPanel.Mode = GridViewLoadingPanelMode.Disabled;
 
@@ -39,7 +39,7 @@
     settings.Width = Unit.Percentage(100);
 
     settings.KeyFieldName = "PoRequestID";
-
+    settings.Columns.Add("PoRequestID").Visible = false;
     settings.Columns.Add(c =>
     {
         c.FieldName = "EmployeeName";
@@ -235,7 +235,7 @@
         c.Width = 120;
     });
 
-    settings.ClientSideEvents.SelectionChanged = "SelectQuote";
+    settings.ClientSideEvents.SelectionChanged = "SelectionChanged";
 
 
 

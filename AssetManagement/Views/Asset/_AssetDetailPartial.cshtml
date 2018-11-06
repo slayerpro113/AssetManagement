@@ -1,75 +1,62 @@
-﻿@model Data.Entities.Asset
+﻿@using System.Drawing
+@model IList<Data.Entities.Asset>
+@Html.DevExpress().GridView(settings =>
+{
+    settings.Name = "depreciationGrid";
+    settings.SettingsDetail.MasterGridName = "grid";
+    settings.CallbackRouteValues = new { Controller = "Asset", Action = "ShowHistories", assetId = ViewBag.AssetID };
+    settings.Width = Unit.Percentage(80);
+
+    //Custom css
+    settings.Styles.Header.BackColor = System.Drawing.ColorTranslator.FromHtml("#f4f4f4");
+    settings.Styles.Header.ForeColor = System.Drawing.ColorTranslator.FromHtml("#1AAB9C");
+    // Hover
+    //    settings.SettingsBehavior.EnableRowHotTrack = true;
+    //    settings.Styles.RowHotTrack.BackColor = System.Drawing.ColorTranslator.FromHtml("#fdfff9");
+    //    settings.Styles.RowHotTrack.Font.Bold = true;
+
+
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "monthlyAmount";
+        c.Caption = "Monthly Amount";
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+    });
+
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "depreciatedAmount";
+        c.Caption = "Depreciated Amount";
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+    });
+
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "amountLeft";
+        c.Caption = "Amount Left";
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+    });
+
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "monthsLeft";
+        c.Caption = "Months Left";
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+    });
+
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "EndTimeDepreciation";
+        c.Caption = "Finished Date";
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.PropertiesEdit.DisplayFormatString = "D";
+    });
+}).Bind(Model).GetHtml()
 
 
 
-<style>
-    .x_panel {
-        border-left: none;
-        border-right: none;
-        border-bottom: none;
-    }
-
-    .detail-title {
-        color: white
-    }
-
-    .detail-x_title {
-        background: #1AAB9C !important;
-    }   
-
- </style>
-
-<div class="col-md-12 col-sm-12 col-xs-12">
-    <div class="">
-        <div class="detail-x_title">
-            <h2 class="detail-title">Asset Detail</h2>
-            <div class="clearfix"></div>
-        </div>
-        <div class="x_content">
-
-            <table class="table table-bordered">
-                <tbody style="text-align: center">
-                <tr>
-                    <td rowspan="4" style="width: 99px">
-                        @Html.DevExpress().Image(settings =>
-                        {
-                            settings.ImageUrl = "/Image/Categories/" + @Model.AssetImage;
-                            settings.Width = 99;
-                            settings.Height = 120;
-                            settings.ControlStyle.CssClass = "image";
-                            settings.Properties.EnableClientSideAPI = true;
-                        }).GetHtml()
-                    </td>
-                </tr>
-                <tr>
-                    <th>Name</th>
-                    <td colspan="3">
-                        @Model.AssetName
-                    </td>
-                </tr>
-                <tr>
-                    <th>Type</th>
-                    <td>
-                        @Model.AssetCategory
-                    </td>
-                    <th>Brand</th>
-                    <td>
-                        @Model.AssetBrand
-                    </td>
-                </tr>
-                <tr>
-                    <th>Depreciation</th>
-                    <td>
-                        Nothing
-                    </td>
-                    <th>Depreciation</th>
-                    <td>
-                        Nothing
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-
-        </div>
-    </div>
-</div>

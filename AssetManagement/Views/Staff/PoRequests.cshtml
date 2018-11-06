@@ -31,26 +31,14 @@
 </script>
 
 <script type="text/javascript">
-    function SelectQuote(s, e) {
+    function SelectionChanged(s, e) {
         s.GetSelectedFieldValues("PoRequestID", GetSelectedFieldValuesCallback);
     }
-
     function GetSelectedFieldValuesCallback(values) {
         $('#requestId').val(values);
 
-        SelectedRows.BeginUpdate();
-        try {
-            SelectedRows.ClearItems();
-            for (var i = 0; i < values.length; i++) {
-                SelectedRows.AddItem(values[i]);
-            }
-        } finally {
-            SelectedRows.EndUpdate();
-        }
         $("#count").html(gvRowSelection.GetSelectedRowCount());
-
     }
-
 </script>
 
 <link href="~/Content/SweetAlert/SweetAlert.css" rel="stylesheet" />
@@ -69,7 +57,9 @@
                 </div>
 
                 <div class="x_content">
-                    Selected count:&nbsp;<strong id="count">0</strong>
+                    <div class="text">
+                        Selected row:&nbsp;<strong id="count">0</strong>
+                    </div>
                     @Html.Partial("_PoRequestsPartial", Model)
                 </div>
             </div>

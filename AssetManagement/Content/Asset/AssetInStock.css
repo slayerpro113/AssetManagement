@@ -84,7 +84,7 @@
 }
 
 /*history partial*/
-.history-area {
+.history, .depreciation {
     display: flex;
     justify-content: center
 }

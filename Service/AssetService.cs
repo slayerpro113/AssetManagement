@@ -29,22 +29,27 @@ namespace Service
             {
                 if (asset.AssetID == 60)
                 {
-                    //tien khau hao hang thang
+                    //tien khau hao hang thang = tong tien / tong thang
                     var monthlyAmount = asset.OrderDetail.Price / asset.MonthDepreciation;
-                    //So thang da khau hao
+                    //So thang da khau hao = t/g hien tai - t/g mua
                     var depreciatedMonth = DateTime.Now.Month - asset.OrderDetail.Order.PurchaseDate.Month;
 
-                    //so tien da khau hao
+                    //so tien da khau hao = so thang da khau hao * Tien khau hao 1 thang
                     var depreciatedAmount = depreciatedMonth * monthlyAmount;
-                    //so tien con lai
+                    //so tien con lai = tien mua - tien da khau hao
                     var amountLeft = asset.OrderDetail.Price - depreciatedAmount;
 
                     var percentDepreciation = depreciatedAmount % asset.OrderDetail.Price * 100;
+
+                    var monthsLeft = asset.EndTimeDepreciation.Value.AddMonths(-DateTime.Now.Month).Month ;
+
 
                     asset.monthlyAmount = monthlyAmount;
                     asset.depreciatedAmount = depreciatedAmount;
                     asset.amountLeft = amountLeft;
                     asset.percentDepreciation = percentDepreciation;
+                    asset.monthsLeft = monthsLeft;
+                    asset.monthsLeft = monthsLeft;
                 }
             }
 
