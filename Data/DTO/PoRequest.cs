@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Data.Entities
 {
@@ -7,7 +8,6 @@ namespace Data.Entities
     {
         public int Quantity { get; set; }
         public string EmployeeName => Employee.FullName;
-        public string EmployeeImage => Employee.Image;
         public string Status => RequestStatus.StatusName;
         public string AssetImage { get; set; }
         public string StaffAssign { get; set; }
@@ -36,7 +36,8 @@ namespace Data.Entities
                 new RequestStatus { StatusName = "In Progress", RequestStatusID = 1 },
                 new RequestStatus { StatusName = "Wait For Approving", RequestStatusID = 2 },
                 new RequestStatus { StatusName = "Approved", RequestStatusID = 3 },
-                new RequestStatus { StatusName = "Finish", RequestStatusID = 4 },
+                new RequestStatus { StatusName = "Wait For Buying", RequestStatusID = 4 },
+                new RequestStatus { StatusName = "Finish", RequestStatusID = 5 },
             };
 
             return statuses;

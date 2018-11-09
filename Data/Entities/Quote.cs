@@ -28,7 +28,6 @@ namespace Data.Entities
         public string Vendor { get; set; }
         public decimal Price { get; set; }
         public Nullable<int> Warranty { get; set; }
-        public string Note { get; set; }
         public int PoRequestID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

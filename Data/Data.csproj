@@ -76,8 +76,10 @@
     <Compile Include="DataContext\IDataContext.cs" />
     <Compile Include="DTO\Asset.cs" />
     <Compile Include="DTO\History.cs" />
+    <Compile Include="DTO\OrderDetail.cs" />
     <Compile Include="DTO\PoRequest.cs" />
     <Compile Include="DTO\Product.cs" />
+    <Compile Include="DTO\Quote.cs" />
     <Compile Include="Entities\Asset.cs">
       <DependentUpon>AssetManagementEntities.tt</DependentUpon>
     </Compile>

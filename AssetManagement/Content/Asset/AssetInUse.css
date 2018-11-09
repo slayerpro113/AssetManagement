@@ -34,3 +34,9 @@
        height: inherit;
        margin: 0 auto;
    }
+
+   /*detail*/
+.history, .depreciation, h4 {
+    display: flex;
+    justify-content: center
+}

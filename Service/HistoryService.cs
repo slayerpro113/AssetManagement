@@ -29,7 +29,7 @@ namespace Service
             return histories;
         }
 
-        public Enumerations.AddEntityStatus HandleAssign(int poRequestId, Employee employee, Asset asset, string assignRemark, string staffAssign)
+        public Enumerations.AddEntityStatus HandleAssign(int poRequestId, Employee employee, Asset asset, string staffAssign)
         {
             var poRequest = _poRequestRepository.GetEntity(poRequestId);
             try
@@ -48,10 +48,6 @@ namespace Service
                 history.Asset.AssetStatusID = 2;
                 history.CheckinDate = DateTime.Now.Date;
                 history.StaffAssign = staffAssign;
-                if (!String.IsNullOrEmpty(assignRemark))
-                {
-                    history.AssignRemark = assignRemark;
-                }
 
                 AddEntity(history);
                 _unitOfWork.SaveChanges();
@@ -68,10 +64,20 @@ namespace Service
             return Enumerations.AddEntityStatus.Failed;
         }
 
-        public Enumerations.AddEntityStatus HandleAssignWithoutRequest(Employee employee, Asset asset, string assignRemark, string staffAssign)
+        public Enumerations.AddEntityStatus HandleAssignWithoutRequest(Employee employee, Asset asset, string staffAssign)
         {
             try
             {
+
+                var poRequest = _poRequestRepository.GetUnfinishedPoRequestsByEmployee(employee);
+                if (poRequest != null)
+                {
+                    poRequest.RequestStatusID = 5;
+                    poRequest.FinishedDate = DateTime.Now.Date;
+                    _poRequestRepository.UpdateEntity(poRequest);
+                    _unitOfWork.SaveChanges();
+                }
+
                 var history = new History();
 
                 history.Employee = employee;
@@ -79,10 +85,6 @@ namespace Service
                 history.Asset.AssetStatusID = 2;
                 history.CheckinDate = DateTime.Now.Date;
                 history.StaffAssign = staffAssign;
-                if (!String.IsNullOrEmpty(assignRemark))
-                {
-                    history.AssignRemark = assignRemark;
-                }
 
                 AddEntity(history);
 
@@ -94,20 +96,15 @@ namespace Service
             }
         }
 
-        public Enumerations.UpdateEntityStatus HandleRecall(int assetId, string remark, string staffRecall)
+        public Enumerations.UpdateEntityStatus HandleRecall(int assetId, string staffRecall)
         {
             var history = _historyRepository.GetHistoryByAssetId(assetId);
 
             try
             {
                 history.Asset.AssetStatusID = 1;
-                DateTime today = DateTime.Now.Date;
-                history.CheckoutDate = today;
+                history.CheckoutDate = DateTime.Now.Date;
                 history.StaffRecall = staffRecall;
-                if (!String.IsNullOrEmpty(remark))
-                {
-                    history.RecallRemark = remark;
-                }
 
                 UpdateEntity(history);
 

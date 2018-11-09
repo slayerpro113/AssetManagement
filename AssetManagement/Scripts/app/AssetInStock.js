@@ -20,7 +20,7 @@ function doAssignAsset() {
     else {
         $.ajax({
             type: 'Post',
-            url: "/Asset/AssignWithoutRequest?assetId=" + $("#assetId").val() + "&employeeId=" + employeeId + "&assignRemark=" + $("#assignRemark").val() + "&staffAssign=" + $("#staffAssign").val(),
+            url: "/Asset/AssignWithoutRequest?assetId=" + $("#assetId").val() + "&employeeId=" + employeeId + "&staffAssign=" + $("#staffAssign").val(),
             dataType: 'json',
             success: function (data) {
                 if (data.status === "Success") {
@@ -65,6 +65,10 @@ $(document).ready(function () {
     $("#btnOK").click(function () {
         doEnterDepreciation();
     });
+
+    $("#btnCancel2").click(function () {
+        $("#descriptionForm")[0].reset();
+    });
 });
 
 function doEnterDepreciation() {
@@ -93,6 +97,7 @@ function doEnterDepreciation() {
                         timer: 1300
                     });
                     $('#depreciatePopup').modal('hide');
+                    $("#descriptionForm")[0].reset();
                     InStockGrid.Refresh();
                 } else {
                     swal({

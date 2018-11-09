@@ -25,7 +25,6 @@ namespace Data.Entities
         public Nullable<int> Warranty { get; set; }
         public Nullable<int> MonthDepreciation { get; set; }
         public int ProductID { get; set; }
-        public Nullable<int> AssetServiceID { get; set; }
         public int AssetStatusID { get; set; }
         public Nullable<int> OrderDetailID { get; set; }
         public Nullable<System.DateTime> EndTimeDepreciation { get; set; }

@@ -42,9 +42,9 @@
             ViewContext.Writer.Write(
                 "<img src=\"/Image/" + HttpUtility.UrlDecode(poRequest.Employee.Image) + "\" class='avatar' alt='Avatar'>     " +
 
-                "&nbsp&nbsp<a style='text-decoration: none; font-size:medium!important'>" + poRequest.Employee.FullName + "</a>" +
+                "&nbsp&nbsp<a style='text-decoration:none'>" + poRequest.Employee.FullName + "</a>" +
                 "<br/>" +
-                "<small>Created On <i>" + poRequest.CreatedDate.ToLongDateString() + "</i></small>"
+                "<small>On <i>" + poRequest.CreatedDate.ToLongDateString() + "</i></small>"
                 );
         });
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
@@ -133,7 +133,7 @@
         ViewContext.Writer.Write(
             "<div class='quote-detail' style='display:flex;justify-content:center'>"
             );
-        Html.RenderAction("GetQuotesByPoRequestId", new { poRequestId = DataBinder.Eval(c.DataItem, "poRequestID") });
+        Html.RenderAction("GetQuotesByPoRequestId", new { poRequestId = DataBinder.Eval(c.DataItem, "PoRequestID") });
         ViewContext.Writer.Write(
             "<div>"
             );

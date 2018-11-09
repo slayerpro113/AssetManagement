@@ -26,10 +26,10 @@ namespace Data.Entities
         public System.DateTime CreatedDate { get; set; }
         public Nullable<System.DateTime> FinishedDate { get; set; }
         public string StaffSubmit { get; set; }
-        public int EmployeeID { get; set; }
         public int RequestStatusID { get; set; }
         public Nullable<int> SelectedQuoteID { get; set; }
         public Nullable<int> OrderID { get; set; }
+        public int EmployeeID { get; set; }
     
         public virtual Employee Employee { get; set; }
         public virtual Order Order { get; set; }

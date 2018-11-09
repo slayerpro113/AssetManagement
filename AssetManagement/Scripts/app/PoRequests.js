@@ -26,7 +26,7 @@ function doAssignAsset() {
     else {
         $.ajax({
             type: 'Post',
-            url: "/Staff/AssignAsset?poRequestId=" + $("#poRequestId").val() + "&employeeId=" + $("#employeeId").val() + "&assetId=" + assetId + "&assignRemark=" + $("#assignRemark").val() + "&StaffAssign=" + $("#StaffAssign").val(),
+            url: "/Staff/AssignAsset?poRequestId=" + $("#poRequestId").val() + "&employeeId=" + $("#employeeId").val() + "&assetId=" + assetId + "&StaffAssign=" + $("#StaffAssign").val(),
             dataType: 'json',
             success: function (data) {
                 if (data.status === "Success") {
@@ -38,7 +38,7 @@ function doAssignAsset() {
                         timer: 1300
                     });
                     $('#assignPopup').modal('hide');
-                    gvFilterRow.Refresh();
+                    gvRowSelection.Refresh();
                 } else {
                     swal({
                         title: "Something Went Wrong",
@@ -80,7 +80,6 @@ function doEnterQuote() {
     var price = $('#price').val();
     var vendor = $('#vendor').val();
     var warranty = $('#warranty').val();
-    var note = $('#note').val();
     var poRequestId = $('#poRequestId2').val();
 
     if (image.length === 0 || productName.length === 0  || vendor === "Choose vendor" || price.length === 0) {
@@ -95,7 +94,6 @@ function doEnterQuote() {
         formData.append('vendor', vendor);
         formData.append('price', price);
         formData.append('warranty', warranty);
-        formData.append('note', note);
         formData.append('poRequestId', poRequestId);
 
         $.ajax({
@@ -117,7 +115,7 @@ function doEnterQuote() {
                         timer: 1300
                     });
                     $('#quotePopup').modal('hide');
-                    gvFilterRow.Refresh();
+                    gvRowSelection.Refresh();
                 } else {
                     swal({
                         title: "Something Went Wrong",
@@ -162,7 +160,7 @@ function SubmitRequest(poRequestId, staffSubmit) {
                             buttons: false,
                             timer: 1300
                         });
-                        gvFilterRow.Refresh();
+                        gvRowSelection.Refresh();
                     } else {
                         swal({
                             title: "Something Went Wrong",
@@ -186,29 +184,54 @@ function SubmitRequest(poRequestId, staffSubmit) {
 function createOrder() {
     var poRequestIdString = $('#requestId').val();
 
-    $.ajax({
-        type: 'Post',
-        url: "/Staff/CreateOrder?poRequestIdString=" + poRequestIdString,
-        dataType: 'json',
-        success: function (data) {
-            if (data.status === "Success") {
-                swal({
-                    title: "Create Order",
-                    text: "Successfully",
-                    icon: "success",
-                    buttons: false,
-                    timer: 1300
-                });
-                gvFilterRow.Refresh();
-            } else {
-                swal({
-                    title: "Something Went Wrong",
-                    text: "Please try again!",
-                    icon: "error",
-                    buttons: false,
-                    timer: 1300
+    if (poRequestIdString.length === 0) {
+        $("#orderMessage").html("Please select at least one order!");
+        timeout();
+    } else {
+        swal({
+            title: "Are you sure?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true
+        }).then(function (isConfirm) {
+            if (isConfirm) {
+                $.ajax({
+                    type: 'Post',
+                    url: "/Staff/CreateOrder?poRequestIdString=" + poRequestIdString,
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status === "Success") {
+                            swal({
+                                title: "Create Order",
+                                text: "Successfully",
+                                icon: "success",
+                                buttons: false,
+                                timer: 1300
+                            });
+                            $("#count").html("0");
+                            gvRowSelection.Refresh();
+                        } else {
+                            swal({
+                                title: "Something Went Wrong",
+                                text: "Please try again!",
+                                icon: "error",
+                                buttons: false,
+                                timer: 1300
+                            });
+                        }
+                    }
                 });
             }
-        }
-    });
+            //cancel
+            else {
+                swal.close();
+            }
+        });
+    }
+
+    function timeout() {
+        setTimeout(function () {
+            $("#orderMessage").empty();
+        }, 1300);
+    }
 }

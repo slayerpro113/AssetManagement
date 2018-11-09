@@ -28,7 +28,7 @@ function OpenRecallPopup(assetId, barcode, assetName, employeeName) {
 function doRecallAsset() {
     $.ajax({
         type: 'Post',
-        url: "/Asset/RecallAsset?assetId=" + $("#assetId").val() + "&recallRemark=" + $("#recallRemark").val() + "&staffRecall=" + $("#staffRecall").val(),
+        url: "/Asset/RecallAsset?assetId=" + $("#assetId").val() + "&staffRecall=" + $("#staffRecall").val(),
         dataType: 'json',
         success: function (data) {
             if (data.status === "Success") {

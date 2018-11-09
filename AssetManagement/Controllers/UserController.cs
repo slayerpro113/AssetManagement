@@ -1,9 +1,12 @@
 ﻿using System.Web.Mvc;
+using Data.Entities;
 using Data.Services;
+using Data.Utilities;
 using Data.Utilities.Enumeration;
 
 namespace AssetManagement.Controllers
 {
+    [PermissionLogin]
     public class UserController : Controller
     {
         private readonly IHistoryService _historyService;
@@ -17,8 +20,10 @@ namespace AssetManagement.Controllers
             _poRequestService = poRequestService;
         }
 
-        public ActionResult GetAssetsDetail(int employeeId)
+        public ActionResult GetAssetsDetail()
         {
+            var employee = (Employee)Session[Constant.UserSession];
+            var employeeId = employee.EmployeeID;
             var histories = _historyService.GetHistoriesByEmployeeId(employeeId);
             var assets = _assetServiceService.GetAssetsByHistories(histories);
 
@@ -43,8 +48,10 @@ namespace AssetManagement.Controllers
             }
         }
 
-        public ActionResult RequestsHistory(int employeeId)
+        public ActionResult RequestsHistory()
         {
+            var employee = (Employee)Session[Constant.UserSession];
+            var employeeId = employee.EmployeeID;
             ViewBag.EmployeeId = employeeId;
             return View("RequestsHistory");
         }

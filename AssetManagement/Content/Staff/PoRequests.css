@@ -1,4 +1,7 @@
 ﻿
+#count {
+    font-size: small;
+}
 .x_title {
     margin-top: 0;
 }
@@ -75,14 +78,14 @@ h2 {
 
 }
 
-#quoteMessage {
+#quoteMessage, #orderMessage {
     color: Red;
     font-size: medium;
 }
 /* Combobox */
 .name {
     font-weight: bold;
-    padding-top: 5px;
+    padding-bottom: 50px;
     padding-left: 10px;
 }
 

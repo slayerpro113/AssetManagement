@@ -27,7 +27,6 @@ $(document).ready(function () {
     $("#btnSubmit").click(function () {
         doLogin();
     });
-
 });
 
 function doLogin() {
@@ -46,8 +45,7 @@ function doLogin() {
             }
             else if (data.status === "Succsess") {
                 if (data.roleName === "User") {
-                    location.href = "/user/GetAssetsDetail?employeeId=" + data.employeeId;
-
+                    location.href = "/user/GetAssetsDetail";
                 } else if (data.roleName === "Staff") {
                     location.href = "/staff/GetPoRequestsFromUsers";
                 }

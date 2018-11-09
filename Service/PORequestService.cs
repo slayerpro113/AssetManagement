@@ -34,8 +34,7 @@ namespace Service
                 }
                 poRequest.EmployeeID = employeeId;
                 poRequest.RequestStatusID = 1;
-                DateTime today = DateTime.Now.Date;
-                poRequest.CreatedDate = today;
+                poRequest.CreatedDate = DateTime.Now.Date; 
                 poRequest.CategoryName = device;
 
                 AddEntity(poRequest);
@@ -77,14 +76,6 @@ namespace Service
             }
 
             return poRequests;
-        }
-
-        public void SetStatusAndFinishDate(int poRequestId)
-        {
-            var poRequest = GetEntity(poRequestId);
-            poRequest.RequestStatusID = 5;
-            poRequest.FinishedDate = DateTime.Now.Date;
-            UpdateEntity(poRequest);
         }
 
         public Enumerations.UpdateEntityStatus HandleSubmitRequest(int poRequestId, string staffSubmit)

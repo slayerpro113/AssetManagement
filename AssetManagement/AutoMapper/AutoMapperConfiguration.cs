@@ -11,6 +11,8 @@ namespace AssetManagement.AutoMapper
             Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<Product, ProductViewModel>();
+                cfg.CreateMap<Quote, QuoteViewModel>();
+
             });
         }
     }

@@ -14,14 +14,12 @@ namespace Data.Entities
         public string StaffAssign { get; set; }
         public string CheckinDate { get; set; }
 
-       // public DateTime PurchaseDate => OrderDetail.Order.PurchaseDate;
+        public Nullable<decimal> MonthlyAmount { get; set; }
+        public Nullable<decimal> DepreciatedAmount { get; set; }
 
-        public Nullable<decimal> monthlyAmount { get; set; }
-        public Nullable<decimal> depreciatedAmount { get; set; }
-
-        public Nullable<decimal> amountLeft { get; set; }
-        public Nullable<decimal> percentDepreciation { get; set; }
-        public Nullable<int> monthsLeft { get; set; }
+        public Nullable<decimal> AmountLeft { get; set; }
+        public Nullable<decimal> PercentDepreciation { get; set; }
+        public Nullable<int> MonthsLeft { get; set; }
 
 
         public int EmployeeId { get; set; }
@@ -47,6 +45,17 @@ namespace Data.Entities
             };
 
             return categories;
+        }
+
+        public static IList<AssetStatus> GetStatuses()
+        {
+            IList<AssetStatus> statuses = new List<AssetStatus>
+            {
+                new AssetStatus { StatusName = "In Storage", AssetStatusID = 1 },
+                new AssetStatus { StatusName = "Wait For Buying", AssetStatusID = 3 }
+            };
+
+            return statuses;
         }
     }
 }

@@ -1,16 +1,26 @@
 ﻿using Data.Services;
 using System.Web.Mvc;
+using Data.Utilities;
 using Data.Utilities.Enumeration;
 
 namespace AssetManagement.Controllers
 {
+    [PermissionLogin]
+
     public class ManagerController : Controller
     {
         private readonly IPoRequestService _poRequestService;
+        private readonly IQuoteService _quoteService;
+        private readonly IOrderService _orderService;
+        private readonly IOrderDetailService _orderDetailService;
 
-        public ManagerController(IPoRequestService poRequestService)
+
+        public ManagerController(IPoRequestService poRequestService, IQuoteService quoteService, IOrderService orderService, IOrderDetailService orderDetailService)
         {
             _poRequestService = poRequestService;
+            _quoteService = quoteService;
+            _orderService = orderService;
+            _orderDetailService = orderDetailService;
         }
 
         public ActionResult GetPoRequestsFromStaff()
@@ -28,7 +38,7 @@ namespace AssetManagement.Controllers
         public ActionResult GetQuotesByPoRequestId(int poRequestId)
         {
             ViewBag.PoRequestId = poRequestId;
-            var quotes = _poRequestService.GetQuotesByPoRequestId(poRequestId);
+            var quotes = _quoteService.GetQuotesByPoRequestId(poRequestId);
             return PartialView("_QuoteDetailPartial", quotes);
         }
 
@@ -49,6 +59,25 @@ namespace AssetManagement.Controllers
             }
 
             return Json(new { status = "Failed" }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetOrders()
+        {
+            var orders = _orderService.GetAll();
+            return View("Orders", orders);
+        }
+
+        public ActionResult GetOrdersPartial()
+        {
+            var orders = _orderService.GetAll();
+            return PartialView("_OrdersPartial", orders);
+        }
+
+        public ActionResult GetOrderDetailByOrderIdPartial(int orderId)
+        {
+            ViewBag.OrderId = orderId;
+            var orderDetails = _orderDetailService.GetOrderDetailByOrderId(orderId);
+            return PartialView("_OrderDetailPartial", orderDetails);
         }
     }
 }

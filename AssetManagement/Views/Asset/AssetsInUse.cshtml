@@ -6,6 +6,7 @@
 
 @{
     Layout = "~/Views/Shared/_Layouts.cshtml";
+    ViewBag.Title = "Requests Detail";
 }
 @{
     var userSession = (Employee)SessionHelper.GetSessionValue(Constant.UserSession);
@@ -81,13 +82,6 @@
                             <label class='control-label col-md-4 col-sm-3 col-xs-12'>Retrieve from : </label>
                             <div class='col-md-7 col-sm-7 col-xs-12'>
                                 <input type='text' class='form-control' readonly id='employeeName'>
-                            </div>
-                        </div>
-
-                        <div class='form-group'>
-                            <label class='control-label col-md-4 col-sm-3 col-xs-12'>Remark: </label>
-                            <div class='col-md-7 col-sm-7 col-xs-12'>
-                                <textarea class='form-control' id='recallRemark'></textarea>
                             </div>
                         </div>
 

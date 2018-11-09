@@ -7,7 +7,6 @@
           <ScalarProperty Name="EndTimeDepreciation" ColumnName="EndTimeDepreciation" />
           <ScalarProperty Name="OrderDetailID" ColumnName="OrderDetailID" />
           <ScalarProperty Name="AssetStatusID" ColumnName="AssetStatusID" />
-          <ScalarProperty Name="AssetServiceID" ColumnName="AssetServiceID" />
           <ScalarProperty Name="ProductID" ColumnName="ProductID" />
           <ScalarProperty Name="MonthDepreciation" ColumnName="MonthDepreciation" />
           <ScalarProperty Name="Warranty" ColumnName="Warranty" />
@@ -56,8 +55,6 @@
           <ScalarProperty Name="AssetID" ColumnName="AssetID" />
           <ScalarProperty Name="StaffAssign" ColumnName="StaffAssign" />
           <ScalarProperty Name="StaffRecall" ColumnName="StaffRecall" />
-          <ScalarProperty Name="AssignRemark" ColumnName="AssignRemark" />
-          <ScalarProperty Name="RecallRemark" ColumnName="RecallRemark" />
           <ScalarProperty Name="CheckinDate" ColumnName="CheckinDate" />
           <ScalarProperty Name="CheckoutDate" ColumnName="CheckoutDate" />
           <ScalarProperty Name="HistoryID" ColumnName="HistoryID" />
@@ -67,6 +64,7 @@
     <EntitySetMapping Name="OrderDetails">
       <EntityTypeMapping TypeName="AssetManagementModel.OrderDetail">
         <MappingFragment StoreEntitySet="OrderDetails">
+          <ScalarProperty Name="VendorID" ColumnName="VendorID" />
           <ScalarProperty Name="QuoteID" ColumnName="QuoteID" />
           <ScalarProperty Name="OrderID" ColumnName="OrderID" />
           <ScalarProperty Name="Price" ColumnName="Price" />
@@ -88,10 +86,10 @@
     <EntitySetMapping Name="PoRequests">
       <EntityTypeMapping TypeName="AssetManagementModel.PoRequest">
         <MappingFragment StoreEntitySet="PoRequest">
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
           <ScalarProperty Name="OrderID" ColumnName="OrderID" />
           <ScalarProperty Name="SelectedQuoteID" ColumnName="SelectedQuoteID" />
           <ScalarProperty Name="RequestStatusID" ColumnName="RequestStatusID" />
-          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
           <ScalarProperty Name="StaffSubmit" ColumnName="StaffSubmit" />
           <ScalarProperty Name="FinishedDate" ColumnName="FinishedDate" />
           <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
@@ -117,7 +115,6 @@
       <EntityTypeMapping TypeName="AssetManagementModel.Quote">
         <MappingFragment StoreEntitySet="Quotes">
           <ScalarProperty Name="PoRequestID" ColumnName="PoRequestID" />
-          <ScalarProperty Name="Note" ColumnName="Note" />
           <ScalarProperty Name="Warranty" ColumnName="Warranty" />
           <ScalarProperty Name="Price" ColumnName="Price" />
           <ScalarProperty Name="Vendor" ColumnName="Vendor" />
@@ -159,10 +156,10 @@
     <EntitySetMapping Name="Vendors">
       <EntityTypeMapping TypeName="AssetManagementModel.Vendor">
         <MappingFragment StoreEntitySet="Vendors">
-          <ScalarProperty Name="OrderDetailID" ColumnName="OrderDetailID" />
           <ScalarProperty Name="Address" ColumnName="Address" />
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="VendorID" ColumnName="VendorID" />
         </MappingFragment>
       </EntityTypeMapping>

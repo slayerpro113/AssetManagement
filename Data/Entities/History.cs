@@ -17,8 +17,6 @@ namespace Data.Entities
         public int HistoryID { get; set; }
         public Nullable<System.DateTime> CheckoutDate { get; set; }
         public Nullable<System.DateTime> CheckinDate { get; set; }
-        public string RecallRemark { get; set; }
-        public string AssignRemark { get; set; }
         public string StaffRecall { get; set; }
         public string StaffAssign { get; set; }
         public int AssetID { get; set; }

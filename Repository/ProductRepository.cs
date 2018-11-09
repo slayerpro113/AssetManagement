@@ -19,9 +19,9 @@ namespace Repository
             return count;
         }
 
-        public static Product GetProductsByCategoryName(this IRepository<Product> repository, string categoryName)
+        public static Product GetProductsByProductName(this IRepository<Product> repository, string productName)
         {
-            var product = repository.Entity.FirstOrDefault(_ => _.Category.CategoryName == categoryName);
+            var product = repository.Entity.FirstOrDefault(_ => _.ProductName == productName);
             return product;
         }
     }

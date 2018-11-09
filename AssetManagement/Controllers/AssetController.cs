@@ -1,11 +1,15 @@
-﻿using Data.Services;
+﻿using System.Collections.Generic;
+using Data.Services;
 using Data.Utilities.Enumeration;
 using System.Web.Mvc;
+using Data.Entities;
+using Data.Utilities;
 
 namespace AssetManagement.Controllers
 {
-    //[PermissionLogin]
-    //[RolePermission(Enumerations.Roles.Manager)]
+    [PermissionLogin]
+    [RolePermission(Enumerations.Roles.Staff, Enumerations.Roles.Manager)]
+
     public class AssetController : Controller
     {
         private readonly IAssetService _assetService;
@@ -44,8 +48,6 @@ namespace AssetManagement.Controllers
             return View("_AssetsInUsePartial", assets);
         }
 
-
-        //[RolePermission(Enumerations.Roles.Manager)]
         public ActionResult ShowHistories(int assetId)
         {
             ViewBag.AssetID = assetId;
@@ -66,7 +68,6 @@ namespace AssetManagement.Controllers
             return PartialView("_ComboboxPartial", employees);
         }
 
-       // [RolePermission(Enumerations.Roles.Manager)]
         [HttpPost]
         public ActionResult AssignWithoutRequest(int employeeId, int assetId, string assignRemark, string staffAssign)
         {
@@ -80,7 +81,7 @@ namespace AssetManagement.Controllers
             }
             else
             {
-                var status = _historyService.HandleAssignWithoutRequest(employee, asset, assignRemark, staffAssign);
+                var status = _historyService.HandleAssignWithoutRequest(employee, asset, staffAssign);
 
                 if (status == Enumerations.AddEntityStatus.Success)
                 {
@@ -93,11 +94,10 @@ namespace AssetManagement.Controllers
             }
         }
 
-        //[RolePermission(Enumerations.Roles.Manager)]
         [HttpPost]
         public ActionResult RecallAsset(int assetId, string recallRemark, string staffRecall)
         {
-            var status = _historyService.HandleRecall(assetId, recallRemark, staffRecall);
+            var status = _historyService.HandleRecall(assetId, staffRecall);
 
             if (status == Enumerations.UpdateEntityStatus.Success)
             {

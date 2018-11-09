@@ -1,13 +1,10 @@
-﻿using System;
+﻿using Data.Entities;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Data.Entities;
 
 namespace Data.Services
 {
     public interface IOrderDetailService : IBaseService<OrderDetail>
     {
+        IList<OrderDetail> GetOrderDetailByOrderId(int orderId);
     }
 }

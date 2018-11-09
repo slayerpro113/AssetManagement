@@ -64,6 +64,7 @@ namespace Service
                         orderDetail.Price = quote.Price;
                         orderDetail.Quantity = 1;
                         orderDetail.Subtotal = orderDetail.Price * orderDetail.Quantity;
+                        
 
                         orderDetails.Add(orderDetail);
                     }
@@ -92,6 +93,7 @@ namespace Service
                 // handle product and asset 
                 foreach (var temp in orderDetails)
                 {
+                    temp.VendorID = GetVendorIdByVendorName(temp.Quote.Vendor);
                     //check if product not exist
                     var count = _productRepository.CountProductByName(temp.Quote.ProductName);
                     if (count == 0)
@@ -111,18 +113,17 @@ namespace Service
                             {
                                 Product = product,
                                 Warranty = temp.Quote.Warranty,
-                                AssetStatusID = 1
+                                AssetStatusID = 3
                             };
                             assets.Add(asset);
                         }
 
                         temp.Assets = assets;
-
                     }
                     else
                     {
                         //if exist
-                        var productExist = _productRepository.GetProductsByCategoryName(temp.Quote.CategoryName);
+                        var productExist = _productRepository.GetProductsByProductName(temp.Quote.ProductName);
                         //handle asset
                         IList<Asset> assets = new List<Asset>();
                         for (int i = 0; i < temp.Quantity; i++)
@@ -131,7 +132,7 @@ namespace Service
                             {
                                 Product = productExist,
                                 Warranty = temp.Quote.Warranty,
-                                AssetStatusID = 1
+                                AssetStatusID = 3
                             };
                             assets.Add(asset);
                         }

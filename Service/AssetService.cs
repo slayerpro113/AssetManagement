@@ -27,12 +27,12 @@ namespace Service
 
             foreach (var asset in assets)
             {
-                if (asset.AssetID == 60)
+                if (asset.AssetStatusID == 2)
                 {
                     //tien khau hao hang thang = tong tien / tong thang
                     var monthlyAmount = asset.OrderDetail.Price / asset.MonthDepreciation;
                     //So thang da khau hao = t/g hien tai - t/g mua
-                    var depreciatedMonth = DateTime.Now.Month - asset.OrderDetail.Order.PurchaseDate.Month;
+                    var depreciatedMonth = CalculateTimeLeft(asset.OrderDetail.Order.PurchaseDate, DateTime.Now);
 
                     //so tien da khau hao = so thang da khau hao * Tien khau hao 1 thang
                     var depreciatedAmount = depreciatedMonth * monthlyAmount;
@@ -41,15 +41,14 @@ namespace Service
 
                     var percentDepreciation = depreciatedAmount % asset.OrderDetail.Price * 100;
 
-                    var monthsLeft = asset.EndTimeDepreciation.Value.AddMonths(-DateTime.Now.Month).Month ;
+                    var monthsLeft = CalculateTimeLeft(DateTime.Now, asset.EndTimeDepreciation.Value);
 
 
-                    asset.monthlyAmount = monthlyAmount;
-                    asset.depreciatedAmount = depreciatedAmount;
-                    asset.amountLeft = amountLeft;
-                    asset.percentDepreciation = percentDepreciation;
-                    asset.monthsLeft = monthsLeft;
-                    asset.monthsLeft = monthsLeft;
+                    asset.MonthlyAmount = monthlyAmount;
+                    asset.DepreciatedAmount = depreciatedAmount;
+                    asset.AmountLeft = amountLeft;
+                    asset.PercentDepreciation = percentDepreciation;
+                    asset.MonthsLeft = monthsLeft;
                 }
             }
 
@@ -62,18 +61,39 @@ namespace Service
 
             foreach (var asset in assets)
             {
+                //get current owner
                 var history = asset.Histories.FirstOrDefault(_ => _.CheckoutDate == null);
                 if (history != null)
                 {
                     asset.EmployeeId = history.Employee.EmployeeID;
                     asset.EmployeeImage = history.Employee.Image;
-                    asset.EmployeeName = history.Employee.FullName;
-                    asset.EmployeeAddress = history.Employee.Address;
-                    asset.EmployeeEmail = history.Employee.Email;
-                    asset.EmployeeJob = history.Employee.JobTitle;
-                    asset.EmployeePhone = history.Employee.Phone;
-                    asset.EmployeeBirthdate = history.Employee.BirthDate;
+                    asset.EmployeeName = history.Employee.FullName;                   
+                    asset.EmployeeEmail = history.Employee.Email;  
                 }
+
+                //tien khau hao hang thang = tong tien / tong thang
+                var monthlyAmount = asset.OrderDetail.Price / asset.MonthDepreciation;
+
+                //So thang da khau hao = t/g hien tai - t/g mua
+                var depreciatedMonth = CalculateTimeLeft(asset.OrderDetail.Order.PurchaseDate, DateTime.Now);
+
+                //so tien da khau hao = so thang da khau hao * Tien khau hao 1 thang
+                var depreciatedAmount = depreciatedMonth * monthlyAmount;
+                
+                //so tien con lai = tien mua - tien da khau hao
+                var amountLeft = asset.OrderDetail.Price - depreciatedAmount;
+
+
+                var percentDepreciation = depreciatedAmount / asset.OrderDetail.Price * 100;
+
+                var monthsLeft = CalculateTimeLeft(DateTime.Now, asset.EndTimeDepreciation.Value);
+
+
+                asset.MonthlyAmount = monthlyAmount;
+                asset.DepreciatedAmount = depreciatedAmount;
+                asset.AmountLeft = amountLeft;
+                asset.PercentDepreciation = percentDepreciation;
+                asset.MonthsLeft = monthsLeft;
             }
             return assets;
         }
@@ -105,6 +125,7 @@ namespace Service
                 var asset = GetEntity(assetId);
                 asset.Barcode = barcode;
                 asset.MonthDepreciation = monthsOfDepreciation;
+                asset.AssetStatusID = 1;
 
                 var purchaseDate = asset.OrderDetail.Order.PurchaseDate;
                 var endTimeDepreciation = purchaseDate.AddMonths(monthsOfDepreciation);
@@ -122,6 +143,22 @@ namespace Service
         public Asset GetAssetDepreciationDetail(int assetId)
         {
             throw new NotImplementedException();
+        }
+
+        public int CalculateTimeLeft(DateTime timeNow, DateTime endTime)
+        {
+            if (endTime.Year > timeNow.Year)
+            {
+                return  endTime.Month - timeNow.Month + (endTime.Year - timeNow.Year) * 12;
+            }
+            else if (endTime.Year == timeNow.Year)
+            {
+                return endTime.Month - timeNow.Month;
+            }
+            else
+            {
+                return 0;
+            }
         }
     }
 }

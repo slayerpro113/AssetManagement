@@ -51,6 +51,7 @@
     <Compile Include="CategoryRepository.cs" />
     <Compile Include="EmployeeRepository.cs" />
     <Compile Include="HistoryRepository.cs" />
+    <Compile Include="OrderDetailRepository.cs" />
     <Compile Include="PoRequestRepository.cs" />
     <Compile Include="ProductRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

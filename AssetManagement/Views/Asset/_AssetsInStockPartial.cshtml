@@ -59,6 +59,7 @@
         c.Settings.AllowAutoFilter = DefaultBoolean.False;
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.Visible = false;
     });
 
     settings.Columns.Add(c =>
@@ -83,7 +84,7 @@
             cb.ValueField = "CategoryName";
             cb.DropDownStyle = DropDownStyle.DropDown;
         });
-        c.Width = 150;
+        c.Width = 130;
     });
 
     settings.Columns.Add(c =>
@@ -104,6 +105,7 @@
         });
         c.CellStyle.HorizontalAlign = HorizontalAlign.Left;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.Width = 230;
     });
 
     settings.Columns.Add(c =>
@@ -112,7 +114,7 @@
         c.Caption = "Brand";
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
-        c.Width = 150;
+        c.Width = 130;
     });
 
     settings.Columns.Add(c =>
@@ -121,52 +123,64 @@
         c.Caption = "Status";
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
-        c.Settings.AllowAutoFilter = DefaultBoolean.False;
+        c.EditorProperties().ComboBox(cb => {
+            cb.DataSource = Asset.GetStatuses();
+            cb.TextField = "StatusName";
+            cb.ValueField = "StatusName";
+            cb.DropDownStyle = DropDownStyle.DropDown;
+        });
         c.SetDataItemTemplateContent(r =>
         {
-            ViewContext.Writer.Write("<button type='button' class='btn btn-success btn-xs'>" + HttpUtility.UrlDecode(r.Text) + "</button>");
+            int assetId = (int)DataBinder.Eval(r.DataItem, "AssetID");
+            var asset = Model.FirstOrDefault(_ => _.AssetID == assetId);
+            if (asset.AssetStatusID == 1)
+            {
+                ViewContext.Writer.Write("<button type='button' class='btn btn-success btn-xs'>" + HttpUtility.UrlDecode(r.Text) + "</button>");
+            }
+            else
+            {
+                ViewContext.Writer.Write("<button type='button' class='btn btn-info btn-xs'>" + HttpUtility.UrlDecode(r.Text) + "</button>");
 
+            }
         });
+        c.Width = 120;
+
     });
 
-    //settings.Columns.Add(c =>
-    //{
-    //    c.FieldName = "AssetStatusName";
-    //    c.Caption = "Date Purchase";
-    //    c.Settings.AllowAutoFilter = DefaultBoolean.False;
-    //    c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
-    //    c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
-    //});
-
-    //settings.Columns.Add(c =>
-    //{
-    //    c.FieldName = "PurchaseDate";
-    //    c.Caption = "Date Purchase";
-    //    c.Settings.AllowAutoFilter = DefaultBoolean.False;
-    //    c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
-    //    c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
-    //    c.PropertiesEdit.DisplayFormatString = "D";
-    //});
 
     settings.Columns.Add(c =>
     {
+        c.FieldName = "PurchaseDate";
+        c.Caption = "Date Purchase";
+        c.Settings.AllowAutoFilter = DefaultBoolean.False;
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.PropertiesEdit.DisplayFormatString = "D";
+    });
+
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "PercentDepreciation";
         c.Caption = "Progress Depreciation";
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.SetDataItemTemplateContent(p =>
         {
+            int assetId = (int)DataBinder.Eval(p.DataItem, "AssetID");
+            var asset = Model.FirstOrDefault(_ => _.AssetID == assetId);
+
             ViewContext.Writer.Write(
                 "<div class='project_progress'>"+
                 "<div class='progress progress_sm'>" +
-                "<div class='progress-bar bg-green' role='progressbar'  style='width:"+75+"%'></div></div>"+
+                "<div class='progress-bar bg-green' role='progressbar'  style='width:"+ Math.Round((double)asset.PercentDepreciation, 2) +"' ></div></div>"+
                 "</div>"+
                 "</div>"+
-                "<small> 60 % Complete </small>"
-             );
+                "<small> "+ Math.Round((double)asset.PercentDepreciation, 2) + " % Complete </small>"
+                );
         });
         c.Settings.AllowAutoFilter = DefaultBoolean.False;
-        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
-        c.Width = 150;
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Left;
+        c.Width = 130;
     });
 
     settings.Columns.Add(c =>
@@ -192,11 +206,13 @@
                     );
             }
         });
+        c.Width = 100;
     });
 
     settings.SetDetailRowTemplateContent(c =>
     {
         ViewContext.Writer.Write(
+            "<h4>Depreciation Detail<h5>"+
             "<div class='depreciation'>"
         );
 
@@ -209,13 +225,14 @@
         ViewContext.Writer.Write(
             "</div>"+
             "<br>"+
+            "<h4>History<h5>"+
             "<div class='history'>"
             );
-     
+
         Html.RenderAction("ShowHistories",  new { assetId = DataBinder.Eval(c.DataItem, "AssetID") });
-      ViewContext.Writer.Write(
-          "</div>"
-          );
+        ViewContext.Writer.Write(
+            "</div>"
+            );
     });
 
     settings.SettingsPager.Position = PagerPosition.Bottom;

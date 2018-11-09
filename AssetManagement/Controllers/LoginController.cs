@@ -44,7 +44,6 @@ namespace AssetManagement.Controllers
                     var user = _employeeService.GetEmployeeByUserName(userName);
                     var roleName = user.Role.RoleName;
                     Session.Add(Constant.UserSession, user);
-                    Session.Add(Constant.RoleSession, roleName);
                     return Json(new { status = "Succsess" , employeeId = user.EmployeeID, roleName = roleName }, JsonRequestBehavior.AllowGet);
                 }
 
@@ -55,6 +54,12 @@ namespace AssetManagement.Controllers
                 ModelState.AddModelError("", e.Message);
                 return View();
             }
+        }
+
+        public ActionResult LogOut()
+        {
+           Session.RemoveAll();
+            return(Redirect("/login"));
         }
     }
 }

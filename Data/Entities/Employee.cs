@@ -17,8 +17,8 @@ namespace Data.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Employee()
         {
-            this.PoRequests = new HashSet<PoRequest>();
             this.Histories = new HashSet<History>();
+            this.PoRequests = new HashSet<PoRequest>();
         }
     
         public int EmployeeID { get; set; }
@@ -33,10 +33,10 @@ namespace Data.Entities
         public string BirthDate { get; set; }
         public Nullable<int> RoleID { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PoRequest> PoRequests { get; set; }
         public virtual Role Role { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<History> Histories { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PoRequest> PoRequests { get; set; }
     }
 }

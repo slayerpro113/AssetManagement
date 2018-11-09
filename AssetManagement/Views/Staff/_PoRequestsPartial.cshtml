@@ -21,9 +21,12 @@
     settings.CommandColumn.ShowClearFilterButton = true;
     //check box
     settings.CommandColumn.Visible = true;
-    settings.CommandColumn.Width = 80;
+    settings.CommandColumn.Width = 40;
     settings.CommandColumn.Caption = " ";
     settings.CommandColumn.ShowSelectCheckbox = true;
+    // show detail partial
+    settings.SettingsDetail.AllowOnlyOneMasterRowExpanded = true;
+    settings.SettingsDetail.ShowDetailRow = true;
 
     settings.CommandButtonInitialize = (sender, e) => {
         MVCxGridView grid = sender as MVCxGridView;
@@ -40,6 +43,8 @@
 
     settings.KeyFieldName = "PoRequestID";
     settings.Columns.Add("PoRequestID").Visible = false;
+
+
     settings.Columns.Add(c =>
     {
         c.FieldName = "EmployeeName";
@@ -125,8 +130,8 @@
                 ViewContext.Writer.Write(
                     "<ul class='list-inline'>"+
                     "<li>"+
-                    "<img class='avatar' alt='Avatar' src=\"/Image/Quotes/" + HttpUtility.UrlDecode(@quote.Image) + "\">"+
-                    "&nbsp&nbsp<a style='text-decoration: none'>" + quote.ProductName + "</a>"+
+                    "<img class='avatar' alt='Avatar' src=\"/Image/Categories/" + HttpUtility.UrlDecode(@quote.Image) + "\">"+
+                    "&nbsp&nbsp<a style='text-decoration:none'>" + quote.ProductName + "</a>"+
                     "</li>"+
                     "</ul>"
                     );
@@ -135,7 +140,7 @@
         });
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
-        c.Caption = "Quote";
+        c.Caption = "Quotes";
         c.Width = 150;
     });
 
@@ -162,25 +167,25 @@
             if (poRequest.RequestStatusID == 1)
             {
                 ViewContext.Writer.Write(
-                    "<button type='button' class='btn btn-info btn-sm'>" + poRequest.RequestStatus.StatusName + "</button>"
+                    "<button type='button' class='btn btn-info btn-xs'>" + poRequest.RequestStatus.StatusName + "</button>"
                     );
             }
             else if (poRequest.RequestStatusID == 2)
             {
                 ViewContext.Writer.Write(
-                    "<button type='button' class='btn btn-warning btn-sm'>" + poRequest.RequestStatus.StatusName + "</button>"
+                    "<button type='button' class='btn btn-warning btn-xs'>" + poRequest.RequestStatus.StatusName + "</button>"
                     );
             }
             else if (poRequest.RequestStatusID == 3)
             {
                 ViewContext.Writer.Write(
-                "<button type='button' class='btn btn-danger btn-sm'>" + poRequest.RequestStatus.StatusName + "</button>"
+                "<button type='button' class='btn btn-danger btn-xs'>" + poRequest.RequestStatus.StatusName + "</button>"
                     );
             }
             else
             {
                 ViewContext.Writer.Write(
-                    "<button type='button' class='btn btn-primary btn-sm'>" + poRequest.RequestStatus.StatusName + "</button>"
+                    "<button type='button' class='btn btn-primary btn-xs'>" + poRequest.RequestStatus.StatusName + "</button>"
                     );
             }
         });
@@ -215,7 +220,7 @@
                     {
                         ViewContext.Writer.Write(
                             "<button type='button' class='open-popup btn btn-round btn-default' data-toggle='modal' data-target='#quotePopup'" +
-                            "onclick =\"OpenQuotePopup("+ poRequestId + ")\" >Quote</button>"
+                            "onclick =\"OpenQuotePopup("+ poRequestId + ")\" >Quotes</button>"
                             );
                     }
                     else
@@ -231,13 +236,73 @@
                     }
                 }
             }
+            else if (poRequest.RequestStatusID == 4)
+            {
+                if (poRequest.Quantity != 0)
+                {
+                    ViewContext.Writer.Write(
+                        "<div class='assign-area'>"+
+                        "<button type='button' class='open-popup btn btn-round btn-default' data-toggle='modal' data-target='#assignPopup'" +
+                        "onclick =\"OpenAssignPopup(" + poRequestId + "," + employeeId + ",'" + category + "','" + employeeName + "')\" >Assign</button>"+
+                        "<div class='quantity-noti'><a id='quantity'>" + @poRequest.Quantity + "</a></div>"+
+                        "</div>"
+                        );
+                }
+            }
         });
         c.Width = 120;
     });
 
+
+    settings.SetDetailRowTemplateContent(c =>
+    {
+        int poRequestId = (int)DataBinder.Eval(c.DataItem, "PoRequestID");
+        var poRequest = Model.FirstOrDefault(_ => _.PoRequestID == poRequestId);
+
+        if (poRequest.RequestStatusID == 1)
+        {
+            @Html.BeginForm();
+            {
+                ViewContext.Writer.Write(
+                    "<div class='quote-detail' style='display:flex;justify-content:center'>"
+                    );
+                Html.RenderAction("GetQuotesByPoRequestId", new { poRequestId = DataBinder.Eval(c.DataItem, "PoRequestID") });
+                ViewContext.Writer.Write(
+                    "<div>"
+                    );
+            }
+        }
+        else if(poRequest.RequestStatusID == 2)
+        {
+
+            var  quotes = poRequest.Quotes.ToList();
+
+            ViewContext.Writer.Write(
+                "<div class='quote-detail' style='display:flex;justify-content:center'>"
+                );
+            Html.RenderPartial("_QuotePartial", quotes);
+            ViewContext.Writer.Write(
+                "<div>"
+                );
+        }
+        else
+        {
+            var quoteId = poRequest.SelectedQuoteID;
+            var quote = poRequest.Quotes.FirstOrDefault(_ => _.QuoteID == quoteId);
+            var quotes = new List<Quote>();
+            quotes.Add(quote);
+
+            ViewContext.Writer.Write(
+                "<div class='quote-detail' style='display:flex;justify-content:center'>"
+                );
+            Html.RenderPartial("_QuotePartial", quotes);
+            ViewContext.Writer.Write(
+                "<div>"
+                );
+        }
+    });
+
     settings.ClientSideEvents.SelectionChanged = "SelectionChanged";
-
-
 
     settings.SettingsPager.PageSize = 5;
 

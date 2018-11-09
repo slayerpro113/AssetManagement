@@ -1,0 +1,101 @@
+﻿
+
+@using System.Drawing
+@using Data.Entities
+@using DevExpress.XtraExport.Helpers
+@model IList<Data.Entities.Order>
+
+@Html.DevExpress().GridView(settings => {
+    settings.Name = "ordersGrid";
+    settings.SettingsLoadingPanel.Mode = GridViewLoadingPanelMode.Disabled;
+    //Custom css
+    settings.Styles.Header.BackColor = System.Drawing.ColorTranslator.FromHtml("#476482");
+    settings.Styles.Header.ForeColor = Color.White;
+    // Hover
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Styles.RowHotTrack.BackColor = System.Drawing.ColorTranslator.FromHtml("#f9fdff");
+    settings.Styles.RowHotTrack.Font.Bold = true;
+
+    settings.CallbackRouteValues = new { Controller = "Manager", Action = "GetOrdersPartial" };
+    settings.Width = Unit.Percentage(90);
+
+    // show detail partial
+    settings.SettingsDetail.AllowOnlyOneMasterRowExpanded = true;
+    settings.SettingsDetail.ShowDetailRow = true;
+
+    //filter
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.CommandColumn.ShowClearFilterButton = true;
+
+    settings.Toolbars.Add(toolbar =>
+    {
+        toolbar.Enabled = true;
+        toolbar.Position = GridToolbarPosition.Top;
+        toolbar.ItemAlign = GridToolbarItemAlign.Right;
+        toolbar.Items.Add(GridViewToolbarCommand.ExportToPdf);
+
+    });
+
+    settings.KeyFieldName = "OrderID";
+
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "OrderID";
+        c.Caption = "ID";
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.Width = 100;
+    });
+
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "PurchaseDate";
+        c.Caption = "Purchase Date";
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.Width = 180;
+        c.PropertiesEdit.DisplayFormatString = "D";
+
+    });
+
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "OrderTotal";
+        c.Caption = "Total";
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.Width = 300;
+        c.PropertiesEdit.DisplayFormatString = "c2";
+
+    });
+
+    settings.SetDetailRowTemplateContent(c =>
+    {
+        ViewContext.Writer.Write(
+            "<div style='display:flex;justify-content:center'>"
+            );
+        Html.RenderAction("GetOrderDetailByOrderIdPartial", new { orderId = DataBinder.Eval(c.DataItem, "OrderID") });
+        ViewContext.Writer.Write(
+            "<div>"
+            );
+    });
+
+    settings.SettingsPager.PageSize = 5;
+
+    settings.SettingsPager.Position = PagerPosition.Bottom;
+    settings.SettingsPager.FirstPageButton.Visible = true;
+    settings.SettingsPager.LastPageButton.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+    settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "5", "7", "9" };
+
+                                            
+    settings.SettingsExport.EnableClientSideExportAPI = true;
+    settings.SettingsExport.ExcelExportMode = DevExpress.Export.ExportType.DataAware;
+   
+}).Bind(Model).GetHtml()
+
+
+
+
+

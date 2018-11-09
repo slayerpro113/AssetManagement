@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "Manage Orders";
+    Layout = "~/Views/Shared/_Layouts.cshtml";
+}
+
+@model IList<Data.Entities.Order>
+
+
+@Html.DevExpress().GetStyleSheets(
+    new StyleSheet { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.GridView },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.Editors }
+    )
+
+@Html.DevExpress().GetScripts(
+    new Script { ExtensionSuite = ExtensionSuite.GridView },
+    new Script { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
+    new Script { ExtensionSuite = ExtensionSuite.Editors }
+    )
+
+<style>
+    h2 {
+        text-align: center;
+        font-size: x-large;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Orders</h2>
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="x_content">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.Partial("_OrdersPartial", Model)
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

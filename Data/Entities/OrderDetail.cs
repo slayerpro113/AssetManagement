@@ -18,7 +18,6 @@ namespace Data.Entities
         public OrderDetail()
         {
             this.Assets = new HashSet<Asset>();
-            this.Vendors = new HashSet<Vendor>();
         }
     
         public int OrderDetailID { get; set; }
@@ -27,12 +26,12 @@ namespace Data.Entities
         public decimal Price { get; set; }
         public Nullable<int> OrderID { get; set; }
         public Nullable<int> QuoteID { get; set; }
+        public Nullable<int> VendorID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Asset> Assets { get; set; }
         public virtual Order Order { get; set; }
         public virtual Quote Quote { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Vendor> Vendors { get; set; }
+        public virtual Vendor Vendor { get; set; }
     }
 }

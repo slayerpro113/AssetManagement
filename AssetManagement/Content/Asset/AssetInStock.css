@@ -4,7 +4,7 @@
      font-size: x-large;
  }
 
-.x_content {
+.x_content,h4{
     display: flex;
     justify-content: center;
 }
