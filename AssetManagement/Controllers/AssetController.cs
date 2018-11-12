@@ -54,14 +54,7 @@ namespace AssetManagement.Controllers
             var histories = _historyService.GetHistoriesByAssetId(assetId);
             return PartialView("_AssetHistorieslPartial", histories);
         }
-
-        public ActionResult GetAssetDepreciationDetail(int assetId)
-        {
-            ViewBag.AssetID = assetId;
-            var histories = _assetService.GetAssetDepreciationDetail(assetId);
-            return PartialView("_AssetHistorieslPartial", histories);
-        }
-
+        
         public ActionResult LoadDataCbb()
         {
             var employees = _employeeService.GetAll();

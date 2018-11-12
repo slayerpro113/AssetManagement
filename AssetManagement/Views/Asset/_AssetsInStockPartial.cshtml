@@ -69,6 +69,8 @@
         c.Settings.AllowAutoFilter = DefaultBoolean.False;
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.Width = 130;
+
     });
 
     settings.Columns.Add(c =>
@@ -155,7 +157,19 @@
         c.Settings.AllowAutoFilter = DefaultBoolean.False;
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
-        c.PropertiesEdit.DisplayFormatString = "D";
+        
+            c.SetDataItemTemplateContent(p =>
+            {
+                int assetId = (int) DataBinder.Eval(p.DataItem, "AssetID");
+                var asset = Model.FirstOrDefault(_ => _.AssetID == assetId);
+
+                ViewContext.Writer.Write(asset.PurchaseDate.ToShortDateString());        
+            });
+
+            c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+            c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            c.Settings.AllowAutoFilter = DefaultBoolean.False;
+        c.Width = 110;
     });
 
     settings.Columns.Add(c =>
@@ -168,19 +182,34 @@
             int assetId = (int)DataBinder.Eval(p.DataItem, "AssetID");
             var asset = Model.FirstOrDefault(_ => _.AssetID == assetId);
 
-            ViewContext.Writer.Write(
-                "<div class='project_progress'>"+
-                "<div class='progress progress_sm'>" +
-                "<div class='progress-bar bg-green' role='progressbar'  style='width:"+ Math.Round((double)asset.PercentDepreciation, 2) +"' ></div></div>"+
-                "</div>"+
-                "</div>"+
-                "<small> "+ Math.Round((double)asset.PercentDepreciation, 2) + " % Complete </small>"
-                );
+            if (asset.AssetStatusID == 1)
+            {
+                ViewContext.Writer.Write(
+                    "<div class='project_progress'>"+
+                    "<div class='progress progress_sm'>" +
+                    "<div class='progress-bar bg-green' role='progressbar'  style='width:"+ Math.Round((double)asset.PercentDepreciation, 2) +"' ></div></div>"+
+                    "</div>"+
+                    "</div>"+
+                    "<small> "+ Math.Round((double)asset.PercentDepreciation, 2) + " % Complete </small>"
+                    );
+            }
+            else
+            {
+                ViewContext.Writer.Write(
+                    "<div class='project_progress'>" +
+                    "<div class='progress progress_sm'>" +
+                    "<div class='progress-bar bg-green' role='progressbar'  style='width:0%'></div></div>" +
+                    "</div>" +
+                    "</div>" +
+                    "<small>0% Complete </small>"
+                    );
+            }
         });
+
         c.Settings.AllowAutoFilter = DefaultBoolean.False;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
         c.CellStyle.HorizontalAlign = HorizontalAlign.Left;
-        c.Width = 130;
+        c.Width = 100;
     });
 
     settings.Columns.Add(c =>

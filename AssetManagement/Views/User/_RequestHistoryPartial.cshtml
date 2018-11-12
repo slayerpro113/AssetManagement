@@ -21,12 +21,17 @@
     {
         c.FieldName = "CreatedDate";
         c.Caption = "Request Date";
+        c.Width = 110;
+        c.SetDataItemTemplateContent(p =>
+        {
+            int poRequestId = (int) DataBinder.Eval(p.DataItem, "PoRequestID");
+            var poRequest = Model.FirstOrDefault(_ => _.PoRequestID == poRequestId);
+            ViewContext.Writer.Write(poRequest.CreatedDate.ToShortDateString());
+         
+        });
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
-        c.Width = 200;
-        c.PropertiesEdit.DisplayFormatString = "D";
         c.Settings.AllowAutoFilter = DefaultBoolean.False;
-
     });
 
     settings.Columns.Add(c => {
@@ -40,7 +45,7 @@
             cb.ValueField = "CategoryName";
             cb.DropDownStyle = DropDownStyle.DropDown;
         });
-        c.Width = 70;
+        c.Width = 100;
 
     });
 
@@ -107,16 +112,14 @@
                 ViewContext.Writer.Write(
                     "<a style='text-decoration:none'>" + poRequest.StaffAssign + "</a>"+
                     "<br/>"+
-                    "<small>On <i>"+ poRequest.FinishedDate.Value.ToLongDateString() +"</i></small>"
+                    "<small>On <i>"+ poRequest.FinishedDate.Value.ToShortDateString() +"</i></small>"
                     );
             }
-
-
         });
         c.Caption = "Assigned By";
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
-        c.Width = 230;
+        c.Width = 200;
     });
 
     settings.Columns.Add(c =>
@@ -129,13 +132,12 @@
             if (poRequest.RequestStatusID == 5)
             {
                 ViewContext.Writer.Write(
-                    "<img src=\"/Image/Categories/" + HttpUtility.UrlDecode(@poRequest.AssetImage) + "\" class='avatar' alt='Avatar'>     "+
-
-                    "<a style='text-decoration: none'>" + poRequest.AssetName + "</a>"
+                    "<img src=\"/Image/Categories/" + HttpUtility.UrlDecode(@poRequest.AssetImage) + "\" class='avatar' alt='Avatar'>"+
+                    "<a style='text-decoration:none'>" + poRequest.AssetName + "</a>"
                     );
             }
         });
-        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Left;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
         c.Width = 230;
     });

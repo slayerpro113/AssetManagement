@@ -22,14 +22,6 @@ settings.Styles.Header.BackColor = System.Drawing.ColorTranslator.FromHtml("#f4f
         settings.Styles.FocusedRow.BackColor = System.Drawing.ColorTranslator.FromHtml("#f2faff");
         settings.Styles.FocusedRow.ForeColor = System.Drawing.Color.Black;
 
-        settings.Toolbars.Add(toolbar =>
-        {
-            toolbar.Enabled = true;
-            toolbar.Position = GridToolbarPosition.Top;
-            toolbar.ItemAlign = GridToolbarItemAlign.Right;
-            toolbar.Items.Add(GridViewToolbarCommand.Edit);
-        });
-
         settings.KeyFieldName = "QuoteID";
 
         settings.Columns.Add(c =>

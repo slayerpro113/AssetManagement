@@ -1,26 +1,28 @@
 ﻿using Data.Services;
-using System.Web.Mvc;
 using Data.Utilities;
 using Data.Utilities.Enumeration;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace AssetManagement.Controllers
 {
     [PermissionLogin]
-
+    [RolePermission(Enumerations.Roles.Manager)]
     public class ManagerController : Controller
     {
         private readonly IPoRequestService _poRequestService;
         private readonly IQuoteService _quoteService;
         private readonly IOrderService _orderService;
         private readonly IOrderDetailService _orderDetailService;
+        private readonly IAssetService _assetService;
 
-
-        public ManagerController(IPoRequestService poRequestService, IQuoteService quoteService, IOrderService orderService, IOrderDetailService orderDetailService)
+        public ManagerController(IPoRequestService poRequestService, IQuoteService quoteService, IOrderService orderService, IOrderDetailService orderDetailService, IAssetService assetService)
         {
             _poRequestService = poRequestService;
             _quoteService = quoteService;
             _orderService = orderService;
             _orderDetailService = orderDetailService;
+            _assetService = assetService;
         }
 
         public ActionResult GetPoRequestsFromStaff()
@@ -78,6 +80,13 @@ namespace AssetManagement.Controllers
             ViewBag.OrderId = orderId;
             var orderDetails = _orderDetailService.GetOrderDetailByOrderId(orderId);
             return PartialView("_OrderDetailPartial", orderDetails);
+        }
+
+        public ActionResult GetChartData()
+        {
+            var data = _assetService.GetChartData().Select(_ => new { name = _.VendorName, y = _.Percent }).ToArray();
+
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
     }
 }

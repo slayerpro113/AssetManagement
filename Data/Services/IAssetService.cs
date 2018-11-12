@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Data.DTO;
 using Data.Entities;
 using Data.Utilities.Enumeration;
 
@@ -11,6 +12,6 @@ namespace Data.Services
         IList<Asset> GetAssetsByHistories(IList<History> histories);
         IList<Asset> GetAvailableAssetsByCategoryName(string categoryName);
         Enumerations.UpdateEntityStatus HandleEnterDetail(int assetId, string barcode, int monthsOfDepreciation);
-        Asset GetAssetDepreciationDetail(int assetId);
+        IList<HighChart> GetChartData();
     }
 }

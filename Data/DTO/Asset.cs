@@ -13,6 +13,7 @@ namespace Data.Entities
         public string AssetCategory => Product.Category.CategoryName;
         public string StaffAssign { get; set; }
         public string CheckinDate { get; set; }
+        public DateTime PurchaseDate => OrderDetail.Order.PurchaseDate;
 
         public Nullable<decimal> MonthlyAmount { get; set; }
         public Nullable<decimal> DepreciatedAmount { get; set; }

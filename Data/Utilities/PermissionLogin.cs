@@ -41,16 +41,17 @@ namespace Data.Utilities
             }
             else
             {
-                string[] rolesString = new string[Roles.Length];
+                string[] roles = new string[Roles.Length];
                 for (int i = 0; i < Roles.Length; i++)
                 {
-                    rolesString[i] = Roles[i].ToString();
+                    roles[i] = Roles[i].ToString();
                 }
 
-                var role0 = rolesString[0];
-                var role1 = rolesString[1];
-                bool check = userSession.Role.RoleName != role0 && userSession.Role.RoleName != role1;
-                if (check)
+//                var role0 = rolesString[0];
+//                var role1 = rolesString[1];
+//                bool check = userSession.Role.RoleName != role0 && userSession.Role.RoleName != role1;
+
+                if (!roles.Contains(userSession.Role.RoleName))
                 {
                     actionContext.HttpContext.Response.Redirect("~/Login/Login");
                 }

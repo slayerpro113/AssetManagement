@@ -1,24 +1,26 @@
-﻿using System;
-using Data.Entities;
+﻿using Data.Entities;
 using Data.Repositories;
 using Data.Services;
 using Data.UnitOfWork;
-using Repository;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Web;
 using Data.Utilities.Enumeration;
+using Repository;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Data.DTO;
 
 namespace Service
 {
     public class AssetService : BaseService<Asset>, IAssetService
     {
         private readonly IRepository<Asset> _assetRepository;
+        private readonly IRepository<Vendor> _vendorRepository;
 
-        public AssetService(IUnitOfWork unitOfWork, IRepository<Asset> assetRepository) : base(unitOfWork, assetRepository)
+
+        public AssetService(IUnitOfWork unitOfWork, IRepository<Asset> assetRepository, IRepository<Vendor> vendorRepository) : base(unitOfWork, assetRepository)
         {
             _assetRepository = assetRepository;
+            _vendorRepository = vendorRepository;
         }
 
         public IList<Asset> GetAssetsInStock()
@@ -27,28 +29,9 @@ namespace Service
 
             foreach (var asset in assets)
             {
-                if (asset.AssetStatusID == 2)
+                if (asset.AssetStatusID == 1)
                 {
-                    //tien khau hao hang thang = tong tien / tong thang
-                    var monthlyAmount = asset.OrderDetail.Price / asset.MonthDepreciation;
-                    //So thang da khau hao = t/g hien tai - t/g mua
-                    var depreciatedMonth = CalculateTimeLeft(asset.OrderDetail.Order.PurchaseDate, DateTime.Now);
-
-                    //so tien da khau hao = so thang da khau hao * Tien khau hao 1 thang
-                    var depreciatedAmount = depreciatedMonth * monthlyAmount;
-                    //so tien con lai = tien mua - tien da khau hao
-                    var amountLeft = asset.OrderDetail.Price - depreciatedAmount;
-
-                    var percentDepreciation = depreciatedAmount % asset.OrderDetail.Price * 100;
-
-                    var monthsLeft = CalculateTimeLeft(DateTime.Now, asset.EndTimeDepreciation.Value);
-
-
-                    asset.MonthlyAmount = monthlyAmount;
-                    asset.DepreciatedAmount = depreciatedAmount;
-                    asset.AmountLeft = amountLeft;
-                    asset.PercentDepreciation = percentDepreciation;
-                    asset.MonthsLeft = monthsLeft;
+                    CalculateDepreciation(asset);
                 }
             }
 
@@ -67,33 +50,11 @@ namespace Service
                 {
                     asset.EmployeeId = history.Employee.EmployeeID;
                     asset.EmployeeImage = history.Employee.Image;
-                    asset.EmployeeName = history.Employee.FullName;                   
-                    asset.EmployeeEmail = history.Employee.Email;  
+                    asset.EmployeeName = history.Employee.FullName;
+                    asset.EmployeeEmail = history.Employee.Email;
                 }
 
-                //tien khau hao hang thang = tong tien / tong thang
-                var monthlyAmount = asset.OrderDetail.Price / asset.MonthDepreciation;
-
-                //So thang da khau hao = t/g hien tai - t/g mua
-                var depreciatedMonth = CalculateTimeLeft(asset.OrderDetail.Order.PurchaseDate, DateTime.Now);
-
-                //so tien da khau hao = so thang da khau hao * Tien khau hao 1 thang
-                var depreciatedAmount = depreciatedMonth * monthlyAmount;
-                
-                //so tien con lai = tien mua - tien da khau hao
-                var amountLeft = asset.OrderDetail.Price - depreciatedAmount;
-
-
-                var percentDepreciation = depreciatedAmount / asset.OrderDetail.Price * 100;
-
-                var monthsLeft = CalculateTimeLeft(DateTime.Now, asset.EndTimeDepreciation.Value);
-
-
-                asset.MonthlyAmount = monthlyAmount;
-                asset.DepreciatedAmount = depreciatedAmount;
-                asset.AmountLeft = amountLeft;
-                asset.PercentDepreciation = percentDepreciation;
-                asset.MonthsLeft = monthsLeft;
+                CalculateDepreciation(asset);
             }
             return assets;
         }
@@ -106,7 +67,7 @@ namespace Service
                 var asset = new Asset();
                 asset = history.Asset;
                 asset.Product = history.Asset.Product;
-                asset.CheckinDate = history.CheckinDate.Value.ToLongDateString();
+                asset.CheckinDate = history.CheckinDate.Value.ToShortDateString();
                 asset.StaffAssign = history.StaffAssign;
                 assets.Add(asset);
             }
@@ -140,16 +101,11 @@ namespace Service
             }
         }
 
-        public Asset GetAssetDepreciationDetail(int assetId)
-        {
-            throw new NotImplementedException();
-        }
-
         public int CalculateTimeLeft(DateTime timeNow, DateTime endTime)
         {
             if (endTime.Year > timeNow.Year)
             {
-                return  endTime.Month - timeNow.Month + (endTime.Year - timeNow.Year) * 12;
+                return endTime.Month - timeNow.Month + (endTime.Year - timeNow.Year) * 12;
             }
             else if (endTime.Year == timeNow.Year)
             {
@@ -159,6 +115,56 @@ namespace Service
             {
                 return 0;
             }
+        }
+
+        public Asset CalculateDepreciation(Asset asset)
+        {
+            //tien khau hao hang thang = tong tien / tong thang
+            var monthlyAmount = asset.OrderDetail.Price / asset.MonthDepreciation;
+            //So thang da khau hao = t/g hien tai - t/g mua
+            var depreciatedMonth = CalculateTimeLeft(asset.OrderDetail.Order.PurchaseDate, DateTime.Now);
+
+            //so tien da khau hao = so thang da khau hao * Tien khau hao 1 thang
+            var depreciatedAmount = depreciatedMonth * monthlyAmount;
+            //so tien con lai = tien mua - tien da khau hao
+            var amountLeft = asset.OrderDetail.Price - depreciatedAmount;
+
+            var percentDepreciation = depreciatedAmount / asset.OrderDetail.Price * 100;
+
+            var monthsLeft = CalculateTimeLeft(DateTime.Now, asset.EndTimeDepreciation.Value);
+
+            asset.MonthlyAmount = monthlyAmount;
+            asset.DepreciatedAmount = depreciatedAmount;
+            asset.AmountLeft = amountLeft;
+            asset.PercentDepreciation = percentDepreciation;
+            asset.MonthsLeft = monthsLeft;
+
+            return asset;
+        }
+
+        public double CalculateAssetPercent(string vendor)
+        {
+            var assetOfVendor = _assetRepository.CountAssetByVendor(vendor);
+            var quantityOfAsset = _assetRepository.CountAsset();
+
+            return ((double)assetOfVendor / (double)quantityOfAsset) * 100;
+        }
+
+        public IList<HighChart> GetChartData()
+        {
+            var vendors = _vendorRepository.GetAll();
+            var highCharts = new List<HighChart>();
+
+            foreach (var temp in vendors)
+            {
+                var highChart = new HighChart();
+                highChart.VendorName = temp.Name;
+                highChart.Percent = CalculateAssetPercent(temp.Name);
+
+                highCharts.Add(highChart);
+            }
+
+            return highCharts;
         }
     }
 }

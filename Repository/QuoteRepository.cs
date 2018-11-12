@@ -14,6 +14,7 @@ namespace Repository
         {
             return repository.Entity.Count();
         }
+
         public static IList<Quote> GetQuotesByPoRequestId(this IRepository<Quote> repository, int poRequestId)
         {
             return repository.Entity.Where(_ => _.PoRequestID == poRequestId).ToList();

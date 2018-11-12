@@ -28,7 +28,6 @@
         toolbar.Position = GridToolbarPosition.Top;
         toolbar.ItemAlign = GridToolbarItemAlign.Right;
         toolbar.Items.Add(GridViewToolbarCommand.Edit);
-        toolbar.Items.Add(GridViewToolbarCommand.ExportToPdf);
 
     });
 
@@ -62,6 +61,7 @@
             p.CallbackRouteValues = new { Action = "BinaryImageColumnPhotoUpdate", Controller = "Staff" };
             p.EditingSettings.Enabled = true;
             p.EditingSettings.UploadSettings.UploadValidationSettings.MaxFileSize = 4194304;
+            
         });
         c.Visible = false;
     });
@@ -134,8 +134,6 @@
         i.ColSpan = 3;
         i.HorizontalAlign = FormLayoutHorizontalAlign.Right;
     });
-
-    settings.SettingsExport.EnableClientSideExportAPI = true;
-    settings.SettingsExport.ExcelExportMode = DevExpress.Export.ExportType.DataAware;
+    
 }).Bind(Model).SetEditErrorText(ViewBag.EditError).GetHtml())
 

@@ -9,20 +9,17 @@ namespace Repository
     {
         public static IList<Product> GetProductsByCategoryId(this IRepository<Product> repository, int categoryId)
         {
-            var products = repository.Entity.Where(_ => _.CategoryID == categoryId).ToList();
-            return products;
+            return repository.Entity.Where(_ => _.CategoryID == categoryId).ToList();
         }
 
         public static int CountProductByName(this IRepository<Product> repository, string productName)
         {
-            var count = repository.Entity.Where(_ => _.ProductName == productName).ToList().Count;
-            return count;
+            return repository.Entity.Where(_ => _.ProductName == productName).ToList().Count;
         }
 
         public static Product GetProductsByProductName(this IRepository<Product> repository, string productName)
         {
-            var product = repository.Entity.FirstOrDefault(_ => _.ProductName == productName);
-            return product;
+            return repository.Entity.FirstOrDefault(_ => _.ProductName == productName);
         }
     }
 }

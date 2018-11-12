@@ -26,5 +26,15 @@ namespace Repository
         {
             return repository.Entity.Where(_ => _.Product.Category.CategoryName == categoryName &&  _.AssetStatusID == 1 ).ToList();
         }
+
+        public static int CountAssetByVendor(this IRepository<Asset> repository, string vendor)
+        {
+            return repository.Entity.Where(_ => _.OrderDetail.Vendor.Name == vendor).ToList().Count;
+        }
+
+        public static int CountAsset(this IRepository<Asset> repository)
+        {
+            return repository.Entity.Count();
+        }
     }
 }
