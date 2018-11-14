@@ -75,7 +75,7 @@ function doEnterDepreciation() {
     var barcode = $('#barcodeInput').val();
     var monthsOfDepreciation = $('#depreciation').val();
 
-    if (barcode.length === 0 || monthsOfDepreciation === 0) {
+    if (barcode.length === 0 || monthsOfDepreciation.length === 0) {
         $("#message").html("Please, fill all the required fields.");
         timeoutMessage();
     } else if (monthsOfDepreciation > 84) {

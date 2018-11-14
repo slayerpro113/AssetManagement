@@ -9,12 +9,10 @@ namespace AssetManagement.Controllers
     public class LoginController : Controller
     {
         private readonly IEmployeeService _employeeService;
-        private readonly IRoleService _roleService;
 
-        public LoginController(IEmployeeService personnelService, IRoleService roleService)
+        public LoginController(IEmployeeService employeeService)
         {
-            _employeeService = personnelService;
-            _roleService = roleService;
+            _employeeService = employeeService;
         }
 
         [AllowAnonymous]

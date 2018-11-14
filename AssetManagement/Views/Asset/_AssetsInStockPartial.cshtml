@@ -156,19 +156,10 @@
         c.Caption = "Date Purchase";
         c.Settings.AllowAutoFilter = DefaultBoolean.False;
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.PropertiesEdit.DisplayFormatString = "dd/MM/yyyy";
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
-        
-            c.SetDataItemTemplateContent(p =>
-            {
-                int assetId = (int) DataBinder.Eval(p.DataItem, "AssetID");
-                var asset = Model.FirstOrDefault(_ => _.AssetID == assetId);
-
-                ViewContext.Writer.Write(asset.PurchaseDate.ToShortDateString());        
-            });
-
-            c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
-            c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
-            c.Settings.AllowAutoFilter = DefaultBoolean.False;
+        c.Settings.AllowAutoFilter = DefaultBoolean.False;
         c.Width = 110;
     });
 

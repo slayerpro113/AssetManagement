@@ -32,6 +32,11 @@ namespace Repository
             return repository.Entity.Where(_ => _.OrderDetail.Vendor.Name == vendor).ToList().Count;
         }
 
+        public static int CountAssetByBrand(this IRepository<Asset> repository, string brand)
+        {
+            return repository.Entity.Where(_ => _.Product.Brand == brand).ToList().Count;
+        }
+
         public static int CountAsset(this IRepository<Asset> repository)
         {
             return repository.Entity.Count();

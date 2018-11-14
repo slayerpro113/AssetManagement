@@ -11,5 +11,6 @@ namespace Data.Services
     public interface IOrderService : IBaseService<Order>
     {
         Enumerations.AddEntityStatus HandleCreateOrder(string poRequestIdString);
+        IList<Order> GetOrders();
     }
 }

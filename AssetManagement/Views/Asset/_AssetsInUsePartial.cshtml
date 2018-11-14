@@ -85,7 +85,7 @@
             cb.ValueField = "CategoryName";
             cb.DropDownStyle = DropDownStyle.DropDown;
         });
-        c.Width = 100;
+        c.Width = 120;
     });
 
     settings.Columns.Add(c =>
@@ -105,7 +105,7 @@
         });
         c.CellStyle.HorizontalAlign = HorizontalAlign.Left;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
-        c.Width = 200;
+        c.Width = 230;
 
     });
 
@@ -147,20 +147,7 @@
         c.Visible = false;
     });
 
-    settings.Columns.Add(c =>
-    {
-        c.Caption = "Date Purchase";
-        c.Settings.AllowAutoFilter = DefaultBoolean.False;
-        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
-        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
-        c.SetDataItemTemplateContent(r =>
-        {
-            int assetId = (int)DataBinder.Eval(r.DataItem, "AssetID");
-            var asset = Model.FirstOrDefault(_ => _.AssetID == assetId);
-            ViewContext.Writer.Write( asset.OrderDetail.Order.PurchaseDate.ToShortDateString());
-        });
-        c.Width = 100;
-    });
+
 
     settings.Columns.Add(c =>
     {
@@ -184,7 +171,7 @@
         c.Settings.AllowAutoFilter = DefaultBoolean.False;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
         c.CellStyle.HorizontalAlign = HorizontalAlign.Left;
-        c.Width = 150;
+        c.Width = 140;
     });
 
     settings.Columns.Add(c =>

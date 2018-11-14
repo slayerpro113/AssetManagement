@@ -42,9 +42,7 @@ namespace Service
                 return Enumerations.AddEntityStatus.Failed;
             }
         }
-
       
-
         public IList<Quote> GetQuotesByPoRequestId(int poRequestId)
         {
             var quotes = _quoteRepository.GetQuotesByPoRequestId(poRequestId);

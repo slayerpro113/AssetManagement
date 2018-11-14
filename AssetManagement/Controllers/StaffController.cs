@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using DevExpress.Web.Mvc;
 using System.Web;
 using Data.Services;
 using System.Web.Mvc;
 using AssetManagement.Models;
 using AutoMapper;
+using Data.DTO;
 using Data.Entities;
 using Data.Utilities;
 using Data.Utilities.Enumeration;
 using DevExpress.Web.Internal;
+using Newtonsoft.Json;
 
 namespace AssetManagement.Controllers
 {
@@ -17,6 +20,7 @@ namespace AssetManagement.Controllers
     [RolePermission(Enumerations.Roles.Staff, Enumerations.Roles.Manager)]
     public class StaffController : Controller
     {
+        private readonly IProductService _productService;
         private readonly IPoRequestService _poRequestService;
         private readonly IAssetService _assetService;
         private readonly IHistoryService _historyService;
@@ -26,7 +30,7 @@ namespace AssetManagement.Controllers
 
         public StaffController(IPoRequestService poRequestService, IAssetService assetService,
             IHistoryService historyService, IQuoteService quoteService, IEmployeeService employeeService,
-            IOrderService orderService)
+            IOrderService orderService, IProductService productService)
         {
             _poRequestService = poRequestService;
             _assetService = assetService;
@@ -34,6 +38,7 @@ namespace AssetManagement.Controllers
             _quoteService = quoteService;
             _employeeService = employeeService;
             _orderService = orderService;
+            _productService = productService;
         }
 
         public ActionResult GetPoRequestsFromUsers()
@@ -161,6 +166,20 @@ namespace AssetManagement.Controllers
         public ActionResult BinaryImageColumnPhotoUpdate()
         {
             return BinaryImageEditExtension.GetCallbackResult();
+        }
+
+        public ActionResult GetProducts(string productName)
+        {
+            try
+            {
+                var data = _productService.GetDataAutocomplete(productName);
+                var json = JsonConvert.SerializeObject(data);
+                return Content(json, "application/json");
+            }
+            catch (Exception e)
+            {
+                return Content(e.Message);
+            }
         }
     }
 }

@@ -13,5 +13,6 @@ namespace Data.Services
         IList<Asset> GetAvailableAssetsByCategoryName(string categoryName);
         Enumerations.UpdateEntityStatus HandleEnterDetail(int assetId, string barcode, int monthsOfDepreciation);
         IList<HighChart> GetChartData();
+        IList<HighChart> Get3DChartData();
     }
 }

@@ -10,7 +10,7 @@
     settings.CallbackRouteValues = new { Controller = "Staff", Action = "GetQuotesByPoRequestId", poRequestId = ViewBag.PoRequestId };
     settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Staff", Action = "EditQuote", poRequestId = ViewBag.PoRequestId };
     settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
-    settings.Width = Unit.Percentage(80);
+    settings.Width = Unit.Percentage(85);
 
     settings.SettingsText.CommandBatchEditUpdate = "Update";
     settings.SettingsText.CommandBatchEditCancel = "Cancel";
@@ -18,7 +18,7 @@
     //Custom css header
     settings.Styles.Header.BackColor = System.Drawing.ColorTranslator.FromHtml("#f4f4f4");
     settings.Styles.Header.ForeColor = System.Drawing.ColorTranslator.FromHtml("#1AAB9C");
-    
+
     settings.Styles.FocusedRow.BackColor = System.Drawing.ColorTranslator.FromHtml("#f2faff");
     settings.Styles.FocusedRow.ForeColor = System.Drawing.Color.Black;
 
@@ -33,38 +33,39 @@
 
     settings.KeyFieldName = "QuoteID";
 
-    settings.Columns.Add(c =>
-    {
-        c.Width = 70;
-        c.FieldName = "Image";
-        c.Caption = "Image";
-        c.SetDataItemTemplateContent(p =>
-        {
-            ViewContext.Writer.Write(
-                "<img src=\"/Image/Categories/" + HttpUtility.UrlDecode(p.Text) + "\" class='avatar' >"
-                );
-        });
-        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
-        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
-    });
+    //settings.Columns.Add(c =>
+    //{
+    //    c.Width = 70;
+    //    c.FieldName = "Image";
+    //    c.Caption = "Image";
+    //    c.SetDataItemTemplateContent(p =>
+    //    {
+    //        ViewContext.Writer.Write(
+    //            "<img src=\"/Image/Categories/" + HttpUtility.UrlDecode(p.Text) + "\" class='avatar' >"
+    //            );
+    //    });
+    //    c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+    //    c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+    //});
 
     settings.Columns.Add(c =>
     {
         c.FieldName = "ImageBytes";
+        c.Caption = "Image";
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
         c.EditorProperties().BinaryImage(p =>
         {
-            p.ImageHeight = 130;
-            p.ImageWidth = 130;
+            p.ImageHeight = 120;
+            p.ImageWidth = 120;
             p.EnableServerResize = true;
             p.ImageSizeMode = ImageSizeMode.FitProportional;
             p.CallbackRouteValues = new { Action = "BinaryImageColumnPhotoUpdate", Controller = "Staff" };
             p.EditingSettings.Enabled = true;
             p.EditingSettings.UploadSettings.UploadValidationSettings.MaxFileSize = 4194304;
-            
         });
-        c.Visible = false;
+        c.Width = 70;
     });
+
 
     settings.Columns.Add(c =>
     {
@@ -72,7 +73,7 @@
         c.Caption = "Product Name";
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
-        c.Width = 150;
+        c.Width = 180;
     });
 
     settings.Columns.Add(c =>
@@ -118,7 +119,7 @@
         i.ColumnName = "ImageBytes";
         i.RowSpan = 4;
         i.ShowCaption = DefaultBoolean.False;
-        i.Width = 160;
+        i.Width = 120;
     });
 
     settings.EditFormLayoutProperties.ColCount = 3;
@@ -134,6 +135,6 @@
         i.ColSpan = 3;
         i.HorizontalAlign = FormLayoutHorizontalAlign.Right;
     });
-    
+
 }).Bind(Model).SetEditErrorText(ViewBag.EditError).GetHtml())
 

@@ -22,9 +22,9 @@ namespace Repository
             return repository.Entity.Where(_ => _.RequestStatusID == 2).OrderByDescending(_ => _.PoRequestID).ToList();
         }
 
-        public static PoRequest GetUnfinishedPoRequestsByEmployee(this IRepository<PoRequest> repository, Employee employee)
+        public static PoRequest GetUnfinishedPoRequestsByEmployee(this IRepository<PoRequest> repository, int employeeId, string categoryName )
         {
-            return repository.Entity.FirstOrDefault(_ => _.EmployeeID == employee.EmployeeID && _.RequestStatusID == 4);
+            return repository.Entity.FirstOrDefault(_ => _.EmployeeID == employeeId && _.CategoryName == categoryName && _.RequestStatusID != 5);
         }
     }
 }

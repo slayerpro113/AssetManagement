@@ -65,7 +65,7 @@ namespace AssetManagement.Controllers
 
         public ActionResult GetOrders()
         {
-            var orders = _orderService.GetAll();
+            var orders = _orderService.GetOrders();
             return View("Orders", orders);
         }
 
@@ -84,7 +84,14 @@ namespace AssetManagement.Controllers
 
         public ActionResult GetChartData()
         {
-            var data = _assetService.GetChartData().Select(_ => new { name = _.VendorName, y = _.Percent }).ToArray();
+            var data = _assetService.GetChartData().Select(_ => new { name = _.VendorName, y = _.PercentVendor }).ToArray();
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Get3DChartData()
+        {
+            var data = _assetService.Get3DChartData().Select(_ => new { name = _.Brand, y = _.PercentBrand }).ToArray();
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }

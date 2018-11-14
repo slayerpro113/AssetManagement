@@ -142,7 +142,7 @@ namespace Service
             return asset;
         }
 
-        public double CalculateAssetPercent(string vendor)
+        public double CalculateVendorPercent(string vendor)
         {
             var assetOfVendor = _assetRepository.CountAssetByVendor(vendor);
             var quantityOfAsset = _assetRepository.CountAsset();
@@ -159,12 +159,38 @@ namespace Service
             {
                 var highChart = new HighChart();
                 highChart.VendorName = temp.Name;
-                highChart.Percent = CalculateAssetPercent(temp.Name);
+                highChart.PercentVendor = CalculateVendorPercent(temp.Name);
 
                 highCharts.Add(highChart);
             }
 
             return highCharts;
+        }
+
+        public IList<HighChart> Get3DChartData()
+        {
+            string [] brand = new string[] { "Hoa Phat", "Logitech", "Razer", "SteelSeries", "Dell", "Acer", "Assus", "LG" };
+            
+            var highCharts = new List<HighChart>();
+
+            for (int i= 0 ; i < brand.Length; i++)
+            {
+                var highChart = new HighChart();
+                highChart.Brand = brand[i];
+                highChart.PercentBrand = CalculateBrandPercent(brand[i]);
+
+                highCharts.Add(highChart);
+            }
+
+            return highCharts;
+        }
+
+        public double CalculateBrandPercent(string brand)
+        {
+            var assetOfBrand = _assetRepository.CountAssetByBrand(brand);
+            var quantityOfAsset = _assetRepository.CountAsset();
+
+            return ((double)assetOfBrand / (double)quantityOfAsset) * 100;
         }
     }
 }

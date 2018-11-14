@@ -19,26 +19,49 @@
     new Script { ExtensionSuite = ExtensionSuite.Editors }
     )
 
+<link href="~/Content/Manager/Order.css" rel="stylesheet" />
+
+
+<style>
+    .x_content {
+        display: flex;
+        justify-content: center
+    }
+</style>
+
 <div class="container">
     <div class="row">
         <div class="col-md-12">
             <div class="x_panel">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>Proportion Of Vendors</h2>
+                            </div>
+                            <div id="Chart" s></div>
+                        </div>
+                    </div>
 
-                <div class="x_title">
-                    <h2>Proportion Of Vendor</h2>
-                    <div class="clearfix"></div>
-                </div>
-                <div id="container"></div>
+                    <div class="col-md-6">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>Assets Usage</h2>
+                            </div>
+                            <div id="3dChart" style="height: 400px"></div>
+                        </div>
+                    </div>
 
-                <div class="x_title">
-                    <h2>Orders</h2>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="x_content">
-                    @using (Html.BeginForm())
-                    {
-                        @Html.Partial("_OrdersPartial", Model)
-                    }
+                    <div class="x_title">
+                        <h2>Orders</h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        @using (Html.BeginForm())
+                        {
+                            @Html.Partial("_OrdersPartial", Model)
+                        }
+                    </div>
                 </div>
             </div>
         </div>
@@ -46,11 +69,12 @@
 </div>
 
 
+
 <script src="~/Scripts/jquery.js"></script>
 
 <script src="~/Scripts/HighChart/highcharts.js"></script>
 <script src="~/Scripts/HighChart/export-data.js"></script>
 <script src="~/Scripts/HighChart/exporting.js"></script>
-<link href="~/Content/HighChart/highcharts.css" rel="stylesheet" />
+<script src="~/Scripts/HighChart/highcharts-3d.js"></script>
 
 <script src="~/Scripts/app/Order.js"></script>

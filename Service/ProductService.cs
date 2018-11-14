@@ -7,7 +7,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using System.Web;
+using Data.DTO;
 using Data.Utilities.Enumeration;
 
 namespace Service
@@ -49,6 +51,8 @@ namespace Service
             var newProduct = HandleImage(product);
             AddEntity(newProduct);
         }
+
+       
 
         public Product HandleImage(Product product)
         {
@@ -93,6 +97,16 @@ namespace Service
             {
                 return Enumerations.CategoryName.Screen;
             }
+        }
+
+        public IList<BaseModel> GetDataAutocomplete(string productName)
+        {
+            return _productRepository.GetDataAutocomplete(productName).Select(_ => new BaseModel
+            {
+                label = _.ProductName,
+                value = _.ProductName,
+                brand = _.Brand
+            }).ToList(); 
         }
     }
 }

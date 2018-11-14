@@ -158,6 +158,11 @@ namespace Service
             }
         }
 
+        public IList<Order> GetOrders()
+        {
+            return GetAll().OrderByDescending(_ => _.OrderID).ToList();
+        }
+
         public IList<Quote> GetQuotesByPoRequests(IList<PoRequest> poRequests)
         {
             IList<Quote> quotes = new List<Quote>();

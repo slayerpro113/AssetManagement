@@ -428,4 +428,3 @@ C:\Users\PC\Downloads\Compressed\AssetManagement-master_2\AssetManagement-master
 C:\Users\PC\Downloads\Compressed\AssetManagement-master_2\AssetManagement-master\AssetManagement\bin\ja\DevExpress.Xpo.v18.1.resources.dll
 C:\Users\PC\Downloads\Compressed\AssetManagement-master_2\AssetManagement-master\AssetManagement\bin\ru\DevExpress.Xpo.v18.1.resources.dll
 C:\Users\PC\Downloads\Compressed\AssetManagement-master_2\AssetManagement-master\AssetManagement\obj\Debug\AssetManagement.csproj.CopyComplete
-C:\Users\quoc.ho\Desktop\AssetManagement\AssetManagement\bin\DotNet.Highcharts.dll

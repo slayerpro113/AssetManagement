@@ -21,5 +21,10 @@ namespace Repository
         {
             return repository.Entity.FirstOrDefault(_ => _.ProductName == productName);
         }
+
+        public static IList<Product> GetDataAutocomplete(this IRepository<Product> repository, string productName)
+        {
+            return repository.Entity.Where(_ => _.ProductName.ToLower().Contains(productName)).ToList();
+        }
     }
 }
