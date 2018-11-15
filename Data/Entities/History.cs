@@ -17,12 +17,14 @@ namespace Data.Entities
         public int HistoryID { get; set; }
         public Nullable<System.DateTime> CheckoutDate { get; set; }
         public Nullable<System.DateTime> CheckinDate { get; set; }
-        public string StaffRecall { get; set; }
-        public string StaffAssign { get; set; }
         public int AssetID { get; set; }
         public Nullable<int> EmployeeID { get; set; }
+        public Nullable<int> StaffAssignID { get; set; }
+        public Nullable<int> StaffRecallID { get; set; }
     
         public virtual Asset Asset { get; set; }
         public virtual Employee Employee { get; set; }
+        public virtual Employee Employee1 { get; set; }
+        public virtual Employee Employee2 { get; set; }
     }
 }

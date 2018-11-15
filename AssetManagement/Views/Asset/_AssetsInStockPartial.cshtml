@@ -240,7 +240,7 @@
         var asset = Model.FirstOrDefault(_ => _.AssetID == assetId);
         var assets = new List<Asset>();
         assets.Add(asset);
-        Html.RenderPartial("_AssetDetailPartial",  assets);
+        Html.RenderPartial("_DepreciationPartial",  assets);
 
         ViewContext.Writer.Write(
             "</div>"+

@@ -50,10 +50,10 @@
     <Property Name="HistoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CheckoutDate" Type="date" />
     <Property Name="CheckinDate" Type="date" />
-    <Property Name="StaffRecall" Type="nvarchar" MaxLength="50" />
-    <Property Name="StaffAssign" Type="nvarchar" MaxLength="100" />
     <Property Name="AssetID" Type="int" Nullable="false" />
     <Property Name="EmployeeID" Type="int" />
+    <Property Name="StaffAssignID" Type="int" />
+    <Property Name="StaffRecallID" Type="int" />
   </EntityType>
   <EntityType Name="OrderDetails">
     <Key>
@@ -84,11 +84,11 @@
     <Property Name="CategoryName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="CreatedDate" Type="date" Nullable="false" />
     <Property Name="FinishedDate" Type="date" />
-    <Property Name="StaffSubmit" Type="nvarchar" MaxLength="50" />
     <Property Name="RequestStatusID" Type="int" Nullable="false" />
     <Property Name="SelectedQuoteID" Type="int" />
     <Property Name="OrderID" Type="int" />
     <Property Name="EmployeeID" Type="int" Nullable="false" />
+    <Property Name="StaffSubmitID" Type="int" />
   </EntityType>
   <EntityType Name="Products">
     <Key>
@@ -209,7 +209,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Histories_Employees">
+  <Association Name="FK_Histories_Employees3">
     <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
     <End Role="Histories" Type="Self.Histories" Multiplicity="*" />
     <ReferentialConstraint>
@@ -218,6 +218,30 @@
       </Principal>
       <Dependent Role="Histories">
         <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Histories_Employees4">
+    <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+    <End Role="Histories" Type="Self.Histories" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="Histories">
+        <PropertyRef Name="StaffAssignID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Histories_Employees5">
+    <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+    <End Role="Histories" Type="Self.Histories" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="Histories">
+        <PropertyRef Name="StaffRecallID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -278,6 +302,18 @@
       </Principal>
       <Dependent Role="PoRequest">
         <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PoRequest_Employees1">
+    <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+    <End Role="PoRequest" Type="Self.PoRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="PoRequest">
+        <PropertyRef Name="StaffSubmitID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -352,7 +388,15 @@
       <End Role="Roles" EntitySet="Roles" />
       <End Role="Employees" EntitySet="Employees" />
     </AssociationSet>
-    <AssociationSet Name="FK_Histories_Employees" Association="Self.FK_Histories_Employees">
+    <AssociationSet Name="FK_Histories_Employees3" Association="Self.FK_Histories_Employees3">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="Histories" EntitySet="Histories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Histories_Employees4" Association="Self.FK_Histories_Employees4">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="Histories" EntitySet="Histories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Histories_Employees5" Association="Self.FK_Histories_Employees5">
       <End Role="Employees" EntitySet="Employees" />
       <End Role="Histories" EntitySet="Histories" />
     </AssociationSet>
@@ -373,6 +417,10 @@
       <End Role="OrderDetails" EntitySet="OrderDetails" />
     </AssociationSet>
     <AssociationSet Name="FK_PoRequest_Employees" Association="Self.FK_PoRequest_Employees">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="PoRequest" EntitySet="PoRequest" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PoRequest_Employees1" Association="Self.FK_PoRequest_Employees1">
       <End Role="Employees" EntitySet="Employees" />
       <End Role="PoRequest" EntitySet="PoRequest" />
     </AssociationSet>

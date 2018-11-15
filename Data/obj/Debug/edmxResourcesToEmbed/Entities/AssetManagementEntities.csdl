@@ -39,11 +39,23 @@
       <End Role="Role" EntitySet="Roles" />
       <End Role="Employee" EntitySet="Employees" />
     </AssociationSet>
-    <AssociationSet Name="FK_Histories_Employees" Association="AssetManagementModel.FK_Histories_Employees">
+    <AssociationSet Name="FK_Histories_Employees3" Association="AssetManagementModel.FK_Histories_Employees3">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="History" EntitySet="Histories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Histories_Employees4" Association="AssetManagementModel.FK_Histories_Employees4">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="History" EntitySet="Histories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Histories_Employees5" Association="AssetManagementModel.FK_Histories_Employees5">
       <End Role="Employee" EntitySet="Employees" />
       <End Role="History" EntitySet="Histories" />
     </AssociationSet>
     <AssociationSet Name="FK_PoRequest_Employees" Association="AssetManagementModel.FK_PoRequest_Employees">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="PoRequest" EntitySet="PoRequests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PoRequest_Employees1" Association="AssetManagementModel.FK_PoRequest_Employees1">
       <End Role="Employee" EntitySet="Employees" />
       <End Role="PoRequest" EntitySet="PoRequests" />
     </AssociationSet>
@@ -121,8 +133,11 @@
     <Property Name="BirthDate" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="RoleID" Type="Int32" />
     <NavigationProperty Name="Role" Relationship="AssetManagementModel.FK_Employees_Roles" FromRole="Employee" ToRole="Role" />
-    <NavigationProperty Name="Histories" Relationship="AssetManagementModel.FK_Histories_Employees" FromRole="Employee" ToRole="History" />
+    <NavigationProperty Name="Histories" Relationship="AssetManagementModel.FK_Histories_Employees3" FromRole="Employee" ToRole="History" />
+    <NavigationProperty Name="Histories1" Relationship="AssetManagementModel.FK_Histories_Employees4" FromRole="Employee" ToRole="History" />
+    <NavigationProperty Name="Histories2" Relationship="AssetManagementModel.FK_Histories_Employees5" FromRole="Employee" ToRole="History" />
     <NavigationProperty Name="PoRequests" Relationship="AssetManagementModel.FK_PoRequest_Employees" FromRole="Employee" ToRole="PoRequest" />
+    <NavigationProperty Name="PoRequests1" Relationship="AssetManagementModel.FK_PoRequest_Employees1" FromRole="Employee" ToRole="PoRequest" />
   </EntityType>
   <EntityType Name="History">
     <Key>
@@ -131,12 +146,14 @@
     <Property Name="HistoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="CheckoutDate" Type="DateTime" Precision="0" />
     <Property Name="CheckinDate" Type="DateTime" Precision="0" />
-    <Property Name="StaffRecall" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="StaffAssign" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="AssetID" Type="Int32" Nullable="false" />
     <Property Name="EmployeeID" Type="Int32" />
+    <Property Name="StaffAssignID" Type="Int32" />
+    <Property Name="StaffRecallID" Type="Int32" />
     <NavigationProperty Name="Asset" Relationship="AssetManagementModel.FK_History_Assets" FromRole="History" ToRole="Asset" />
-    <NavigationProperty Name="Employee" Relationship="AssetManagementModel.FK_Histories_Employees" FromRole="History" ToRole="Employee" />
+    <NavigationProperty Name="Employee" Relationship="AssetManagementModel.FK_Histories_Employees3" FromRole="History" ToRole="Employee" />
+    <NavigationProperty Name="Employee1" Relationship="AssetManagementModel.FK_Histories_Employees4" FromRole="History" ToRole="Employee" />
+    <NavigationProperty Name="Employee2" Relationship="AssetManagementModel.FK_Histories_Employees5" FromRole="History" ToRole="Employee" />
   </EntityType>
   <EntityType Name="OrderDetail">
     <Key>
@@ -173,12 +190,13 @@
     <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="FinishedDate" Type="DateTime" Precision="0" />
-    <Property Name="StaffSubmit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="RequestStatusID" Type="Int32" Nullable="false" />
     <Property Name="SelectedQuoteID" Type="Int32" />
     <Property Name="OrderID" Type="Int32" />
     <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+    <Property Name="StaffSubmitID" Type="Int32" />
     <NavigationProperty Name="Employee" Relationship="AssetManagementModel.FK_PoRequest_Employees" FromRole="PoRequest" ToRole="Employee" />
+    <NavigationProperty Name="Employee1" Relationship="AssetManagementModel.FK_PoRequest_Employees1" FromRole="PoRequest" ToRole="Employee" />
     <NavigationProperty Name="Order" Relationship="AssetManagementModel.FK_PoRequest_Orders" FromRole="PoRequest" ToRole="Order" />
     <NavigationProperty Name="RequestStatus" Relationship="AssetManagementModel.FK_AssetRequest_RequestStatus" FromRole="PoRequest" ToRole="RequestStatus" />
     <NavigationProperty Name="Quotes" Relationship="AssetManagementModel.FK_Quotes_PoRequest" FromRole="PoRequest" ToRole="Quote" />
@@ -321,7 +339,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Histories_Employees">
+  <Association Name="FK_Histories_Employees3">
     <End Type="AssetManagementModel.Employee" Role="Employee" Multiplicity="0..1" />
     <End Type="AssetManagementModel.History" Role="History" Multiplicity="*" />
     <ReferentialConstraint>
@@ -330,6 +348,30 @@
       </Principal>
       <Dependent Role="History">
         <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Histories_Employees4">
+    <End Type="AssetManagementModel.Employee" Role="Employee" Multiplicity="0..1" />
+    <End Type="AssetManagementModel.History" Role="History" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="History">
+        <PropertyRef Name="StaffAssignID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Histories_Employees5">
+    <End Type="AssetManagementModel.Employee" Role="Employee" Multiplicity="0..1" />
+    <End Type="AssetManagementModel.History" Role="History" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="History">
+        <PropertyRef Name="StaffRecallID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -342,6 +384,18 @@
       </Principal>
       <Dependent Role="PoRequest">
         <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PoRequest_Employees1">
+    <End Type="AssetManagementModel.Employee" Role="Employee" Multiplicity="0..1" />
+    <End Type="AssetManagementModel.PoRequest" Role="PoRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="PoRequest">
+        <PropertyRef Name="StaffSubmitID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

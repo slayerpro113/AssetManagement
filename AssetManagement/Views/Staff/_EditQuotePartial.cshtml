@@ -9,6 +9,8 @@
     settings.Name = "editQuoteGrid";
     settings.CallbackRouteValues = new { Controller = "Staff", Action = "GetQuotesByPoRequestId", poRequestId = ViewBag.PoRequestId };
     settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Staff", Action = "EditQuote", poRequestId = ViewBag.PoRequestId };
+
+
     settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
     settings.Width = Unit.Percentage(85);
 
@@ -22,31 +24,31 @@
     settings.Styles.FocusedRow.BackColor = System.Drawing.ColorTranslator.FromHtml("#f2faff");
     settings.Styles.FocusedRow.ForeColor = System.Drawing.Color.Black;
 
+
     settings.Toolbars.Add(toolbar =>
     {
         toolbar.Enabled = true;
         toolbar.Position = GridToolbarPosition.Top;
         toolbar.ItemAlign = GridToolbarItemAlign.Right;
-        toolbar.Items.Add(GridViewToolbarCommand.Edit);
-
+        toolbar.Items.Add(GridViewToolbarCommand.Edit);                   
     });
 
     settings.KeyFieldName = "QuoteID";
 
-    //settings.Columns.Add(c =>
-    //{
-    //    c.Width = 70;
-    //    c.FieldName = "Image";
-    //    c.Caption = "Image";
-    //    c.SetDataItemTemplateContent(p =>
-    //    {
-    //        ViewContext.Writer.Write(
-    //            "<img src=\"/Image/Categories/" + HttpUtility.UrlDecode(p.Text) + "\" class='avatar' >"
-    //            );
-    //    });
-    //    c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
-    //    c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
-    //});
+    settings.Columns.Add(c =>
+    {
+        c.Width = 70;
+        c.FieldName = "Image";
+        c.Caption = "Image";
+        c.SetDataItemTemplateContent(p =>
+        {
+            ViewContext.Writer.Write(
+                "<img src=\"/Image/Categories/" + HttpUtility.UrlDecode(p.Text) + "\" class='avatar' >"
+                );
+        });
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+    });
 
     settings.Columns.Add(c =>
     {
@@ -64,6 +66,7 @@
             p.EditingSettings.UploadSettings.UploadValidationSettings.MaxFileSize = 4194304;
         });
         c.Width = 70;
+        c.Visible = false;
     });
 
 
@@ -135,6 +138,8 @@
         i.ColSpan = 3;
         i.HorizontalAlign = FormLayoutHorizontalAlign.Right;
     });
+
+
 
 }).Bind(Model).SetEditErrorText(ViewBag.EditError).GetHtml())
 

@@ -52,7 +52,7 @@ namespace AssetManagement.Controllers
         {
             ViewBag.AssetID = assetId;
             var histories = _historyService.GetHistoriesByAssetId(assetId);
-            return PartialView("_AssetHistorieslPartial", histories);
+            return PartialView("_HistorieslPartial", histories);
         }
         
         public ActionResult LoadDataCbb()
@@ -62,7 +62,7 @@ namespace AssetManagement.Controllers
         }
 
         [HttpPost]
-        public ActionResult AssignWithoutRequest(int employeeId, int assetId, string assignRemark, string staffAssign)
+        public ActionResult AssignWithoutRequest(int employeeId, int assetId, string assignRemark, int staffAssignId)
         {
             var employee = _employeeService.GetEntity(employeeId);
             var asset = _assetService.GetEntity(assetId);
@@ -74,7 +74,7 @@ namespace AssetManagement.Controllers
             }
             else
             {
-                var status = _historyService.HandleAssignWithoutRequest(employee, asset, staffAssign);
+                var status = _historyService.HandleAssignWithoutRequest(employee, asset, staffAssignId);
 
                 if (status == Enumerations.AddEntityStatus.Success)
                 {
@@ -88,9 +88,9 @@ namespace AssetManagement.Controllers
         }
 
         [HttpPost]
-        public ActionResult RecallAsset(int assetId, string recallRemark, string staffRecall)
+        public ActionResult RecallAsset(int assetId, string recallRemark, int staffRecallId)
         {
-            var status = _historyService.HandleRecall(assetId, staffRecall);
+            var status = _historyService.HandleRecall(assetId, staffRecallId);
 
             if (status == Enumerations.UpdateEntityStatus.Success)
             {

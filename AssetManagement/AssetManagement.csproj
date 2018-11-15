@@ -640,10 +640,10 @@
     <Content Include="Views\Product\Product.cshtml" />
     <Content Include="Views\Asset\AssetsInStock.cshtml" />
     <Content Include="Views\Asset\_AssetsInStockPartial.cshtml" />
-    <Content Include="Views\Asset\_AssetHistorieslPartial.cshtml" />
+    <Content Include="Views\Asset\_HistorieslPartial.cshtml" />
     <Content Include="Views\Product\_ProductPartial.cshtml" />
     <Content Include="Views\Asset\_ComboboxPartial.cshtml" />
-    <Content Include="Views\Asset\_AssetDetailPartial.cshtml" />
+    <Content Include="Views\Asset\_DepreciationPartial.cshtml" />
     <Content Include="Views\Asset\AssetsInUse.cshtml" />
     <Content Include="Views\Asset\_AssetsInUsePartial.cshtml" />
     <Content Include="Views\User\AssetsDetail.cshtml" />

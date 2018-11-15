@@ -18,7 +18,10 @@ namespace Data.Entities
         public Employee()
         {
             this.Histories = new HashSet<History>();
+            this.Histories1 = new HashSet<History>();
+            this.Histories2 = new HashSet<History>();
             this.PoRequests = new HashSet<PoRequest>();
+            this.PoRequests1 = new HashSet<PoRequest>();
         }
     
         public int EmployeeID { get; set; }
@@ -37,6 +40,12 @@ namespace Data.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<History> Histories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<History> Histories1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<History> Histories2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PoRequest> PoRequests { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PoRequest> PoRequests1 { get; set; }
     }
 }

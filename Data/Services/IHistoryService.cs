@@ -7,9 +7,9 @@ namespace Data.Services
     public interface IHistoryService : IBaseService<History>
     {
         IList<History> GetHistoriesByAssetId(int assetId);
-        Enumerations.AddEntityStatus HandleAssign(int poRequestId, Employee employee, Asset asset, string staffAssign);
-        Enumerations.AddEntityStatus HandleAssignWithoutRequest(Employee employee, Asset asset, string staffAssign);
-        Enumerations.UpdateEntityStatus HandleRecall(int assetId, string staffRecall);
+        Enumerations.AddEntityStatus HandleAssign(int poRequestId, Employee employee, Asset asset, int staffAssignId);
+        Enumerations.AddEntityStatus HandleAssignWithoutRequest(Employee employee, Asset asset, int staffAssignId);
+        Enumerations.UpdateEntityStatus HandleRecall(int assetId, int staffRecallId);
         IList<History> GetHistoriesByEmployeeId(int employeeId);
     }
 }

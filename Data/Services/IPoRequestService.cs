@@ -9,7 +9,7 @@ namespace Data.Services
         Enumerations.AddEntityStatus HandlePoRequest(int employeeId, string description, string device);
         IList<PoRequest> GetPoRequestsByEmployeeId(int employeeId);
         IList<PoRequest> GetPoRequestsFromUsers();
-        Enumerations.UpdateEntityStatus HandleSubmitRequest(int poRequestId, string staffSubmit);
+        Enumerations.UpdateEntityStatus HandleSubmitRequest(int poRequestId, int staffSubmitId);
         IList<PoRequest> GetPoRequestsFromStaff();
         bool IsExistQuoteId(int poRequestId, int quoteId);
         Enumerations.UpdateEntityStatus HandleSelectQuote(int poRequestId, int quoteId);

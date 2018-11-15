@@ -200,7 +200,7 @@
             var poRequest = Model.FirstOrDefault(_ => _.PoRequestID == poRequestId);
             var category = poRequest.CategoryName;
             var employeeId = poRequest.EmployeeID;
-            var employeeName = poRequest.EmployeeName;
+            var employeeName = poRequest.Employee.FullName;
 
             if (poRequest.RequestStatusID == 1)
             {
@@ -231,7 +231,7 @@
                             "<button type='button' class='open-popup btn btn-round btn-default' data-toggle='modal' data-target='#quotePopup'" +
                             "onclick =\"OpenQuotePopup(" + poRequestId + ")\" >Quote</button>"+
                             "&nbsp" +
-                            "<button type='button' class='btn btn-round btn-primary' onclick =\"SubmitRequest(" + poRequestId + ", '"+ userSession.FullName + "')\" >Submit</button>"
+                            "<button type='button' class='btn btn-round btn-primary' onclick =\"SubmitRequest(" + poRequestId + ", '"+ userSession.EmployeeID + "')\" >Submit</button>"
                             );
                     }
                 }

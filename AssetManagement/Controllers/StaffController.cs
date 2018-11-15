@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using DevExpress.Web.Mvc;
-using System.Web;
-using Data.Services;
-using System.Web.Mvc;
-using AssetManagement.Models;
+﻿using AssetManagement.Models;
 using AutoMapper;
-using Data.DTO;
 using Data.Entities;
+using Data.Services;
 using Data.Utilities;
 using Data.Utilities.Enumeration;
-using DevExpress.Web.Internal;
+using DevExpress.Web.Mvc;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Web;
+using System.Web.Mvc;
 
 namespace AssetManagement.Controllers
 {
@@ -60,12 +57,12 @@ namespace AssetManagement.Controllers
         }
 
         [HttpPost]
-        public ActionResult AssignAsset(int poRequestId, int employeeId, int assetId, string staffAssign)
+        public ActionResult AssignAsset(int poRequestId, int employeeId, int assetId, int staffAssignId)
         {
             var employee = _employeeService.GetEntity(employeeId);
             var asset = _assetService.GetEntity(assetId);
 
-            var status = _historyService.HandleAssign(poRequestId, employee, asset , staffAssign);
+            var status = _historyService.HandleAssign(poRequestId, employee, asset, staffAssignId);
 
             if (status == Enumerations.AddEntityStatus.Success)
             {
@@ -111,9 +108,9 @@ namespace AssetManagement.Controllers
         }
 
         [HttpPost]
-        public ActionResult SubmitRequest(int poRequestId, string staffSubmit)
+        public ActionResult SubmitRequest(int poRequestId, int staffSubmitId)
         {
-            var status = _poRequestService.HandleSubmitRequest(poRequestId, staffSubmit);
+            var status = _poRequestService.HandleSubmitRequest(poRequestId, staffSubmitId);
 
             if (status == Enumerations.UpdateEntityStatus.Success)
             {

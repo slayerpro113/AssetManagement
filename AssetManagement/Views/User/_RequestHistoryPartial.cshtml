@@ -27,7 +27,7 @@
             int poRequestId = (int) DataBinder.Eval(p.DataItem, "PoRequestID");
             var poRequest = Model.FirstOrDefault(_ => _.PoRequestID == poRequestId);
             ViewContext.Writer.Write(poRequest.CreatedDate.ToShortDateString());
-         
+
         });
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
@@ -103,9 +103,10 @@
 
     settings.Columns.Add(c =>
     {
+        c.Caption = "Assigned By";
         c.SetDataItemTemplateContent(p =>
         {
-            int poRequestId = (int) DataBinder.Eval(p.DataItem, "PoRequestID");
+            int poRequestId = (int)DataBinder.Eval(p.DataItem, "PoRequestID");
             var poRequest = Model.FirstOrDefault(_ => _.PoRequestID == poRequestId);
             if (poRequest.RequestStatusID == 5)
             {
@@ -116,10 +117,10 @@
                     );
             }
         });
-        c.Caption = "Assigned By";
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
         c.Width = 200;
+
     });
 
     settings.Columns.Add(c =>
@@ -133,7 +134,7 @@
             {
                 ViewContext.Writer.Write(
                     "<img src=\"/Image/Categories/" + HttpUtility.UrlDecode(@poRequest.AssetImage) + "\" class='avatar' alt='Avatar'>"+
-                    "<a style='text-decoration:none'>" + poRequest.AssetName + "</a>"
+                    "&nbsp&nbsp<a style='text-decoration:none'>" + poRequest.AssetName + "</a>"
                     );
             }
         });

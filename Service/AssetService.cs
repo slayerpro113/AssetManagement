@@ -6,6 +6,7 @@ using Data.Utilities.Enumeration;
 using Repository;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Data.DTO;
 
@@ -68,7 +69,7 @@ namespace Service
                 asset = history.Asset;
                 asset.Product = history.Asset.Product;
                 asset.CheckinDate = history.CheckinDate.Value.ToShortDateString();
-                asset.StaffAssign = history.StaffAssign;
+                asset.StaffAssign = history.Employee1.FullName;
                 assets.Add(asset);
             }
             return assets;

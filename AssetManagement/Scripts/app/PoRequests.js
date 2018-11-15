@@ -1,5 +1,7 @@
 ﻿
 
+//-----------------------Asign
+
 var categoryName;
 function OpenAssignPopup(poRequestId, employeeId, category, employeeName) {
     $('#poRequestId').val(poRequestId);
@@ -26,7 +28,7 @@ function doAssignAsset() {
     else {
         $.ajax({
             type: 'Post',
-            url: "/Staff/AssignAsset?poRequestId=" + $("#poRequestId").val() + "&employeeId=" + $("#employeeId").val() + "&assetId=" + assetId + "&StaffAssign=" + $("#StaffAssign").val(),
+            url: "/Staff/AssignAsset?poRequestId=" + $("#poRequestId").val() + "&employeeId=" + $("#employeeId").val() + "&assetId=" + assetId + "&staffAssignId=" + $("#staffAssignId").val(),
             dataType: 'json',
             success: function (data) {
                 if (data.status === "Success") {
@@ -139,7 +141,7 @@ function timeout() {
 
 
 //---------------------- Submit request
-function SubmitRequest(poRequestId, staffSubmit) {
+function SubmitRequest(poRequestId, staffSubmitId) {
     swal({
         title: "Are you sure?",
         icon: "warning",
@@ -149,7 +151,7 @@ function SubmitRequest(poRequestId, staffSubmit) {
         if (isConfirm) {
             $.ajax({
                 type: 'Post',
-                url: "/Staff/SubmitRequest?poRequestId=" + poRequestId + "&staffSubmit=" + staffSubmit,
+                url: "/Staff/SubmitRequest?poRequestId=" + poRequestId + "&staffSubmitId=" + staffSubmitId,
                 dataType: 'json',
                 success: function(data) {
                     if (data.status === "Success") {

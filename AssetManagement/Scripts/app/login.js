@@ -30,32 +30,40 @@ $(document).ready(function () {
 });
 
 function doLogin() {
-    $.ajax({
-        type: 'Post',
-        url: "Login/Login?userName=" + $("#userName").val() + "&password=" + $("#password").val(),
-        dataType: 'json',
-        success: function (data) {
+    var userName = $("#userName").val();
+    var password = $("#password").val();
 
-            if (data.status === "WrongUserName") {
-                toastr["error"]("Username is in correct", "Error:");
+    if (userName.length === 0) {
+        toastr["warning"]("Please Enter Your Username", "Warning:");
+    } else if (password.length === 0) {
+        toastr["warning"]("Please Enter Your Password", "Warning:");
+    } else {
+        $.ajax({
+            type: 'Post',
+            url: "Login/Login?userName=" + $("#userName").val() + "&password=" + $("#password").val(),
+            dataType: 'json',
+            success: function (data) {
 
-            }
-            else if (data.status === "WrongPassword") {
-                toastr["error"]("Password is in correct", "Error:");
-            }
-            else if (data.status === "Succsess") {
-                if (data.roleName === "User") {
-                    location.href = "/user/GetAssetsDetail";
-                } else if (data.roleName === "Staff") {
-                    location.href = "/staff/GetPoRequestsFromUsers";
+                if (data.status === "WrongUserName") {
+                    toastr["error"]("Username is in correct", "Error:");
                 }
-                else if (data.roleName === "Manager") {
-                    location.href = "/manager/GetPoRequestsFromStaff";
+                else if (data.status === "WrongPassword") {
+                    toastr["error"]("Password is in correct", "Error:");
+                }
+                else if (data.status === "Succsess") {
+                    if (data.roleName === "User") {
+                        location.href = "/user/GetAssetsDetail";
+                    } else if (data.roleName === "Staff") {
+                        location.href = "/staff/GetPoRequestsFromUsers";
+                    }
+                    else if (data.roleName === "Manager") {
+                        location.href = "/manager/GetPoRequestsFromStaff";
+                    }
+                }
+                else {
+                    toastr["error"]("Data input is in correct", "Error:");
                 }
             }
-            else {
-                toastr["error"]("Data input is in correct", "Error:");
-            }
-        }
-    });
+        });
+    }
 }

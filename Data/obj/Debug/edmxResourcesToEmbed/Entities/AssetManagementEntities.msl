@@ -51,10 +51,10 @@
     <EntitySetMapping Name="Histories">
       <EntityTypeMapping TypeName="AssetManagementModel.History">
         <MappingFragment StoreEntitySet="Histories">
+          <ScalarProperty Name="StaffRecallID" ColumnName="StaffRecallID" />
+          <ScalarProperty Name="StaffAssignID" ColumnName="StaffAssignID" />
           <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
           <ScalarProperty Name="AssetID" ColumnName="AssetID" />
-          <ScalarProperty Name="StaffAssign" ColumnName="StaffAssign" />
-          <ScalarProperty Name="StaffRecall" ColumnName="StaffRecall" />
           <ScalarProperty Name="CheckinDate" ColumnName="CheckinDate" />
           <ScalarProperty Name="CheckoutDate" ColumnName="CheckoutDate" />
           <ScalarProperty Name="HistoryID" ColumnName="HistoryID" />
@@ -86,11 +86,11 @@
     <EntitySetMapping Name="PoRequests">
       <EntityTypeMapping TypeName="AssetManagementModel.PoRequest">
         <MappingFragment StoreEntitySet="PoRequest">
+          <ScalarProperty Name="StaffSubmitID" ColumnName="StaffSubmitID" />
           <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
           <ScalarProperty Name="OrderID" ColumnName="OrderID" />
           <ScalarProperty Name="SelectedQuoteID" ColumnName="SelectedQuoteID" />
           <ScalarProperty Name="RequestStatusID" ColumnName="RequestStatusID" />
-          <ScalarProperty Name="StaffSubmit" ColumnName="StaffSubmit" />
           <ScalarProperty Name="FinishedDate" ColumnName="FinishedDate" />
           <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
           <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />

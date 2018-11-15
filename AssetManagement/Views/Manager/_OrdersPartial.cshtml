@@ -41,6 +41,15 @@
 
     settings.Columns.Add(c =>
     {
+        c.FieldName = "OrderID";
+        c.Caption = "Order ID";
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.Width = 50;
+    });
+
+    settings.Columns.Add(c =>
+    {
         c.FieldName = "PurchaseDate";
         c.Caption = "Purchase Date";
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;

@@ -29,11 +29,10 @@
     settings.CommandColumn.ShowClearFilterButton = true;
 
     settings.KeyFieldName = "PoRequestID";
-    settings.Columns.Add("CategoryName").Visible = false;
+
     settings.Columns.Add(c =>
     {
         c.Caption = "Requested By";
-        c.FieldName = "EmployeeName";
         c.SetDataItemTemplateContent(p =>
         {
             int poRequestId = (int)DataBinder.Eval(p.DataItem, "PoRequestID");
@@ -53,11 +52,20 @@
 
     settings.Columns.Add(c =>
     {
-        c.FieldName = "StaffSubmit";
         c.Caption = "Submitted By";
-        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.SetDataItemTemplateContent(p =>
+        {
+            int poRequestId = (int)DataBinder.Eval(p.DataItem, "PoRequestID");
+            var poRequest = Model.FirstOrDefault(_ => _.PoRequestID == poRequestId);
+
+            ViewContext.Writer.Write(
+                "<img src=\"/Image/" + HttpUtility.UrlDecode(poRequest.Employee1.Image) + "\" class='avatar' alt='Avatar'>     " +
+
+                "&nbsp&nbsp<a style='text-decoration:none'>" + poRequest.Employee1.FullName + "</a>" 
+                );
+        });
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
-        c.Width = 180;
+        c.Width = 300;
     });
 
     settings.Columns.Add(c =>

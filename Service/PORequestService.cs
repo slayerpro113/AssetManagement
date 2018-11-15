@@ -56,7 +56,7 @@ namespace Service
                     var history = _historyRepository.GetStaffAssignAndAssetImage(poRequest);
                     if (history != null)
                     {
-                        poRequest.StaffAssign = history.StaffAssign;
+                        poRequest.StaffAssign = history.Employee1.FullName;
                         poRequest.AssetImage = history.Asset.Product.Image;
                         poRequest.AssetName = history.Asset.Product.ProductName;
                     }
@@ -78,13 +78,13 @@ namespace Service
             return poRequests;
         }
 
-        public Enumerations.UpdateEntityStatus HandleSubmitRequest(int poRequestId, string staffSubmit)
+        public Enumerations.UpdateEntityStatus HandleSubmitRequest(int poRequestId, int staffSubmitId)
         {
             try
             {
                 var poRequest = GetEntity(poRequestId);
                 poRequest.RequestStatusID = 2;
-                poRequest.StaffSubmit = staffSubmit;
+                poRequest.StaffSubmitID = staffSubmitId;
 
                 UpdateEntity(poRequest);
                 return Enumerations.UpdateEntityStatus.Success;

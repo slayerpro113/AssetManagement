@@ -192,7 +192,7 @@
     settings.SetDetailRowTemplateContent(c =>
     {
         ViewContext.Writer.Write(
-            "<h4>Depreciation Detail<h5>"+
+            "<h4 class='title'><b>Depreciation Detail<b></h4>" +
             "<div class='depreciation'>"
             );
 
@@ -200,14 +200,14 @@
         var asset = Model.FirstOrDefault(_ => _.AssetID == assetId);
         var assets = new List<Asset>();
         assets.Add(asset);
-        Html.RenderPartial("_AssetDetailPartial",  assets);
+        Html.RenderPartial("_DepreciationPartial",  assets);
 
         ViewContext.Writer.Write(
             "</div>"+
             "<br>"+
-            "<h4>History<h5>"+
+            "<h4 class='title'><b>Histories Detail</b></h4>" +
             "<div class='history'>"
-            );
+                );
 
         Html.RenderAction("ShowHistories",  new { assetId = DataBinder.Eval(c.DataItem, "AssetID") });
         ViewContext.Writer.Write(

@@ -1,4 +1,8 @@
-﻿function OpenAssignPopup(assetId, barcode, assetName) {
+﻿
+
+//---------------------------Assign
+
+function OpenAssignPopup(assetId, barcode, assetName) {
     $('#assetId').val(assetId);
     $('#barcode').val(barcode);
     $('#assetName').val(assetName);
@@ -20,7 +24,7 @@ function doAssignAsset() {
     else {
         $.ajax({
             type: 'Post',
-            url: "/Asset/AssignWithoutRequest?assetId=" + $("#assetId").val() + "&employeeId=" + employeeId + "&staffAssign=" + $("#staffAssign").val(),
+            url: "/Asset/AssignWithoutRequest?assetId=" + $("#assetId").val() + "&employeeId=" + employeeId + "&staffAssignId=" + $("#staffAssignId").val(),
             dataType: 'json',
             success: function (data) {
                 if (data.status === "Success") {

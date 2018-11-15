@@ -29,7 +29,7 @@ namespace Service
             return histories;
         }
 
-        public Enumerations.AddEntityStatus HandleAssign(int poRequestId, Employee employee, Asset asset, string staffAssign)
+        public Enumerations.AddEntityStatus HandleAssign(int poRequestId, Employee employee, Asset asset, int staffAssignId)
         {
             var poRequest = _poRequestRepository.GetEntity(poRequestId);
             try
@@ -47,7 +47,7 @@ namespace Service
                 history.Asset = asset;
                 history.Asset.AssetStatusID = 2;
                 history.CheckinDate = DateTime.Now.Date;
-                history.StaffAssign = staffAssign;
+                history.StaffAssignID = staffAssignId;
 
                 AddEntity(history);
                 _unitOfWork.SaveChanges();
@@ -64,7 +64,7 @@ namespace Service
             return Enumerations.AddEntityStatus.Failed;
         }
 
-        public Enumerations.AddEntityStatus HandleAssignWithoutRequest(Employee employee, Asset asset, string staffAssign)
+        public Enumerations.AddEntityStatus HandleAssignWithoutRequest(Employee employee, Asset asset, int staffAssignId)
         {
             try
             {
@@ -84,7 +84,7 @@ namespace Service
                 history.Asset = asset;
                 history.Asset.AssetStatusID = 2;
                 history.CheckinDate = DateTime.Now.Date;
-                history.StaffAssign = staffAssign;
+                history.StaffAssignID = staffAssignId;
 
                 AddEntity(history);
 
@@ -96,7 +96,7 @@ namespace Service
             }
         }
 
-        public Enumerations.UpdateEntityStatus HandleRecall(int assetId, string staffRecall)
+        public Enumerations.UpdateEntityStatus HandleRecall(int assetId, int staffRecallId)
         {
             var history = _historyRepository.GetHistoryByAssetId(assetId);
 
@@ -104,7 +104,7 @@ namespace Service
             {
                 history.Asset.AssetStatusID = 1;
                 history.CheckoutDate = DateTime.Now.Date;
-                history.StaffRecall = staffRecall;
+                history.StaffRecallID = staffRecallId;
 
                 UpdateEntity(history);
 

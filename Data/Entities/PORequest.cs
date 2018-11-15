@@ -25,13 +25,14 @@ namespace Data.Entities
         public string CategoryName { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public Nullable<System.DateTime> FinishedDate { get; set; }
-        public string StaffSubmit { get; set; }
         public int RequestStatusID { get; set; }
         public Nullable<int> SelectedQuoteID { get; set; }
         public Nullable<int> OrderID { get; set; }
         public int EmployeeID { get; set; }
+        public Nullable<int> StaffSubmitID { get; set; }
     
         public virtual Employee Employee { get; set; }
+        public virtual Employee Employee1 { get; set; }
         public virtual Order Order { get; set; }
         public virtual RequestStatus RequestStatus { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
