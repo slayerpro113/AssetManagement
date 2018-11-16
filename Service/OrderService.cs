@@ -30,7 +30,7 @@ namespace Service
             _unitOfWork = unitOfWork;
         }
 
-        public Enumerations.AddEntityStatus HandleCreateOrder(string poRequestIdString)
+        public Enumerations.AddEntityStatus HandleCreateOrder(string poRequestIdString, int staffCreateId)
         {
             try
             {
@@ -148,6 +148,7 @@ namespace Service
                 }
 
                 order.PoRequests = poRequests;
+                order.EmployeeID = staffCreateId;
                 AddEntity(order);
 
                 return Enumerations.AddEntityStatus.Success;
@@ -160,7 +161,14 @@ namespace Service
 
         public IList<Order> GetOrders()
         {
-            return GetAll().OrderByDescending(_ => _.OrderID).ToList();
+            var orders = GetAll();
+            foreach (var order in orders)
+            {
+                order.Total = string.Format("{0:0,0 VND}", order.OrderTotal);
+                order.NumberOfRequests = order.PoRequests.Count;
+            }
+
+            return orders;
         }
 
         public IList<Quote> GetQuotesByPoRequests(IList<PoRequest> poRequests)

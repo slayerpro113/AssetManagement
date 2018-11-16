@@ -134,10 +134,10 @@ namespace Service
 
             var monthsLeft = CalculateTimeLeft(DateTime.Now, asset.EndTimeDepreciation.Value);
 
-            asset.MonthlyAmount = monthlyAmount;
-            asset.DepreciatedAmount = depreciatedAmount;
-            asset.AmountLeft = amountLeft;
-            asset.PercentDepreciation = percentDepreciation;
+            asset.MonthlyAmount = string.Format("{0:0,0 VND}", monthlyAmount);
+            asset.DepreciatedAmount = string.Format("{0:0,0 VND}", depreciatedAmount); 
+            asset.AmountLeft = string.Format("{0:0,0 VND}", amountLeft); 
+            asset.PercentDepreciation = Math.Round((double)percentDepreciation, 2);
             asset.MonthsLeft = monthsLeft;
 
             return asset;

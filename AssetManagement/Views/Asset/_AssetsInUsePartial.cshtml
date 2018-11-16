@@ -162,10 +162,10 @@
             ViewContext.Writer.Write(
                 "<div class='project_progress'>"+
                 "<div class='progress progress_sm'>" +
-                "<div class='progress-bar bg-green' role='progressbar'  style='width:"+Math.Round((double)asset.PercentDepreciation, 2)+"%' ></div></div>" +
+                "<div class='progress-bar bg-green' role='progressbar' style='width:"+ asset.PercentDepreciation +"%' ></div></div>" +
                 "</div>" +
                 "</div>"+
-                "<small> "+ Math.Round((double)asset.PercentDepreciation, 2) + " % Complete </small>"
+                "<small> "+ asset.PercentDepreciation + " % Complete </small>"
                 );
         });
         c.Settings.AllowAutoFilter = DefaultBoolean.False;
@@ -200,7 +200,7 @@
         var asset = Model.FirstOrDefault(_ => _.AssetID == assetId);
         var assets = new List<Asset>();
         assets.Add(asset);
-        Html.RenderPartial("_DepreciationPartial",  assets);
+        Html.RenderPartial("_DepreciationPartial", assets);
 
         ViewContext.Writer.Write(
             "</div>"+

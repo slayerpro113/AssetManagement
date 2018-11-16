@@ -1,14 +1,34 @@
-﻿#asset-name {
-    color: white;
+﻿.title {
+    text-align: center;
+    font-size: 28px;
+    font-family: Montserrat-Black;
+    color: #1AAB9C;
+    line-height: 1.2;
+}
+
+.x_title {
+    border-left: 4px solid #1AAB9C;
+    border-right: 4px solid #1AAB9C;
+    background: #f4f4f4 !important;
+}
+
+.x_panel {
+    margin-top: 25px;
+}
+
+#asset-name {
+    color: #1AAB9C;
     font-size: medium;
     font-family: Montserrat-Regular;
+    background-color: #f4f4f4;
+    font-style: oblique;
+    font-weight: bold;
 }
+
 .asset-detail {
     font-size: large;
 }
-.x_title {
-    background-color: #476482 !important;
-}
+
 h3 {
     color: #fff;
     text-align: center !important;

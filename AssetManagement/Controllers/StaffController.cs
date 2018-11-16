@@ -123,9 +123,9 @@ namespace AssetManagement.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateOrder(string poRequestIdString)
+        public ActionResult CreateOrder(string poRequestIdString, int staffCreateId)
         {
-            var status = _orderService.HandleCreateOrder(poRequestIdString);
+            var status = _orderService.HandleCreateOrder(poRequestIdString, staffCreateId);
 
             if (status == Enumerations.AddEntityStatus.Success)
             {

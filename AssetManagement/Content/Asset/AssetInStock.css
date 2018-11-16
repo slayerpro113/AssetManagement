@@ -1,8 +1,20 @@
-﻿
-    h2 {
-     text-align: center;
-     font-size: x-large;
- }
+﻿.title {
+    text-align: center;
+    font-size: 28px;
+    font-family: Montserrat-Black;
+    color: #1AAB9C;
+    line-height: 1.2;
+}
+
+.x_title {
+    border-left: 4px solid #1AAB9C;
+    border-right: 4px solid #1AAB9C;
+    background: #f4f4f4 !important;
+}
+
+.x_panel {
+    margin-top: 25px;
+}
 
 .x_content,h4{
     display: flex;

@@ -15,12 +15,12 @@ namespace Data.Entities
         public string CheckinDate { get; set; }
         public DateTime PurchaseDate => OrderDetail.Order.PurchaseDate;
 
-        public Nullable<decimal> MonthlyAmount { get; set; }
-        public Nullable<decimal> DepreciatedAmount { get; set; }
+        public String MonthlyAmount { get; set; }
+        public String DepreciatedAmount { get; set; }
 
-        public Nullable<decimal> AmountLeft { get; set; }
-        public Nullable<decimal> PercentDepreciation { get; set; }
-        public Nullable<int> MonthsLeft { get; set; }
+        public String AmountLeft { get; set; }
+        public double PercentDepreciation { get; set; }
+        public int MonthsLeft { get; set; }
 
 
         public int EmployeeId { get; set; }

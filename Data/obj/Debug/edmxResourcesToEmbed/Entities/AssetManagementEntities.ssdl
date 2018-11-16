@@ -74,6 +74,7 @@
     <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="OrderTotal" Type="decimal" Precision="18" Scale="0" Nullable="false" />
     <Property Name="PurchaseDate" Type="date" Nullable="false" />
+    <Property Name="EmployeeID" Type="int" />
   </EntityType>
   <EntityType Name="PoRequest">
     <Key>
@@ -293,6 +294,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Orders_Employees">
+    <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_PoRequest_Employees">
     <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
     <End Role="PoRequest" Type="Self.PoRequest" Multiplicity="*" />
@@ -415,6 +428,10 @@
     <AssociationSet Name="FK_OrderDetails_Vendors" Association="Self.FK_OrderDetails_Vendors">
       <End Role="Vendors" EntitySet="Vendors" />
       <End Role="OrderDetails" EntitySet="OrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Employees" Association="Self.FK_Orders_Employees">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="Orders" EntitySet="Orders" />
     </AssociationSet>
     <AssociationSet Name="FK_PoRequest_Employees" Association="Self.FK_PoRequest_Employees">
       <End Role="Employees" EntitySet="Employees" />

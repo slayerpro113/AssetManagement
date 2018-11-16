@@ -79,6 +79,7 @@
           <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="OrderTotal" Type="decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="PurchaseDate" Type="date" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" />
         </EntityType>
         <EntityType Name="PoRequest">
           <Key>
@@ -298,6 +299,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Orders_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PoRequest_Employees">
           <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
           <End Role="PoRequest" Type="Self.PoRequest" Multiplicity="*" />
@@ -421,6 +434,10 @@
             <End Role="Vendors" EntitySet="Vendors" />
             <End Role="OrderDetails" EntitySet="OrderDetails" />
           </AssociationSet>
+          <AssociationSet Name="FK_Orders_Employees" Association="Self.FK_Orders_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
           <AssociationSet Name="FK_PoRequest_Employees" Association="Self.FK_PoRequest_Employees">
             <End Role="Employees" EntitySet="Employees" />
             <End Role="PoRequest" EntitySet="PoRequest" />
@@ -496,6 +513,10 @@
           <AssociationSet Name="FK_Histories_Employees5" Association="AssetManagementModel.FK_Histories_Employees5">
             <End Role="Employee" EntitySet="Employees" />
             <End Role="History" EntitySet="Histories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Employees" Association="AssetManagementModel.FK_Orders_Employees">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
           <AssociationSet Name="FK_PoRequest_Employees" Association="AssetManagementModel.FK_PoRequest_Employees">
             <End Role="Employee" EntitySet="Employees" />
@@ -582,6 +603,7 @@
           <NavigationProperty Name="Histories" Relationship="AssetManagementModel.FK_Histories_Employees3" FromRole="Employee" ToRole="History" />
           <NavigationProperty Name="Histories1" Relationship="AssetManagementModel.FK_Histories_Employees4" FromRole="Employee" ToRole="History" />
           <NavigationProperty Name="Histories2" Relationship="AssetManagementModel.FK_Histories_Employees5" FromRole="Employee" ToRole="History" />
+          <NavigationProperty Name="Orders" Relationship="AssetManagementModel.FK_Orders_Employees" FromRole="Employee" ToRole="Order" />
           <NavigationProperty Name="PoRequests" Relationship="AssetManagementModel.FK_PoRequest_Employees" FromRole="Employee" ToRole="PoRequest" />
           <NavigationProperty Name="PoRequests1" Relationship="AssetManagementModel.FK_PoRequest_Employees1" FromRole="Employee" ToRole="PoRequest" />
         </EntityType>
@@ -624,6 +646,8 @@
           <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="OrderTotal" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
           <Property Name="PurchaseDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="EmployeeID" Type="Int32" />
+          <NavigationProperty Name="Employee" Relationship="AssetManagementModel.FK_Orders_Employees" FromRole="Order" ToRole="Employee" />
           <NavigationProperty Name="OrderDetails" Relationship="AssetManagementModel.FK_OrderDetails_Orders" FromRole="Order" ToRole="OrderDetail" />
           <NavigationProperty Name="PoRequests" Relationship="AssetManagementModel.FK_PoRequest_Orders" FromRole="Order" ToRole="PoRequest" />
         </EntityType>
@@ -821,6 +845,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Orders_Employees">
+          <End Type="AssetManagementModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="AssetManagementModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PoRequest_Employees">
           <End Type="AssetManagementModel.Employee" Role="Employee" Multiplicity="1" />
           <End Type="AssetManagementModel.PoRequest" Role="PoRequest" Multiplicity="*" />
@@ -999,6 +1035,7 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="AssetManagementModel.Order">
               <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
                 <ScalarProperty Name="PurchaseDate" ColumnName="PurchaseDate" />
                 <ScalarProperty Name="OrderTotal" ColumnName="OrderTotal" />
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />

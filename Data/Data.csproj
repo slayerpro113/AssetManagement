@@ -77,6 +77,7 @@
     <Compile Include="DTO\Asset.cs" />
     <Compile Include="DTO\HighChart.cs" />
     <Compile Include="DTO\History.cs" />
+    <Compile Include="DTO\Order.cs" />
     <Compile Include="DTO\OrderDetail.cs" />
     <Compile Include="DTO\PoRequest.cs" />
     <Compile Include="DTO\Product.cs" />

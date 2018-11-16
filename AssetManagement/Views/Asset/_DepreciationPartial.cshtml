@@ -5,18 +5,12 @@
 {
     settings.Name = "depreciationGrid";
     settings.SettingsDetail.MasterGridName = "grid";
-    settings.CallbackRouteValues = new { Controller = "Asset", Action = "ShowHistories", assetId = ViewBag.AssetID };
     settings.Width = Unit.Percentage(80);
     settings.Settings.ShowGroupPanel = false;
-
+    settings.SettingsBehavior.AllowSort = false;
     //Custom css
     settings.Styles.Header.BackColor = System.Drawing.ColorTranslator.FromHtml("#f4f4f4");
     settings.Styles.Header.ForeColor = System.Drawing.ColorTranslator.FromHtml("#1AAB9C");
-    // Hover
-    //    settings.SettingsBehavior.EnableRowHotTrack = true;
-    //    settings.Styles.RowHotTrack.BackColor = System.Drawing.ColorTranslator.FromHtml("#fdfff9");
-    //    settings.Styles.RowHotTrack.Font.Bold = true;
-
 
     settings.Columns.Add(c =>
     {
@@ -31,9 +25,10 @@
     {
         c.FieldName = "MonthlyAmount";
         c.Caption = "Monthly Amount";
+        
+
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
-        c.PropertiesEdit.DisplayFormatString = "c2";
     });
 
     settings.Columns.Add(c =>

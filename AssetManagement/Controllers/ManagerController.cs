@@ -71,7 +71,7 @@ namespace AssetManagement.Controllers
 
         public ActionResult GetOrdersPartial()
         {
-            var orders = _orderService.GetAll();
+            var orders = _orderService.GetOrders();
             return PartialView("_OrdersPartial", orders);
         }
 

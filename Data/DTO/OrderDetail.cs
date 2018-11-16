@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Data.Entities
 {
@@ -11,6 +7,8 @@ namespace Data.Entities
         public string ProductName => Quote.ProductName;
         public string ProductImage => Quote.Image;
         public string VendorName => Vendor.Name;
+        public string PriceString { get; set; }
+        public string SubtotalString { get; set; }
 
 
         public static IList<Vendor> GetVendors()
@@ -21,7 +19,6 @@ namespace Data.Entities
                 new Vendor { Name = "Phi Long", VendorID = 2  },
                 new Vendor { Name = "Phong Vu", VendorID = 3 },
                 new Vendor { Name = "Xuan Vinh", VendorID = 4 }
-               
             };
 
             return vendors;

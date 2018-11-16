@@ -20,6 +20,7 @@ namespace Data.Entities
             this.Histories = new HashSet<History>();
             this.Histories1 = new HashSet<History>();
             this.Histories2 = new HashSet<History>();
+            this.Orders = new HashSet<Order>();
             this.PoRequests = new HashSet<PoRequest>();
             this.PoRequests1 = new HashSet<PoRequest>();
         }
@@ -43,6 +44,8 @@ namespace Data.Entities
         public virtual ICollection<History> Histories1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<History> Histories2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order> Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PoRequest> PoRequests { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -22,7 +22,7 @@
 
     <!-- Custom Theme Style -->
     <link href="/build/css/custom.min.css" rel="stylesheet">
-
+    <link href="~/Content/Layout/layout.css" rel="stylesheet" />
 </head>
 
 <body class="nav-md">
@@ -36,16 +36,42 @@
 
                     <div class="clearfix"></div>
 
-                    <!-- menu profile quick info -->
-                    <div class="profile clearfix">
-                        <div class="profile_pic">
-                            <img src="/Image/@userSession.Image" class="img-circle profile_img">
-                        </div>
-                        <div class="profile_info">
-                            <span>Welcome,</span>
-                            <h2>@userSession.FullName</h2>
-                        </div>
+                    <div class="flex">
+                            <div class="profile clearfix">
+                                <p class="centered">
+                                    <img id="image-profile" src="/Image/@userSession.Image">
+                                    <span class="online"></span>
+                                </p>
+                            </div>
+                            <div class="profile-name">
+                                <span>@userSession.FullName</span>
+                            </div>
                     </div>
+
+                    <!-- profile custom -->
+                    @*<div class="profile clearfix">
+                            <p class="centered">
+                                <img id="image-profile" src="/Image/@userSession.Image">
+                                <span class="online"></span>
+                            </p>
+                        </div>
+                        <div class="profile-name">
+                            <span>@userSession.FullName</span>
+                        </div>
+
+                        <div class="clearfix"></div>*@
+                    <!-- End profile custom -->
+                    <!-- menu profile quick info -->
+                    @*<div class="profile clearfix">
+                            <div class="profile_pic">
+                                <img src="/Image/@userSession.Image" class="img-circle profile_img">
+                            </div>
+
+                            <div class="profile_info">
+                                <span>Welcome,</span>
+                                <h2>@userSession.FullName</h2>
+                            </div>
+                        </div>*@
                     <!-- /menu profile quick info -->
                     <br />
                     <!-- sidebar menu -->
@@ -147,6 +173,7 @@
             <!-- /footer content -->
         </div>
     </div>
+
 
     <!-- jQuery -->
     <script src="/vendors/jquery/dist/jquery.min.js"></script>

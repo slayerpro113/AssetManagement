@@ -1,0 +1,35 @@
+﻿ .profile {
+     position: relative;
+     display: flex;
+     justify-content: center;
+ }
+
+ .online {
+     position: absolute;
+     top: 60px;
+     right: 80px;
+     width: 15px;
+     height: 18px;
+     padding: 5px 10px;
+     border-radius: 50%;
+     background-color: #42f477;
+ }
+
+ .centered {
+     text-align: center;
+ }
+
+ #image-profile {
+     height: 80px;
+     width: 80px;
+     border-radius: 50px;
+ }
+
+ .profile-name {
+     display: flex;
+     justify-content: center;
+     color: #fff;
+     font-size: 20px;
+     font-family: Montserrat-Black;
+     line-height: 1.2;
+ }

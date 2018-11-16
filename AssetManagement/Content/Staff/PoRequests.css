@@ -1,16 +1,24 @@
-﻿
+﻿.title {
+    text-align: center;
+    font-size: 28px;
+    font-family: Montserrat-Black;
+    color: #1AAB9C;
+    line-height: 1.2;
+}
+
+.x_title {
+    border-left: 4px solid #1AAB9C;
+    border-right: 4px solid #1AAB9C;
+    background: #f4f4f4 !important;
+}
+
+.x_panel {
+    margin-top: 25px;
+}
+
 #count {
     font-size: small;
 }
-.x_title {
-    margin-top: 0;
-}
-
-h2 {
-    text-align: center;
-    font-size: x-large;
-}
-
 
 .required {
     color: red;

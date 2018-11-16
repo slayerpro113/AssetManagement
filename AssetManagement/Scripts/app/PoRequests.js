@@ -1,6 +1,6 @@
 ﻿
 
-//-----------------------Asign
+//-----------------------Assign
 
 var categoryName;
 function OpenAssignPopup(poRequestId, employeeId, category, employeeName) {
@@ -199,7 +199,7 @@ function createOrder() {
             if (isConfirm) {
                 $.ajax({
                     type: 'Post',
-                    url: "/Staff/CreateOrder?poRequestIdString=" + poRequestIdString,
+                    url: "/Staff/CreateOrder?poRequestIdString=" + poRequestIdString + "&staffCreateId=" + $('#staffCreateId').val() ,
                     dataType: 'json',
                     success: function (data) {
                         if (data.status === "Success") {

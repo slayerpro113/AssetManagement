@@ -10,7 +10,7 @@ namespace Data.Services
 {
     public interface IOrderService : IBaseService<Order>
     {
-        Enumerations.AddEntityStatus HandleCreateOrder(string poRequestIdString);
+        Enumerations.AddEntityStatus HandleCreateOrder(string poRequestIdString, int staffCreateId);
         IList<Order> GetOrders();
     }
 }

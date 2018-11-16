@@ -22,13 +22,6 @@
 <link href="~/Content/Manager/Order.css" rel="stylesheet" />
 
 
-<style>
-    .x_content {
-        display: flex;
-        justify-content: center
-    }
-</style>
-
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -37,30 +30,37 @@
                     <div class="col-md-6">
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>Proportion Of Vendors</h2>
+                                <h2 class="title"><b>Proportion Of Vendors</b></h2>
+                                <div class="clearfix"></div>
                             </div>
-                            <div id="Chart" s></div>
+                            <div id="Chart"></div>
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>Assets Usage</h2>
+                                <h2 class="title"><b>Assets Usage</b></h2>
+                                <div class="clearfix"></div>
                             </div>
                             <div id="3dChart" style="height: 400px"></div>
                         </div>
                     </div>
-
-                    <div class="x_title">
-                        <h2>Orders</h2>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-                        @using (Html.BeginForm())
-                        {
-                            @Html.Partial("_OrdersPartial", Model)
-                        }
+                </div>
+                <div class="row">
+                    <div class="col-md-9 col-md-offset-1">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2 class="title"><b>Orders</b></h2>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                @using (Html.BeginForm())
+                                {
+                                    @Html.Partial("_OrdersPartial", Model)
+                                }
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

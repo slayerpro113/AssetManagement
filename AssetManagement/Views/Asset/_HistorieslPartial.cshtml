@@ -1,5 +1,7 @@
 @using System.Drawing
 @using System.Globalization
+@model IList<Data.Entities.History>
+
 @Html.DevExpress().GridView(settings =>
 {
     settings.Name = "historyGrid";
@@ -46,13 +48,25 @@
         c.PropertiesEdit.DisplayFormatString = "dd/MM/yyyy";
     });
 
-    //settings.Columns.Add(c =>
-    //{
-    //    c.FieldName = "StaffRecall";
-    //    c.Caption = "Assigned By";
-    //    c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
-    //    c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
-    //});
+    settings.Columns.Add(c =>
+    {
+        c.Caption = "Assigned By";
+        c.SetDataItemTemplateContent(p =>
+        {
+            int historyId = (int) DataBinder.Eval(p.DataItem, "HistoryID");
+            var history = Model.FirstOrDefault(_ => _.HistoryID == historyId);
+
+            if (history.Employee2 != null)
+            {
+                ViewContext.Writer.Write(history.Employee2.FullName);
+
+            }
+        });
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+    });
+
+
 }).Bind(Model).GetHtml()
 
 

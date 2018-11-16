@@ -51,16 +51,14 @@
 
 <link href="~/Content/Staff/PoRequests.css" rel="stylesheet" />
 
-<button id="test">test</button>
 <div class="container">
     <div class="row">
         <div class="col-md-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Requests For Using Asset</h2>
+                    <h2 class="title"><b>Requests For Using Asset</b></h2>
                     <div class="clearfix"></div>
                 </div>
-
                 <div class="x_content">
                     <div class="text">
                         <a class="btn btn-app" onclick="createOrder()">
@@ -70,6 +68,8 @@
                         &nbsp;
                         <a id="orderMessage"></a>
                         <input type="hidden" id="requestId" />
+                        <input type="hidden" id="StaffCreateId" value="@userSession.EmployeeID" />
+
                     </div>
                     @Html.Partial("_PoRequestsPartial", Model)
                 </div>
