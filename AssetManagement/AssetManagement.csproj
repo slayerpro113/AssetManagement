@@ -47,8 +47,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper, Version=7.0.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoMapper.7.0.1\lib\net45\AutoMapper.dll</HintPath>
+    <Reference Include="AutoMapper, Version=8.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.8.0.0\lib\net461\AutoMapper.dll</HintPath>
     </Reference>
     <Reference Include="CommonServiceLocator, Version=2.0.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\Unity.5.8.11\lib\net46\CommonServiceLocator.dll</HintPath>
@@ -215,13 +215,7 @@
     <Content Include="Image\Categories\Screen\Screen2.jpg" />
     <Content Include="Image\Categories\Screen\Screen3.jpg" />
     <Content Include="Image\Employees\Employee1.jpg" />
-    <Content Include="Image\Employees\Employee13.png" />
-    <Content Include="Image\Employees\Employee12.jpg" />
-    <Content Include="Image\Employees\Employee10.jpg" />
-    <Content Include="Image\Employees\Employee11.jpg" />
     <Content Include="Image\Employees\Employee2.jpg" />
-    <Content Include="Image\Employees\Employee14.jpg" />
-    <Content Include="Image\Employees\Employee15.jpg" />
     <Content Include="Image\Employees\Employee8.jpg" />
     <Content Include="Image\Employees\Employee7.jpg" />
     <Content Include="Image\Employees\Employee4.jpg" />
@@ -254,7 +248,6 @@
     <Content Include="Scripts\cldr.supplemental.js" />
     <Content Include="Scripts\cldr.unresolved.js" />
     <Content Include="Scripts\ext-language_tools.js" />
-    <Content Include="Scripts\Format currency\simple.money.format.js" />
     <Content Include="Scripts\globalize.currency.js" />
     <Content Include="Scripts\globalize.date.js" />
     <Content Include="Scripts\globalize.js" />

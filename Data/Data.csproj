@@ -158,6 +158,7 @@
     <Compile Include="Utilities\Encryptor.cs" />
     <Compile Include="Utilities\Enumeration\Enumerations.cs" />
     <Compile Include="Utilities\PermissionLogin.cs" />
+    <Compile Include="Utilities\RolePermission.cs" />
     <Compile Include="Utilities\SessionHelper.cs" />
   </ItemGroup>
   <ItemGroup>

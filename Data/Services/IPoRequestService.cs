@@ -13,6 +13,5 @@ namespace Data.Services
         IList<PoRequest> GetPoRequestsFromStaff();
         bool IsExistQuoteId(int poRequestId, int quoteId);
         Enumerations.UpdateEntityStatus HandleSelectQuote(int poRequestId, int quoteId);
-
     }
 }

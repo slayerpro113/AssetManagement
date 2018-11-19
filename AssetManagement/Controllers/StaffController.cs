@@ -13,7 +13,6 @@ using System.Web.Mvc;
 
 namespace AssetManagement.Controllers
 {
-    [PermissionLogin]
     [RolePermission(Enumerations.Roles.Staff, Enumerations.Roles.Manager)]
     public class StaffController : Controller
     {

@@ -6,7 +6,6 @@ using System.Web.Mvc;
 
 namespace AssetManagement.Controllers
 {
-    [PermissionLogin]
     [RolePermission(Enumerations.Roles.Manager)]
     public class ManagerController : Controller
     {

@@ -7,7 +7,6 @@ using Data.Utilities;
 
 namespace AssetManagement.Controllers
 {
-    [PermissionLogin]
     [RolePermission(Enumerations.Roles.Staff, Enumerations.Roles.Manager)]
 
     public class AssetController : Controller
