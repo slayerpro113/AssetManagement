@@ -27,22 +27,43 @@ namespace Service
         {
             try
             {
-                var poRequest = new PoRequest();
-                if (!String.IsNullOrEmpty(description))
+                if (!IsExistedRequest(employeeId, device))
                 {
-                    poRequest.Description = description;
-                }
-                poRequest.EmployeeID = employeeId;
-                poRequest.RequestStatusID = 1;
-                poRequest.CreatedDate = DateTime.Now.Date; 
-                poRequest.CategoryName = device;
+                    var poRequest = new PoRequest();
+                    if (!String.IsNullOrEmpty(description))
+                    {
+                        poRequest.Description = description;
+                    }
+                    poRequest.EmployeeID = employeeId;
+                    poRequest.RequestStatusID = 1;
+                    poRequest.CreatedDate = DateTime.Now.Date;
+                    poRequest.CategoryName = device;
 
-                AddEntity(poRequest);
-                return Enumerations.AddEntityStatus.Success;
+                    AddEntity(poRequest);
+                    return Enumerations.AddEntityStatus.Success;
+                }
+                else
+                {
+                    return Enumerations.AddEntityStatus.Existed;
+                }
+                
             }
             catch (Exception e)
             {
                 return Enumerations.AddEntityStatus.Failed;
+            }
+        }
+
+        public bool IsExistedRequest(int employeeId, string device)
+        {
+            var poRequest = _poRequestRepository.GetUnfinishedPoRequestsByEmployeeId(employeeId, device);
+            if (poRequest != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 

@@ -69,7 +69,7 @@ namespace Service
             try
             {
 
-                var poRequest = _poRequestRepository.GetUnfinishedPoRequestsByEmployee(employee.EmployeeID ,asset.Product.Category.CategoryName);
+                var poRequest = _poRequestRepository.GetUnfinishedPoRequestsByEmployeeId(employee.EmployeeID ,asset.Product.Category.CategoryName);
                 if (poRequest != null)
                 {
                     poRequest.RequestStatusID = 5;

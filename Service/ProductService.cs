@@ -105,7 +105,8 @@ namespace Service
             {
                 label = _.ProductName,
                 value = _.ProductName,
-                brand = _.Brand
+                brand = _.Brand,
+                image = _.Image
             }).ToList(); 
         }
     }

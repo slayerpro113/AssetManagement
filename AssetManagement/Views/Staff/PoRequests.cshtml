@@ -68,7 +68,7 @@
                         &nbsp;
                         <a id="orderMessage"></a>
                         <input type="hidden" id="requestId" />
-                        <input type="hidden" id="StaffCreateId" value="@userSession.EmployeeID" />
+                        <input type="hidden" id="staffCreateId" value="@userSession.EmployeeID" />
 
                     </div>
                     @Html.Partial("_PoRequestsPartial", Model)
@@ -256,6 +256,7 @@
         },
         select: function (even, ui) {
             $("#brand").val(ui.item.brand);
+            $("#image").val(ui.item.image);
         }
     });
 </script>

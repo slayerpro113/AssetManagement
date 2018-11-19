@@ -1,10 +1,10 @@
 ﻿
-$(document).ready(function() {
-    $("#btnSubmit").click(function() {
+$(document).ready(function () {
+    $("#btnSubmit").click(function () {
         doAssetRequest();
     });
 
-    $("#btnReset").click(function() {
+    $("#btnReset").click(function () {
         $("#formRequest")[0].reset();
     });
 });
@@ -28,6 +28,16 @@ function doAssetRequest() {
                         title: "Your Request",
                         text: "Has Been sent Successfully",
                         icon: "success",
+                        buttons: false,
+                        timer: 1300
+                    });
+                    $("#formRequest")[0].reset();
+                }
+                else if (data.status === "Existed") {
+                    swal({
+                        title: "Your Request For This Device Has Been Sent before",
+                        text: "Please wait for we handle",
+                        icon: "warning",
                         buttons: false,
                         timer: 1300
                     });

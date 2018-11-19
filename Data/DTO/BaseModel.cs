@@ -12,5 +12,7 @@ namespace Data.DTO
 
         public string value { get; set; }
         public string brand { get; set; }
+        public string image { get; set; }
+
     }
 }

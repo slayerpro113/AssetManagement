@@ -29,7 +29,8 @@
         public enum AddEntityStatus
         {
             Success,
-            Failed
+            Failed,
+            Existed
         }
 
         public enum UpdateEntityStatus

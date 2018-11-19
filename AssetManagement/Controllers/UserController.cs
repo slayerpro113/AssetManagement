@@ -42,6 +42,10 @@ namespace AssetManagement.Controllers
             {
                 return Json(new { status = "Success" }, JsonRequestBehavior.AllowGet);
             }
+            else if (status == Enumerations.AddEntityStatus.Existed)
+            {
+                return Json(new { status = "Existed" }, JsonRequestBehavior.AllowGet);
+            }
             else
             {
                 return Json(new { status = "Failed" }, JsonRequestBehavior.AllowGet);

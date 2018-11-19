@@ -8,16 +8,13 @@ namespace Data.Utilities
     {
         public override void OnActionExecuting(ActionExecutingContext actionContext)
         {
-            base.OnActionExecuting(actionContext);
             var userSession = (Employee)HttpContext.Current.Session[Constant.UserSession];
             if (userSession == null)
             {
                 actionContext.HttpContext.Response.Redirect("~/Login/Login");
-                //actionContext.Result = new ViewResult
-                //{
-                //    ViewName = "~/Login/Login",
-                //};
             }
+            base.OnActionExecuting(actionContext);
+
         }
     }
 }

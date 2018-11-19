@@ -1,14 +1,11 @@
-﻿using System.Collections.Generic;
-using Data.Services;
+﻿using Data.Services;
+using Data.Utilities;
 using Data.Utilities.Enumeration;
 using System.Web.Mvc;
-using Data.Entities;
-using Data.Utilities;
 
 namespace AssetManagement.Controllers
 {
     [RolePermission(Enumerations.Roles.Staff, Enumerations.Roles.Manager)]
-
     public class AssetController : Controller
     {
         private readonly IAssetService _assetService;
@@ -53,7 +50,7 @@ namespace AssetManagement.Controllers
             var histories = _historyService.GetHistoriesByAssetId(assetId);
             return PartialView("_HistorieslPartial", histories);
         }
-        
+
         public ActionResult LoadDataCbb()
         {
             var employees = _employeeService.GetAll();
@@ -65,11 +62,10 @@ namespace AssetManagement.Controllers
         {
             var employee = _employeeService.GetEntity(employeeId);
             var asset = _assetService.GetEntity(assetId);
-            
+
             if (asset.Barcode == null || asset.MonthDepreciation == null)
             {
                 return Json(new { status = "Failed" }, JsonRequestBehavior.AllowGet);
-
             }
             else
             {
@@ -107,7 +103,6 @@ namespace AssetManagement.Controllers
             if (string.IsNullOrEmpty(barcode) || monthsOfDepreciation < 0)
             {
                 return Json(new { status = "Failed" }, JsonRequestBehavior.AllowGet);
-
             }
             else
             {

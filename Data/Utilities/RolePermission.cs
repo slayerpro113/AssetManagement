@@ -1,8 +1,8 @@
 ﻿using Data.Entities;
-using System.Web;
-using System.Web.Mvc;
 using Data.Utilities.Enumeration;
 using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 
 namespace Data.Utilities
 {
@@ -17,8 +17,6 @@ namespace Data.Utilities
 
         public override void OnActionExecuting(ActionExecutingContext actionContext)
         {
-            base.OnActionExecuting(actionContext);
-
             var userSession = (Employee)HttpContext.Current.Session[Constant.UserSession];
 
             if (userSession == null)
@@ -38,6 +36,7 @@ namespace Data.Utilities
                     actionContext.HttpContext.Response.Redirect("~/Login/Login");
                 }
             }
+            base.OnActionExecuting(actionContext);
         }
     }
 }
