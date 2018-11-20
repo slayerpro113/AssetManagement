@@ -79,18 +79,18 @@
                         <div class="menu_section">
                             <ul class="nav side-menu">
                                 <li>
-                                    <a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                                    <a class="menu-item"><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li class="test"><a href="/user/GetAssetsDetail">My Assets</a></li>
-                                        <li class="test"><a href="/user/requestform">Make Requests</a></li>
-                                        <li class="test"><a href="/user/RequestsHistory">Tracking Requests</a></li>
+                                        <li><a href="/user/GetAssetsDetail">My Assets</a></li>
+                                        <li><a href="/user/requestform">Make Requests</a></li>
+                                        <li><a href="/user/RequestsHistory">Tracking Requests</a></li>
                                     </ul>
                                 </li>
 
                                 @if (userSession.Role.RoleName == "Staff")
                                 {
                                     <li>
-                                        <a><i class="fa fa-edit"></i> Manage Requests <span class="fa fa-chevron-down"></span></a>
+                                        <a class="menu-item"><i class="fa fa-edit"></i> Manage Requests <span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
                                             <li><a href="/staff/GetPoRequestsFromUsers">Handle Requests</a></li>
                                         </ul>
@@ -100,10 +100,10 @@
                                 @if (userSession.Role.RoleName == "Manager")
                                 {
                                     <li>
-                                        <a><i class="fa fa-edit"></i> Manage Requests <span class="fa fa-chevron-down"></span></a>
+                                        <a class="menu-item"><i class="fa fa-edit"></i> Manage Requests <span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
                                             <li><a href="/staff/GetPoRequestsFromUsers">Handle Requests</a></li>
-                                            <li><a href="/manager/GetPoRequestsFromStaff">Select Quote</a></li>
+                                            <li><a href="/manager/GetPoRequestsFromStaff">Select Quotes</a></li>
                                         </ul>
                                     </li>
                                 }
@@ -111,7 +111,7 @@
                                 @if (userSession.Role.RoleName == "Staff" || userSession.Role.RoleName == "Manager")
                                 {
                                     <li>
-                                        <a><i class="fa fa-desktop"></i> Manage Assets <span class="fa fa-chevron-down"></span></a>
+                                        <a class="menu-item"><i class="fa fa-desktop"></i> Manage Assets <span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
                                             <li><a href="/asset/AssetsInStock">Assets In Stock</a></li>
                                             <li><a href="/asset/AssetsInUse">Assets In Use</a></li>
@@ -122,7 +122,7 @@
                                 @if (userSession.Role.RoleName == "Manager")
                                 {
                                     <li>
-                                        <a><i class="fa fa-bar-chart"></i> Reports <span class="fa fa-chevron-down"></span></a>
+                                        <a class="menu-item"><i class="fa fa-bar-chart"></i> Reports <span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
                                             <li><a href="/manager/GetOrders">Charts & Orders</a></li>
                                         </ul>
@@ -143,8 +143,8 @@
                             <a id="menu_toggle"><i class="fa fa-bars"></i></a>
                         </div>
 
-                        <ul class="nav navbar-nav navbar-right" style="width: 260px">
-                            <li class="">
+                        <ul class="nav navbar-nav navbar-right"  style="width: 260px">
+                            <li class="phuda">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                     <img src="/Image/@userSession.Image" alt="">@userSession.FullName
                                     <span class="fa fa-angle-down"></span>
@@ -158,15 +158,17 @@
                 </div>
             </div>
             <!-- /top navigation -->
+
             <!-- page content -->
             <div class="right_col" role="main">
                 @RenderBody()
             </div>
             <!-- /page content -->
+
             <!-- footer content -->
             <footer>
                 <div class="pull-right">
-                    Phu Da City
+                 
                 </div>
                 <div class="clearfix"></div>
             </footer>

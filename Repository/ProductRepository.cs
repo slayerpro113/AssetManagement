@@ -17,14 +17,14 @@ namespace Repository
             return repository.Entity.Where(_ => _.ProductName == productName).ToList().Count;
         }
 
-        public static Product GetProductsByProductName(this IRepository<Product> repository, string productName)
+        public static Product GetProductByProductName(this IRepository<Product> repository, string productName)
         {
             return repository.Entity.FirstOrDefault(_ => _.ProductName == productName);
         }
 
-        public static IList<Product> GetDataAutocomplete(this IRepository<Product> repository, string productName)
+        public static IList<Product> GetDataAutocomplete(this IRepository<Product> repository, string productName,string categoryName)
         {
-            return repository.Entity.Where(_ => _.ProductName.ToLower().Contains(productName)).ToList();
+            return repository.Entity.Where(_ => _.ProductName.ToLower().Contains(productName) && _.Category.CategoryName == categoryName).ToList();
         }
     }
 }

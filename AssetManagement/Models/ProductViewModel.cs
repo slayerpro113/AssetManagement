@@ -7,7 +7,7 @@ namespace AssetManagement.Models
         public int ProductID { get; set; }
 
         [Required]
-        [MaxLength(20)]
+        [MaxLength(25)]
         public string ProductName { get; set; }
 
         public string Description { get; set; }
@@ -19,8 +19,6 @@ namespace AssetManagement.Models
         public int CategoryID { get; set; }
         public string Image { get; set; }
         public int NumberUsingProduct { get; set; }
-
-
         [Required]
         public byte[] ImageBytes { get; set; }
     }

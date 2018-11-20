@@ -214,7 +214,6 @@
     </Key>
     <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="ProductName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-    <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="Brand" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="CategoryID" Type="Int32" Nullable="false" />
     <Property Name="Image" Type="String" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="true" />

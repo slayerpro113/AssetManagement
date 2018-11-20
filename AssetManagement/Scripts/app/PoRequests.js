@@ -64,9 +64,10 @@ function timeoutAsset() {
 
 //----------------------Quote popup
 
-function OpenQuotePopup(poRequestId) {
-    $("#poRequestId2").val(poRequestId);
+function OpenQuotePopup(poRequestId, category) {
     $("#formQuote")[0].reset();
+    $("#poRequestId2").val(poRequestId);
+    $("#category").val(category);
 }
 
 $(document).ready(function() {
@@ -76,7 +77,6 @@ $(document).ready(function() {
 });
 
 function doEnterQuote() {
-    var image = $('#image').val();
     var productName = $('#productName').val();
     var brand = $('#brand').val();
     var price = $('#price').val();
@@ -84,13 +84,12 @@ function doEnterQuote() {
     var warranty = $('#warranty').val();
     var poRequestId = $('#poRequestId2').val();
 
-    if (image.length === 0 || productName.length === 0  || vendor === "Choose vendor" || price.length === 0) {
+    if (productName.length === 0  || vendor === "Choose vendor" || price.length === 0) {
         $("#quoteMessage").html("Please, fill all required fields!");
         timeout();
     }
     else {
         var formData = new FormData();
-        formData.append('image', $('input[type=file]')[0].files[0]);
         formData.append('productName', productName);
         formData.append('brand', brand);
         formData.append('vendor', vendor);

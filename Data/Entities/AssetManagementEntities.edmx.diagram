@@ -5,20 +5,20 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="71507061089f417a97091a1c6a14fc0e" Name="Diagram1">
-        <EntityTypeShape EntityType="AssetManagementModel.Asset" Width="1.5" PointX="9.75" PointY="9.625" />
-        <EntityTypeShape EntityType="AssetManagementModel.AssetStatus" Width="1.5" PointX="7.5" PointY="2.125" />
-        <EntityTypeShape EntityType="AssetManagementModel.Category" Width="1.5" PointX="5.25" PointY="18" />
+        <EntityTypeShape EntityType="AssetManagementModel.Asset" Width="1.5" PointX="9.75" PointY="11.625" />
+        <EntityTypeShape EntityType="AssetManagementModel.AssetStatus" Width="1.5" PointX="7.5" PointY="16.375" />
+        <EntityTypeShape EntityType="AssetManagementModel.Category" Width="1.5" PointX="5.25" PointY="2.625" />
         <EntityTypeShape EntityType="AssetManagementModel.Employee" Width="1.5" PointX="3" PointY="5.125" />
         <EntityTypeShape EntityType="AssetManagementModel.History" Width="1.5" PointX="5.25" PointY="5.75" />
-        <EntityTypeShape EntityType="AssetManagementModel.OrderDetail" Width="1.5" PointX="7.5" PointY="9.625" />
+        <EntityTypeShape EntityType="AssetManagementModel.OrderDetail" Width="1.5" PointX="7.5" PointY="11.625" />
         <EntityTypeShape EntityType="AssetManagementModel.Order" Width="1.5" PointX="5.25" PointY="10" />
-        <EntityTypeShape EntityType="AssetManagementModel.PoRequest" Width="1.5" PointX="7.5" PointY="4.75" />
-        <EntityTypeShape EntityType="AssetManagementModel.Product" Width="1.5" PointX="7.5" PointY="17.5" />
-        <EntityTypeShape EntityType="AssetManagementModel.Quote" Width="1.5" PointX="9.75" PointY="5.25" />
-        <EntityTypeShape EntityType="AssetManagementModel.RequestStatus" Width="1.5" PointX="5.25" PointY="3" />
+        <EntityTypeShape EntityType="AssetManagementModel.PoRequest" Width="1.5" PointX="7.5" PointY="6.75" />
+        <EntityTypeShape EntityType="AssetManagementModel.Product" Width="1.5" PointX="7.5" PointY="2.25" />
+        <EntityTypeShape EntityType="AssetManagementModel.Quote" Width="1.5" PointX="9.75" PointY="7.25" />
+        <EntityTypeShape EntityType="AssetManagementModel.RequestStatus" Width="1.5" PointX="5.25" PointY="14" />
         <EntityTypeShape EntityType="AssetManagementModel.Role" Width="1.5" PointX="0.75" PointY="6.5" />
         <EntityTypeShape EntityType="AssetManagementModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="AssetManagementModel.Vendor" Width="1.5" PointX="5.25" PointY="14" />
+        <EntityTypeShape EntityType="AssetManagementModel.Vendor" Width="1.5" PointX="5.25" PointY="17" />
         <AssociationConnector Association="AssetManagementModel.FK_Assets_AssetStatus" />
         <AssociationConnector Association="AssetManagementModel.FK_Assets_OrderDetails" />
         <AssociationConnector Association="AssetManagementModel.FK_Assets_Product" />

@@ -16,6 +16,7 @@
     border-left: 4px solid #1AAB9C;
     border-right: 4px solid #1AAB9C;
     background: #f4f4f4 !important;
+    margin-bottom: 25px !important;
 }
 
 .x_panel {
@@ -30,13 +31,9 @@ th {
     font-size: 18px;
 }
 
-
-
-h3 {
-    color: #333;
-    font-family: Montserrat-Black;
-    font-size: 30px;
-    color: #333333;
+.btn-success {
+    background: #f47142 !important;
+    border: 1px solid #f47142 !important;
 }
 
 /*profile card*/
@@ -55,7 +52,7 @@ h3 {
     line-height: 1.4em;
     font-size: 14px;
     box-shadow: none !important;
-    background-color: #476482;
+    background-color: #1bc6b5;
 }
 
     .snip1515 * {
@@ -93,9 +90,11 @@ h3 {
     }
 
     .snip1515 h3 {
-        font-weight: 600;
-        font-size: 1.3em;
-        font-family: 'Playfair Display', Arial, sans-serif;
+        text-align: center;
+        font-size: 22px;
+        font-family: Montserrat-Black;
+        color: #333333;
+        margin-bottom: 20px;
     }
 
     .snip1515 h4 {

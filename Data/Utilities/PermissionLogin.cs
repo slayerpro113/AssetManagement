@@ -13,7 +13,7 @@ namespace Data.Utilities
             {
                 actionContext.HttpContext.Response.Redirect("~/Login/Login");
             }
-            base.OnActionExecuting(actionContext);
+            //base.OnActionExecuting(actionContext);
 
         }
     }

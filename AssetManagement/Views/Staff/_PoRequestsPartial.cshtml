@@ -9,8 +9,10 @@
     settings.SettingsLoadingPanel.Mode = GridViewLoadingPanelMode.Disabled;
 
     //Custom css
-    settings.Styles.Header.BackColor = System.Drawing.ColorTranslator.FromHtml("#476482");
+    settings.Styles.Header.BackColor = System.Drawing.ColorTranslator.FromHtml("#1bc6b5");
     settings.Styles.Header.ForeColor = Color.White;
+    settings.Styles.Header.Font.Size = FontUnit.Medium;
+
     //hover
     settings.SettingsBehavior.EnableRowHotTrack = true;
     settings.Styles.RowHotTrack.BackColor = System.Drawing.ColorTranslator.FromHtml("#f9fdff");
@@ -88,15 +90,6 @@
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.Width = 300;
     });
-
-    //    settings.Columns.Add(c => {
-    //        c.FieldName = "Quantity";
-    //        c.Caption = "Available Assets";
-    //        c.Settings.AllowAutoFilter = DefaultBoolean.False;
-    //        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
-    //        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
-    //        c.Width = 60;
-    //    });
 
     settings.Columns.Add(c =>
     {
@@ -220,7 +213,7 @@
                     {
                         ViewContext.Writer.Write(
                             "<button type='button' class='open-popup btn btn-round btn-default' data-toggle='modal' data-target='#quotePopup'" +
-                            "onclick =\"OpenQuotePopup("+ poRequestId + ")\" >Quotes</button>"
+                            "onclick =\"OpenQuotePopup("+ poRequestId + ",'" + category + "')\" >Quotes</button>"
                             );
                     }
                     else
@@ -229,7 +222,7 @@
 
                         ViewContext.Writer.Write(
                             "<button type='button' class='open-popup btn btn-round btn-default' data-toggle='modal' data-target='#quotePopup'" +
-                            "onclick =\"OpenQuotePopup(" + poRequestId + ")\" >Quote</button>"+
+                            "onclick =\"OpenQuotePopup(" + poRequestId + ",'" + category + "')\" >Quote</button>" +
                             "&nbsp" +
                             "<button type='button' class='btn btn-round btn-primary' onclick =\"SubmitRequest(" + poRequestId + ", '"+ userSession.EmployeeID + "')\" >Submit</button>"
                             );
@@ -276,6 +269,10 @@
         {
 
             var  quotes = poRequest.Quotes.ToList();
+            foreach (var quote in quotes)
+            {
+                quote.PriceString = string.Format("{0:0,0 VND}", quote.Price);
+            }
 
             ViewContext.Writer.Write(
                 "<div class='quote-detail' style='display:flex;justify-content:center'>"
@@ -289,6 +286,8 @@
         {
             var quoteId = poRequest.SelectedQuoteID;
             var quote = poRequest.Quotes.FirstOrDefault(_ => _.QuoteID == quoteId);
+            quote.PriceString = string.Format("{0:0,0 VND}", quote.Price);
+
             var quotes = new List<Quote>();
             quotes.Add(quote);
 

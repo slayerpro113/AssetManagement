@@ -52,13 +52,16 @@
 
 /*Pop up*/
 .modal-header {
-    background-color: #1AAB9C;
+    background-color: #f4f4f4;
+    border-bottom: 1px solid #1AAB9C !important;
 }
 
 .modal-title {
     text-align: center;
-    color: #fff;
-    font-size: x-large;
+    font-size: 28px;
+    font-family: Montserrat-Black;
+    color: #1AAB9C;
+    line-height: 1.2;
 }
 
 .vertical-alignment-helper {
@@ -78,18 +81,27 @@
     margin: 0 auto;
 }
 
- #assetMessage {
+.control-label {
+    color: #333333
+}
+
+#assetMessage {
     text-align: center;
     color: Red;
     width: 200px;
-     font-size: medium;
-
+    font-size: medium;
 }
 
 #quoteMessage, #orderMessage {
     color: Red;
     font-size: medium;
 }
+
+.ln_solid {
+    border-top: 1px solid #1AAB9C!important;
+}
+
+
 /* Combobox */
 .name {
     font-weight: bold;

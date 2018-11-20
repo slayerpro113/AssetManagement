@@ -64,7 +64,6 @@ namespace Service
                         orderDetail.Price = quote.Price;
                         orderDetail.Quantity = 1;
                         orderDetail.Subtotal = orderDetail.Price * orderDetail.Quantity;
-                        
 
                         orderDetails.Add(orderDetail);
                     }
@@ -123,7 +122,7 @@ namespace Service
                     else
                     {
                         //if exist
-                        var productExist = _productRepository.GetProductsByProductName(temp.Quote.ProductName);
+                        var productExist = _productRepository.GetProductByProductName(temp.Quote.ProductName);
                         //handle asset
                         IList<Asset> assets = new List<Asset>();
                         for (int i = 0; i < temp.Quantity; i++)

@@ -50,9 +50,7 @@ namespace Service
         {
             var newProduct = HandleImage(product);
             AddEntity(newProduct);
-        }
-
-       
+        }       
 
         public Product HandleImage(Product product)
         {
@@ -89,19 +87,15 @@ namespace Service
             {
                 return Enumerations.CategoryName.PC;
             }
-            else if (categoryId == 5)
-            {
-                return Enumerations.CategoryName.Printer;
-            }
             else
             {
                 return Enumerations.CategoryName.Screen;
             }
         }
 
-        public IList<BaseModel> GetDataAutocomplete(string productName)
+        public IList<BaseModel> GetDataAutocomplete(string productName, string categoryName)
         {
-            return _productRepository.GetDataAutocomplete(productName).Select(_ => new BaseModel
+            return _productRepository.GetDataAutocomplete(productName, categoryName).Select(_ => new BaseModel
             {
                 label = _.ProductName,
                 value = _.ProductName,

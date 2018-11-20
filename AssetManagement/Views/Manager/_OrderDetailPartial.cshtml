@@ -58,7 +58,7 @@
         c.Caption = "Vendor";
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
-        c.Width = 150;
+        c.Width = 130;
         c.EditorProperties().ComboBox(cb =>
         {
             cb.DataSource = OrderDetail.GetVendors();
@@ -76,7 +76,7 @@
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
         c.Settings.AllowAutoFilter = DefaultBoolean.False;
 
-        c.Width = 150;
+        c.Width = 50;
     });
 
     settings.Columns.Add(c =>

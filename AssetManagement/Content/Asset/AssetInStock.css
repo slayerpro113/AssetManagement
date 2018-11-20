@@ -23,13 +23,16 @@
 
 /*Pop up*/
 .modal-header {
-    background-color: #1AAB9C;
+    background-color: #f4f4f4;
+    border-bottom: 1px solid #1AAB9C !important;
 }
 
 .modal-title {
     text-align: center;
-    color: #fff;
-    font-size: x-large;
+    font-size: 28px;
+    font-family: Montserrat-Black;
+    color: #1AAB9C;
+    line-height: 1.2;
 }
 
 .vertical-alignment-helper {
@@ -58,6 +61,13 @@
     color:red
 }
 
+.control-label {
+    color: #333333
+}
+
+.ln_solid {
+    border-top: 1px solid #1AAB9C !important;
+}
 /* Combobox */
 .name {
     font-weight: bold;

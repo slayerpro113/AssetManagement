@@ -73,11 +73,11 @@ $.ajax({
                     [data[0].name, data[0].y, false],
                     [data[1].name, data[1].y, false],
                     [data[2].name, data[2].y, false],
-                    [data[3].name, data[3].y, false],
+                    [data[3].name, data[3].y, true, true],
                     [data[4].name, data[4].y, false],
                     [data[5].name, data[5].y, false],
                     [data[6].name, data[6].y, false],
-                    [data[7].name, data[7].y, true, true]
+                    [data[7].name, data[7].y, false]
                 ],
 
                 showInLegend: true

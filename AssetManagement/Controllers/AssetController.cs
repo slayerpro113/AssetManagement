@@ -5,7 +5,8 @@ using System.Web.Mvc;
 
 namespace AssetManagement.Controllers
 {
-    [RolePermission(Enumerations.Roles.Staff, Enumerations.Roles.Manager)]
+    //[RolePermission(Enumerations.Roles.Staff, Enumerations.Roles.Manager)]
+    [PermissionLogin]
     public class AssetController : Controller
     {
         private readonly IAssetService _assetService;

@@ -1,6 +1,4 @@
-﻿
-
-@using System.Drawing
+﻿@using System.Drawing
 @using Data.Entities
 @using DevExpress.XtraExport.Helpers
 @model IList<Data.Entities.Order>
@@ -9,15 +7,17 @@
     settings.Name = "ordersGrid";
     settings.SettingsLoadingPanel.Mode = GridViewLoadingPanelMode.Disabled;
     //Custom css
-    settings.Styles.Header.BackColor = System.Drawing.ColorTranslator.FromHtml("#476482");
+    settings.Styles.Header.BackColor = System.Drawing.ColorTranslator.FromHtml("#1bc6b5");
     settings.Styles.Header.ForeColor = Color.White;
+    settings.Styles.Header.Font.Size = FontUnit.Medium;
+
     // Hover
     settings.SettingsBehavior.EnableRowHotTrack = true;
     settings.Styles.RowHotTrack.BackColor = System.Drawing.ColorTranslator.FromHtml("#f9fdff");
     settings.Styles.RowHotTrack.Font.Bold = true;
 
     settings.CallbackRouteValues = new { Controller = "Manager", Action = "GetOrdersPartial" };
-    settings.Width = Unit.Percentage(95);
+    settings.Width = Unit.Percentage(100);
 
     // show detail partial
     settings.SettingsDetail.AllowOnlyOneMasterRowExpanded = true;
@@ -46,6 +46,7 @@
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
         c.Width = 50;
+        c.Settings.AllowAutoFilter = DefaultBoolean.False;
     });
 
     settings.Columns.Add(c =>
@@ -80,7 +81,6 @@
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.Width = 50;
         c.Settings.AllowAutoFilter = DefaultBoolean.False;
-
     });
 
 
@@ -103,6 +103,7 @@
 
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
         c.CellStyle.HorizontalAlign = HorizontalAlign.Left;
+        c.Settings.AllowAutoFilter = DefaultBoolean.False;
         c.Width = 230;
     });
 

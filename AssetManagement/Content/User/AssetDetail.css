@@ -16,6 +16,10 @@
     margin-top: 25px;
 }
 
+.ln_solid {
+    border-top: 1px solid #1AAB9C !important;
+}
+
 #asset-name {
     color: #1AAB9C;
     font-size: medium;
@@ -60,3 +64,4 @@ h3 {
 .test:hover img {
     border: 1px solid #1AAB9C !important;
 }
+

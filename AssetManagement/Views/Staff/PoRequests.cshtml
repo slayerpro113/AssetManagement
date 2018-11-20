@@ -24,7 +24,6 @@
     new Script { ExtensionType = ExtensionType.CallbackPanel },
     new Script { ExtensionType = ExtensionType.PopupControl }
     )
-
 <script>
     var SettingCategory = function (s, e) {
         e.customArgs['categoryName'] = categoryName;
@@ -88,39 +87,41 @@
                     <h4 class="modal-title">Assign Asset</h4>
                 </div>
                 <div class="modal-body">
-                    <form class='form-horizontal form-label-left input_mask' id="formAssign">
 
-                        <input type='hidden' class='form-control' readonly id='poRequestId'>
-                        <input type='hidden' class='form-control' readonly id='employeeId'>
+                    <!-- value fields -->
+                    <input type="hidden" class="form-control" readonly id="poRequestId">
+                    <input type="hidden" class="form-control" readonly id="employeeId">
+                    <!-- End value fields -->
 
-                        <input type='hidden' class='form-control' readonly id='staffAssignId' value='@userSession.EmployeeID'>
-                        <div class='form-group'>
-                            <label class='control-label col-md-3 col-sm-3 col-xs-12'>Employee Name: </label>
-                            <div class='col-md-8 col-sm-9 col-xs-12'>
-                                <input type='text' class='form-control has-feedback-left' readonly id='employeeName'>
+                    <form class="form-horizontal form-label-left input_mask" id="formAssign">
+                        <input type="hidden" class="form-control" readonly id="staffAssignId" value="@userSession.EmployeeID">
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Employee Name: </label>
+                            <div class="col-md-8 col-sm-9 col-xs-12">
+                                <input type="text" class="form-control has-feedback-left" readonly id="employeeName">
                                 <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                             </div>
                         </div>
 
-                        <div class='form-group'>
-                            <label class='control-label col-md-3 col-sm-3 col-xs-12'>Select asset:<span class="required">*</span> </label>
-                            <div class='col-md-8 col-sm-9 col-xs-12'>
-                                @Html.Action("LoadAssetCbb", "Staff", new { categoryName = "Chair" })
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Select asset:<span class="required">*</span> </label>
+                            <div class="col-md-8 col-sm-9 col-xs-12">
+                                @Html.Action("LoadAssetCbb", "Staff", new {categoryName = "Chair"})
                             </div>
                         </div>
 
-                        <div class='form-group'>
+                        <div class="form-group">
                             <div class="col-md-8 col-md-offset-3">
                                 <a id="assetMessage"></a>
                             </div>
                         </div>
 
-                        <div class='ln_solid'></div>
+                        <div class="ln_solid"></div>
 
-                        <div class='form-group'>
-                            <div class='col-md-8 col-sm-9 col-xs-12 col-md-offset-4'>
-                                <button type='button' class='btn btn-round btn-success' id='btnAssign'>Assign</button>
-                                <button type='button' class='btn btn-round btn-default' data-dismiss="modal" id='btnCancel'>Cancel</button>
+                        <div class="form-group">
+                            <div class="col-md-8 col-sm-9 col-xs-12 col-md-offset-4">
+                                <button type="button" class="btn btn-round btn-success" id="btnAssign">Assign</button>
+                                <button type="button" class="btn btn-round btn-default" data-dismiss="modal" id="btnCancel">Cancel</button>
                             </div>
                         </div>
                     </form>
@@ -142,25 +143,20 @@
                         <button type="button" class="close" data-dismiss="modal">
                             <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
                         </button>
-                        <h4 class="modal-title" id="myModalLabel">Refer Quote</h4>
+                        <h4 class="modal-title" id="myModalLabel">Refer Quotes</h4>
                     </div>
                     <div class="modal-body">
+                        
+                        <!-- value fields -->
+                        <input type="hidden" id="poRequestId2">
+                        <input type="hidden" id="category">
+                        <!-- End value fields -->
+
                         <form class="form-horizontal form-label-left" id="formQuote" enctype="multipart/form-data">
-
-                            <input type="hidden" id="poRequestId2">
-
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-3">Image: <span class="required">*</span></label>
-                                <div class="col-md-7 col-sm-9 col-xs-9">
-                                    <input type="file" class="form-control has-feedback-left" id="image" required="required">
-                                    <span class="fa fa-file-picture-o  form-control-feedback left" aria-hidden="true"></span>
-                                </div>
-                            </div>
-
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-3 ">Product Name: <span class="required">*</span></label>
-                                <div class="col-md-7 col-sm-9 col-xs-9">
-                                    <input type="text" class="form-control has-feedback-left" id="productName" maxlength="50" required="required">
+                                <div class="col-md-8 col-sm-8 col-xs-8">
+                                    <input type="text" class="form-control has-feedback-left" id="productName" maxlength="25" required="required">
 
                                     <span class="fa fa-desktop form-control-feedback left" aria-hidden="true"></span>
                                 </div>
@@ -168,15 +164,15 @@
 
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-3">Brand: </label>
-                                <div class="col-md-7 col-sm-9 col-xs-9">
-                                    <input type="text" class="form-control has-feedback-left" id="brand" maxlength="50">
+                                <div class="col-md-8 col-sm-8 col-xs-8">
+                                    <input type="text" class="form-control has-feedback-left" id="brand" maxlength="20">
                                     <span class="fa fa-square form-control-feedback left" aria-hidden="true"></span>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-3">Select Vendor:<span class="required">*</span></label>
-                                <div class="col-md-7 col-sm-9 col-xs-9">
+                                <div class="col-md-8 col-sm-8 col-xs-8">
                                     <select class="form-control" id="vendor">
                                         <option>Choose vendor</option>
                                         <option>Hoa Phat</option>
@@ -189,16 +185,16 @@
 
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-3">Price: <span class="required">*</span></label>
-                                <div class="col-md-7 col-sm-9 col-xs-9">
-                                    <input type="number" class="form-control has-feedback-left" id="price" maxlength="50">
+                                <div class="col-md-8 col-sm-8 col-xs-8">
+                                    <input type="number" class="form-control has-feedback-left" id="price" maxlength="10">
                                     <span class="fa fa-money form-control-feedback left" aria-hidden="true"></span>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-3">Warranty: </label>
-                                <div class="col-md-7 col-sm-9 col-xs-9">
-                                    <input type="number" class="form-control has-feedback-left" id="warranty" maxlength="50">
+                                <div class="col-md-8 col-sm-8 col-xs-8">
+                                    <input type="number" class="form-control has-feedback-left" id="warranty" maxlength="2">
                                     <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
                                 </div>
                             </div>
@@ -232,31 +228,29 @@
 
 <script>
     $("#productName").autocomplete({
-        source: function (request, response) {
+        source: function(request, response) {
+            var categoryName = $("#category").val();
+
             $.ajax({
                 secureJSON: false,
-                url: '/Staff/GetProducts',
+                url: '/Staff/GetDataAutocomplete',
                 type: "POST",
-                data: { productName: request.term },
-                success: function (data) {
+                data: { productName: request.term, categoryName: categoryName },
+                success: function(data) {
                     response($.map(data,
-                        function (item) {
+                        function(item) {
                             return {
                                 value: item.value,
                                 label: item.label,
-                                brand: item.brand,
-                                image: item.image
+                                brand: item.brand
                             };
                         }));
-                },
-                error: function (status) {
-                    alert(status);
                 }
+
             });
         },
-        select: function (even, ui) {
+        select: function(even, ui) {
             $("#brand").val(ui.item.brand);
-            $("#image").val(ui.item.image);
         }
     });
 </script>

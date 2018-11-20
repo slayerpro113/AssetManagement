@@ -193,39 +193,44 @@
     <Content Include="Content\User\RequestForm.css" />
     <Content Include="Content\User\RequestsHistory.css" />
     <Content Include="Global.asax" />
+    <Content Include="Content\LoginCss\background1.jpg" />
+    <Content Include="Content\LoginCss\style.css" />
     <Content Include="Image\Categories\Chair\Chair1.jpg" />
     <Content Include="Image\Categories\Chair\Chair2.jpg" />
     <Content Include="Image\Categories\Chair\Chair3.jpg" />
     <Content Include="Image\Categories\Chair\Chair4.jpg" />
     <Content Include="Image\Categories\Chair\Chair5.jpg" />
-    <Content Include="Image\Categories\Keyboard\Keyboard3.jpg" />
-    <Content Include="Image\Categories\Keyboard\Keyboard2.jpg" />
     <Content Include="Image\Categories\Keyboard\Keyboard1.jpg" />
+    <Content Include="Image\Categories\Keyboard\Keyboard2.jpg" />
+    <Content Include="Image\Categories\Keyboard\Keyboard3.jpg" />
     <Content Include="Image\Categories\Keyboard\Keyboard4.jpg" />
+    <Content Include="Image\Categories\Keyboard\Keyboard5.jpg" />
     <Content Include="Image\Categories\Mouse\Mouse1.jpg" />
     <Content Include="Image\Categories\Mouse\Mouse2.jpg" />
     <Content Include="Image\Categories\Mouse\Mouse3.jpg" />
     <Content Include="Image\Categories\Mouse\Mouse4.jpg" />
+    <Content Include="Image\Categories\Mouse\Mouse5.jpg" />
     <Content Include="Image\Categories\PC\PC1.jpg" />
     <Content Include="Image\Categories\PC\PC2.jpg" />
     <Content Include="Image\Categories\PC\PC3.jpg" />
-    <Content Include="Image\Categories\Printer\Printer1.jpg" />
-    <Content Include="Image\Categories\Printer\Printer2.jpg" />
+    <Content Include="Image\Categories\PC\PC4.jpg" />
+    <Content Include="Image\Categories\PC\PC5.jpg" />
     <Content Include="Image\Categories\Screen\Screen1.jpg" />
     <Content Include="Image\Categories\Screen\Screen2.jpg" />
     <Content Include="Image\Categories\Screen\Screen3.jpg" />
+    <Content Include="Image\Categories\Screen\Screen4.jpg" />
+    <Content Include="Image\Categories\Screen\Screen5.jpg" />
     <Content Include="Image\Employees\Employee1.jpg" />
+    <Content Include="Image\Employees\Employee10.jpg" />
     <Content Include="Image\Employees\Employee2.jpg" />
-    <Content Include="Image\Employees\Employee8.jpg" />
-    <Content Include="Image\Employees\Employee7.jpg" />
+    <Content Include="Image\Employees\Employee3.jpg" />
     <Content Include="Image\Employees\Employee4.jpg" />
     <Content Include="Image\Employees\Employee5.jpg" />
     <Content Include="Image\Employees\Employee6.jpg" />
+    <Content Include="Image\Employees\Employee7.jpg" />
+    <Content Include="Image\Employees\Employee8.jpg" />
     <Content Include="Image\Employees\Employee9.jpg" />
-    <Content Include="Image\Employees\Employee3.jpg" />
     <Content Include="Image\icon.co.png" />
-    <Content Include="Content\LoginCss\background1.jpg" />
-    <Content Include="Content\LoginCss\style.css" />
     <Content Include="Scripts\ace.js" />
     <Content Include="Scripts\additional-methods.js" />
     <Content Include="Scripts\additional-methods.min.js" />
@@ -732,6 +737,7 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Image\Categories\Printer\" />
     <Folder Include="Image\Quotes\" />
   </ItemGroup>
   <PropertyGroup>

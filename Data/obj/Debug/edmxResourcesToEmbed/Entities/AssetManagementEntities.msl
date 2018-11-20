@@ -106,7 +106,6 @@
           <ScalarProperty Name="Image" ColumnName="Image" />
           <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
           <ScalarProperty Name="Brand" ColumnName="Brand" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="ProductName" ColumnName="ProductName" />
           <ScalarProperty Name="ProductID" ColumnName="ProductID" />
         </MappingFragment>

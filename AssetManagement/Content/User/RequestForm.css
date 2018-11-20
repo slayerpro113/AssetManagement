@@ -16,9 +16,8 @@
     margin-top: 25px;
 }
 
-h2 {
-    color: #fff;
-    text-align: center !important;
+.ln_solid {
+    border-top: 1px solid #1AAB9C !important;
 }
 
 .required {
@@ -38,6 +37,9 @@ h2 {
 }
 
 /* form */
+.control-label {
+    color: #333333
+}
 
 textarea {
     height: 70px ! important

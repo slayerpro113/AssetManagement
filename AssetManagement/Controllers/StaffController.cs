@@ -74,7 +74,7 @@ namespace AssetManagement.Controllers
         }
 
         [HttpPost]
-        public ActionResult HandleQuote(HttpPostedFileBase image, string productName, string brand,
+        public ActionResult HandleQuote(string productName, string brand,
             string vendor, decimal price, string warranty, int poRequestId)
         {
             var poRequest = _poRequestService.GetEntity(poRequestId);
@@ -94,7 +94,7 @@ namespace AssetManagement.Controllers
                 Warranty = int.Parse(warranty)
             };
 
-            var status = _quoteService.HandleQuote(image, quote, poRequest);
+            var status = _quoteService.HandleQuote(quote, poRequest);
 
             if (status == Enumerations.AddEntityStatus.Success)
             {
@@ -164,11 +164,11 @@ namespace AssetManagement.Controllers
             return BinaryImageEditExtension.GetCallbackResult();
         }
 
-        public ActionResult GetProducts(string productName)
+        public ActionResult GetDataAutocomplete(string productName, string categoryName)
         {
             try
             {
-                var data = _productService.GetDataAutocomplete(productName);
+                var data = _productService.GetDataAutocomplete(productName, categoryName);
                 var json = JsonConvert.SerializeObject(data);
                 return Content(json, "application/json");
             }

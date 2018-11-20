@@ -41,8 +41,7 @@ namespace Data.Entities
                 new Category { CategoryName = "Keyboard", CategoryID = 2 },
                 new Category { CategoryName = "Mouse", CategoryID = 3 },
                 new Category { CategoryName = "PC", CategoryID = 4 },
-                new Category { CategoryName = "Printer", CategoryID = 5 },
-                new Category { CategoryName = "Screen", CategoryID = 6 }
+                new Category { CategoryName = "Screen", CategoryID = 5 }
             };
 
             return categories;

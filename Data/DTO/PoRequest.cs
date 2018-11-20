@@ -1,6 +1,4 @@
-﻿
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 
 namespace Data.Entities
 {
@@ -21,13 +19,11 @@ namespace Data.Entities
                 new Category { CategoryName = "Keyboard", CategoryID = 2 },
                 new Category { CategoryName = "Mouse", CategoryID = 3 },
                 new Category { CategoryName = "PC", CategoryID = 4 },
-                new Category { CategoryName = "Printer", CategoryID = 5 },
-                new Category { CategoryName = "Screen", CategoryID = 6 }
+                new Category { CategoryName = "Screen", CategoryID = 5 }
         };
 
             return categories;
         }
-
 
         public static IList<RequestStatus> GetStatuses()
         {
@@ -37,7 +33,7 @@ namespace Data.Entities
                 new RequestStatus { StatusName = "Wait For Approving", RequestStatusID = 2 },
                 new RequestStatus { StatusName = "Approved", RequestStatusID = 3 },
                 new RequestStatus { StatusName = "Wait For Buying", RequestStatusID = 4 },
-                new RequestStatus { StatusName = "Finish", RequestStatusID = 5 },
+                new RequestStatus { StatusName = "Finish", RequestStatusID = 5 }
             };
 
             return statuses;
