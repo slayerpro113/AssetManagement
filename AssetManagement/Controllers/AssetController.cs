@@ -5,8 +5,8 @@ using System.Web.Mvc;
 
 namespace AssetManagement.Controllers
 {
-    //[RolePermission(Enumerations.Roles.Staff, Enumerations.Roles.Manager)]
-    [PermissionLogin]
+    [RolePermission(Enumerations.Roles.Staff, Enumerations.Roles.Manager)]
+   
     public class AssetController : Controller
     {
         private readonly IAssetService _assetService;
@@ -113,7 +113,11 @@ namespace AssetManagement.Controllers
                 {
                     return Json(new { status = "Success" }, JsonRequestBehavior.AllowGet);
                 }
-                else
+                else if (status == Enumerations.UpdateEntityStatus.Existed)
+                {
+                    return Json(new { status = "Existed" }, JsonRequestBehavior.AllowGet);
+                }
+                else 
                 {
                     return Json(new { status = "Failed" }, JsonRequestBehavior.AllowGet);
                 }

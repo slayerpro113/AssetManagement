@@ -17,7 +17,7 @@
     settings.Columns.Add(c =>
     {
         c.FieldName = "CheckinDate";
-        c.Caption = "Checkin Date";
+        c.Caption = "Assigned Date";
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
         c.PropertiesEdit.DisplayFormatString = "dd/MM/yyyy";
@@ -42,7 +42,7 @@
     settings.Columns.Add(c =>
     {
         c.FieldName = "CheckoutDate";
-        c.Caption = "Checkout Date";
+        c.Caption = "Recalled Date";
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
         c.PropertiesEdit.DisplayFormatString = "dd/MM/yyyy";
@@ -50,7 +50,7 @@
 
     settings.Columns.Add(c =>
     {
-        c.Caption = "Assigned By";
+        c.Caption = "Recalled By";
         c.SetDataItemTemplateContent(p =>
         {
             int historyId = (int) DataBinder.Eval(p.DataItem, "HistoryID");

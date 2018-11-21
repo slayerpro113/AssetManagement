@@ -21,7 +21,7 @@ namespace Data.Utilities
 
             if (userSession == null)
             {
-                actionContext.HttpContext.Response.Redirect("~/Login/Login");
+                actionContext.Result = new RedirectResult("~/Login/Login");
             }
             else
             {
@@ -33,7 +33,7 @@ namespace Data.Utilities
 
                 if (!roles.Contains(userSession.Role.RoleName))
                 {
-                    actionContext.HttpContext.Response.Redirect("~/Login/Login");
+                    actionContext.Result = new RedirectResult("~/Login/Login");
                 }
             }
             base.OnActionExecuting(actionContext);

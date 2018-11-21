@@ -36,7 +36,8 @@
         public enum UpdateEntityStatus
         {
             Success,
-            Failed
+            Failed,
+            Existed
         }
     }
 }

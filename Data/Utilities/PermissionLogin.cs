@@ -11,9 +11,9 @@ namespace Data.Utilities
             var userSession = (Employee)HttpContext.Current.Session[Constant.UserSession];
             if (userSession == null)
             {
-                actionContext.HttpContext.Response.Redirect("~/Login/Login");
+                actionContext.Result = new RedirectResult("~/Login/Login");
             }
-            //base.OnActionExecuting(actionContext);
+            base.OnActionExecuting(actionContext);
 
         }
     }

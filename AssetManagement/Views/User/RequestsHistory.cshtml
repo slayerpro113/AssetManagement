@@ -7,7 +7,7 @@
 }
 
 @{
-    var userSerssion = (Employee)SessionHelper.GetSessionValue(Constant.UserSession);
+    var userSession = (Employee)SessionHelper.GetSessionValue(Constant.UserSession);
 }
 
 @Html.DevExpress().GetStyleSheets(
@@ -35,28 +35,27 @@
 
                 <div class="x_content">
                     <table style="width:100%">
-
                         <tr>
                             <td style="vertical-align: top; min-width: 110px">
                                 <div class="col-md-3 col-sm-3 col-xs-12 profile_left">
                                     <div style="padding-right: 15px;">
                                         <!-- Profile Card -->
                                         <figure class="snip1515">
-                                            <div class="profile-image "><img class="img-circle img-responsive" src="~/Image/@userSerssion.Image" alt="sample47" /></div>
+                                            <div class="profile-image"><img class="img-circle img-responsive avt" src="~/Image/@userSession.Image" alt="sample47" /></div>
                                             <figcaption>
-                                                <h3>@userSerssion.FullName</h3>
-                                                <h4>@userSerssion.JobTitle</h4>
+                                                <h3>@userSession.FullName</h3>
+                                                <h4>@userSession.JobTitle</h4>
                                                 <ul class="list-unstyled user_data">
                                                     <li>
-                                                        <i class="fa fa-mobile"></i> @userSerssion.Phone
+                                                        <i class="fa fa-mobile"></i> @userSession.Phone
                                                     </li>
 
                                                     <li>
-                                                        <i class="fa fa-map-marker"></i> @userSerssion.Address
+                                                        <i class="fa fa-map-marker"></i> @userSession.Address
                                                     </li>
 
                                                     <li>
-                                                        <i class="fa fa-envelope"></i> @userSerssion.Email
+                                                        <i class="fa fa-envelope"></i> @userSession.Email
                                                     </li>
                                                 </ul>
                                             </figcaption>

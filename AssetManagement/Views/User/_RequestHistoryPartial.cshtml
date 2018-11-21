@@ -21,6 +21,10 @@
     settings.CallbackRouteValues = new { Controller = "User", Action = "GetRequestHistoryPartial", employeeId = ViewBag.EmployeeId };
     settings.Width = Unit.Percentage(100);
 
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowFilterRowMenu = true;
+    settings.CommandColumn.ShowClearFilterButton = true;
+
     settings.Columns.Add(c =>
     {
         c.FieldName = "CreatedDate";
@@ -104,7 +108,6 @@
         });
     });
 
-
     settings.Columns.Add(c =>
     {
         c.Caption = "Assigned By";
@@ -124,7 +127,6 @@
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
         c.Width = 200;
-
     });
 
     settings.Columns.Add(c =>
@@ -147,10 +149,7 @@
         c.Width = 230;
     });
 
-
-    settings.Settings.ShowFilterRow = true;
-    settings.Settings.ShowFilterRowMenu = true;
-    settings.CommandColumn.ShowClearFilterButton = true;
+    
 
     settings.SettingsPager.PageSize = 5;
 

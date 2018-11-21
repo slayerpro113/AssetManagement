@@ -57,11 +57,14 @@ h3 {
     opacity: 1;
 }
 
-.btn {
+#phuda{
     transition: all ease 0.4s;
 }
 
 .test:hover img {
     border: 1px solid #1AAB9C !important;
+    border-radius: 50%;
+
 }
+
 

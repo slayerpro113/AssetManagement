@@ -58,7 +58,7 @@ function timeoutMessage() {
 }
 
 
-// Enter Depreciation
+//------------------------- Enter Depreciation
 
 function OpenDepreciatePopup(assetId, assetName) {
     $("#assetId2").val(assetId);
@@ -103,6 +103,9 @@ function doEnterDepreciation() {
                     $('#depreciatePopup').modal('hide');
                     $("#descriptionForm")[0].reset();
                     InStockGrid.Refresh();
+                } else if (data.status === "Existed") {
+                    $("#message").html("This barcode is already existed");
+                    timeoutMessage();
                 } else {
                     swal({
                         title: "Something Went Wrong",

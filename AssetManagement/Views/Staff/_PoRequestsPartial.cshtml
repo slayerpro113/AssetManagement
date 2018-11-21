@@ -267,12 +267,7 @@
         }
         else if(poRequest.RequestStatusID == 2)
         {
-
             var  quotes = poRequest.Quotes.ToList();
-            foreach (var quote in quotes)
-            {
-                quote.PriceString = string.Format("{0:0,0 VND}", quote.Price);
-            }
 
             ViewContext.Writer.Write(
                 "<div class='quote-detail' style='display:flex;justify-content:center'>"
@@ -286,7 +281,6 @@
         {
             var quoteId = poRequest.SelectedQuoteID;
             var quote = poRequest.Quotes.FirstOrDefault(_ => _.QuoteID == quoteId);
-            quote.PriceString = string.Format("{0:0,0 VND}", quote.Price);
 
             var quotes = new List<Quote>();
             quotes.Add(quote);
@@ -304,7 +298,6 @@
     settings.ClientSideEvents.SelectionChanged = "SelectionChanged";
 
     settings.SettingsPager.PageSize = 5;
-
     settings.SettingsPager.Position = PagerPosition.Bottom;
     settings.SettingsPager.FirstPageButton.Visible = true;
     settings.SettingsPager.LastPageButton.Visible = true;

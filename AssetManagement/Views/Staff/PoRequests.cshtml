@@ -40,8 +40,6 @@
 
         $("#count").html(gvRowSelection.GetSelectedRowCount());
     }
-
-
 </script>
 
 <link href="~/Content/SweetAlert/SweetAlert.css" rel="stylesheet" />
@@ -106,7 +104,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Select asset:<span class="required">*</span> </label>
                             <div class="col-md-8 col-sm-9 col-xs-12">
-                                @Html.Action("LoadAssetCbb", "Staff", new {categoryName = "Chair"})
+                                @Html.Action("LoadAssetCbb", "Staff", new { categoryName = "Chair" })
                             </div>
                         </div>
 
@@ -146,7 +144,7 @@
                         <h4 class="modal-title" id="myModalLabel">Refer Quotes</h4>
                     </div>
                     <div class="modal-body">
-                        
+
                         <!-- value fields -->
                         <input type="hidden" id="poRequestId2">
                         <input type="hidden" id="category">
@@ -186,7 +184,7 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-3">Price: <span class="required">*</span></label>
                                 <div class="col-md-8 col-sm-8 col-xs-8">
-                                    <input type="number" class="form-control has-feedback-left" id="price" maxlength="10">
+                                    <input type="number"  oninput="maxLengthCheck(this)" class="form-control has-feedback-left" id="price" maxlength="10">
                                     <span class="fa fa-money form-control-feedback left" aria-hidden="true"></span>
                                 </div>
                             </div>
@@ -194,7 +192,7 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-3">Warranty: </label>
                                 <div class="col-md-8 col-sm-8 col-xs-8">
-                                    <input type="number" class="form-control has-feedback-left" id="warranty" maxlength="2">
+                                    <input type="number" oninput="maxLengthCheck(this)" class="form-control has-feedback-left" id="warranty" maxlength="3">
                                     <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
                                 </div>
                             </div>
@@ -219,6 +217,7 @@
     </div>
 </div>
 
+
 <script src="~/Scripts/app/PoRequests.js"></script>
 
 <script src="~/Scripts/Autocomplete/jquery.autocomplete.min.js"></script>
@@ -227,8 +226,13 @@
 <link href="~/Scripts/Autocomplete/jquery-ui.css" rel="stylesheet" />
 
 <script>
+    function maxLengthCheck(object) {
+        if (object.value.length > object.maxLength)
+            object.value = object.value.slice(0, object.maxLength);
+    }
+
     $("#productName").autocomplete({
-        source: function(request, response) {
+        source: function (request, response) {
             var categoryName = $("#category").val();
 
             $.ajax({
@@ -236,9 +240,9 @@
                 url: '/Staff/GetDataAutocomplete',
                 type: "POST",
                 data: { productName: request.term, categoryName: categoryName },
-                success: function(data) {
+                success: function (data) {
                     response($.map(data,
-                        function(item) {
+                        function (item) {
                             return {
                                 value: item.value,
                                 label: item.label,
@@ -249,7 +253,7 @@
 
             });
         },
-        select: function(even, ui) {
+        select: function (even, ui) {
             $("#brand").val(ui.item.brand);
         }
     });

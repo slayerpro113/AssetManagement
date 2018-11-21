@@ -68,7 +68,6 @@ namespace Service
             {
                 string path = HttpContext.Current.Server.MapPath("~/Image/Categories/" + quote.Image);
                 quote.ImageBytes = File.ReadAllBytes(path);
-                quote.PriceString = string.Format("{0:0,0 VND}", quote.Price);
             }
 
             return quotes;

@@ -101,7 +101,7 @@ namespace Service
                         {
                             Image = temp.Quote.Image,
                             ProductName = temp.Quote.ProductName,
-                            Brand = temp.Quote.ProductName,
+                            Brand = temp.Quote.Brand,
                             Category = _categoryRepository.GetCategoryByCategoryName(temp.Quote.CategoryName)
                         };
 
@@ -156,18 +156,6 @@ namespace Service
             {
                 return Enumerations.AddEntityStatus.Failed;
             }
-        }
-
-        public IList<Order> GetOrders()
-        {
-            var orders = GetAll();
-            foreach (var order in orders)
-            {
-                order.Total = string.Format("{0:0,0 VND}", order.OrderTotal);
-                order.NumberOfRequests = order.PoRequests.Count;
-            }
-
-            return orders;
         }
 
         public IList<Quote> GetQuotesByPoRequests(IList<PoRequest> poRequests)

@@ -26,5 +26,10 @@ namespace Repository
         {
             return repository.Entity.Where(_ => _.ProductName.ToLower().Contains(productName) && _.Category.CategoryName == categoryName).ToList();
         }
+
+        public static IList<Product> GetBrands(this IRepository<Product> repository)
+        {
+            return repository.Entity.GroupBy(_ => _.Brand).Select(_ => _.FirstOrDefault()).ToList();
+        }
     }
 }

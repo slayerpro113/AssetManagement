@@ -231,6 +231,7 @@
     <Content Include="Image\Employees\Employee8.jpg" />
     <Content Include="Image\Employees\Employee9.jpg" />
     <Content Include="Image\icon.co.png" />
+    <Content Include="Image\icon2.co.jpg" />
     <Content Include="Scripts\ace.js" />
     <Content Include="Scripts\additional-methods.js" />
     <Content Include="Scripts\additional-methods.min.js" />

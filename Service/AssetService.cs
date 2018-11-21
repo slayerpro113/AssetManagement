@@ -1,4 +1,5 @@
-﻿using Data.Entities;
+﻿using Data.DTO;
+using Data.Entities;
 using Data.Repositories;
 using Data.Services;
 using Data.UnitOfWork;
@@ -6,9 +7,7 @@ using Data.Utilities.Enumeration;
 using Repository;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using Data.DTO;
 
 namespace Service
 {
@@ -16,12 +15,13 @@ namespace Service
     {
         private readonly IRepository<Asset> _assetRepository;
         private readonly IRepository<Vendor> _vendorRepository;
+        private readonly IRepository<Product> _productRepository;
 
-
-        public AssetService(IUnitOfWork unitOfWork, IRepository<Asset> assetRepository, IRepository<Vendor> vendorRepository) : base(unitOfWork, assetRepository)
+        public AssetService(IUnitOfWork unitOfWork, IRepository<Asset> assetRepository, IRepository<Vendor> vendorRepository, IRepository<Product> productRepository) : base(unitOfWork, assetRepository)
         {
             _assetRepository = assetRepository;
             _vendorRepository = vendorRepository;
+            _productRepository = productRepository;
         }
 
         public IList<Asset> GetAssetsInStock()
@@ -84,22 +84,37 @@ namespace Service
         {
             try
             {
-                var asset = GetEntity(assetId);
-                asset.Barcode = barcode;
-                asset.MonthDepreciation = monthsOfDepreciation;
-                asset.AssetStatusID = 1;
+                if (!IsExistedBarcode(barcode))
+                {
+                    var asset = GetEntity(assetId);
+                    asset.Barcode = barcode;
+                    asset.MonthDepreciation = monthsOfDepreciation;
+                    asset.AssetStatusID = 1;
 
-                var purchaseDate = asset.OrderDetail.Order.PurchaseDate;
-                var endTimeDepreciation = purchaseDate.AddMonths(monthsOfDepreciation);
-                asset.EndTimeDepreciation = endTimeDepreciation;
+                    var purchaseDate = asset.OrderDetail.Order.PurchaseDate;
+                    var endTimeDepreciation = purchaseDate.AddMonths(monthsOfDepreciation);
+                    asset.EndTimeDepreciation = endTimeDepreciation;
 
-                UpdateEntity(asset);
-                return Enumerations.UpdateEntityStatus.Success;
+                    UpdateEntity(asset);
+                    return Enumerations.UpdateEntityStatus.Success;
+                }
+                else return Enumerations.UpdateEntityStatus.Existed;
+
             }
             catch (Exception e)
             {
                 return Enumerations.UpdateEntityStatus.Failed;
             }
+        }
+
+        public bool IsExistedBarcode(string barcode)
+        {
+            var asset = _assetRepository.GetAssetByBarcode(barcode);
+            if (asset != null)
+            {
+                return true;
+            }
+            else return false;
         }
 
         public int CalculateTimeLeft(DateTime timeNow, DateTime endTime)
@@ -135,8 +150,8 @@ namespace Service
             var monthsLeft = CalculateTimeLeft(DateTime.Now, asset.EndTimeDepreciation.Value);
 
             asset.MonthlyAmount = string.Format("{0:0,0 VND}", monthlyAmount);
-            asset.DepreciatedAmount = string.Format("{0:0,0 VND}", depreciatedAmount); 
-            asset.AmountLeft = string.Format("{0:0,0 VND}", amountLeft); 
+            asset.DepreciatedAmount = string.Format("{0:0,0 VND}", depreciatedAmount);
+            asset.AmountLeft = string.Format("{0:0,0 VND}", amountLeft);
             asset.PercentDepreciation = Math.Round((double)percentDepreciation, 2);
             asset.MonthsLeft = monthsLeft;
 
@@ -156,11 +171,13 @@ namespace Service
             var vendors = _vendorRepository.GetAll();
             var highCharts = new List<HighChart>();
 
-            foreach (var temp in vendors)
+            foreach (var vendor in vendors)
             {
-                var highChart = new HighChart();
-                highChart.VendorName = temp.Name;
-                highChart.PercentVendor = CalculateVendorPercent(temp.Name);
+                var highChart = new HighChart
+                {
+                    VendorName = vendor.Name,
+                    PercentVendor = CalculateVendorPercent(vendor.Name)
+                };
 
                 highCharts.Add(highChart);
             }
@@ -170,15 +187,17 @@ namespace Service
 
         public IList<HighChart> Get3DChartData()
         {
-            string [] brand = new string[] { "Hoa Phat", "Logitech", "Razer", "SteelSeries", "Dell", "Acer", "Assus", "LG" };
-            
+            var products = _productRepository.GetBrands();
+
             var highCharts = new List<HighChart>();
 
-            for (int i= 0 ; i < brand.Length; i++)
+            foreach (var product in products)
             {
-                var highChart = new HighChart();
-                highChart.Brand = brand[i];
-                highChart.PercentBrand = CalculateBrandPercent(brand[i]);
+                var highChart = new HighChart
+                {
+                    Brand = product.Brand,
+                    PercentBrand = CalculateBrandPercent(product.Brand)
+                };
 
                 highCharts.Add(highChart);
             }

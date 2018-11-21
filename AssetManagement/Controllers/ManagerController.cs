@@ -64,13 +64,13 @@ namespace AssetManagement.Controllers
 
         public ActionResult GetOrders()
         {
-            var orders = _orderService.GetOrders();
+            var orders = _orderService.GetAll();
             return View("Orders", orders);
         }
 
         public ActionResult GetOrdersPartial()
         {
-            var orders = _orderService.GetOrders();
+            var orders = _orderService.GetAll();
             return PartialView("_OrdersPartial", orders);
         }
 

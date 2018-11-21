@@ -41,5 +41,10 @@ namespace Repository
         {
             return repository.Entity.Count();
         }
+
+        public static Asset GetAssetByBarcode(this IRepository<Asset> repository, string barcode)
+        {
+            return repository.Entity.FirstOrDefault(_ => _.Barcode == barcode);
+        }
     }
 }
