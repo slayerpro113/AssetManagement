@@ -32,6 +32,7 @@ function doAssetRequest() {
                         timer: 1300
                     });
                     $("#formRequest")[0].reset();
+                    location.href = "/user/RequestsHistory";
                 }
                 else if (data.status === "Existed") {
                     swal({

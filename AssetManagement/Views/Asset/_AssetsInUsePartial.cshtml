@@ -20,7 +20,6 @@
     settings.Styles.RowHotTrack.BackColor = System.Drawing.ColorTranslator.FromHtml("#f9fdff");
     settings.Styles.RowHotTrack.Font.Bold = true;
 
-
     settings.Settings.ShowGroupPanel = true;
     settings.SettingsBehavior.AllowFocusedRow = false;
 
@@ -196,7 +195,7 @@
     settings.SetDetailRowTemplateContent(c =>
     {
         ViewContext.Writer.Write(
-            "<h4 class='title'><b>Depreciation Detail<b></h4>" +
+            "<h4 class='sub-title'><b>Depreciation Detail<b></h4>" +
             "<div class='depreciation'>"
             );
 
@@ -209,7 +208,7 @@
         ViewContext.Writer.Write(
             "</div>"+
             "<br>"+
-            "<h4 class='title'><b>Histories Detail</b></h4>" +
+            "<h4 class='sub-title'><b>Histories Detail</b></h4>" +
             "<div class='history'>"
                 );
 

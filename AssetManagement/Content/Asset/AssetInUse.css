@@ -59,8 +59,21 @@
 .ln_solid {
     border-top: 1px solid #1AAB9C !important;
 }
+
 /*detail*/
+
 .history, .depreciation, h4 {
     display: flex;
     justify-content: center
+}
+
+.sub-title {
+    text-align: center;
+    font-family: Montserrat-Black;
+    color: #1AAB9C;
+    line-height: 1.2;
+}
+
+.sub-title b {
+    border-bottom: 2px solid;
 }

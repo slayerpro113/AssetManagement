@@ -6,6 +6,7 @@
 @Html.DevExpress().GridView(settings => {
     settings.Name = "ordersGrid";
     settings.SettingsLoadingPanel.Mode = GridViewLoadingPanelMode.Disabled;
+
     //Custom css
     settings.Styles.Header.BackColor = System.Drawing.ColorTranslator.FromHtml("#1bc6b5");
     settings.Styles.Header.ForeColor = Color.White;
@@ -64,13 +65,20 @@
 
     settings.Columns.Add(c =>
     {
-        c.FieldName = "Total";
+        c.FieldName = "OrderTotal";
         c.Caption = "Total";
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.Width = 150;
         c.Settings.AllowAutoFilter = DefaultBoolean.False;
-
+        c.SetDataItemTemplateContent(p =>
+        {
+            int orderId = (int)DataBinder.Eval(p.DataItem, "OrderID");
+            var order = Model.FirstOrDefault(_ => _.OrderID == orderId);
+            ViewContext.Writer.Write(
+                 string.Format("{0:0,0 VND}", order.Total)
+                );
+        });
     });
 
     settings.Columns.Add(c =>
@@ -126,10 +134,10 @@
     settings.SettingsPager.PageSizeItemSettings.Visible = true;
     settings.SettingsPager.PageSizeItemSettings.Items = new string[] { "5", "7", "9" };
 
-                                            
+
     settings.SettingsExport.EnableClientSideExportAPI = true;
     settings.SettingsExport.ExcelExportMode = DevExpress.Export.ExportType.DataAware;
-   
+
 }).Bind(Model).GetHtml()
 
 

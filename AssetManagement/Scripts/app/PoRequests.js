@@ -33,8 +33,8 @@ function doAssignAsset() {
             success: function (data) {
                 if (data.status === "Success") {
                     swal({
-                        title: "Assign Asset",
-                        text: "Successfully",
+                        title: "Successfully",
+                        text: "The asset has been assigned",
                         icon: "success",
                         buttons: false,
                         timer: 1300
@@ -109,8 +109,8 @@ function doEnterQuote() {
             success: function (data) {
                 if (data.status === "Success") {
                     swal({
-                        title: "Assign Asset",
-                        text: "Successfully",
+                        title: "Successfully",
+                        text: "The new quote has been created",
                         icon: "success",
                         buttons: false,
                         timer: 1300

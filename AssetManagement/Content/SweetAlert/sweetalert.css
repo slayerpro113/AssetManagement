@@ -27,7 +27,8 @@
     color: white;
     text-transform: uppercase;
     font-weight: unset;
-    border-radius: 20px;
+    border-radius: 20px!important;
+    border: none!important;
     -webkit-transition: all 0.3s;
     -o-transition: all 0.3s;
     -moz-transition: all 0.3s;

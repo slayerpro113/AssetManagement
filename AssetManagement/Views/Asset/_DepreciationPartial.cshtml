@@ -6,7 +6,6 @@
     settings.Name = "depreciationGrid";
     settings.SettingsDetail.MasterGridName = "grid";
     settings.Width = Unit.Percentage(80);
-    settings.Settings.ShowGroupPanel = false;
     settings.SettingsBehavior.AllowSort = false;
     //Custom css
     settings.Styles.Header.BackColor = System.Drawing.ColorTranslator.FromHtml("#f4f4f4");
@@ -25,8 +24,6 @@
     {
         c.FieldName = "MonthlyAmount";
         c.Caption = "Monthly Amount";
-        
-
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
     });

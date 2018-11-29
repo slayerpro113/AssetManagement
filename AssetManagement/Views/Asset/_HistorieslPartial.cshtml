@@ -8,6 +8,7 @@
     settings.SettingsDetail.MasterGridName = "grid";
     settings.CallbackRouteValues = new { Controller = "Asset", Action = "ShowHistories", assetId = ViewBag.AssetID };
     settings.Width = Unit.Percentage(80);
+    settings.SettingsBehavior.AllowSort = false;
 
     //Custom css
     settings.Styles.Header.BackColor = System.Drawing.ColorTranslator.FromHtml("#f4f4f4");

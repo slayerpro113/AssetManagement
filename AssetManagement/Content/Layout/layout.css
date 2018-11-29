@@ -34,8 +34,8 @@
      line-height: 1.2;
  }
 
-.phuda:hover {
-    border-bottom: 1px solid #1AAB9C;
+.right-nav:hover {
+    border-left: 2px solid #1AAB9C;
 }
 
 .menu-item:hover {

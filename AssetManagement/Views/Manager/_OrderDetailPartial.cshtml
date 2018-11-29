@@ -9,8 +9,6 @@
     //settings.SettingsBehavior.AllowSelectSingleRowOnly = true;
 
     settings.SettingsBehavior.AllowFocusedRow = false;
-    settings.SettingsBehavior.AllowSort = false;
-
     settings.SettingsLoadingPanel.Mode = GridViewLoadingPanelMode.Disabled;
 
     //Custom css
@@ -81,23 +79,38 @@
 
     settings.Columns.Add(c =>
     {
-        c.FieldName = "PriceString";
+        c.FieldName = "Price";
         c.Caption = "Price";
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
         c.Settings.AllowAutoFilter = DefaultBoolean.False;
         c.Width = 150;
-
+        c.SetDataItemTemplateContent(p =>
+        {
+            int orderDetailId = (int)DataBinder.Eval(p.DataItem, "OrderDetailID");
+            var orderDetail = Model.FirstOrDefault(_ => _.OrderDetailID == orderDetailId);
+            ViewContext.Writer.Write(
+                string.Format("{0:0,0 VND}", orderDetail.Price)
+                );
+        });
     });
 
     settings.Columns.Add(c =>
     {
-        c.FieldName = "SubtotalString";
+        c.FieldName = "Subtotal";
         c.Caption = "Subtotal";
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
         c.Settings.AllowAutoFilter = DefaultBoolean.False;
         c.Width = 150;
+        c.SetDataItemTemplateContent(p =>
+        {
+            int orderDetailId = (int)DataBinder.Eval(p.DataItem, "OrderDetailID");
+            var orderDetail = Model.FirstOrDefault(_ => _.OrderDetailID == orderDetailId);
+            ViewContext.Writer.Write(
+                string.Format("{0:0,0 VND}", orderDetail.Subtotal)
+                );
+        });
     });
 
 }).Bind(Model).GetHtml()

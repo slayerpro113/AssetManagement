@@ -17,14 +17,7 @@ namespace Service
 
         public IList<OrderDetail> GetOrderDetailByOrderId(int orderId)
         {
-            var orderDetails =  _orderDetailRepository.GetOrderDetailsByOrderId(orderId);
-            foreach (var orderDetail in orderDetails)
-            {
-                orderDetail.PriceString = string.Format("{0:0,0 VND}", orderDetail.Price);
-                orderDetail.SubtotalString = string.Format("{0:0,0 VND}", orderDetail.Subtotal);
-            }
-
-            return orderDetails;
+            return _orderDetailRepository.GetOrderDetailsByOrderId(orderId);
         }
     }
 }

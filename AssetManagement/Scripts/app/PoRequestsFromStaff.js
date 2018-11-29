@@ -2,7 +2,8 @@
     swal({
         title: "Are you sure?",
         icon: "warning",
-        buttons: true
+        buttons: true,
+        dangerMode: true
     }).then(function (isConfirm) {
         if (isConfirm) {
             $.ajax({
@@ -11,7 +12,6 @@
                 dataType: 'json',
                 success: function (data) {
                     if (data.status === "Success") {
-
                         swal({
                             title: "Successfully",
                             text: "The quote has been selected",

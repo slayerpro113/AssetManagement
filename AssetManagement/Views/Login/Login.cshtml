@@ -4,9 +4,9 @@
 <!DOCTYPE html>
 <html lang="en">
 @*@{
-      var userSession = (Employee)SessionHelper.GetSessionValue(Constant.UserSession);
-     var roleSession = (Role)SessionHelper.GetSessionValue(Constant.RoleSession);
-}*@
+          var userSession = (Employee)SessionHelper.GetSessionValue(Constant.UserSession);
+         var roleSession = (Role)SessionHelper.GetSessionValue(Constant.RoleSession);
+    }*@
 
 <head>
     <meta charset="UTF-8">
@@ -18,22 +18,27 @@
     <link rel="stylesheet" href="~/Content/LoginCss/style.css" />
     <link href="~/Content/toastr.css" rel="stylesheet" />
 </head>
-
 <body>
-<div class="form">
-    <span id="errorText"></span>
-    <div class="forceColor"></div>
-    <div class="topbar">
-        <form id="loginForm">
-            <input type="text" class="input" id="userName" name="userName" placeholder="UserName" maxlength="20" required="" />
-            <input type="password" class="input" id="password" name="password" placeholder="Password" maxlength="20" minlength="6" required="" />
-            <button type="button" class="submit" id="btnSubmit">Login</button>
-        </form>
+    <div class="form">
+        <span id="errorText"></span>
+        <div class="forceColor"></div>
+        <div class="topbar">
+            <form id="loginForm">
+                <input type="text" class="input" id="userName" name="userName" placeholder="UserName" maxlength="20" required="" />
+                <input type="password" class="input" id="password" name="password" placeholder="Password" maxlength="20" minlength="6" required="" />
+                <button type="button" class="submit" id="btnSubmit">Login</button>
+            </form>
+        </div>
     </div>
-</div>
 </body>
 
 </html>
 <script src="~/Scripts/jquery.js"></script>
 <script src="~/Scripts/toastr.js"></script>
 <script src="~/Scripts/app/login.js"></script>
+
+<script>
+    $("#test").click(function () {
+        toastr["warning"]("Please enter your username", "Warning:");
+    });
+</script>

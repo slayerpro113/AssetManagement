@@ -6,7 +6,7 @@
 
 @{
     Layout = "~/Views/Shared/_Layouts.cshtml";
-    ViewBag.Title = "Requests Detail";
+    ViewBag.Title = "Manage Assets";
 }
 @{
     var userSession = (Employee)SessionHelper.GetSessionValue(Constant.UserSession);
@@ -79,7 +79,7 @@
                         </div>
 
                         <div class='form-group'>
-                            <label class='control-label col-md-4 col-sm-3 col-xs-12'>Retrieve from : </label>
+                            <label class='control-label col-md-4 col-sm-3 col-xs-12'>Retrieve From : </label>
                             <div class='col-md-7 col-sm-7 col-xs-12'>
                                 <input type='text' class='form-control' readonly id='employeeName'>
                             </div>

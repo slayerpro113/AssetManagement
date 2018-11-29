@@ -14,7 +14,6 @@ namespace Data.Utilities
                 actionContext.Result = new RedirectResult("~/Login/Login");
             }
             base.OnActionExecuting(actionContext);
-
         }
     }
 }

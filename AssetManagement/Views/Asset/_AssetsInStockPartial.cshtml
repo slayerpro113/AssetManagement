@@ -8,7 +8,8 @@
     settings.KeyFieldName = "AssetID";
     settings.Width = Unit.Percentage(100);
     settings.SettingsLoadingPanel.Mode = GridViewLoadingPanelMode.Disabled;
-
+    settings.Settings.ShowGroupPanel = true;
+    settings.SettingsBehavior.AllowFocusedRow = false;
     //Custom css
     settings.Styles.Header.BackColor = System.Drawing.ColorTranslator.FromHtml("#1bc6b5");
     settings.Styles.Header.ForeColor = Color.White;
@@ -19,18 +20,14 @@
     settings.Styles.RowHotTrack.BackColor = System.Drawing.ColorTranslator.FromHtml("#f9fdff");
     settings.Styles.RowHotTrack.Font.Bold = true;
 
-    settings.Settings.ShowGroupPanel = true;
-    settings.SettingsBehavior.AllowFocusedRow = false;
-
     settings.SettingsDetail.AllowOnlyOneMasterRowExpanded = true;
     settings.SettingsDetail.ShowDetailRow = true;
     settings.SettingsPager.PageSize = 5;
 
-    //filter
+    //filter 
     settings.Settings.ShowFilterRow = true;
     settings.Settings.ShowFilterRowMenu = true;
     settings.CommandColumn.ShowClearFilterButton = true;
-
 
     settings.Toolbars.Add(toolbar =>
     {
@@ -171,7 +168,7 @@
                 ViewContext.Writer.Write(
                     "<div class='project_progress'>"+
                     "<div class='progress progress_sm'>" +
-                    "<div class='progress-bar bg-green' role='progressbar' style='width:"+ asset.PercentDepreciation +"%' ></div></div>" +
+                    "<div class='progress-bar bg-green' role='progressbar' style='width:"+ asset.PercentDepreciation +"%'></div>" +
                     "</div>" +
                     "</div>"+
                     "<small> "+ asset.PercentDepreciation + " % Complete </small>"
@@ -225,7 +222,7 @@
     settings.SetDetailRowTemplateContent(c =>
     {
         ViewContext.Writer.Write(
-            "<h4>Depreciation Detail<h5>"+
+            "<h4 class='sub-title'><b>Depreciation Detail<b></h4>" +
             "<div class='depreciation'>"
         );
 
@@ -238,7 +235,7 @@
         ViewContext.Writer.Write(
             "</div>"+
             "<br>"+
-            "<h4>History<h5>"+
+            "<h4 class='sub-title'><b>Histories Detail</b></h4>" +
             "<div class='history'>"
             );
 

@@ -13,7 +13,7 @@ using System.Web.Mvc;
 
 namespace AssetManagement.Controllers
 {
-    [RolePermission(Enumerations.Roles.Staff, Enumerations.Roles.Manager)]
+    [RolePermission(Enumerations.Roles.Staff)]
     public class StaffController : Controller
     {
         private readonly IProductService _productService;

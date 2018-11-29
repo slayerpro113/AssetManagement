@@ -27,10 +27,6 @@ namespace Data.Entities
         public string EmployeeImage { get; set; }
         public string EmployeeName { get; set; }
         public string EmployeeEmail { get; set; }
-        public string EmployeeAddress { get; set; }
-        public string EmployeeJob { get; set; } 
-        public string EmployeePhone { get; set; } 
-        public string EmployeeBirthdate { get; set; }
 
 
         public static IList<Category> GetCategories()

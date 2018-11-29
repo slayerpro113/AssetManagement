@@ -3,7 +3,8 @@
             swal({
                 title: "Are you sure?",
                 icon: "warning",
-                buttons: true
+                buttons: true,
+                dangerMode: true
             }).then(function (isConfirm) {
                 if (isConfirm) {
                     doRecallAsset();

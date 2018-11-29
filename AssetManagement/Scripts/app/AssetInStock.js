@@ -82,8 +82,8 @@ function doEnterDepreciation() {
     if (barcode.length === 0 || monthsOfDepreciation.length === 0) {
         $("#message").html("Please, fill all the required fields.");
         timeoutMessage();
-    } else if (monthsOfDepreciation > 84) {
-        $("#message").html("The maximum months are 84!");
+    } else if (monthsOfDepreciation > 120) {
+        $("#message").html("The maximum months are 120!");
         timeoutMessage();
     }
     else {
@@ -126,3 +126,8 @@ function timeoutMessage() {
     }, 1300);
 }
 
+//-----------Check maxlength
+function maxLengthCheck(object) {
+    if (object.value.length > object.maxLength)
+        object.value = object.value.slice(0, object.maxLength);
+}

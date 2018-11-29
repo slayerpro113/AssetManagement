@@ -1,6 +1,4 @@
-﻿
-
-toastr.options = {
+﻿toastr.options = {
     "closeButton": false,
     "debug": false,
     "newestOnTop": false,
@@ -10,13 +8,14 @@ toastr.options = {
     "onclick": null,
     "showDuration": "300",
     "hideDuration": "1000",
-    "timeOut": "1000",
+    "timeOut": "650",
     "extendedTimeOut": "1000",
     "showEasing": "swing",
     "hideEasing": "linear",
     "showMethod": "fadeIn",
     "hideMethod": "fadeOut"
 }
+
 $(document).keypress(function (e) {
     if (e.which === 13) {
         doLogin();
@@ -34,9 +33,9 @@ function doLogin() {
     var password = $("#password").val();
 
     if (userName.length === 0) {
-        toastr["warning"]("Please Enter Your Username", "Warning:");
+        toastr["warning"]("Please enter your username", "Warning:");
     } else if (password.length === 0) {
-        toastr["warning"]("Please Enter Your Password", "Warning:");
+        toastr["warning"]("Please enter your password", "Warning:");
     } else {
         $.ajax({
             type: 'Post',
