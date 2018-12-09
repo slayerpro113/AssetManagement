@@ -1,7 +1,7 @@
 ﻿.title {
     text-align: center;
     font-size: 28px;
-    font-family: Montserrat-Black;
+    /*font-family: Montserrat-Black;*/
     color: #1AAB9C;
     line-height: 1.2;
 }
@@ -59,7 +59,7 @@
 .modal-title {
     text-align: center;
     font-size: 28px;
-    font-family: Montserrat-Black;
+    /*font-family: Montserrat-Black;*/
     color: #1AAB9C;
     line-height: 1.2;
 }

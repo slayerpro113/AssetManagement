@@ -39,10 +39,12 @@ function doAssetRequest() {
                         title: "Your Request For This Device Has Been Sent before",
                         text: "Please wait for we handle",
                         icon: "warning",
-                        buttons: false,
-                        timer: 1300
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Close'
+                    }).then(function () {
+                        swal.close();
+                        $("#formRequest")[0].reset();
                     });
-                    $("#formRequest")[0].reset();
                 }
                 else {
                     swal({
