@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Data.DTO;
 using Data.Entities;
 using Data.Utilities.Enumeration;
@@ -14,5 +15,6 @@ namespace Data.Services
         Enumerations.UpdateEntityStatus HandleEnterDetail(int assetId, string barcode, int monthsOfDepreciation);
         IList<HighChart> GetChartData();
         IList<HighChart> Get3DChartData();
+        String GenerateBarCode();
     }
 }

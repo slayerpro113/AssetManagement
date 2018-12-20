@@ -7,7 +7,11 @@ using Data.Utilities.Enumeration;
 using Repository;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
+using System.Web.Mvc;
 
 namespace Service
 {
@@ -84,22 +88,17 @@ namespace Service
         {
             try
             {
-                if (!IsExistedBarcode(barcode))
-                {
-                    var asset = GetEntity(assetId);
-                    asset.Barcode = barcode;
-                    asset.MonthDepreciation = monthsOfDepreciation;
-                    asset.AssetStatusID = 1;
+                var asset = GetEntity(assetId);
+                asset.Barcode = barcode;
+                asset.MonthDepreciation = monthsOfDepreciation;
+                asset.AssetStatusID = 1;
 
-                    var purchaseDate = asset.OrderDetail.Order.PurchaseDate;
-                    var endTimeDepreciation = purchaseDate.AddMonths(monthsOfDepreciation);
-                    asset.EndTimeDepreciation = endTimeDepreciation;
+                var purchaseDate = asset.OrderDetail.Order.PurchaseDate;
+                var endTimeDepreciation = purchaseDate.AddMonths(monthsOfDepreciation);
+                asset.EndTimeDepreciation = endTimeDepreciation;
 
-                    UpdateEntity(asset);
-                    return Enumerations.UpdateEntityStatus.Success;
-                }
-                else return Enumerations.UpdateEntityStatus.Existed;
-
+                UpdateEntity(asset);
+                return Enumerations.UpdateEntityStatus.Success;
             }
             catch (Exception e)
             {
@@ -211,6 +210,34 @@ namespace Service
             var quantityOfAsset = _assetRepository.CountAsset();
 
             return ((double)assetOfBrand / (double)quantityOfAsset) * 100;
+        }
+
+        public string GenerateBarCode()
+        {
+            Random rd = new Random();
+            int rand = rd.Next(10000) + 100000;
+            string barcode = "EL" + rand;
+
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                using (Bitmap bitMap = new Bitmap(barcode.Length * 21, 65))
+                {
+                    using (Graphics graphics = Graphics.FromImage(bitMap))
+                    {
+                        Font oFont = new Font("IDAutomationHC39M", 12);
+                        PointF point = new PointF(15f, 4f);
+                        SolidBrush whiteBrush = new SolidBrush(Color.Black);
+                        graphics.FillRectangle(whiteBrush, 0, 0, bitMap.Width, bitMap.Height);
+                        SolidBrush blackBrush = new SolidBrush(Color.White);
+                        graphics.DrawString(barcode, oFont, blackBrush, point);
+                    }
+
+                    bitMap.Save(memoryStream, ImageFormat.Jpeg);
+
+                    var barcodeSrc = "data:image/png;base64," + Convert.ToBase64String(memoryStream.ToArray());
+                    return barcode + "|" + barcodeSrc;
+                }
+            }
         }
     }
 }

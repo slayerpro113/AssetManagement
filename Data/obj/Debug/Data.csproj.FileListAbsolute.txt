@@ -221,8 +221,8 @@ C:\Users\PC\Desktop\AssetManagement\Data\bin\Debug\de\DevExpress.RichEdit.v18.1.
 C:\Users\PC\Desktop\AssetManagement\Data\bin\Debug\es\DevExpress.RichEdit.v18.1.Core.resources.dll
 C:\Users\PC\Desktop\AssetManagement\Data\bin\Debug\ja\DevExpress.RichEdit.v18.1.Core.resources.dll
 C:\Users\PC\Desktop\AssetManagement\Data\bin\Debug\ru\DevExpress.RichEdit.v18.1.Core.resources.dll
-C:\Users\PC\Desktop\AssetManagement\Data\obj\Debug\Data.csprojAssemblyReference.cache
 C:\Users\PC\Desktop\AssetManagement\Data\obj\Debug\Data.csproj.CoreCompileInputs.cache
 C:\Users\PC\Desktop\AssetManagement\Data\obj\Debug\Data.csproj.CopyComplete
 C:\Users\PC\Desktop\AssetManagement\Data\obj\Debug\Data.dll
 C:\Users\PC\Desktop\AssetManagement\Data\obj\Debug\Data.pdb
+C:\Users\PC\Desktop\AssetManagement\Data\obj\Debug\Data.csprojAssemblyReference.cache

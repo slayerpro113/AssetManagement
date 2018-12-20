@@ -84,14 +84,14 @@ function doEnterQuote() {
     var warranty = $('#warranty').val();
     var poRequestId = $('#poRequestId2').val();
 
-    if (productName.length === 0  || vendor === "Choose vendor" || price.length === 0) {
+    if (productName.trim().length === 0 || brand.trim().length === 0 || vendor === "Choose vendor" || price.length === 0) {
         $("#quoteMessage").html("Please, fill all required fields!");
         timeout();
     }
     else {
         var formData = new FormData();
-        formData.append('productName', productName);
-        formData.append('brand', brand);
+        formData.append('productName', productName.trim());
+        formData.append('brand', brand.trim());
         formData.append('vendor', vendor);
         formData.append('price', price);
         formData.append('warranty', warranty);

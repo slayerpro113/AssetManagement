@@ -13,14 +13,14 @@ function doAssetRequest() {
     var device = $("#device").val();
     var description = $("#description").val();
 
-    if (device === "Choose option" || description.length === 0) {
+    if (device === "Choose option" || description.length === 0 || description.trim().length === 0) {
         $("#errorMessage").html("Please fill all the required fields !");
         timeout();
     }
     else {
         $.ajax({
             type: 'Post',
-            url: "/User/HandlePoRequest?employeeId=" + $("#employeeId").val() + "&description=" + $("#description").val() + "&device=" + device,
+            url: "/User/HandlePoRequest?employeeId=" + $("#employeeId").val() + "&description=" + description.trim() + "&device=" + device,
             dataType: 'json',
             success: function (data) {
                 if (data.status === "Success") {

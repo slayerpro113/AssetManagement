@@ -19,7 +19,7 @@ function doAssignAsset() {
 
     if (employeeId === null) {
         $("#errorMessage").html("Please, Select an employee to assign!");
-        timeoutMessage();
+        timeout();
     }
     else {
         $.ajax({
@@ -51,7 +51,7 @@ function doAssignAsset() {
     }
 }
 
-function timeoutMessage() {
+function timeout() {
     setTimeout(function () {
         $("#errorMessage").empty();
     }, 1300);
@@ -71,7 +71,8 @@ $(document).ready(function () {
     });
 
     $("#btnCancel2").click(function () {
-        $("#descriptionForm")[0].reset();
+        $("#depreciateForm")[0].reset();
+        $("#imgBarcode").attr("src", "");
     });
 });
 

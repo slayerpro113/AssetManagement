@@ -7,8 +7,8 @@
     "preventDuplicates": true,
     "onclick": null,
     "showDuration": "300",
-    "hideDuration": "1000",
-    "timeOut": "650",
+    "hideDuration": "3000",
+    "timeOut": "2000", // show off
     "extendedTimeOut": "1000",
     "showEasing": "swing",
     "hideEasing": "linear",

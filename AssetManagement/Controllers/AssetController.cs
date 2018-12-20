@@ -1,4 +1,8 @@
-﻿using Data.Services;
+﻿using System;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using Data.Services;
 using Data.Utilities;
 using Data.Utilities.Enumeration;
 using System.Web.Mvc;
@@ -65,7 +69,7 @@ namespace AssetManagement.Controllers
 
             if (asset.Barcode == null || asset.MonthDepreciation == null)
             {
-                return Json(new { status = "Failed" }, JsonRequestBehavior.AllowGet);
+                return Json(new {status = "Failed"}, JsonRequestBehavior.AllowGet);
             }
             else
             {
@@ -73,27 +77,27 @@ namespace AssetManagement.Controllers
 
                 if (status == Enumerations.AddEntityStatus.Success)
                 {
-                    return Json(new { status = "Success" }, JsonRequestBehavior.AllowGet);
+                    return Json(new {status = "Success"}, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
-                    return Json(new { status = "Failed" }, JsonRequestBehavior.AllowGet);
+                    return Json(new {status = "Failed"}, JsonRequestBehavior.AllowGet);
                 }
             }
         }
 
         [HttpPost]
-        public ActionResult RecallAsset(int assetId, string recallRemark, int staffRecallId)
+        public ActionResult RecallAsset(int assetId, int staffRecallId)
         {
             var status = _historyService.HandleRecall(assetId, staffRecallId);
 
             if (status == Enumerations.UpdateEntityStatus.Success)
             {
-                return Json(new { status = "Success" }, JsonRequestBehavior.AllowGet);
+                return Json(new {status = "Success"}, JsonRequestBehavior.AllowGet);
             }
             else
             {
-                return Json(new { status = "Failed" }, JsonRequestBehavior.AllowGet);
+                return Json(new {status = "Failed"}, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -102,7 +106,7 @@ namespace AssetManagement.Controllers
         {
             if (string.IsNullOrEmpty(barcode) || monthsOfDepreciation < 0)
             {
-                return Json(new { status = "Failed" }, JsonRequestBehavior.AllowGet);
+                return Json(new {status = "Failed"}, JsonRequestBehavior.AllowGet);
             }
             else
             {
@@ -110,17 +114,47 @@ namespace AssetManagement.Controllers
 
                 if (status == Enumerations.UpdateEntityStatus.Success)
                 {
-                    return Json(new { status = "Success" }, JsonRequestBehavior.AllowGet);
+                    return Json(new {status = "Success"}, JsonRequestBehavior.AllowGet);
                 }
-                else if (status == Enumerations.UpdateEntityStatus.Existed)
+                else
                 {
-                    return Json(new { status = "Existed" }, JsonRequestBehavior.AllowGet);
-                }
-                else 
-                {
-                    return Json(new { status = "Failed" }, JsonRequestBehavior.AllowGet);
+                    return Json(new {status = "Failed"}, JsonRequestBehavior.AllowGet);
                 }
             }
+        }
+
+        [HttpPost]
+        public ActionResult GenerateBarCode()
+        {
+            var barcode = _assetService.GenerateBarCode().Split('|');
+            return Json(new {barcode = barcode[0], src = barcode[1]}, JsonRequestBehavior.AllowGet);
+
+        }
+
+        [HttpPost]
+        public ActionResult GenerateBarCode2(string barcode)
+        {
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                using (Bitmap bitMap = new Bitmap(barcode.Length * 40, 80))
+                {
+                    using (Graphics graphics = Graphics.FromImage(bitMap))
+                    {
+                        Font oFont = new Font("IDAutomationHC39M", 16);
+                        PointF point = new PointF(2f, 2f);
+                        SolidBrush whiteBrush = new SolidBrush(Color.White);
+                        graphics.FillRectangle(whiteBrush, 0, 0, bitMap.Width, bitMap.Height);
+                        SolidBrush blackBrush = new SolidBrush(Color.Black);
+                        graphics.DrawString("*" + barcode + "*", oFont, blackBrush, point);
+                    }
+
+                    bitMap.Save(memoryStream, ImageFormat.Jpeg);
+
+                    ViewBag.BarcodeImage = "data:image/png;base64," + Convert.ToBase64String(memoryStream.ToArray());
+                }
+            }
+
+            return View("AssetsInStock");
         }
     }
 }

@@ -43,6 +43,7 @@
     color: white !important;
     font-size: 13px;
     text-decoration: none !important;
+    padding: 2px;
 }
 
 #quantity {

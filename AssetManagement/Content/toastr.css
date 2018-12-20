@@ -138,7 +138,7 @@ button.toast-close-button {
     #toast-container.toast-top-center > div,
     #toast-container.toast-bottom-center > div {
         width: 320px;
-        margin-top: 14%;
+        margin-top: 11.5%;
         margin-left: auto;
         margin-right: auto;
     }

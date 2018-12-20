@@ -25,8 +25,7 @@ namespace Service
 
         public IList<History> GetHistoriesByAssetId(int assetId)
         {
-            var histories = _historyRepository.GetHistoriesByAssetId(assetId);
-            return histories;
+            return _historyRepository.GetHistoriesByAssetId(assetId);
         }
 
         public Enumerations.AddEntityStatus HandleAssign(int poRequestId, Employee employee, Asset asset, int staffAssignId)

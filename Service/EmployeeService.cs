@@ -18,8 +18,7 @@ namespace Service
 
         public Employee GetEmployeeByUserName(string userName)
         {
-            var employee = _employeeRepository.GetEmployeeByUserName(userName);
-            return employee;
+            return _employeeRepository.GetEmployeeByUserName(userName);
         }
 
         public Enumerations.LoginStatus CheckLogin(string userName, string password)
