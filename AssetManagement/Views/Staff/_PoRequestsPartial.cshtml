@@ -1,4 +1,6 @@
 ﻿@using System.Drawing
+@using AssetManagement.Models
+@using AutoMapper
 @using Data.Entities
 @using Data.Utilities
 @using Image = System.Web.UI.WebControls.Image
@@ -268,11 +270,12 @@
         else if(poRequest.RequestStatusID == 2)
         {
             var  quotes = poRequest.Quotes.ToList();
+            var quoteViewModels = Mapper.Map<List<QuoteViewModel>>(quotes);
 
             ViewContext.Writer.Write(
                 "<div class='quote-detail' style='display:flex;justify-content:center'>"
                 );
-            Html.RenderPartial("_QuotePartial", quotes);
+            Html.RenderPartial("_QuotePartial", quoteViewModels);
             ViewContext.Writer.Write(
                 "<div>"
                 );
@@ -281,14 +284,15 @@
         {
             var quoteId = poRequest.SelectedQuoteID;
             var quote = poRequest.Quotes.FirstOrDefault(_ => _.QuoteID == quoteId);
+            var quoteViewModel = Mapper.Map<QuoteViewModel>(quote);
 
-            var quotes = new List<Quote>();
-            quotes.Add(quote);
+            var quoteViewModels = new List<QuoteViewModel>();
+            quoteViewModels.Add(quoteViewModel);
 
             ViewContext.Writer.Write(
                 "<div class='quote-detail' style='display:flex;justify-content:center'>"
                 );
-            Html.RenderPartial("_QuotePartial", quotes);
+            Html.RenderPartial("_QuotePartial", quoteViewModels);
             ViewContext.Writer.Write(
                 "<div>"
                 );

@@ -3,87 +3,97 @@
 @using Data.Utilities
 @using Data.Utilities.Enumeration
 @using DevExpress.Web.Internal
+@model IList<AssetManagement.Models.QuoteViewModel>
 
 @(Html.DevExpress().GridView<QuoteViewModel>(settings =>
+        {
+    settings.Name = "editQuoteGrid";
+    settings.CallbackRouteValues = new { Controller = "Staff", Action = "GetQuotesByPoRequestId", poRequestId = ViewBag.PoRequestId };
+    settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Staff", Action = "EditQuote", poRequestId = ViewBag.PoRequestId };
+    settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
+    settings.Width = Unit.Percentage(80);
+
+    settings.SettingsText.CommandBatchEditUpdate = "Update";
+    settings.SettingsText.CommandBatchEditCancel = "Cancel";
+    settings.SettingsBehavior.AllowFocusedRow = false;
+    //Custom css header
+    settings.Styles.Header.BackColor = System.Drawing.ColorTranslator.FromHtml("#f4f4f4");
+    settings.Styles.Header.ForeColor = System.Drawing.ColorTranslator.FromHtml("#1AAB9C");
+
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Styles.RowHotTrack.BackColor = System.Drawing.ColorTranslator.FromHtml("#f9fdff");
+    settings.Styles.RowHotTrack.Font.Bold = true;
+
+
+    settings.KeyFieldName = "QuoteID";
+
+    settings.Columns.Add(c =>
     {
-        settings.Name = "editQuoteGrid";
-        settings.CallbackRouteValues = new { Controller = "Staff", Action = "GetQuotesByPoRequestId", poRequestId = ViewBag.PoRequestId };
-        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Staff", Action = "EditQuote", poRequestId = ViewBag.PoRequestId };
-        settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
-        settings.Width = Unit.Percentage(80);
-
-        settings.SettingsText.CommandBatchEditUpdate = "Update";
-        settings.SettingsText.CommandBatchEditCancel = "Cancel";
-        settings.SettingsBehavior.AllowFocusedRow = false;
-        //Custom css header
-        settings.Styles.Header.BackColor = System.Drawing.ColorTranslator.FromHtml("#f4f4f4");
-        settings.Styles.Header.ForeColor = System.Drawing.ColorTranslator.FromHtml("#1AAB9C");
-
-        settings.SettingsBehavior.EnableRowHotTrack = true;
-        settings.Styles.RowHotTrack.BackColor = System.Drawing.ColorTranslator.FromHtml("#f9fdff");
-        settings.Styles.RowHotTrack.Font.Bold = true;
-
-
-        settings.KeyFieldName = "QuoteID";
-
-        settings.Columns.Add(c =>
+        c.Width = 70;
+        c.FieldName = "Image";
+        c.Caption = "Image";
+        c.SetDataItemTemplateContent(p =>
         {
-            c.Width = 70;
-            c.FieldName = "Image";
-            c.Caption = "Image";
-            c.SetDataItemTemplateContent(p =>
-            {
-                ViewContext.Writer.Write(
-                    "<img src=\"/Image/Categories/" + HttpUtility.UrlDecode(p.Text) + "\" class='avatar' >"
-                    );
-            });
-            c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
-            c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+            ViewContext.Writer.Write(
+                "<img src=\"/Image/Categories/" + HttpUtility.UrlDecode(p.Text) + "\" class='avatar' >"
+                );
         });
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+    });
 
-        settings.Columns.Add(c =>
-        {
-            c.FieldName = "ProductName";
-            c.Caption = "Product Name";
-            c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
-            c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
-            c.Width = 150;
-        });
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "ProductName";
+        c.Caption = "Product Name";
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.Width = 150;
+    });
 
-        settings.Columns.Add(c =>
-        {
-            c.FieldName = "Brand";
-            c.Caption = "Brand";
-            c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
-            c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
-            c.Width = 150;
-        });
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "Brand";
+        c.Caption = "Brand";
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.Width = 150;
+    });
 
-        settings.Columns.Add(c =>
-        {
-            c.FieldName = "PriceString";
-            c.Caption = "Price";
-            c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
-            c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
-            c.Width = 150;
-        });
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "Price";
+        c.Caption = "Price";
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.Width = 150;
 
-        settings.Columns.Add(c =>
+        c.SetDataItemTemplateContent(p =>
         {
-            c.FieldName = "Warranty";
-            c.Caption = "Warranty (Months)";
-            c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
-            c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
-            c.Width = 150;
+            int quoteId = (int)DataBinder.Eval(p.DataItem, "QuoteID");
+            var quote = Model.FirstOrDefault(_ => _.QuoteID == quoteId);
+            ViewContext.Writer.Write(
+                string.Format("{0:0,0 VND}", quote.Price)
+                );
         });
+    });
 
-        settings.Columns.Add(c =>
-        {
-            c.FieldName = "Vendor";
-            c.Caption = "Vendor";
-            c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
-            c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
-            c.Width = 150;
-        });
-    }).Bind(Model).SetEditErrorText(ViewBag.EditError).GetHtml())
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "Warranty";
+        c.Caption = "Warranty (Months)";
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.Width = 150;
+    });
+
+    settings.Columns.Add(c =>
+    {
+        c.FieldName = "Vendor";
+        c.Caption = "Vendor";
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.Width = 150;
+    });
+}).Bind(Model).SetEditErrorText(ViewBag.EditError).GetHtml())
 

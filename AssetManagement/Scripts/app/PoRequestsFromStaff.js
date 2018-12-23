@@ -17,7 +17,7 @@
                             text: "The quote has been selected",
                             icon: "success",
                             buttons: false,
-                            timer: 1300
+                            timer: 1500
                         });
                         masterGrid.Refresh();
                     } else {
@@ -26,7 +26,7 @@
                             text: "Please try again!",
                             icon: "error",
                             buttons: false,
-                            timer: 1300
+                            timer: 1500
                         });
                     }
                 }

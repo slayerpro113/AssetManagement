@@ -643,4 +643,3 @@ C:\Users\PC\Desktop\AssetManagement\AssetManagement\obj\Debug\AssetManagement.cs
 C:\Users\PC\Desktop\AssetManagement\AssetManagement\obj\Debug\AssetManagement.csproj.CopyComplete
 C:\Users\PC\Desktop\AssetManagement\AssetManagement\obj\Debug\AssetManagement.dll
 C:\Users\PC\Desktop\AssetManagement\AssetManagement\obj\Debug\AssetManagement.pdb
-C:\Users\PC\Desktop\AssetManagement\AssetManagement\bin\BarcodeImaging.dll

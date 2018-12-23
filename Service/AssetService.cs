@@ -215,7 +215,7 @@ namespace Service
         public string GenerateBarCode()
         {
             Random rd = new Random();
-            int rand = rd.Next(10000) + 100000;
+            int rand = rd.Next(99999) + 100000;
             string barcode = "EL" + rand;
 
             using (MemoryStream memoryStream = new MemoryStream())

@@ -10,17 +10,18 @@ namespace AssetManagement.Models
     {
         public int QuoteID { get; set; }
         public string Image { get; set; }
-        [Required]
 
+        [Required]
         [MaxLength(25)]
         public string ProductName { get; set; }
-        [MaxLength(20)]
 
+        [MaxLength(20)]
+        [Required]
         public string Brand { get; set; }
 
         public string CategoryName { get; set; }
-        [Required]
 
+        [Required]
         [MaxLength(20)]
         public string Vendor { get; set; }
 
@@ -35,6 +36,5 @@ namespace AssetManagement.Models
 
         [Required]
         public byte[] ImageBytes { get; set; }
-
     }
 }

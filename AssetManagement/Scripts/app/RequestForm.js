@@ -25,11 +25,11 @@ function doAssetRequest() {
             success: function (data) {
                 if (data.status === "Success") {
                     swal({
-                        title: "Your Request",
-                        text: "Has Been sent Successfully",
+                        title: "Successfully",
+                        text: "Your request has Been sent",
                         icon: "success",
                         buttons: false,
-                        timer: 1300
+                        timer: 1500
                     });
                     $("#formRequest")[0].reset();
                     location.href = "/user/RequestsHistory";
@@ -52,7 +52,7 @@ function doAssetRequest() {
                         text: "Please try again!",
                         icon: "error",
                         buttons: false,
-                        timer: 1300
+                        timer: 1500
                     });
                     $("#formRequest")[0].reset();
                 }
@@ -64,5 +64,5 @@ function doAssetRequest() {
 function timeout() {
     setTimeout(function () {
         $("#errorMessage").empty();
-    }, 1300);
+    }, 1500);
 }

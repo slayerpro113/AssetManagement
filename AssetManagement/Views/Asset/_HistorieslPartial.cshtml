@@ -21,7 +21,17 @@
         c.Caption = "Assigned Date";
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
-        c.PropertiesEdit.DisplayFormatString = "dd/MM/yyyy";
+        //c.PropertiesEdit.DisplayFormatString = "dd/MM/yyyy";
+        c.SetDataItemTemplateContent(p =>
+        {
+            int historyId = (int)DataBinder.Eval(p.DataItem, "HistoryID");
+            var history = Model.FirstOrDefault(_ => _.HistoryID == historyId);
+            if (history.CheckinDate != null)
+            {
+                ViewContext.Writer.Write(
+                    history.CheckinDate.Value.ToShortDateString());
+            }
+        });
     });
 
     settings.Columns.Add(c =>
@@ -46,7 +56,17 @@
         c.Caption = "Recalled Date";
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
-        c.PropertiesEdit.DisplayFormatString = "dd/MM/yyyy";
+        //c.PropertiesEdit.DisplayFormatString = "dd/MM/yyyy";
+        c.SetDataItemTemplateContent(p =>
+        {
+            int historyId = (int)DataBinder.Eval(p.DataItem, "HistoryID");
+            var history = Model.FirstOrDefault(_ => _.HistoryID == historyId);
+            if (history.CheckoutDate != null)
+            {
+                ViewContext.Writer.Write(
+                    history.CheckoutDate.Value.ToShortDateString());
+            }
+        });
     });
 
     settings.Columns.Add(c =>

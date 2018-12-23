@@ -37,7 +37,7 @@ function doAssignAsset() {
                         text: "The asset has been assigned",
                         icon: "success",
                         buttons: false,
-                        timer: 1300
+                        timer: 1500
                     });
                     $('#assignPopup').modal('hide');
                     gvRowSelection.Refresh();
@@ -47,7 +47,7 @@ function doAssignAsset() {
                         text: "Please try again!",
                         icon: "error",
                         buttons: false,
-                        timer: 1300
+                        timer: 1500
                     });
                 }
             }
@@ -58,7 +58,7 @@ function doAssignAsset() {
 function timeoutAsset() {
     setTimeout(function () {
         $("#assetMessage").empty();
-    }, 1300);
+    }, 1500);
 }
 
 
@@ -113,7 +113,7 @@ function doEnterQuote() {
                         text: "The new quote has been created",
                         icon: "success",
                         buttons: false,
-                        timer: 1300
+                        timer: 1500
                     });
                     $('#quotePopup').modal('hide');
                     gvRowSelection.Refresh();
@@ -123,7 +123,7 @@ function doEnterQuote() {
                         text: "Please try again!",
                         icon: "error",
                         buttons: false,
-                        timer: 1300
+                        timer: 1500
                     });
                 }
             }
@@ -135,7 +135,7 @@ function doEnterQuote() {
 function timeout() {
     setTimeout(function () {
         $("#quoteMessage").empty();
-    }, 1300);
+    }, 1500);
 }
 
 
@@ -159,7 +159,7 @@ function SubmitRequest(poRequestId, staffSubmitId) {
                             text: "The request has been sent",
                             icon: "success",
                             buttons: false,
-                            timer: 1300
+                            timer: 1500
                         });
                         gvRowSelection.Refresh();
                     } else {
@@ -168,7 +168,7 @@ function SubmitRequest(poRequestId, staffSubmitId) {
                             text: "Please try again!",
                             icon: "error",
                             buttons: false,
-                            timer: 1300
+                            timer: 1500
                         });
                     }
                 }
@@ -203,11 +203,11 @@ function createOrder() {
                     success: function (data) {
                         if (data.status === "Success") {
                             swal({
-                                title: "Create Order",
-                                text: "Successfully",
+                                title: "Successfully",
+                                text: "The order has been created",
                                 icon: "success",
                                 buttons: false,
-                                timer: 1300
+                                timer: 1500
                             });
                             $("#count").html("0");
                             gvRowSelection.Refresh();
@@ -217,7 +217,7 @@ function createOrder() {
                                 text: "Please try again!",
                                 icon: "error",
                                 buttons: false,
-                                timer: 1300
+                                timer: 1500
                             });
                         }
                     }
@@ -233,7 +233,7 @@ function createOrder() {
     function timeout() {
         setTimeout(function () {
             $("#orderMessage").empty();
-        }, 1300);
+        }, 1500);
     }
 }
 

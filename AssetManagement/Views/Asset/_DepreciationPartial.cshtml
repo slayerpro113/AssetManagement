@@ -17,7 +17,14 @@
         c.Caption = "Date Purchase";
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
-        c.PropertiesEdit.DisplayFormatString = "dd/MM/yyyy";
+        c.SetDataItemTemplateContent(p =>
+        {
+            int assetId = (int)DataBinder.Eval(p.DataItem, "AssetID");
+            var asset = Model.FirstOrDefault(_ => _.AssetID == assetId);
+
+            ViewContext.Writer.Write(
+                asset.OrderDetail.Order.PurchaseDate.ToShortDateString());
+        });
     });
 
     settings.Columns.Add(c =>
@@ -58,7 +65,18 @@
         c.Caption = "Finished Date";
         c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
         c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
-        c.PropertiesEdit.DisplayFormatString = "dd/MM/yyyy";
+        //c.PropertiesEdit.DisplayFormatString = "dd/MM/yyyy";
+        c.SetDataItemTemplateContent(p =>
+        {
+            int assetId = (int)DataBinder.Eval(p.DataItem, "AssetID");
+            var asset = Model.FirstOrDefault(_ => _.AssetID == assetId);
+            if (asset.EndTimeDepreciation != null)
+            {
+                ViewContext.Writer.Write(
+                    asset.EndTimeDepreciation.Value.ToShortDateString()
+                    );
+            }
+        });
     });
 }).Bind(Model).GetHtml()
 

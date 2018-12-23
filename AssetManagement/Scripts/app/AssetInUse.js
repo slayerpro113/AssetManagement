@@ -34,11 +34,11 @@ function doRecallAsset() {
         success: function (data) {
             if (data.status === "Success") {
                 swal({
-                    title: "Recall Asset",
-                    text: "Successfully",
+                    title: "Successfully ",
+                    text: "The asset has been recalled",
                     icon: "success",
                     buttons: false,
-                    timer: 1300
+                    timer: 1500
                 });
                 $('#recallPopup').modal('hide');
                 InUseGrid.Refresh();
@@ -48,7 +48,7 @@ function doRecallAsset() {
                     text: "Please try again!",
                     icon: "error",
                     buttons: false,
-                    timer: 1300
+                    timer: 1500
                 });
             }
         }

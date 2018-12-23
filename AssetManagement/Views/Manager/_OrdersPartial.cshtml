@@ -65,21 +65,28 @@
 
     settings.Columns.Add(c =>
     {
-        c.FieldName = "OrderTotal";
-        c.Caption = "Total";
-        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
-        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
-        c.Width = 150;
-        c.Settings.AllowAutoFilter = DefaultBoolean.False;
+        c.FieldName = "StaffCreate";
+        c.Caption = "Staff Created";
         c.SetDataItemTemplateContent(p =>
         {
             int orderId = (int)DataBinder.Eval(p.DataItem, "OrderID");
             var order = Model.FirstOrDefault(_ => _.OrderID == orderId);
+
             ViewContext.Writer.Write(
-                 string.Format("{0:0,0 VND}", order.Total)
+                "<img src=\"/Image/" + HttpUtility.UrlDecode(order.Employee.Image) + "\" class='avatar' alt='Avatar'>" +
+                "&nbsp&nbsp<a style='text-decoration:none'>" + order.Employee.FullName + "</a>" +
+                "<br/>" +
+                "<p style='padding-left:40px'><i>" + order.Employee.Email + "</i></p>"
                 );
         });
+
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Left;
+        c.Settings.AllowAutoFilter = DefaultBoolean.False;
+        c.Width = 230;
     });
+
+
 
     settings.Columns.Add(c =>
     {
@@ -91,28 +98,22 @@
         c.Settings.AllowAutoFilter = DefaultBoolean.False;
     });
 
-
     settings.Columns.Add(c =>
     {
-        c.FieldName = "StaffCreate";
-        c.Caption = "Staff Created";
+        c.FieldName = "OrderTotal";
+        c.Caption = "Total";
+        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        c.Width = 150;
+        c.Settings.AllowAutoFilter = DefaultBoolean.False;
         c.SetDataItemTemplateContent(p =>
         {
             int orderId = (int)DataBinder.Eval(p.DataItem, "OrderID");
             var order = Model.FirstOrDefault(_ => _.OrderID == orderId);
-
             ViewContext.Writer.Write(
-                "<img src=\"/Image/" + HttpUtility.UrlDecode(order.Employee.Image) + "\" class='avatar' alt='Avatar'>" +
-                "&nbsp&nbsp<a style='text-decoration:none'>" + order.Employee.FullName + "</a>"+
-                "<br/>" +
-                "<p style='padding-left:40px'><i>" + order.Employee.Email + "</i></p>"
+                string.Format("{0:0,0 VND}", order.Total)
                 );
         });
-
-        c.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
-        c.CellStyle.HorizontalAlign = HorizontalAlign.Left;
-        c.Settings.AllowAutoFilter = DefaultBoolean.False;
-        c.Width = 230;
     });
 
     settings.SetDetailRowTemplateContent(c =>

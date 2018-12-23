@@ -29,11 +29,11 @@ function doAssignAsset() {
             success: function (data) {
                 if (data.status === "Success") {
                     swal({
-                        title: "Assign Asset",
-                        text: "Successfully",
+                        title: "Successfully",
+                        text: "The asset has been assigned.",
                         icon: "success",
                         buttons: false,
-                        timer: 1300
+                        timer: 1500
                     });
                     $('#assignPopup').modal('hide');
                     InStockGrid.Refresh();
@@ -43,7 +43,7 @@ function doAssignAsset() {
                         text: "Please try again!",
                         icon: "error",
                         buttons: false,
-                        timer: 1300
+                        timer: 1500
                     });
                 }
             }
@@ -54,7 +54,7 @@ function doAssignAsset() {
 function timeout() {
     setTimeout(function () {
         $("#errorMessage").empty();
-    }, 1300);
+    }, 1500);
 }
 
 
@@ -95,25 +95,22 @@ function doEnterDepreciation() {
             success: function (data) {
                 if (data.status === "Success") {
                     swal({
-                        title: "Enter Information",
-                        text: "Successfully",
+                        title: "Successfully",
+                        text: "Information has been saved",
                         icon: "success",
                         buttons: false,
-                        timer: 1300
+                        timer: 1500
                     });
                     $('#depreciatePopup').modal('hide');
-                    $("#descriptionForm")[0].reset();
+                    $("#depreciateForm")[0].reset();
                     InStockGrid.Refresh();
-                } else if (data.status === "Existed") {
-                    $("#message").html("This barcode is already existed");
-                    timeoutMessage();
                 } else {
                     swal({
                         title: "Something Went Wrong",
                         text: "Please try again!",
                         icon: "error",
                         buttons: false,
-                        timer: 1300
+                        timer: 1500
                     });
                 }
             }
@@ -124,7 +121,7 @@ function doEnterDepreciation() {
 function timeoutMessage() {
     setTimeout(function () {
         $("#message").empty();
-    }, 1300);
+    }, 1500);
 }
 
 //-----------Check maxlength

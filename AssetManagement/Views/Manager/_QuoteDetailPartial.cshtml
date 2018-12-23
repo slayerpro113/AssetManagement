@@ -13,9 +13,13 @@
 
     settings.SettingsLoadingPanel.Mode = GridViewLoadingPanelMode.Disabled;
 
-   //Custom css header
-   settings.Styles.Header.BackColor = System.Drawing.ColorTranslator.FromHtml("#f4f4f4");
-   settings.Styles.Header.ForeColor = System.Drawing.ColorTranslator.FromHtml("#1AAB9C");
+    //Custom css header
+    settings.Styles.Header.BackColor = System.Drawing.ColorTranslator.FromHtml("#f4f4f4");
+    settings.Styles.Header.ForeColor = System.Drawing.ColorTranslator.FromHtml("#1AAB9C");
+    //Hover
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+    settings.Styles.RowHotTrack.BackColor = System.Drawing.ColorTranslator.FromHtml("#f9fdff");
+    settings.Styles.RowHotTrack.Font.Bold = true;
 
     settings.CallbackRouteValues = new { Controller = "Manager", Action = "GetQuotesByPoRequestId" , poRequestId = ViewBag.PoRequestId };
     settings.Width = Unit.Percentage(85);
